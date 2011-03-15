@@ -11,5 +11,6 @@ Project Layout:
   doc/     -  Project documentation & scripts
   src/     -  Main project source tree
   papers/  -  Location for all the various P3 outlines and papers
+  poster/  -  Location for the projects poster materials
   Makefile -  Overarching makefile which allows you to build everything.
               Papers, sources, documentation.
