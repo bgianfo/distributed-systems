@@ -1,0 +1,15 @@
+Distributed Systems Group Project
+---------------------------------
+
+Members:
+ - Brian Gianforcaro <bjg1955@rit.edu>
+ - Steven Glazer     <sfg6126@rit.edu>
+ - Samuel Milton     <srm2997@rit.edu>
+
+Project Layout:
+  p3.pdf   -  Project specification
+  doc/     -  Project documentation & scripts
+  src/     -  Main project source tree
+  papers/  -  Location for all the various P3 outlines and papers
+  Makefile -  Overarching makefile which allows you to build everything.
+              Papers, sources, documentation.
