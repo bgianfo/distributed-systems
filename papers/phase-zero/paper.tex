@@ -1,34 +1,4 @@
-% THIS IS SIGPROC-SP.TEX - VERSION 3.1
-% WORKS WITH V3.2SP OF ACM_PROC_ARTICLE-SP.CLS
-% APRIL 2009
-%
-% It is an example file showing how to use the 'acm_proc_article-sp.cls' V3.2SP
-% LaTeX2e document class file for Conference Proceedings submissions.
-% ----------------------------------------------------------------------------------------------------------------
-% This .tex file (and associated .cls V3.2SP) *DOES NOT* produce:
-%       1) The Permission Statement
-%       2) The Conference (location) Info information
-%       3) The Copyright Line with ACM data
-%       4) Page numbering
-% ---------------------------------------------------------------------------------------------------------------
-% It is an example which *does* use the .bib file (from which the .bbl file
-% is produced).
-% REMEMBER HOWEVER: After having produced the .bbl file,
-% and prior to final submission,
-% you need to 'insert'  your .bbl file into your source .tex file so as to provide
-% ONE 'self-contained' source file.
-%
-% Questions regarding SIGS should be sent to
-% Adrienne Griscti ---> griscti@acm.org
-%
-% Questions/suggestions regarding the guidelines, .tex and .cls files, etc. to
-% Gerald Murray ---> murray@hq.acm.org
-%
-% For tracking purposes - this is V3.1SP - APRIL 2009
-
 \documentclass{dependencies/acm_proc_article-sp}
-
-stuff blahh exceedingly fuck
 
 \usepackage{url}
 \usepackage{color}
@@ -54,45 +24,17 @@ stuff blahh exceedingly fuck
 }
 
 
+% Get rid of the permission block
+\makeatletter
+\let\@copyrightspace\relax
+\makeatother
+
 \begin{document}
 
-\title{ Distributed Systems: Project Description }
-%
-% You need the command \numberofauthors to handle the 'placement
-% and alignment' of the authors beneath the title.
-%
-% For aesthetic reasons, we recommend 'three authors at a time'
-% i.e. three 'name/affiliation blocks' be placed beneath the title.
-%
-% Because of the available 'opening page real-estate'
-% we ask you to refrain from putting more than six authors
-% (two rows with three columns) beneath the article title.
-%
-% Use the \alignauthor commands to handle the names
-% and affiliations for an 'aesthetic maximum' of six authors.
-% Add names, affiliations, addresses for
-% the seventh etc. author(s) as the argument for the
-% \additionalauthors command.
-% These 'additional authors' will be output/set for you
-% without further effort on your part as the last section in
-% the body of your article BEFORE References or any Appendices.
-
-\numberofauthors{3} %  in this sample file, there are a *total*
-% of EIGHT authors. SIX appear on the 'first-page' (for formatting
-% reasons) and the remaining two appear in the \additionalauthors section.
-%
+%\title{ Distributed Systems: Project Description }
+\title{ Distrivia: A Distributed Trivia Game }
+\numberofauthors{3}
 \author{
-% You can go ahead and credit any number of authors here,
-% e.g. one 'row of three' or two rows (consisting of one row of three
-% and a second row of one, two or three).
-%
-% The command \alignauthor (no curly braces needed) should
-% precede each author name, affiliation/snail-mail address and
-% e-mail address. Additionally, tag each line of
-% affiliation/address with \affaddr, and tag the
-% e-mail address with \email.
-%
-% 1st. author
 \alignauthor
 Brian Gianforcaro \\
        \affaddr{Rochester Institue Of Technology}\\
@@ -107,46 +49,80 @@ Samuel Milton \\
        \email{srm2997@rit.edu}
 }
 \maketitle
-\begin{abstract}
-%the formatting guidelines for ACM SIG Proceedings.
-%It complements the document \textit{Author's Guide to Preparing
-%ACM SIG Proceedings Using \LaTeX$2_\epsilon$\ and Bib\TeX}. This
-%source file has been written with the intention of being
-%compiled under \LaTeX$2_\epsilon$\ and BibTeX.
-%
-%The developers have tried to include every imaginable sort
-%of ``bells and whistles", such as a subtitle, footnotes on
-%title, subtitle and authors, as well as in the text, and
-%every optional component (e.g. Acknowledgments, Additional
-%Authors, Appendices), not to mention examples of
-%equations, theorems, tables and figures.
-%
-%To make best use of this sample document, run it through \LaTeX\
-%and BibTeX, and compare this source code with the printed
-%output produced by the dvi file.
 
-We will do things... they will be awesome
-\end{abstract}
+%\begin{abstract}
+%In this paper we detail our initial idea for a distributed trivia game.
+%We will explain general game play idea's as well as an example of the
+%possible architecture for our system.
+%\end{abstract}
 
-%% A category with the (minimum) three required fields
-%\category{H.4}{Information Systems Applications}{Miscellaneous}
-%%%A category including the fourth, optional field follows...
-%
-%\terms{Theory}
-
-\keywords{ Distributed Systems, Mobile Clients, RIT } % NOT required for Proceedings
+\section{Overview}
+Our idea for the P3 project is a trivia game built for a distributed system, which we're calling Distrivia.
+The premise of the program is to deliver multiple-choice trivia questions to the players in the form of rounds.
+Ten questions will be delivered for each round.
+Players are connected up in groups of 20 players, with each player's score dependent on the speed in which they answer each question.
+Once each player has completed the round, the leader board for the round will display the scores for each player for that round.
+After which, the players will join new rounds to compete against other players.
+Distrivia will also keep a tally of their global score (possibly an average), which will determine how well the player competes on a whole.
+This global score could give the player a unique symbol after their name on leader boards or perhaps a distinct color.
 
 
-stuff \cite{BLAS}
-\section{Conclusions}
+The trivia questions will come from many different aspects of academia and at varying level of difficulty
+This will assure that there is an equal chance for players to get questions correct and compete.
+
+
+We would also like to implement a way for players to create a private game so they can compete with friends.
+This will be accomplished by the initial player naming the game, and the other players joining the game with the name.
+Private games allow users to compete with people the know which will allow the game to be more interactive.
+
+
+\section{Implementation}
+We will be creating software, initially, for desktops, laptops, and android phones.
+The software for desktops/laptops will be implemented in a web browser.
+If there is time to implement it, we want to create an application for the iPhone as well.
+The applications for all platforms will look identical and allow the players to have the same functionality, independent of which device they are using to play Distrivia.
+
+\subsection{Clients}
+The client will be pretty straightforward.
+If you have never played Distrivia before, the game will prompt for the player to create a player name.
+After which, it will allow the user to request to play a game.
+Once the server has grouped 20 players together, the round will start and the screen will show the question followed by 4 selectable answers.
+Once the user has selected their answer, they can hit the Submit button at the bottom to submit their answer for that question.
+At that point, the player's answer is sent to the server, their new score along with their next question is sent back to the player.
+At the bottom of the screen, the player will be able to select from thumbs up/thumbs down buttons if they particularly like or dislike a question.
+This will be particularly useful if we have time to allow users to create their own questions to add the to the database.
+Once a questions dislike ratio is too high, the question will no longer be asked.
+
+  \includegraphics[scale=0.3]{design-pictures/login.png}
+  \includegraphics[scale=0.3]{design-pictures/joingame.png}
+  \includegraphics[scale=0.3]{design-pictures/quiz.png}
+  \includegraphics[scale=0.3]{design-pictures/leaderboard.png}
+
+
+\subsection{Backend}
+The server has four key layers involved.
+First, there will be load balancer that accepts all messages from the players.
+It does not need to read the contents of the message, it simply distributes the message on to the most reliable server with the lowest load.
+This ensures that if any of the servers were to go down, that the system would still run.
+It also maintains highest speeds for server response.
+The message is passed to a web server from the load balancer, which will read the contents of the message and respond appropriately.
+These messages will be in the form of http messages.
+The web server communicates directly with the database to perform whatever actions need to be done.
+The third layer is represented by these synchronous databases that hold all the actual data for the software.
+This would include round information, player information, and all the questions for the application.
+The fourth and final layer would be some sort of master process that does the actual synchronization between the databases so that they all contain repetitive data for reliable communication.
+
+\begin{center}
+  \includegraphics[scale=0.3]{design-pictures/database.png}
+\end{center}
 
 \newpage
 %
 % The following two commands are all you need in the
 % initial runs of your .tex file to
 % produce the bibliography for the citations in your paper.
-\bibliographystyle{abbrv}
-\bibliography{bibliography}  % sigproc.bib is the name of the Bibliography in this case
+%/\bibliographystyle{abbrv}
+%\bibliography{bibliography}  % sigproc.bib is the name of the Bibliography in this case
 % You must have a proper ".bib" file
 %  and remember to run:
 % latex bibtex latex
