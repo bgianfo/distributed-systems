@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello World, QuestinActivity!</string>
+    <string name="hello">Hello World!</string>
     <string name="app_name">Distrivia</string>
+    <string name="login">Sign In</string>
+    <string name="login_username">Username</string>
+    <string name="login_password">Password</string>
+    <string name="login_button">ok</string>
+    <string name="login_username_hint">Username</string>
+    <string name="login_password_hint">Password</string>
 </resources>

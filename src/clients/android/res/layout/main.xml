@@ -6,7 +6,66 @@
     >
 <TextView  
     android:layout_width="fill_parent" 
-    android:layout_height="wrap_content" 
-    android:text="@string/hello"
-    />
+    android:layout_height="wrap_content"
+    android:text="@string/app_name" android:textSize="25sp" android:typeface="serif" android:textStyle="italic|bold"/>
+<RelativeLayout android:layout_width="fill_parent" android:layout_height="fill_parent" android:id="@+id/login_layout" android:paddingTop="10sp">
+    <TextView android:id="@+id/login_label"
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentRight="true"
+		android:text="@string/login" android:textSize="20sp"/>
+		
+    <RelativeLayout android:id="@+id/login_sublayout"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_alignParentRight="true"
+    	android:layout_alignParentLeft="true"
+    	android:layout_below="@+id/login_label"
+    	android:paddingLeft="20sp" android:paddingTop="10sp" android:paddingRight="20sp">
+    
+		<TextView android:id="@+id/login_label_username"
+	    	android:layout_height="wrap_content"
+	    	android:layout_width="wrap_content"
+	    	android:layout_alignLeft="@+id/login_sublayout"
+	    	android:text="@string/login_username"
+	    	android:textSize="20sp" android:layout_alignParentRight="true" android:layout_alignParentLeft="true"/>
+	    	
+	    <EditText android:id="@+id/login_input_username"
+	    	android:layout_height="wrap_content"
+	    	android:layout_width="wrap_content"
+	    	android:layout_below="@+id/login_label_username"
+	    	android:layout_alignLeft="@+id/login_label_username"
+	    	android:layout_alignRight="@+id/login_label_username"
+	    	android:hint="@string/login_username_hint"
+	    	/>
+	    	
+	    <TextView android:id="@+id/login_label_password"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:layout_below="@+id/login_input_username"
+			android:layout_alignLeft="@+id/login_input_username"
+			android:layout_alignRight="@+id/login_input_username"
+			android:text="@string/login_password"
+			android:textSize="20sp"/>
+			
+	    <EditText android:id="@+id/login_input_password" 
+	    	android:layout_height="wrap_content"
+	    	android:layout_width="wrap_content"
+	    	android:layout_below="@+id/login_label_password"
+	    	android:layout_alignLeft="@+id/login_label_password"
+	    	android:layout_alignRight="@+id/login_label_password"
+	    	android:hint="@string/login_password_hint"
+	    	android:password="true"
+	    	/>
+	    	
+	    <Button android:id="@+id/login_button"
+	    	android:layout_height="wrap_content"
+	    	android:layout_width="wrap_content"
+	    	android:layout_below="@+id/login_input_password"
+	    	android:layout_centerHorizontal="true"
+	    	android:text="@string/login_button"
+	    	/>
+	</RelativeLayout>
+</RelativeLayout>
 </LinearLayout>
