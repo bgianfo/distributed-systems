@@ -72,7 +72,7 @@ This will assure that there is an equal chance for players to get questions corr
 
 We would also like to implement a way for players to create a private game so they can compete with friends.
 This will be accomplished by the initial player naming the game, and the other players joining the game with the name.
-Private games allow users to compete with people the know which will allow the game to be more interactive.
+Private games allow users to compete with people they know which will allow the game to be more interactive.
 
 
 \section{Implementation}
@@ -100,7 +100,7 @@ Once a questions dislike ratio is too high, the question will no longer be asked
 
 \subsection{Backend}
 The server has four key layers involved.
-First, there will be load balancer that accepts all messages from the players.
+First, there will be a load balancer that accepts all messages from the players.
 It does not need to read the contents of the message, it simply distributes the message on to the most reliable server with the lowest load.
 This ensures that if any of the servers were to go down, that the system would still run.
 It also maintains highest speeds for server response.
@@ -109,7 +109,8 @@ These messages will be in the form of http messages.
 The web server communicates directly with the database to perform whatever actions need to be done.
 The third layer is represented by these synchronous databases that hold all the actual data for the software.
 This would include round information, player information, and all the questions for the application.
-The fourth and final layer would be some sort of master process that does the actual synchronization between the databases so that they all contain repetitive data for reliable communication.
+The fourth and final layer would be some sort of master process that does the
+actual synchronization between the databases so that they all contain redudant data for reliable communication.
 
 \begin{center}
   \includegraphics[scale=0.3]{design-pictures/database.png}
