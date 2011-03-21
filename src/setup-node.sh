@@ -34,3 +34,8 @@ git clone git://github.com/bgianfo/distributed-systems.git
 # Remove left over package files
 rm -rf riak-0.14.0-1.el5.x86_64.rpm
 rm -rf protobuf-2.3.0-1.fc12.i686.rpm
+
+# Setup our Riak config's
+INTERNALIP=`curl http://169.254.169.254/latest/meta-data/local-ipv4`
+sudo sed -i "s/127.0.0.1/$INTERNALIP/g" /etc/riak/vm.args
+sudo sed -i "s/127.0.0.1/$INTERNALIP/g" /etc/riak/app.config
