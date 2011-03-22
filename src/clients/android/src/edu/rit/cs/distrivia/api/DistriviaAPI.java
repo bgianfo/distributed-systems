@@ -21,23 +21,23 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class DistriviaAPI {
-    
+
     private static HttpClient httpClient = new DefaultHttpClient();
     private static HttpContext localContext = new BasicHttpContext();
-           
-    private static String API_URL = "http;//distrivia.com";
-    
+
+    private static String API_URL = "http://distrivia.com";
+
     public static Question nextQuestion( String authToken, String gameId ) {
-        
+
         String url = new String( API_URL );
-        
+
         url += "/game/"+gameId+"/next";
-        
+
         url += "?authToken=" + authToken;
-        
+
         HttpGet op = new HttpGet( url ) ;
         HttpResponse response = executeRequest( op );
-        
+
         // Decompose JSON response into a Question object
         Question nextQ = null;
         try {
@@ -45,21 +45,21 @@ public class DistriviaAPI {
             nextQ = Question.create( json );
         } catch (JSONException e) {
         }
-        
+
         return nextQ;
     }
-    
+
     public static Leaderboard leaderBoard( String authToken, String gameId ) {
-        
+
         String url = new String( API_URL );
-        
+
         url += "/game/"+gameId+"/leaderboard";
-        
+
         url += "?authToken=" + authToken;
-        
+
         HttpGet op = new HttpGet( url ) ;
         HttpResponse response = executeRequest( op );
-        
+
         // Decompose JSON response into a Leaderboard object
         Leaderboard board = null;
         try {
@@ -67,23 +67,23 @@ public class DistriviaAPI {
             board = Leaderboard.create( json );
         } catch (JSONException e) {
         }
-        
+
         return board;
     }
-   
+
     public static boolean register( String username ) {
         String url = new String( API_URL );
-       
+
         url += "/register/" + username;
-         
+
         HttpGet op = new HttpGet( url ) ;
         HttpResponse response = executeRequest( op );
-        
+
         String data = responseToString( response );
-        
+
         return data == "suc";
     }
-    
+
     private static HttpResponse executeRequest( HttpRequestBase op ) {
         HttpResponse response = null;
         try {
@@ -97,19 +97,19 @@ public class DistriviaAPI {
     }
 
     private static String responseToString( HttpResponse res ) {
-        
+
         InputStream is = null;
         try {
             is = res.getEntity().getContent();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
         if (is != null) {
-            
+
             Writer writer = new StringWriter();
             char[] buffer = new char[1024];
-            
+
             try {
                 Reader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
                 int n;
@@ -130,8 +130,8 @@ public class DistriviaAPI {
                 }
             }
             return writer.toString();
-        } else {        
+        } else {
             return "";
-        }    
+        }
     }
 }
