@@ -21,6 +21,9 @@ sudo yum -y install --nogpgcheck riak-0.14.0-1.el5.x86_64.rpm
 wget ftp://ftp.pbone.net/mirror/archive.fedoraproject.org/fedora/linux/updates/testing/12/x86_64/protobuf-2.3.0-1.fc12.i686.rpm
 sudo yum -y install --nogpgcheck protobuf-2.3.0-1.fc12.i686.rpm
 
+
+sudo yum -y install nginx
+
 # Install python flask library
 sudo easy_install flask
 
