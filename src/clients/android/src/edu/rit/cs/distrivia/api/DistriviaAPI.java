@@ -31,26 +31,26 @@ public class DistriviaAPI {
     private static HttpContext localContext = new BasicHttpContext();
     final private static String API_URL = "http://distrivia.com";
     final private static String API_ERROR = "err";
-    final private static String API_SUCCESS = "suc"
+    final private static String API_SUCCESS = "suc";
 
     /**
      * API call to login to Distrivia with a specific user name.
-     *
+     * 
      * @param userName
      *            The user name to attempt to login to distrivia with.
-     *
+     * 
      * @return The authorization users token on success, otherwise null on
      *         authentication failure.
      */
     public static String login(String userName) {
         String url = new String(API_URL);
-        url += "/login/" + username;
+        url += "/login/" + userName;
 
         HttpPut op = new HttpPut(url);
         HttpResponse response = executeRequest(op);
         String data = responseToString(response);
 
-        if ( data == API_ERROR ) {
+        if (data == API_ERROR) {
             return null;
         } else {
             return data;
@@ -59,7 +59,7 @@ public class DistriviaAPI {
 
     /**
      * API Call to register a new user
-     *
+     * 
      * @param username
      *            The user name to register with the service.
      * @return True on register success, false on register failure.
@@ -79,13 +79,13 @@ public class DistriviaAPI {
 
     /**
      * API call to get the next multiple point question in a game.
-     *
+     * 
      * @param authToken
      *            The authorization token for this session, obtained at user
      *            login.
      * @param gameId
      *            The identification string for this game.
-     *
+     * 
      * @return The next question in the game, or null if the game is over.
      */
     public static Question nextQuestion(final String authToken,
@@ -113,7 +113,7 @@ public class DistriviaAPI {
 
     /**
      * API call to answer a given question that has been posed to a user.
-     *
+     * 
      * @param authToken
      *            The authorization token for this session, obtained at user
      *            login.
@@ -125,7 +125,7 @@ public class DistriviaAPI {
      * @param answerTime_ms
      *            The time in mili-seconds it took the user to answer the
      *            question.
-     *
+     * 
      * @return Return true if answer went through successfully, otherwise return
      *         false on error. Error could be, wrong authorization token,
      *         incorrect gameId, impossible answerTIme etc...
@@ -147,13 +147,13 @@ public class DistriviaAPI {
 
     /**
      * API call to obtain the current leader board for a given game.
-     *
+     * 
      * @param authToken
      *            The authorization token for this session, obtained at user
      *            login.
      * @param gameId
      *            The unique identification string for the current game.
-     *
+     * 
      * @return The game leader board at the time of the query, or null if the
      *         gameId does not exist, or the user is not properly logged in.
      */
