@@ -16,14 +16,14 @@ ec2-authorize default -p 22
 for IP in $INSTANCE_IPS
 do
     # Copy over our provisioning script
-    scp -i $KEY setup-node.sh ec2-user@$IP:.
-    scp -i $KEY join-node.sh ec2-user@$IP:.
+    scp -i $KEY node-config/setup-node.sh ec2-user@$IP:.
+    scp -i $KEY node-config/join-node.sh ec2-user@$IP:.
 
     # Execute the provisioning script
     ssh -t -i $KEY ec2-user@$IP ./setup-node.sh
 done
 
-# Start all the riak instances
+# Start all the Riak instances
 for IP in $INSTANCE_IPS
 do
     ssh -t -i $KEY ec2-user@$IP riak stop
