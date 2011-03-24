@@ -29,8 +29,13 @@ QUESTION_LIMIT = 20
 #
 # Utility functions
 #
-
 def isAuthed():
+    """
+    Read the request and automatically check if he auth token is valid
+    and "logged-in". 
+
+    Return True if so, False if not.
+    """
     token = request.form['authToken']
     loggedIn = g.db.bucket("users").get("logged_in")
     users = loggedIn.get_data()["users"]
@@ -58,7 +63,11 @@ def afterRequest(response):
 
 @app.route('/register/<user>' method=["PUT"])
 def register(user):
-    """ Register a new user """
+    """
+    Register a new user
+
+    API_SUCCESS on success, API_ERROR on failure
+    """
 
     users_bucket = g.db.bucket( "users" )
 
@@ -74,7 +83,15 @@ def register(user):
 
 @app.route('/login/<userName>', method=["PUT"])
 deff login( userName ):
-    """ Attempt to authenticate a user, return a auth token on success """
+    """
+    Attempt to authenticate a user, return a auth token on success.
+
+    Note: The auth token will look something like:
+
+     '7e43860a-55da-11e0-ae43-001f5bba6fae'
+
+    otherwise return API_ERROR
+    """
 
     users = g.db.bucket( "users" )
     user = users.get( userName )
@@ -103,6 +120,8 @@ def newGame():
     Create a new game"""
     return "NOT IMPLEMEMTED"
 
+
+
 @app.route('/game/join')
 def joinGame():
     """GET /game/join
@@ -110,6 +129,9 @@ def joinGame():
     Join a currently open game if available,
     otherwise create a new one"""
     return "NOT IMPLEMEMTED"
+
+
+
 
 @app.route('/game/<id>/next/<prevId>')
 def nextQuestion(id,prevId):
@@ -143,6 +165,8 @@ def nextQuestion(id,prevId):
         question = questionBucket.get( nextQuestion );
         question["id"] = nextQuestion
         return str(question)
+
+
 
 @app.route('/game/<id>/leaderboard')
 def getLeaderBoard(id):
