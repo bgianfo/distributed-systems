@@ -81,7 +81,7 @@ The software for desktops/laptops will be implemented in a web browser.
 If there is time to implement it, we want to create an application for the iPhone as well.
 The applications for all platforms will look identical and allow the players to have the same functionality, independent of which device they are using to play Distrivia.
 
-\subsection{Clients}
+%\subsection{Clients}
 The client will be pretty straightforward.
 If you have never played Distrivia before, the game will prompt for the player to create a player name.
 After which, it will allow the user to request to play a game.
@@ -98,7 +98,7 @@ Once a questions dislike ratio is too high, the question will no longer be asked
   \includegraphics[scale=0.3]{design-pictures/leaderboard.png}
 
 
-\subsection{Backend}
+%\subsection{Backend}
 The server has four key layers involved.
 First, there will be a load balancer that accepts all messages from the players.
 It does not need to read the contents of the message, it simply distributes the message on to the most reliable server with the lowest load.
@@ -109,13 +109,13 @@ These messages will be in the form of http messages.
 The web server communicates directly with the database to perform whatever actions need to be done.
 The third layer is represented by these synchronous databases that hold all the actual data for the software.
 This would include round information, player information, and all the questions for the application.
-Currently we are looking at using Riak \cite{riak} for our database engine.
-Riak has the unique ability to perform automatic masterless replication and
-syncrhonization between all nodes of a database cluster. With this architecture 
-all backend nodes except for one could fail and our system would remain
+Currently we are looking at using Riak for our database engine.
+Riak has the unique ability to perform automatic master less replication and
+synchronization between all nodes of a database cluster. With this architecture 
+all back end nodes except for one could fail and our system would remain
 operational.
 \begin{center}
-  \includegraphics[scale=0.3]{design-pictures/database.png}
+  \includegraphics[scale=0.35]{design-pictures/database2.png}
 \end{center}
 
 \newpage
@@ -123,7 +123,7 @@ operational.
 % The following two commands are all you need in the
 % initial runs of your .tex file to
 % produce the bibliography for the citations in your paper.
-%/\bibliographystyle{abbrv}
+%\bibliographystyle{abbrv}
 %\bibliography{bibliography}  % sigproc.bib is the name of the Bibliography in this case
 % You must have a proper ".bib" file
 %  and remember to run:

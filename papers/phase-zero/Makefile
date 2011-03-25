@@ -20,7 +20,7 @@ open:
 build-paper: paper.tex
 	$(LATEX)  paper
 #	$(BIBTEX) paper
-# $(BIBTEX) paper
+#	$(BIBTEX) paper
 	$(LATEX)  paper
 	$(LATEX)  paper
 
