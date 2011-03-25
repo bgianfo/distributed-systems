@@ -40,6 +40,11 @@ public class Question {
         return q;
     }
 
+    /**
+     * Getter for the question ID.
+     * 
+     * @return A String containing the question ID.
+     */
     public String id() {
         return id;
     }
