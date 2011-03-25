@@ -62,7 +62,7 @@ def afterRequest(response):
 # Application routes
 #
 
-@app.route('/register/<user>' method=["PUT"])
+@app.route('/register/<user>', methods=["POST"])
 def register(user):
     """
     Register a new user
@@ -82,8 +82,8 @@ def register(user):
         newUser.store()
         return API_SUCCESS
 
-@app.route('/login/<userName>', method=["PUT"])
-deff login( userName ):
+@app.route('/login/<userName>', methods=["POST"])
+def login( userName ):
     """
     Attempt to authenticate a user, return a auth token on success.
 
@@ -105,11 +105,15 @@ deff login( userName ):
         user.store()
 
         loggedIn = users.get("logged_in")
-        data = loggedIn.get_data()
-        data["users"].append( uniqueId )
-        loggedIn.set_data(data)
-        loggedIn.store()
-
+        if loggedIn.exists():
+            data = loggedIn.get_data()
+            data["users"].append( uniqueId )
+            loggedIn.set_data(data)
+            loggedIn.store()
+        else:
+            ldata = { "users": [] }
+            new = users.new("logged_in", data=ldata)
+            new.store()
         return uniqueId
     else:
         return API_ERROR
@@ -198,7 +202,7 @@ def nextQuestion(id,prevId):
 
             # Failure on this game being over
             if qIndex == QUESTION_LIMIT:
-                return API_ERROR:
+                return API_ERROR
             # Fetch and construct the next question object
             nextQuestion = questions[qIndex+1]
 
