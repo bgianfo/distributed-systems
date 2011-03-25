@@ -3,72 +3,83 @@ package edu.rit.cs.distrivia.api;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ *
+ */
 public class Question {
-    
+
     private String question;
     private String choiceA;
     private String choiceB;
     private String choiceC;
     private String choiceD;
-    
+
     // Prevent construction without factory
-    private Question() {}
-    
+    private Question() {
+    }
+
     /**
-     * Factory method to create a question from JSON. 
-     * @param arr The JSON object from the server.
+     * Factory method to create a question from JSON.
+     * 
+     * @param arr
+     *            The JSON object from the server.
      * @return A properly initialized question
      */
-    public static Question create( JSONObject arr ) {
-        Question q = new Question();
+    public static Question create(final JSONObject arr) {
+        final Question q = new Question();
         try {
-            q.setQuestion( arr.getString("question") );
-            q.setChoiceA( arr.getString("a") );
-            q.setChoiceB( arr.getString("b") );
-            q.setChoiceC( arr.getString("c") );
-            q.setChoiceD( arr.getString("d") );
-        } catch (JSONException e) {
+            q.question = arr.getString("question");
+            q.choiceA = arr.getString("a");
+            q.choiceB = arr.getString("b");
+            q.choiceC = arr.getString("c");
+            q.choiceD = arr.getString("d");
+        } catch (final JSONException e) {
         }
         return q;
     }
 
+    /**
+     * Getter for the question text.
+     * 
+     * @return A String containing the question text
+     */
     public String getQuestion() {
         return question;
     }
 
-    public void setQuestion(String question) {
-        this.question = question;
-    }
-
+    /**
+     * Getter for the "A" choice for this question.
+     * 
+     * @return This choices text String.
+     */
     public String getChoiceA() {
         return choiceA;
     }
 
-    public void setChoiceA(String choiceA) {
-        this.choiceA = choiceA;
-    }
-
+    /**
+     * Getter for the "B" choice for this question.
+     * 
+     * @return This choices text String.
+     */
     public String getChoiceB() {
         return choiceB;
     }
 
-    public void setChoiceB(String choiceB) {
-        this.choiceB = choiceB;
-    }
-
+    /**
+     * Getter for the "C" choice for this question.
+     * 
+     * @return This choices text String.
+     */
     public String getChoiceC() {
         return choiceC;
     }
 
-    public void setChoiceC(String choiceC) {
-        this.choiceC = choiceC;
-    }
-
+    /**
+     * Getter for the "D" choice for this question.
+     * 
+     * @return This choices text String.
+     */
     public String getChoiceD() {
         return choiceD;
-    }
-
-    public void setChoiceD(String choiceD) {
-        this.choiceD = choiceD;
     }
 }
