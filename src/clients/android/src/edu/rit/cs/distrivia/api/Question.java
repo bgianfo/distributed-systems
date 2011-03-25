@@ -8,6 +8,7 @@ import org.json.JSONObject;
  */
 public class Question {
 
+    private String id;
     private String question;
     private String choiceA;
     private String choiceB;
@@ -33,9 +34,14 @@ public class Question {
             q.choiceB = arr.getString("b");
             q.choiceC = arr.getString("c");
             q.choiceD = arr.getString("d");
+            q.id = arr.getString("id");
         } catch (final JSONException e) {
         }
         return q;
+    }
+
+    public String id() {
+        return id;
     }
 
     /**

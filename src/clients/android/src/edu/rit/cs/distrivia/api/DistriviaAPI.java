@@ -78,22 +78,41 @@ public class DistriviaAPI {
     }
 
     /**
-     * API call to get the next multiple point question in a game.
+     * API call to get the initial multiple choice question in a game.
      * 
      * @param authToken
      *            The authorization token for this session, obtained at user
      *            login.
      * @param gameId
      *            The identification string for this game.
+     * @return The next question in the game, or null if the game is over, or
+     *         error.
+     */
+    public static Question firstQuestion(final String authToken,
+            final String gameId) {
+        return nextQuestion(authToken, gameId, "0");
+    }
+
+    /**
+     * API call to get the next multiple choice question in a game.
+     * 
+     * @param authToken
+     *            The authorization token for this session, obtained at user
+     *            login.
+     * @param gameId
+     *            The identification string for this game.
+     * @param prevId
+     *            The previous question id, just pass "0" if this is the initial
+     *            question fetch.
      * 
      * @return The next question in the game, or null if the game is over.
      */
     public static Question nextQuestion(final String authToken,
-            final String gameId) {
+            final String gameId, final String prevId) {
 
         String url = new String(API_URL);
 
-        url += "/game/" + gameId + "/next";
+        url += "/game/" + gameId + "/next/" + prevId;
 
         url += "?authToken=" + authToken;
 

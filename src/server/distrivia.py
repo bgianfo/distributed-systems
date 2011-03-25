@@ -29,10 +29,11 @@ QUESTION_LIMIT = 20
 #
 # Utility functions
 #
+
 def isAuthed():
     """
-    Read the request and automatically check if he auth token is valid
-    and "logged-in". 
+    Read the request and automatically check if he auth
+    token is valid and "logged-in".
 
     Return True if so, False if not.
     """
@@ -120,18 +121,53 @@ def newGame():
     Create a new game"""
     return "NOT IMPLEMEMTED"
 
-
-
 @app.route('/game/join')
 def joinGame():
     """GET /game/join
 
     Join a currently open game if available,
     otherwise create a new one"""
-    return "NOT IMPLEMEMTED"
+
+    # Failure on authentication error
+    if not isAuthed():
+        return API_ERROR
+
+    user  = request.form['user']
+    if user == "":
+        return API_ERROR
+
+    # Initialize arguments, riak variables and buckets
+    token = request.form['authToken']
+    client = g.db
+    gamesBucket = client.bucket("games")
 
 
+    # Map function to inspect tables and grab non full games
+    mapfn = """ function(iterm) {
+                    var data = JSON.parse( item.values[0].data );
+                    if ( data.users.length < 20 ) {
+                        return [[item.key, data]];
+                    }
+                    return [];
+                }
+            """
+    query = client.add("games")
+    query.map( mapfn )
 
+    for result in query.run():
+        key, data  = result[0], result[1]
+
+        # Add user to the game
+        data["users"].append( token )
+        # Add user to the leader board
+        data["leaderboard"][user] = 0
+
+        game = gamesBucket.get(key)
+        game.set_data( data );
+        game.store()
+        return key
+
+    return API_ERROR
 
 @app.route('/game/<id>/next/<prevId>')
 def nextQuestion(id,prevId):
@@ -153,14 +189,19 @@ def nextQuestion(id,prevId):
         # Get the list of questions for this game
         gameData = game.get_data();
         questions = gameData["questions"]
-        qIndex = questions.index( prevId )
 
-        # Failure on this game being over
-        if qIndex == QUESTION_LIMIT:
-            return API_ERROR:
+        nextQuestion = None
+        if prevId == "0":
+            nextQuestion = questions[0]
+        else:
+            qIndex = questions.index( prevId )
 
-        # Fetch and construct the next question object
-        nextQuestion = questions[qIndex+1]
+            # Failure on this game being over
+            if qIndex == QUESTION_LIMIT:
+                return API_ERROR:
+            # Fetch and construct the next question object
+            nextQuestion = questions[qIndex+1]
+
         questionBucket = g.db.bucket( "questions" )
         question = questionBucket.get( nextQuestion );
         question["id"] = nextQuestion
