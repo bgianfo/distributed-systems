@@ -1,6 +1,7 @@
 package edu.rit.cs.distrivia;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -12,9 +13,21 @@ import edu.rit.cs.distrivia.api.DistriviaAPI;
  * Activity for players to answer questions during a round.
  */
 public class RoundActivity extends Activity {
-
-
-    // private EditText pass;
+	
+	OnClickListener answerListener = new OnClickListener() {
+		@Override
+		public void onClick(final View v) {
+			final Button answer = (Button)v;
+			if (!answer.isSelected()) {
+				answer.setSelected(true);
+				answer.setTextColor(Color.BLUE);
+			}
+			else {
+				answer.setSelected(false);
+				answer.setTextColor(Color.BLACK);
+			}
+		}
+	};
 
     /** Called when the activity is first created. */
     @Override
@@ -22,14 +35,14 @@ public class RoundActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.round);
 
-        //final Button login = (Button) findViewById(R.id.login_button);
-        // pass = (EditText) findViewById(R.id.login_input_password);
+        final Button answer1 = (Button) findViewById(R.id.answer1_button);
+        final Button answer2 = (Button) findViewById(R.id.answer2_button);
+        final Button answer3 = (Button) findViewById(R.id.answer3_button);
+        final Button answer4 = (Button) findViewById(R.id.answer4_button);
 
-        /*login.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                // String passwd = pass.getText().toString().trim();
-            }
-        });*/
+        answer1.setOnClickListener(answerListener);
+        answer2.setOnClickListener(answerListener);
+        answer3.setOnClickListener(answerListener);
+        answer4.setOnClickListener(answerListener);
     }
 }

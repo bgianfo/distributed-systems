@@ -1,6 +1,7 @@
 package edu.rit.cs.distrivia;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -40,6 +41,9 @@ public class QuestinActivity extends Activity {
                 if (loginSuccessful) {
                     Toast.makeText(getApplicationContext(),
                             "Welcome back, " + name, 10).show();
+                    Intent roundIntent = new Intent();
+                    roundIntent.setClassName("edu.rit.cs.distrivia", "edu.rit.cs.distrivia.RoundActivity");
+                    startActivity(roundIntent);
                 } else {
                     Toast.makeText(getApplicationContext(), "Login failure", 10)
                             .show();
