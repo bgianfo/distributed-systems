@@ -16,6 +16,7 @@ from flask import g
 
 import riak
 import uuid
+import socket
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -25,6 +26,9 @@ API_ERROR   = "err"
 API_SUCCESS = "suc"
 QUESTION_LIMIT = 20
 
+
+def getip():
+    return socket.gethostbyname(socket.gethostname())
 
 #
 # Utility functions
@@ -46,7 +50,7 @@ def isAuthed():
         return False
 
 
-def initializeGame( user ):
+def initializeGame( user, passwd = None ):
     """ Create a new game """
 
     client = g.db
@@ -102,7 +106,7 @@ def initializeGame( user ):
 @app.before_request
 def beforeRequest():
     """ Connect to Riak before each request """
-    client = riak.RiakClient()
+    client = riak.RiakClient(host=getip())
     g.db = client
 
 @app.after_request
@@ -179,7 +183,14 @@ def newGame():
     """GET /game/new
 
     Create a new game"""
-    return "NOT IMPLEMEMTED"
+
+    if not isAuthed():
+        return API_ERROR
+
+    user   = request.form["user"]
+    passwd = request.form["passwd"]
+
+    return initializeGame( user, passwd )
 
 @app.route('/game/join', methods=["POST"])
 def joinGame():
@@ -223,6 +234,8 @@ def joinGame():
         game = gamesBucket.get( key )
 
         vdata = game.get_data()
+        if token in vdata["users"]:
+            continue
         vdata["users"].append( token )
         # Add user to the leader board
         vdata["leaderboard"][user] = 0
