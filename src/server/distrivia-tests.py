@@ -1,4 +1,13 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
+"""
+     Distrivia Tests
+    ~~~~~~~~~~~~~~~~~
+    Webservice unit tests for the trivia game API.
+
+    :copyright: (c) 2011 by Brian Gianforcaro, Steven Glazer, Sam Milton.
+"""
+
 import distrivia
 import unittest
 import riak
@@ -11,9 +20,12 @@ class DistriviaTestCase(unittest.TestCase):
         self.err = distrivia.API_ERROR
         self.suc = distrivia.API_SUCCESS
         self.clearBucket("users")
+        self.clearBucket("games")
 
     def tearDown(self):
-        pass
+        self.clearBucket("users")
+        self.clearBucket("games")
+
     # Helper functions
 
     def clearBucket(self, bucketName):
@@ -23,9 +35,9 @@ class DistriviaTestCase(unittest.TestCase):
             bucket.get(key).delete()
 
     def register(self, username):
-            """Helper function to register a user"""
-            return self.app.post('/register/'+username,
-            follow_redirects=True)
+        """Helper function to register a user"""
+        return self.app.post('/register/'+username,
+        follow_redirects=True)
 
     def login(self, username):
         """Helper function to login"""
@@ -63,6 +75,7 @@ class DistriviaTestCase(unittest.TestCase):
         data=dict( authToken = token, user="join" ),
         follow_redirects=True)
 
+        print rv.data
         assert rv.data != self.err
 
     def test_join_failure(self):

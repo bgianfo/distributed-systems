@@ -39,8 +39,11 @@ def isAuthed():
     """
     token = request.form['authToken']
     loggedIn = g.db.bucket("users").get("logged_in")
-    data = loggedIn.get_data()
-    return (token in data["users"])
+    if loggedIn.exists():
+        data = loggedIn.get_data()
+        return (token in data["users"])
+    else:
+        return False
 
 
 def initializeGame( user ):
@@ -51,7 +54,7 @@ def initializeGame( user ):
 
     # Map function to inspect tables and grab non full games
     mapfn = """
-    function(iterm) {
+    function(item) {
       return [item.key];
     }
     """
@@ -78,19 +81,19 @@ def initializeGame( user ):
 
     gameBucket = client.bucket("games")
 
-    id = str(uuid.uuid1())
+    gid = str(uuid.uuid1())
 
     gameData = {
         "questions" : questions,
-        "id" : id,
+        "id" : gid,
         "users" : [ user ],
         "leaderboard" : { user : 0 }
     }
 
-    game = gameBucket.new( id, data = gameData )
+    game = gameBucket.new( gid, data = gameData )
     game.store()
 
-    return id
+    return gid
 
 #
 # Before and after request handlers
@@ -163,9 +166,9 @@ def login( userName ):
                 loggedIn = users.new("logged_in", data=vdata)
                 loggedIn.store()
         else:
-            ldata = { "users": [] }
-            new = users.new("logged_in", data=ldata)
-            new.store()
+            ldata = { "users": [ uniqueId ] }
+            loggedIn = users.new("logged_in", data=ldata)
+            loggedIn.store()
 
         return uniqueId
     else:
@@ -180,7 +183,7 @@ def newGame():
 
 @app.route('/game/join', methods=["POST"])
 def joinGame():
-    """GET /game/join
+    """POST /game/join
 
     Join a currently open game if available,
     otherwise create a new one"""
@@ -189,21 +192,24 @@ def joinGame():
     if not isAuthed():
         return API_ERROR
 
+    # Initialize arguments, riak variables and buckets
+    client = g.db
+    users = client.bucket("users")
     user = request.form['user']
-    if user == "":
+    token = request.form['authToken']
+
+    if user == "" or (not users.get(user).exists()):
         return API_ERROR
 
-    # Initialize arguments, riak variables and buckets
-    token = request.form['authToken']
-    client = g.db
 
     gamesBucket = client.bucket("games")
 
     # Map function to inspect tables and grab non full games
-    mapfn = """ function(iterm) {
-                    var data = JSON.parse( item.values[0].data );
+    mapfn = """ function(value, keyData, arg) {
+                    ejsLog('map_reduce.log', "Test");
+                    var data = Riak.mapValuesJson( value )[0];
                     if ( data.users.length < 20 ) {
-                        return [[item.key, data]];
+                        return [value.key];
                     }
                     return [];
                 }
@@ -211,20 +217,21 @@ def joinGame():
     query = client.add("games")
     query.map( mapfn )
 
-    for result in query.run():
-        key, vdata  = result[0], result[1]
+    for key in query.run():
 
         # Add user to the game
+        game = gamesBucket.get( key )
+
+        vdata = game.get_data()
         vdata["users"].append( token )
         # Add user to the leader board
         vdata["leaderboard"][user] = 0
-
         game = gamesBucket.new(key, data=vdata)
         game.store()
         return key
 
-    id = initializeGame( user )
-    return id
+    gid = initializeGame( user )
+    return gid
 
 @app.route('/game/<id>/next/<prevId>')
 def nextQuestion(id,prevId):
