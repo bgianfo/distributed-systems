@@ -13,8 +13,7 @@ class DistriviaTestCase(unittest.TestCase):
         self.clearBucket("users")
 
     def tearDown(self):
-        self.clearBucket("users")
-
+        pass
     # Helper functions
 
     def clearBucket(self, bucketName):
@@ -33,6 +32,7 @@ class DistriviaTestCase(unittest.TestCase):
         return self.app.post('/login/'+username,
         follow_redirects=True)
 
+    # Test cases
 
     def test_register(self):
         """ Make sure registration works """
@@ -49,10 +49,29 @@ class DistriviaTestCase(unittest.TestCase):
         rv = self.login("brian")
         assert self.err != rv.data
 
+    def test_join(self):
+        """ Make sure joining a game works """
 
+        rv = self.register("join")
+        assert rv.data == self.suc
 
-    # Test cases
+        rv = self.login("join")
+        token = rv.data
+        assert token != self.err
+
+        rv = self.app.post('/game/join',
+        data=dict( authToken = token, user="join" ),
+        follow_redirects=True)
+
+        assert rv.data != self.err
+
+    def test_join_failure(self):
+        """ Make sure joining a game fails on bad token """
+        rv = self.app.post('/game/join',
+        data=dict( authToken = "crap", user="join" ),
+        follow_redirects=True)
+        assert rv.data == self.err
+
 
 if __name__ == '__main__':
     unittest.main()
-

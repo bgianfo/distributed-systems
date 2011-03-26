@@ -39,8 +39,58 @@ def isAuthed():
     """
     token = request.form['authToken']
     loggedIn = g.db.bucket("users").get("logged_in")
-    users = loggedIn.get_data()["users"]
-    return token in users
+    data = loggedIn.get_data()
+    return (token in data["users"])
+
+
+def initializeGame( user ):
+    """ Create a new game """
+
+    client = g.db
+    quesBucket = client.bucket("questions")
+
+    # Map function to inspect tables and grab non full games
+    mapfn = """
+    function(iterm) {
+      return [item.key];
+    }
+    """
+
+    reducefn = """
+    function(values) {
+      function r(){
+        return (Math.round(Math.random())-0.5);
+      }
+      // Randomly sort the questions
+      sorted = values.sort( r );
+      // Pick off the first 20
+      return sorted.slice(0,19)
+    }
+    """
+
+    query = client.add("questions")
+    query.map( mapfn )
+    query.reduce( reducefn )
+
+    questions = []
+    for key in query.run():
+        questions.append( key )
+
+    gameBucket = client.bucket("games")
+
+    id = str(uuid.uuid1())
+
+    gameData = {
+        "questions" : questions,
+        "id" : id,
+        "users" : [ user ],
+        "leaderboard" : { user : 0 }
+    }
+
+    game = gameBucket.new( id, data = gameData )
+    game.store()
+
+    return id
 
 #
 # Before and after request handlers
@@ -78,7 +128,8 @@ def register(user):
 
     # Awesome, let's register this bad boy
     else:
-        newUser = users_bucket.new( user, data= { "uuid" : "" } )
+        id = str(uuid.uuid1())
+        newUser = users_bucket.new( user, data= { "uuid" : id } )
         newUser.store()
         return API_SUCCESS
 
@@ -100,20 +151,22 @@ def login( userName ):
     if user.exists():
         # Create a new auth token for this user
         # UUID's are pretty much guaranteed to be unique
-        uniqueId = str(uuid.uuid1())
-        user.set_data( { "uuid" : uniqueId } )
-        user.store()
+        uniqueId = user.get_data()["uuid"]
 
         loggedIn = users.get("logged_in")
         if loggedIn.exists():
-            data = loggedIn.get_data()
-            data["users"].append( uniqueId )
-            loggedIn.set_data(data)
-            loggedIn.store()
+            vdata = loggedIn.get_data()
+            if uniqueId in vdata["users"]:
+                return uniqueId
+            else:
+                vdata["users"].append( uniqueId )
+                loggedIn = users.new("logged_in", data=vdata)
+                loggedIn.store()
         else:
             ldata = { "users": [] }
             new = users.new("logged_in", data=ldata)
             new.store()
+
         return uniqueId
     else:
         return API_ERROR
@@ -125,7 +178,7 @@ def newGame():
     Create a new game"""
     return "NOT IMPLEMEMTED"
 
-@app.route('/game/join')
+@app.route('/game/join', methods=["POST"])
 def joinGame():
     """GET /game/join
 
@@ -136,15 +189,15 @@ def joinGame():
     if not isAuthed():
         return API_ERROR
 
-    user  = request.form['user']
+    user = request.form['user']
     if user == "":
         return API_ERROR
 
     # Initialize arguments, riak variables and buckets
     token = request.form['authToken']
     client = g.db
-    gamesBucket = client.bucket("games")
 
+    gamesBucket = client.bucket("games")
 
     # Map function to inspect tables and grab non full games
     mapfn = """ function(iterm) {
@@ -159,19 +212,19 @@ def joinGame():
     query.map( mapfn )
 
     for result in query.run():
-        key, data  = result[0], result[1]
+        key, vdata  = result[0], result[1]
 
         # Add user to the game
-        data["users"].append( token )
+        vdata["users"].append( token )
         # Add user to the leader board
-        data["leaderboard"][user] = 0
+        vdata["leaderboard"][user] = 0
 
-        game = gamesBucket.get(key)
-        game.set_data( data );
+        game = gamesBucket.new(key, data=vdata)
         game.store()
         return key
 
-    return API_ERROR
+    id = initializeGame( user )
+    return id
 
 @app.route('/game/<id>/next/<prevId>')
 def nextQuestion(id,prevId):
