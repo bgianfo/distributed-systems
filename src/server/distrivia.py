@@ -30,6 +30,16 @@ API_ERROR   = "err"
 API_SUCCESS = "suc"
 QUESTION_LIMIT = 20
 
+
+if app.config['DEBUG']:
+
+    from werkzeug import SharedDataMiddleware
+    import os
+    app.wsgi_app = SharedDataMiddleware(app.wsgi_app, {
+      '/': os.path.abspath("../clients/web")
+    })
+
+
 #
 # Utility functions
 #

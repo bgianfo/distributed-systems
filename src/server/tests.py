@@ -13,7 +13,6 @@ import unittest
 import riak
 from flask import json
 
-
 class DistriviaTestCase(unittest.TestCase):
 
     def setUp(self):
@@ -86,7 +85,6 @@ class DistriviaTestCase(unittest.TestCase):
         assert rv.data == self.err
 
     def test_initial_question(self):
-
         tuser= "testicle"
         self.app.post("/register/"+tuser)
         token = self.app.post("/login/"+tuser).data
@@ -107,7 +105,42 @@ class DistriviaTestCase(unittest.TestCase):
 
 
     def test_next_question(self):
-        pass
+        tuser= "testicle"
+        self.app.post("/register/"+tuser)
+        token = self.app.post("/login/"+tuser).data
+
+        join = dict(authToken=token, user=tuser)
+        gid = self.app.post("/game/join",data=join).data
+
+        nextQ = dict(authToken=token)
+        rv = self.app.post("/game/"+gid+"/next/0", data=nextQ)
+        question = json.loads( rv.data )
+        assert question["question"] != None
+        assert question["answer"]   != None
+        assert question["a"]  != None
+        assert question["b"]  != None
+        assert question["c"]  != None
+        assert question["d"]  != None
+        assert question["id"] != None
+        qid = question["id"]
+
+        count = 0
+        while count < 13: # self.app.QUESTION_LIMIT:
+            rv = self.app.post("/game/"+gid+"/next/"+qid, data=nextQ)
+            question = json.loads( rv.data )
+            assert question["question"] != None
+            assert question["answer"]   != None
+            assert question["a"]  != None
+            assert question["b"]  != None
+            assert question["c"]  != None
+            assert question["d"]  != None
+            assert question["id"] != None
+            qid = question["id"]
+            count += 1
+
+
+
+
 
 if __name__ == '__main__':
     unittest.main()
