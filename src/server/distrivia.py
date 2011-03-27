@@ -14,21 +14,43 @@ from flask import request
 from flask import session
 from flask import g
 
+
 import riak
 import uuid
+import socket
+import urllib2
 
 app = Flask(__name__)
+app.debug = True
 app.config['DEBUG'] = True
 app.config['SECRET_KEY'] = 'secret'
+
 
 API_ERROR   = "err"
 API_SUCCESS = "suc"
 QUESTION_LIMIT = 20
 
-
 #
 # Utility functions
 #
+
+def getip():
+    """ Return the internal IP of this machine """
+    if app.debug:
+        return "127.0.0.1"
+    else:
+        return socket.gethostbyname(socket.gethostname())
+
+def gethost():
+    """ Return the outward facing hostname on EC2, or just the localhost
+        if we arn't no EC2
+    """
+    try:
+        url = "http://169.254.169.254/latest/meta-data/public-hostname"
+        hostname = urllib2.urlopen(url).read()
+        return hostname
+    except:
+        return "127.0.0.1"
 
 def isAuthed():
     """
@@ -46,7 +68,7 @@ def isAuthed():
         return False
 
 
-def initializeGame( user ):
+def initializeGame( user, passwd = None ):
     """ Create a new game """
 
     client = g.db
@@ -102,7 +124,7 @@ def initializeGame( user ):
 @app.before_request
 def beforeRequest():
     """ Connect to Riak before each request """
-    client = riak.RiakClient()
+    client = riak.RiakClient(host=getip())
     g.db = client
 
 @app.after_request
@@ -179,7 +201,14 @@ def newGame():
     """GET /game/new
 
     Create a new game"""
-    return "NOT IMPLEMEMTED"
+
+    if not isAuthed():
+        return API_ERROR
+
+    user   = request.form["user"]
+    passwd = request.form["passwd"]
+
+    return initializeGame( user, passwd )
 
 @app.route('/game/join', methods=["POST"])
 def joinGame():
@@ -223,6 +252,8 @@ def joinGame():
         game = gamesBucket.get( key )
 
         vdata = game.get_data()
+        if token in vdata["users"]:
+            continue
         vdata["users"].append( token )
         # Add user to the leader board
         vdata["leaderboard"][user] = 0
@@ -233,8 +264,8 @@ def joinGame():
     gid = initializeGame( user )
     return gid
 
-@app.route('/game/<id>/next/<prevId>')
-def nextQuestion(id,prevId):
+@app.route('/game/<gid>/next/<prevId>', methods=["POST"])
+def nextQuestion(gid,prevId):
     """GET /game/<id>/next
 
     Get the next question for this game ID"""
@@ -244,10 +275,10 @@ def nextQuestion(id,prevId):
         return API_ERROR
 
     gamesBucket = g.db.bucket( "games" )
-    game = gamesBucket.get( id )
+    game = gamesBucket.get( gid )
 
     # Failure on bogus game ID
-    if game.empty():
+    if not game.exists():
         return API_ERROR
     else:
         # Get the list of questions for this game
@@ -267,11 +298,11 @@ def nextQuestion(id,prevId):
             nextQuestion = questions[qIndex+1]
 
         questionBucket = g.db.bucket( "questions" )
-        question = questionBucket.get( nextQuestion );
-        question["id"] = nextQuestion
-        return str(question)
-
-
+        question = questionBucket.get(nextQuestion)
+        # Add id into the question
+        qdata = question.get_data()
+        qdata["id"] = nextQuestion
+        return json.dumps(qdata)
 
 @app.route('/game/<id>/leaderboard')
 def getLeaderBoard(id):
@@ -299,8 +330,8 @@ def getLeaderBoard(id):
     else:
         # Get the list of questions for this game
         gameData = game.get_data();
-        return str(gameData["leaderboard"])
+        return json.dumps(gameData["leaderboard"])
 
 # Run the webserver
 if __name__ == '__main__':
-    app.run(port=80)
+    app.run( host=gethost(), port=80 )

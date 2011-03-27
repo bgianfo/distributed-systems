@@ -11,6 +11,7 @@
 import distrivia
 import unittest
 import riak
+from flask import json
 
 
 class DistriviaTestCase(unittest.TestCase):
@@ -75,7 +76,6 @@ class DistriviaTestCase(unittest.TestCase):
         data=dict( authToken = token, user="join" ),
         follow_redirects=True)
 
-        print rv.data
         assert rv.data != self.err
 
     def test_join_failure(self):
@@ -85,6 +85,29 @@ class DistriviaTestCase(unittest.TestCase):
         follow_redirects=True)
         assert rv.data == self.err
 
+    def test_initial_question(self):
+
+        tuser= "testicle"
+        self.app.post("/register/"+tuser)
+        token = self.app.post("/login/"+tuser).data
+
+        join = dict(authToken=token, user=tuser)
+        gid = self.app.post("/game/join",data=join).data
+
+        nextQ = dict(authToken=token)
+        rv = self.app.post("/game/"+gid+"/next/0", data=nextQ)
+        question = json.loads( rv.data )
+        assert question["question"] != None
+        assert question["answer"]   != None
+        assert question["a"]  != None
+        assert question["b"]  != None
+        assert question["c"]  != None
+        assert question["d"]  != None
+        assert question["id"] != None
+
+
+    def test_next_question(self):
+        pass
 
 if __name__ == '__main__':
     unittest.main()
