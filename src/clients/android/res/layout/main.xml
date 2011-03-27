@@ -4,10 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     >
-<TextView  
-    android:layout_width="fill_parent" 
-    android:layout_height="wrap_content"
-    android:text="@string/app_name" android:textSize="25sp" android:typeface="serif" android:textStyle="italic|bold"/>
+    <ImageView android:id="@+id/imageView1" android:src="@drawable/distriviaw" android:layout_width="fill_parent" android:layout_height="40dip"></ImageView>
 <RelativeLayout android:layout_width="fill_parent" android:layout_height="fill_parent" android:id="@+id/login_layout" android:paddingTop="10sp">
     <TextView android:id="@+id/login_label"
 		android:layout_height="wrap_content"
