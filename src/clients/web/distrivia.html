@@ -1,0 +1,91 @@
+<head>
+   <title>Distrivia</title>
+   <link href='distrivia.css' rel='stylesheet' type='text/css' />
+   <script type='text/javascript' language='javascript' src='distrivia.js'/></script>
+</head>
+<body onload='Load()'>
+<noscript class='nos'><div>Distrivia requires javascript to be enabled</div></noscript>
+<div class='wrapper'>
+   <div class='header'>
+      <div class='title'>Distrivia</div>
+      <img class='titleimg' src='distriviaw.png' alt='Distrivia' />
+      <div class='score' id='score'>0</div>
+   </div>
+   <div class='main'>
+
+      <!-- Log in -->
+      <div class='login' id='login'>
+         <div class='sub_header'>Sign In</div>
+         <form name='login_form' class='form'>
+            <div class='login_area'>
+               <div>
+                  <label class='login_label' for='username'>Username:</label>
+                  <br>
+                  <input class='login_input' type='text' name='username' />
+               </div>
+               <div>
+                  <label class='login_label' for='password'>Password:</label>
+                  <br>
+                  <input class='login_input' type='password' name='password' onkeypress='Login_Key(event)' />
+               </div>
+               <div class='login_submit'>
+                  <a href='#' onclick='return Login()'>Ok</a>
+               </div>
+               <div class='login_invalid hidden' id='login_invalid'>Invalid Login</div>
+            </form>
+         </div>
+      </div>
+
+      <!-- Join a game -->
+      <div class='join hidden' id='join'>
+         <div class='sub_header' id='join_header'>Join a game?</div>
+         <div class='join_public' id='join_public'>
+            <a href='#' onclick='return Public()'>Join Public</a>
+         </div>
+         <div class='sub_header' id='join_priv_head'>Join Private Game</div>
+         <div class='join_priv' id='join_priv'>
+            <form class='form' name='join_form'>
+               <table>
+                  <tr>
+                     <td><label for='join_name'>Name:</label></td>
+                     <td><input class='join_input' type='text' name='name' />
+                  </tr><tr>
+                     <td><label for='join_pass'>Pass:</label</td>
+                     <td><input class='join_input' type='password' name='pass' onkeypress='Join_Key(event)'/>
+                  </tr><tr>
+                     <td></td>
+                     <td style='text-align: center'><a href='#' onclick='return Private()'>Join Private</a></td>
+                  </tr>
+               </table>
+               <div class='join_fail hidden' id='join_fail'>Invalid Game / Password</div>
+            </form>
+            <div class='join_priv_wait hidden' id='join_priv_wait'>Waiting for game to start</div>
+         </div>
+      </div>
+
+      <!-- Waiting to start -->
+      <div class='wait hidden' id='wait'>
+         <div class='sub_header' id='wait_header'>Waiting for game to start</div>
+         <div class='wait_message' id='wait_message'></div>
+         <div class='wait_cancel'><a href='#' onclick='return Cancel()'>Cancel</a></div>
+      </div>
+
+      <!-- Play a game -->
+      <div class='game hidden' id='game'>
+         <div class='sub_header' id='game_question'></div>
+         <div class='answers' id='answers'>
+            <div class='answer' href='#' tabindex=0 onclick='return Answer(1)'></div>
+            <div class='answer' href='#' tabindex=0 onclick='return Answer(2)'></div>
+            <div class='answer' href='#' tabindex=0 onclick='return Answer(3)'></div>
+            <div class='answer' href='#' tabindex=0 onclick='return Answer(4)'></div>
+         </div>
+         <div class='game_bottom'>
+            <a href='#' onclick='return Next()' class='next'>ok</a>
+         </div>
+      </div>
+
+   </div>
+</div>
+</body>
+
+
