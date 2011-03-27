@@ -17,6 +17,7 @@ from flask import g
 import riak
 import uuid
 import socket
+import urllib2
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -29,6 +30,14 @@ QUESTION_LIMIT = 20
 
 def getip():
     return socket.gethostbyname(socket.gethostname())
+
+def gethost():
+    try:
+        url = "http://169.254.169.254/latest/meta-data/public-hostname"
+        hostname = urllib2.urlopen(url).read()
+        return hostname
+    except:
+        return "127.0.0.1"
 
 #
 # Utility functions
@@ -284,8 +293,6 @@ def nextQuestion(id,prevId):
         question["id"] = nextQuestion
         return str(question)
 
-
-
 @app.route('/game/<id>/leaderboard')
 def getLeaderBoard(id):
     """
@@ -316,4 +323,4 @@ def getLeaderBoard(id):
 
 # Run the webserver
 if __name__ == '__main__':
-    app.run(port=80)
+    app.run( host=gethost(), port=80 )
