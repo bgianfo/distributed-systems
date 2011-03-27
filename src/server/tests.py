@@ -216,8 +216,8 @@ class DistriviaTestCase(unittest.TestCase):
         # Check leaderboard
         rv = self.app.post( "/game/"+gid+"/leaderboard", data=nextQ )
         board = json.loads( rv.data )
-        assert board[tuser] != 0
-        oldscore = board[tuser]
+        assert board["leaderboard"][tuser] != 0
+        oldscore = board["leaderboard"][tuser]
 
         # Get another question
         rv = self.app.post("/game/"+gid+"/next/"+qid, data=nextQ)
@@ -232,7 +232,7 @@ class DistriviaTestCase(unittest.TestCase):
         # Since we had a wrong answer, leaderboard should be unchanged
         rv = self.app.post( "/game/"+gid+"/leaderboard", data=nextQ )
         board = json.loads( rv.data )
-        assert board[tuser] == oldscore
+        assert board["leaderboard"][tuser] == oldscore
 
     def test_leader_board(self):
         """ Make sure leaderboard initialization & update works """
@@ -254,7 +254,7 @@ class DistriviaTestCase(unittest.TestCase):
         nextQ = dict(authToken=token)
         rv = self.app.post( "/game/"+gid+"/leaderboard", data=nextQ )
         board = json.loads( rv.data )
-        assert board[tuser] == 0
+        assert board["leaderboard"][tuser] == 0
 
         # Get first quesiton
         rv = self.app.post("/game/"+gid+"/next/0", data=nextQ)
@@ -269,8 +269,8 @@ class DistriviaTestCase(unittest.TestCase):
         # Check leaderboard
         rv = self.app.post( "/game/"+gid+"/leaderboard", data=nextQ )
         board = json.loads( rv.data )
-        assert board[tuser] != 0
-        oldscore = board[tuser]
+        assert board["leaderboard"][tuser] != 0
+        oldscore = board["leaderboard"][tuser]
 
 
 if __name__ == '__main__':

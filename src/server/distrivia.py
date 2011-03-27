@@ -45,7 +45,7 @@ app.wsgi_app = SharedDataMiddleware(app.wsgi_app, {
 def getip():
     """ Return the internal IP of this machine """
     if app.debug:
-        return "0.0.0.0"
+        return "127.0.0.1"
     else:
         return socket.gethostbyname(socket.gethostname())
 
@@ -58,7 +58,7 @@ def gethost():
         hostname = urllib2.urlopen(url).read()
         return hostname
     except:
-        return "127.0.0.1"
+        return "0.0.0.0"
 
 def isAuthed():
     """
@@ -448,10 +448,9 @@ def getLeaderBoard(gid):
     else:
         # Get the list of questions for this game
         gameData = game.get_data();
-        return json.dumps(gameData["leaderboard"])
+        return json.dumps(gameData)
 
 
 # Run the webserver
 if __name__ == '__main__':
-    #app.run( host=gethost(), port=80 )
-    app.run()
+    app.run( host=gethost(), port=8080 )
