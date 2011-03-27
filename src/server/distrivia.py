@@ -8,13 +8,14 @@
     :copyright: (c) 2011 by Brian Gianforcaro, Steven Glazer, Sam Milton.
 """
 
+from flask import g
 from flask import Flask
 from flask import json
 from flask import request
 from flask import session
-from flask import g
+from werkzeug import SharedDataMiddleware
 
-
+import os
 import riak
 import uuid
 import socket
@@ -31,13 +32,10 @@ API_SUCCESS = "suc"
 QUESTION_LIMIT = 20
 
 
-if app.config['DEBUG']:
-
-    from werkzeug import SharedDataMiddleware
-    import os
-    app.wsgi_app = SharedDataMiddleware(app.wsgi_app, {
-      '/': os.path.abspath("../clients/web")
-    })
+# Add middle ware to server the web app client
+app.wsgi_app = SharedDataMiddleware(app.wsgi_app, {
+  '/': os.path.abspath("../clients/web")
+})
 
 
 #
@@ -47,7 +45,7 @@ if app.config['DEBUG']:
 def getip():
     """ Return the internal IP of this machine """
     if app.debug:
-        return "127.0.0.1"
+        return "0.0.0.0"
     else:
         return socket.gethostbyname(socket.gethostname())
 
@@ -155,6 +153,9 @@ def register(user):
     API_SUCCESS on success, API_ERROR on failure
     """
 
+    # TODO: Take a passwd as a argument, SHA1 hash it + a salt
+    #       and store the hash in the user object.
+
     users_bucket = g.db.bucket( "users" )
 
     # The user already exists, so they can't register this name
@@ -163,8 +164,8 @@ def register(user):
 
     # Awesome, let's register this bad boy
     else:
-        id = str(uuid.uuid1())
-        newUser = users_bucket.new( user, data= { "uuid" : id } )
+        uid = str(uuid.uuid1())
+        newUser = users_bucket.new( user, data= { "uuid" : uid, "score" : 0 } )
         newUser.store()
         return API_SUCCESS
 
@@ -179,6 +180,10 @@ def login( userName ):
 
     otherwise return API_ERROR
     """
+
+    # TODO: Take a passwd as a argument, SHA1 hash it + a salt
+    #       and check if it matches the hash in the user object.
+
 
     users = g.db.bucket( "users" )
     user = users.get( userName )
@@ -212,6 +217,8 @@ def newGame():
 
     Create a new game"""
 
+    # TODO: Add ability to create a specific game
+
     if not isAuthed():
         return API_ERROR
 
@@ -226,6 +233,8 @@ def joinGame():
 
     Join a currently open game if available,
     otherwise create a new one"""
+
+    # TODO: Add ability to join a specific game
 
     # Failure on authentication error
     if not isAuthed():
@@ -299,11 +308,16 @@ def nextQuestion(gid,prevId):
         if prevId == "0":
             nextQuestion = questions[0]
         else:
-            qIndex = questions.index( prevId )
+            qIndex = None
+            try:
+                qIndex = questions.index( prevId )
+            except:
+                return API_ERROR
 
             # Failure on this game being over
-            if qIndex == QUESTION_LIMIT:
+            if qIndex >= QUESTION_LIMIT or (qIndex+1 >= len(questions)):
                 return API_ERROR
+
             # Fetch and construct the next question object
             nextQuestion = questions[qIndex+1]
 
@@ -314,8 +328,102 @@ def nextQuestion(gid,prevId):
         qdata["id"] = nextQuestion
         return json.dumps(qdata)
 
-@app.route('/game/<id>/leaderboard')
-def getLeaderBoard(id):
+@app.route('/game/<gid>/answer/<qid>/<answer>/<int:time_ms>', methods=["POST"])
+def answerQuestion(gid,qid,answer,time_ms):
+    """POST /game/<gid>/next/<qid>/<answer>/<time_ms>
+
+    URL Params:
+
+        gid - The game id
+        qid - The current question id
+        answer - The clients answer to the question: "a","b","c" or "d"
+        time_ms - The time it took the client to answer in milliseconds
+
+    Post Params:
+
+        authToken - The clients authorization token
+        user      - The clients user name (makes querying easier)
+
+    Answer a given question"""
+
+    # Failure on authentication error
+    if not isAuthed():
+        return API_ERROR
+
+    user = request.form["user"]
+    if user is None:
+        return API_ERROR
+
+    # Make sure answer is sane
+    if answer not in ["a","b","c","d"]:
+        return API_ERROR
+
+    # Failure on bogus game ID
+    gamesBucket = g.db.bucket( "games" )
+    game = gamesBucket.get( gid )
+    if not game.exists():
+        return API_ERROR
+    # TODO: Make sure user is a member of this game.
+
+    # Failure on bogus question ID
+    questionBucket = g.db.bucket( "questions" )
+    question = questionBucket.get( qid )
+    if not question.exists():
+        return API_ERROR
+
+    qdata = question.get_data()
+
+    if qdata["answer"] != answer:
+        return "wrong"
+
+    SEC_TO_MS =  1000
+
+    points = 0
+    if time_ms > 10*SEC_TO_MS:
+        # After ten seconds no points
+        return "correct"
+    elif time_ms > 9*SEC_TO_MS:
+        points = 50
+    elif time_ms > 8*SEC_TO_MS:
+        points = 100
+    elif time_ms > 7*SEC_TO_MS:
+        points = 150
+    elif time_ms > 6*SEC_TO_MS:
+        points = 200
+    elif time_ms > 5*SEC_TO_MS:
+        points = 250
+    elif time_ms > 4*SEC_TO_MS:
+        points = 300
+    elif time_ms > 3*SEC_TO_MS:
+        points = 350
+    elif time_ms > 2*SEC_TO_MS:
+        points = 400
+    elif time_ms > 1*SEC_TO_MS:
+        points = 500
+    else:
+        # Time is too fast, not counting it.
+        return API_ERROR
+
+    userBucket = g.db.bucket( "users" )
+    userObj = userBucket.get( user )
+    if not userObj.exists():
+        return API_ERROR
+
+    udata = userObj.get_data()
+    gdata = game.get_data()
+
+    gdata["leaderboard"][user] += points
+    udata["score"] += points
+
+    game = gamesBucket.new( gid, data = gdata )
+    game.store()
+    userObj = userBucket.new( user, data = udata )
+    userObj.store()
+
+    return "correct"
+
+@app.route('/game/<gid>/leaderboard', methods=["POST"])
+def getLeaderBoard(gid):
     """
     Get the leaderboard for this game ID
 
@@ -332,16 +440,18 @@ def getLeaderBoard(id):
         return API_ERROR
 
     gamesBucket = g.db.bucket( "games" )
-    game = gamesBucket.get( id )
+    game = gamesBucket.get( gid )
 
     # Failure on bogus game ID
-    if game.empty():
+    if not game.exists():
         return API_ERROR
     else:
         # Get the list of questions for this game
         gameData = game.get_data();
         return json.dumps(gameData["leaderboard"])
 
+
 # Run the webserver
 if __name__ == '__main__':
-    app.run( host=gethost(), port=80 )
+    #app.run( host=gethost(), port=80 )
+    app.run()

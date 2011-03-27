@@ -22,7 +22,7 @@ run lauch:
 	python distrivia.py
 
 test:
-	python distrivia-tests.py
+	python runner.py test
 
 clean:
 	@rm -rf *.pyc
