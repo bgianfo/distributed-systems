@@ -42,7 +42,7 @@ public class QuestinActivity extends Activity {
                     Toast.makeText(getApplicationContext(),
                             "Welcome back, " + name, 10).show();
                     Intent roundIntent = new Intent();
-                    roundIntent.setClassName("edu.rit.cs.distrivia", "edu.rit.cs.distrivia.RoundActivity");
+                    roundIntent.setClassName("edu.rit.cs.distrivia", "edu.rit.cs.distrivia.JoinActivity");
                     startActivity(roundIntent);
                 } else {
                     Toast.makeText(getApplicationContext(), "Login failure", 10)

@@ -9,11 +9,15 @@
     <string name="login_username_hint">Username</string>
     <string name="login_password_hint">Password</string>
     <string name="score">Score:</string>
-    <string name="q1">Question 1</string>
     <string name="question">Q: How many feet are in a mile?</string>
     <string name="example_answer1">1000</string>
     <string name="example_answer2">5280</string>
     <string name="example_answer3">4865</string>
     <string name="example_answer4">9300</string>
     <string name="submit">Submit</string>
+    <string name="public_games">Join a game?</string>
+    <string name="join_public">Join Public</string>
+    <string name="private_games">Join Private Game</string>
+    <string name="private_name">Name:  </string>
+    <string name="private_pass">Pass:    </string>
 </resources>
