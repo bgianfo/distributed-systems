@@ -23,7 +23,7 @@ public class RoundActivity extends Activity {
     private String gameId;
     private long startTime = 0;
     private long stopTime = 0;
-    private final String selection = null;
+    private String selection = null;
     private TextView question;
     private Button answerA;
     private Button answerB;
@@ -37,6 +37,14 @@ public class RoundActivity extends Activity {
             final Button answer = (Button) v;
             answer.setSelected(true);
             answer.setTextColor(Color.BLUE);
+            if (answer == answerA)
+            	selection = "a";
+            else if (answer == answerB)
+            	selection = "b";
+            else if (answer == answerC)
+            	selection = "c";
+            else if (answer == answerD)
+            	selection = "d";
             stopTime = SystemClock.elapsedRealtime();
         }
     };
