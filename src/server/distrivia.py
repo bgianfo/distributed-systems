@@ -460,4 +460,4 @@ def getLeaderBoard(gid):
 
 # Run the webserver
 if __name__ == '__main__':
-    app.run( host=gethost(), port=8080 )
+    app.run( host=gethost(), port=80 )
