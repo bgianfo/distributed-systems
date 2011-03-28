@@ -13,6 +13,7 @@ from flask import Flask
 from flask import json
 from flask import request
 from flask import session
+from flask import send_file
 from werkzeug import SharedDataMiddleware
 
 import os
@@ -44,10 +45,10 @@ app.wsgi_app = SharedDataMiddleware(app.wsgi_app, {
 
 def getip():
     """ Return the internal IP of this machine """
-    if app.debug:
-        return "127.0.0.1"
-    else:
-        return socket.gethostbyname(socket.gethostname())
+    return "127.0.0.1"
+    #if app.debug:
+    #else:
+    #    return socket.gethostbyname(socket.gethostname())
 
 def gethost():
     """ Return the outward facing hostname on EC2, or just the localhost
@@ -144,6 +145,12 @@ def afterRequest(response):
 #
 # Application routes
 #
+
+@app.route("/")
+def indexer():
+    """ Default render-er for the client """
+    index = os.path.abspath("../clients/web") + "/distrivia.html"
+    return send_file(index)
 
 @app.route('/register/<user>', methods=["POST"])
 def register(user):
