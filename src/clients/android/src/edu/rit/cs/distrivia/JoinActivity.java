@@ -46,6 +46,17 @@ public class JoinActivity extends Activity {
                 startActivity(roundIntent);
             }
         });
+        
+        joinPrivateButton.setOnClickListener(new OnClickListener() {
+        	@Override
+        	public void onClick(final View v) {
+        		String name = privateName.getText().toString().trim();
+        		String pass = privatePass.getText().toString().trim();
+        		if (!name.equals("") && !pass.equals("")) {
+        			publicLayout.setVisibility(View.GONE);
+        		}
+        	}
+        });
 
     }
 }
