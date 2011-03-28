@@ -37,6 +37,7 @@ public class RoundActivity extends Activity {
             final Button answer = (Button) v;
             answer.setSelected(true);
             answer.setTextColor(Color.BLUE);
+            stopTime = SystemClock.elapsedRealtime();
         }
     };
 
@@ -65,7 +66,6 @@ public class RoundActivity extends Activity {
             @Override
             public void onClick(View v) {
                 if (selection != null) {
-                	stopTime = SystemClock.elapsedRealtime();
                     submit();
                 } else {
                     Toast.makeText(v.getContext(), "Please select an answer", 10)
