@@ -57,8 +57,9 @@
 	    	/>
 	    	
 	    <Button android:id="@+id/login_button"
+	      android:layout_marginTop="20.0sp"
 	    	android:layout_height="wrap_content"
-	    	android:layout_width="wrap_content"
+	    	android:layout_width="fill_parent"
 	    	android:layout_below="@+id/login_input_password"
 	    	android:layout_centerHorizontal="true"
 	    	android:text="@string/login_button"

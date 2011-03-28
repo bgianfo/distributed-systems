@@ -41,6 +41,22 @@ public class Question {
     }
 
     /**
+     * Generate a dummy question object.
+     * 
+     * @return A dummy question
+     */
+    public static Question dummy() {
+        final Question q = new Question();
+        q.question = "Who is awesome";
+        q.choiceA = "Sam";
+        q.choiceB = "Sticky";
+        q.choiceC = "Brian";
+        q.choiceD = "Raj";
+        q.id = "xclkjalsdfj";
+        return q;
+    }
+
+    /**
      * Getter for the question ID.
      * 
      * @return A String containing the question ID.

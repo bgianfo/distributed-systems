@@ -41,17 +41,20 @@ public class DistriviaAPI {
      * 
      * @return The authorization users token on success, otherwise null on
      *         authentication failure.
+     * 
+     * @throws DistriviaAPIException
      */
-    public static String login(String userName) {
+    public static String login(final String userName)
+            throws DistriviaAPIException {
         String url = new String(API_URL);
         url += "/login/" + userName;
 
-        HttpPut op = new HttpPut(url);
-        HttpResponse response = executeRequest(op);
-        String data = responseToString(response);
+        final HttpPut op = new HttpPut(url);
+        final HttpResponse response = executeRequest(op);
+        final String data = responseToString(response);
 
         if (data == API_ERROR) {
-            return null;
+            throw new DistriviaAPIException("Login Failed");
         } else {
             return data;
         }
@@ -74,7 +77,7 @@ public class DistriviaAPI {
 
         String data = responseToString(response);
 
-        return data == API_SUCCESS;
+        return data.equals(API_SUCCESS);
     }
 
     /**
@@ -87,9 +90,10 @@ public class DistriviaAPI {
      *            The identification string for this game.
      * @return The next question in the game, or null if the game is over, or
      *         error.
+     * @throws DistriviaAPIException
      */
     public static Question firstQuestion(final String authToken,
-            final String gameId) {
+            final String gameId) throws DistriviaAPIException {
         return nextQuestion(authToken, gameId, "0");
     }
 
@@ -106,9 +110,11 @@ public class DistriviaAPI {
      *            question fetch.
      * 
      * @return The next question in the game, or null if the game is over.
+     * @throws DistriviaAPIException
      */
     public static Question nextQuestion(final String authToken,
-            final String gameId, final String prevId) {
+            final String gameId, final String prevId)
+            throws DistriviaAPIException {
 
         String url = new String(API_URL);
 
@@ -125,6 +131,7 @@ public class DistriviaAPI {
             JSONObject json = new JSONObject(responseToString(response));
             nextQ = Question.create(json);
         } catch (JSONException e) {
+            throw new DistriviaAPIException("Question request was malformed");
         }
 
         return nextQ;
@@ -148,9 +155,11 @@ public class DistriviaAPI {
      * @return Return true if answer went through successfully, otherwise return
      *         false on error. Error could be, wrong authorization token,
      *         incorrect gameId, impossible answerTIme etc...
+     * @throws DistriviaAPIException
      */
     public static boolean answerQuestion(final String authToken,
-            final String gameId, final String answer, final int answerTime_ms) {
+            final String gameId, final String answer, final int answerTime_ms)
+            throws DistriviaAPIException {
         String url = new String(API_URL);
         url += "/game/" + gameId;
         url += "/answer/" + answer;
@@ -161,7 +170,11 @@ public class DistriviaAPI {
         HttpResponse response = executeRequest(op);
         String data = responseToString(response);
 
-        return data == "suc";
+        if (data.equals(API_ERROR)) {
+            throw new DistriviaAPIException("Question's answer was malformed");
+        }
+
+        return data.equals("correct");
     }
 
     /**
@@ -175,9 +188,10 @@ public class DistriviaAPI {
      * 
      * @return The game leader board at the time of the query, or null if the
      *         gameId does not exist, or the user is not properly logged in.
+     * @throws DistriviaAPIException
      */
     public static Leaderboard leaderBoard(final String authToken,
-            final String gameId) {
+            final String gameId) throws DistriviaAPIException {
 
         String url = new String(API_URL);
 
@@ -194,6 +208,7 @@ public class DistriviaAPI {
             JSONObject json = new JSONObject(responseToString(response));
             board = Leaderboard.create(json);
         } catch (JSONException e) {
+            throw new DistriviaAPIException("Leaderboard request was malformed");
         }
 
         return board;

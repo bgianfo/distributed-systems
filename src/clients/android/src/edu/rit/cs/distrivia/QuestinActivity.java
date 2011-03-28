@@ -9,7 +9,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import edu.rit.cs.distrivia.api.DistriviaAPI;
 
 /**
  * Main activity to provide login functionality to the Application.
@@ -37,14 +36,15 @@ public class QuestinActivity extends Activity {
                 final String name = uname.getText().toString().trim();
                 // String passwd = pass.getText().toString().trim();
 
-                final String authToken = DistriviaAPI.login(name);
+                final String authToken = "";// DistriviaAPI.login(name);
                 final boolean loginSuccessful = authToken != null;
 
                 if (loginSuccessful) {
                     Toast.makeText(getApplicationContext(),
                             "Welcome back, " + name, 10).show();
                     Intent roundIntent = new Intent();
-                    roundIntent.setClassName("edu.rit.cs.distrivia", "edu.rit.cs.distrivia.JoinActivity");
+                    roundIntent.setClassName("edu.rit.cs.distrivia",
+                            "edu.rit.cs.distrivia.JoinActivity");
                     startActivity(roundIntent);
                 } else {
                     Toast.makeText(getApplicationContext(), "Login failure", 10)
