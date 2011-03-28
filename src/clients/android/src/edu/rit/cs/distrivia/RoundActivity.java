@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 import edu.rit.cs.distrivia.api.DistriviaAPI;
 import edu.rit.cs.distrivia.api.DistriviaAPIException;
@@ -23,6 +24,7 @@ public class RoundActivity extends Activity {
     private long startTime = 0;
     private long stopTime = 0;
     private final String selection = null;
+    private TextView question;
     private Button answerA;
     private Button answerB;
     private Button answerC;
@@ -52,6 +54,7 @@ public class RoundActivity extends Activity {
         // authToken = gameData.getAuthToken();
         // gameId = gameData.getGameID();
 
+        question = (TextView) findViewById(R.id.question);
         answerA = (Button) findViewById(R.id.answer1_button);
         answerB = (Button) findViewById(R.id.answer2_button);
         answerC = (Button) findViewById(R.id.answer3_button);
@@ -62,11 +65,10 @@ public class RoundActivity extends Activity {
         submit.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (selection != null) {
                     submit();
                 } else {
-                    Toast.makeText(v.getContext(), "You select an answer", 10)
+                    Toast.makeText(v.getContext(), "Please select an answer", 10)
                             .show();
                 }
             }
@@ -102,6 +104,7 @@ public class RoundActivity extends Activity {
     /**
      */
     private void setupButtons(final Question q) {
+    	question.setText(q.getQuestion());
         answerA.setText("A: " + q.getChoiceA());
         answerB.setText("B: " + q.getChoiceB());
         answerC.setText("C: " + q.getChoiceC());

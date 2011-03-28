@@ -59,8 +59,8 @@
                </table>
                <div class='join_fail hidden' id='join_fail'>Invalid Game / Password</div>
             </form>
-            <div class='join_priv_wait hidden' id='join_priv_wait'>Waiting for game to start</div>
          </div>
+         <div class='join_board'><a href='#' onclick='return Scores()'>View Leaderboard</a></div>
       </div>
 
       <!-- Waiting to start -->
@@ -74,16 +74,29 @@
       <div class='game hidden' id='game'>
          <div class='sub_header' id='game_question'></div>
          <div class='answers' id='answers'>
-            <div class='answer' href='#' tabindex=0 onclick='return Answer(1)'></div>
-            <div class='answer' href='#' tabindex=0 onclick='return Answer(2)'></div>
-            <div class='answer' href='#' tabindex=0 onclick='return Answer(3)'></div>
-            <div class='answer' href='#' tabindex=0 onclick='return Answer(4)'></div>
+            <a class='answer' href='#' tabindex=0 onclick='return Answer(1)'></a>
+            <a class='answer' href='#' tabindex=0 onclick='return Answer(2)'></a>
+            <a class='answer' href='#' tabindex=0 onclick='return Answer(3)'></a>
+            <a class='answer' href='#' tabindex=0 onclick='return Answer(4)'></a>
          </div>
          <div class='game_bottom'>
             <a href='#' onclick='return Next()' class='next'>ok</a>
          </div>
       </div>
 
+      <!-- Leaderboard -->
+      <div class='board hidden' id='board'>
+         <div class='sub_header'>Leaderboard
+               <a style='float:right' href='#' onclick='return Home()'>Back</a>
+         </div>
+         <div class='board_scores' id='board_scores'>
+            <ol class='board_list board_load' id='board_list'>
+            </ol>
+            <div class='board_bottom'>
+               <a href='#' onclick='return More()'>more...</a>
+            </div>
+         </div>
+      </div>
    </div>
 </div>
 </body>

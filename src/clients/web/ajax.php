@@ -10,6 +10,17 @@ $login = array(
    'sfg6126'=>'sticky'
    );
 
+$users = array(
+   "",
+   "ProfRaj123",
+   "Gl4z3r",
+   'TheDestler',
+   'bgianfo',
+   'srm2997',
+   'monkeys',
+   'tehMastah'
+   );
+
 $private = array(
    'distrivia'=>'bob'
    );
@@ -106,29 +117,24 @@ if( $_POST['post'] == 'next' ){
          echo 'done' . $_SESSION['score'];
       }
    }
+}
 
-   /*
-   $game = game();
-   if( validate() && $game !== false && isset( $_POST['ans'] ) ){
-      // Check answer
-      if( $rs 
+if( $_POST['post'] == 'more' ){
+   $num = get('n');
+   if( $num !== null && $num > 0 ){
+      sleep(1);
+      $frm = 0;
+      $to = 36 * 36 * 36 * 36 * 36;
 
-      // Feed next question
-      $q = $_SESSION['q'];
-      if( $q > 4 ){
-         echo "done";
-      }else{
-         $_SESSION['q'] = $q + 1;
-         $q = rand( 0, count( $qs ) - 1 );
-         echo $qs[$q] + "\n" +
-            $as[$q][0] + "\n" +
-            $as[$q][1] + "\n" +
-            $as[$q][2] + "\n" +
-            $as[$q][3] + "\n" + 
-            $_SESSION['score'];
+      $outp = $num;
+      for( $i = $num; $i < $num + 10; $i++ ){
+         $outp .= "\n" . 
+            (isset($users[$i]) ? $users[$i] : base_convert( rand($to,$frm), 10, 36 ) ) . 
+            "\n" . round( 10000 / ($i));
       }
+
+      echo $outp;
    }
-   */
 }
 
 function question(){

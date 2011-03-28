@@ -105,6 +105,11 @@ body{
 .join_fail{
    color: red;
 }
+
+.join_board{
+   text-align: center;
+   margin-top: 20px;
+}
 /* End Join CSS */
 
 /* Game CSS */
@@ -112,9 +117,10 @@ body{
    border: 1px solid gray;
    margin-bottom: 10px;
    color: pink;
+   display: block;
 }
 
-div.answer:hover {
+a.answer:hover {
    border: 1px solid white;
 }
 
@@ -132,6 +138,32 @@ div.answer:hover {
    padding: 0 20px;
 }
 /* End Game CSS */
+
+
+/* Leaderboard CSS */
+.board_list{
+   height: 12em;
+   overflow: auto;
+}
+
+.board_left{
+   display: inline;
+}
+
+.board_right{
+   display: inline;
+   float: right;
+}
+
+.board_load{
+   background: url('load2.gif') no-repeat center;
+}
+
+.board_bottom{
+   text-align: center;
+}
+/* End Leaderboard CSS */
+
 
 a:link {
    color: pink;

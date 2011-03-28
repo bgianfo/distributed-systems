@@ -2,6 +2,7 @@
 var session = null;
 var updater = null;
 var answer = -1;
+var board = 1;
 
 function XML(){
    var xr;
@@ -64,7 +65,7 @@ function CheckStatus(){
 function UpdateGame( data ){
    var parts = data.split("\n");
    document.getElementById('game_question').innerHTML = parts[0];
-   var ans = document.getElementById('answers').getElementsByTagName('div');
+   var ans = document.getElementById('answers').getElementsByTagName('a');
    for( var i = 0; i < 4; i++ ){
       ans[i].innerHTML = parts[i+1];
    }
@@ -74,7 +75,7 @@ function UpdateGame( data ){
 function Next(){
    var xr = XML();
 
-   var ans = document.getElementById('answers').getElementsByTagName('div');
+   var ans = document.getElementById('answers').getElementsByTagName('a');
    for( var i = 0; i < 4; i++ ){
       ans[i].classList.remove('selected');
    }
@@ -103,7 +104,7 @@ function Next(){
 }
 
 function Answer( num ){
-   var ans = document.getElementById('answers').getElementsByTagName('div');
+   var ans = document.getElementById('answers').getElementsByTagName('a');
    for( var i = 0; i < 4; i++ ){
       if( num == i + 1 ){
          ans[i].classList.add('selected');
@@ -115,14 +116,55 @@ function Answer( num ){
    answer = num;
 }
 
-function Play(){
+function More(){
+   // board_list 
    var xr = XML();
 
+   document.getElementById("board_list").classList.add('board_load');
+
    xr.onreadystatechange = function(){
-      if( xr.readyState == 4 && ex.status == 200 ){
-         
-      } 
+      if( xr.readyState == 4 && xr.status == 200 ){
+         document.getElementById("board_list").classList.remove('board_load');
+         var bits = xr.responseText.split("\n");
+         if( bits[0] == board ){
+            var more = "";
+            for( var i = 1; i < bits.length; i+=2 ){
+               more += "<li class='board_item'><div class='board_left'>" + bits[i] + "</div><div class='board_right'>" + bits[i+1] + "</div></li>";
+               board++;
+            }
+            var list = document.getElementById('board_list');
+            list.innerHTML = list.innerHTML + more;
+         }else{
+            console.log( bits[0] );
+            console.log( board );
+         }
+      }
    }
+
+   var param = "post=more&i=" + session + "&n=" + board; 
+   xr.open( "POST", "ajax.php", true );
+   xr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+   xr.setRequestHeader("Content-length", param.length);
+   xr.setRequestHeader("Connection", "close");
+   xr.send(param);
+
+   return false;
+}
+
+function Scores(){
+   board = 1;
+   document.getElementById('board_list').innerHTML = "";
+   document.getElementById('join').classList.add('hidden');
+   document.getElementById('board').classList.remove('hidden');
+   More();
+
+   return false;
+}
+
+function Home(){
+   document.getElementById('board').classList.add('hidden');
+   document.getElementById('join').classList.remove('hidden');
+   return false;
 }
 
 function Public(){

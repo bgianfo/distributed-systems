@@ -47,7 +47,7 @@ public class Question {
      */
     public static Question dummy() {
         final Question q = new Question();
-        q.question = "Who is awesome";
+        q.question = "Who is awesome?";
         q.choiceA = "Sam";
         q.choiceB = "Sticky";
         q.choiceC = "Brian";
