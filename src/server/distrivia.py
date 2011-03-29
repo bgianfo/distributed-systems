@@ -46,7 +46,7 @@ app.wsgi_app = SharedDataMiddleware(app.wsgi_app, {
 def getip():
     """ Return the internal IP of this machine """
     try:
-        url = "http://169.254.169.254/latest/meta-data/local-ipv4-hostname"
+        url = "http://169.254.169.254/latest/meta-data/local-ipv4"
         hostname = urllib2.urlopen(url).read()
         return hostname
     except:
