@@ -1,8 +1,43 @@
+// Current game id
+var gid = null;
 
+// Current question ID
+var qid = "0";
+
+// Authentication session token
 var session = null;
+
+// Session username
+var username = null;
+
+var startTime = 0;
+var stopTime = 0;
+
 var updater = null;
 var answer = -1;
 var board = 1;
+
+var API_ERROR   = "err";
+var API_SUCCESS = "suc";
+var MAX_PLAYERS = 1;
+
+function byId( paramId ) {
+   return document.getElementById( paramId );
+}
+
+function jsonify( buffer ) {
+    return eval( "(" + buffer + ")" );
+}
+
+Object.size = function(obj) {
+    var size = 0, key;
+    for (key in obj) {
+        if (obj.hasOwnProperty(key)) {
+            size++;
+        }
+    }
+    return size;
+};
 
 function XML(){
    var xr;
@@ -20,91 +55,176 @@ function Cancel(){
    var param = "post=cancel&id=" + session;
    xr.open( "POST", "ajax.php", true );
    xr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-   xr.setRequestHeader("Content-length", param.length);
-   xr.setRequestHeader("Connection", "close");
+   //xr.setRequestHeader("Content-length", param.length);
+   //xr.setRequestHeader("Connection", "close");
    xr.send(param);
 
-   document.getElementById('wait').classList.add('hidden');
-   document.getElementById('join').classList.remove('hidden');
-   document.getElementById('wait_message').innerHTML = "";
+   byId('wait').classList.add('hidden');
+   byId('join').classList.remove('hidden');
+   byId('wait_message').innerHTML = "";
 
    window.clearInterval( updater );
 
    return false;
 }
 
-function CheckStatus(){
+function CheckStatus(score){
    var xr = XML();
 
-   xr.onreadystatechange = function(){
-      if( xr.readyState == 4 && xr.status == 200 ){
-         if( xr.responseText.indexOf("n=") == 0 ){
-            document.getElementById('wait_message').innerHTML =
-               xr.responseText.substr(2) + " / 20 people";
-         }else if( xr.responseText.indexOf("start") == 0 ){
-            document.getElementById('wait').classList.add('hidden');
-            document.getElementById('game').classList.remove('hidden');
-            window.clearInterval( updater );
-            UpdateGame( xr.responseText.substr(5) );
-         }else{
-            document.getElementById('wait').classList.add('hidden');
-            document.getElementById('join').classList.remove('hidden');
-            window.clearInterval( updater );
-         }
-      }
+   if ( !score ) {
+
+       xr.onreadystatechange = function(){
+          if( xr.readyState == 4 && xr.status == 200 ){
+
+             var data = xr.responseText;
+
+             if ( data == API_ERROR ) {
+                byId('wait').classList.add('hidden');
+                byId('join').classList.remove('hidden');
+                window.clearInterval( updater );
+                return;
+             }
+
+             var game = jsonify( data );
+             var size = Object.size( game.leaderboard );
+             if ( size < MAX_PLAYERS ) {
+                byId('wait_message').innerHTML = size + " / " + MAX_PLAYERS + " people";
+             } else if ( size == MAX_PLAYERS ) {
+                byId('wait').classList.add('hidden');
+                byId('game').classList.remove('hidden');
+                window.clearInterval( updater );
+                // Load up question
+                Next();
+             }
+          }
+       };
+
+   } else {
+
+       xr.onreadystatechange = function(){
+          if( xr.readyState == 4 && xr.status == 200 ){
+
+             var data = xr.responseText;
+
+             if ( data == API_ERROR ) {
+                // TODO: Display warning...
+                return;
+             }
+
+             var game = jsonify( data );
+
+             byId('score').innerHTML = game.leaderboard[username];
+          }
+       };
+
+
    }
 
-   var param = "post=check&i=" + session;
-   xr.open( "POST", "ajax.php", true );
+   var param = "authToken=" + session;
+   var URI = "/game/" + gid + "/leaderboard";
+
+   xr.open( "POST", URI, true );
    xr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-   xr.setRequestHeader("Content-length", param.length);
-   xr.setRequestHeader("Connection", "close");
+   //xr.setRequestHeader("Content-length", param.length);
+   //xr.setRequestHeader("Connection", "close");
    xr.send(param);
 }
 
-function UpdateGame( data ){
-   var parts = data.split("\n");
-   document.getElementById('game_question').innerHTML = parts[0];
-   var ans = document.getElementById('answers').getElementsByTagName('a');
-   for( var i = 0; i < 4; i++ ){
-      ans[i].innerHTML = parts[i+1];
-   }
-   document.getElementById('score').innerHTML = parts[5];
+function UpdateGame( question ){
+   byId('game_question').innerHTML = question.question;
+   var ans = byId('answers').getElementsByTagName('a');
+   ans[0].innerHTML = question.a;
+   ans[1].innerHTML = question.b;
+   ans[2].innerHTML = question.c;
+   ans[3].innerHTML = question.d;
+
+   startTime = new Date().getTime();
 }
 
-function Next(){
-   var xr = XML();
+function SubmitAnswer(){
 
-   var ans = document.getElementById('answers').getElementsByTagName('a');
-   for( var i = 0; i < 4; i++ ){
-      ans[i].classList.remove('selected');
-   }
+
+   var xr = XML();
 
    xr.onreadystatechange = function(){
       if( xr.readyState == 4 && xr.status == 200 ){
-         if( xr.responseText.indexOf('next') == 0 ){
-            UpdateGame( xr.responseText.substr(4) );
-         }else if( xr.responseText.indexOf('done') == 0 ){
-            document.getElementById('score').innerHTML = 
-               xr.responseText.substr(4);
-            document.getElementById('game').classList.add('hidden');
-            document.getElementById('join').classList.remove('hidden');
+         var data = xr.responseText;
+         if ( data == API_ERROR ) {
+             // TODO: Display a warning?
+         } else if ( data == "wrong" ) {
+         } else if ( data == "correct" ) {
+         }
+         CheckStatus(true);
+      }
+   };
+
+   var time = stopTime - startTime;
+   var param = "authToken=" + session + "&user=" + username;
+   var URI = "/game/" + gid + "/answer/" + qid + "/" + answer + "/" + time;
+   xr.open( "POST", URI, true );
+   xr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+   //xr.setRequestHeader("Content-length", param.length);
+   //xr.setRequestHeader("Connection", "close");
+   xr.send(param);
+
+   return false;
+}
+
+function Next(){
+
+   // On first occurance, don't submit.
+   if ( qid != "0" ) {
+       SubmitAnswer();
+
+       // Deslect all answers
+       var ans = byId('answers').getElementsByTagName('a');
+       for( var i = 0; i < 4; i++ ){
+          ans[i].classList.remove('selected');
+       }
+   }
+
+   var xr = XML();
+   xr.onreadystatechange = function(){
+      if( xr.readyState == 4 && xr.status == 200 ){
+
+         var data = xr.responseText;
+
+         if ( data == API_ERROR ) {
+             // TODO: Display a warning?
+             return;
+         }
+
+         var question = jsonify( data );
+
+         if( question.status == "next" ){
+            UpdateGame( question );
+            // Update the current quesition id.
+            qid = question.id;
+         } else if ( question.status == "done" ){
+            byId('score').innerHTML = quest.score;
+            byId('game').classList.add('hidden');
+            byId('join').classList.remove('hidden');
          }
       }
    }
 
-   var param = "post=next&i=" + session + "&a=" + answer;
-   xr.open( "POST", "ajax.php", true );
+   var param = "authToken=" + session + "&a=" + answer;
+   var URI = "/game/" + gid + "/next/" + qid;
+   xr.open( "POST", URI, true );
    xr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-   xr.setRequestHeader("Content-length", param.length);
-   xr.setRequestHeader("Connection", "close");
+   //xr.setRequestHeader("Content-length", param.length);
+   //xr.setRequestHeader("Connection", "close");
    xr.send(param);
 
    return false;
 }
 
 function Answer( num ){
-   var ans = document.getElementById('answers').getElementsByTagName('a');
+
+   // Store the selection time
+   stopTime = new Date().getTime();
+
+   var ans = byId('answers').getElementsByTagName('a');
    for( var i = 0; i < 4; i++ ){
       if( num == i + 1 ){
          ans[i].classList.add('selected');
@@ -113,18 +233,20 @@ function Answer( num ){
       }
    }
 
-   answer = num;
+   var answers = ["a","b","c","d"];
+
+   answer = answers[num-1];
 }
 
 function More(){
    // board_list 
    var xr = XML();
 
-   document.getElementById("board_list").classList.add('board_load');
+   byId("board_list").classList.add('board_load');
 
    xr.onreadystatechange = function(){
       if( xr.readyState == 4 && xr.status == 200 ){
-         document.getElementById("board_list").classList.remove('board_load');
+         byId("board_list").classList.remove('board_load');
          var bits = xr.responseText.split("\n");
          if( bits[0] == board ){
             var more = "";
@@ -132,7 +254,7 @@ function More(){
                more += "<li class='board_item'><div class='board_left'>" + bits[i] + "</div><div class='board_right'>" + bits[i+1] + "</div></li>";
                board++;
             }
-            var list = document.getElementById('board_list');
+            var list = byId('board_list');
             list.innerHTML = list.innerHTML + more;
          }else{
             console.log( bits[0] );
@@ -144,8 +266,8 @@ function More(){
    var param = "post=more&i=" + session + "&n=" + board; 
    xr.open( "POST", "ajax.php", true );
    xr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-   xr.setRequestHeader("Content-length", param.length);
-   xr.setRequestHeader("Connection", "close");
+   //xr.setRequestHeader("Content-length", param.length);
+   //xr.setRequestHeader("Connection", "close");
    xr.send(param);
 
    return false;
@@ -153,17 +275,17 @@ function More(){
 
 function Scores(){
    board = 1;
-   document.getElementById('board_list').innerHTML = "";
-   document.getElementById('join').classList.add('hidden');
-   document.getElementById('board').classList.remove('hidden');
+   byId('board_list').innerHTML = "";
+   byId('join').classList.add('hidden');
+   byId('board').classList.remove('hidden');
    More();
 
    return false;
 }
 
 function Home(){
-   document.getElementById('board').classList.add('hidden');
-   document.getElementById('join').classList.remove('hidden');
+   byId('board').classList.add('hidden');
+   byId('join').classList.remove('hidden');
    return false;
 }
 
@@ -172,32 +294,35 @@ function Public(){
 
    xr.onreadystatechange = function(){
       if( xr.readyState == 4 && xr.status == 200 ){
-         if( xr.responseText == "null" ){
+
+         var data = xr.responseText;
+         if( xr.responseText == API_ERROR ){
             // Invalid login
-            document.getElementById('join').classList.add("hidden");
-            document.getElementById('login').classList.remove("hidden");
+            byId('join').classList.add("hidden");
+            byId('login').classList.remove("hidden");
          }else{
+
+            // Save the game id ( global )
+            gid = data;
+
             // Waiting to join
-//            document.getElementById('join_public').innerHTML = 
-//               xr.responseText + " / 20 people";
-//            document.getElementById('join_header').innerHTML =
-//               "Joining a game...";
-            document.getElementById('wait_message').innerHTML = 
-               xr.responseText + " / 20 people";
-            document.getElementById('join').classList.add('hidden');
-            document.getElementById('wait').classList.remove('hidden');
-            updater = window.setInterval("CheckStatus()",1000);
+            byId('wait_message').innerHTML = "Joining game...";
+            byId('join').classList.add('hidden');
+            byId('wait').classList.remove('hidden');
+            updater = window.setInterval("CheckStatus(false)",1000);
          }
       }
    }
 
-   var param = "post=join&i=" + session;
-   xr.open( "POST", "ajax.php", true );
+   var param = "authToken=" + session + "&user=" + username;
+   var URI = "/game/join";
+
+   xr.open( "POST", URI, true );
    xr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-   xr.setRequestHeader("Content-length", param.length);
-   xr.setRequestHeader("Connection", "close");
-   
+   //xr.setRequestHeader("Content-length", param.length);
+   //xr.setRequestHeader("Connection", "close");
    xr.send(param);
+
    return false;
 }
 
@@ -208,34 +333,36 @@ function Login(){
       if( xr.readyState == 4 ){
          if( xr.status == 200 ){
             // Good to go
-            if( xr.responseText == "null" ){
+            if( xr.responseText == API_ERROR ){
                // Invalid login
-               document.getElementById('login_invalid').classList.remove('hidden');
+               byId('login_invalid').classList.remove('hidden');
             }else{
                // Valid login
                session = xr.responseText;
-               document.getElementById('login').classList.add("hidden");
-               document.getElementById('join').classList.remove('hidden');
-               document.getElementById('login_invalid').classList.add('hidden');
+               byId('login').classList.add("hidden");
+               byId('join').classList.remove('hidden');
+               byId('login_invalid').classList.add('hidden');
             }
          }else{
             // Server connection failure
+            // TODO: Show warning/error
          }
       }
    }
 
-   var uname = document.forms.login_form.username.value;
-   var pass = document.forms.login_form.password.value;
 
-   var param = "post=login&u=" + uname + "&p=" + pass;
-   xr.open( "POST", "ajax.php", true );
-//   var param = "login=" + uname;
-//   xr.open( "POST", "http://ec2-50-17-136-240.compute-1.amazonaws.com/", true );
+   username = document.forms.login_form.username.value;
+   var pass = document.forms.login_form.password.value;
+   var param = "";
+
+   var URI = "/login/" + username;
+
+   xr.open( "POST", URI, true );
    xr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-   xr.setRequestHeader("Content-length", param.length);
-   xr.setRequestHeader("Connection", "close");
-   
+   //xr.setRequestHeader("Content-length", param.length);
+   //xr.setRequestHeader("Connection", "close");
    xr.send(param);
+
    return false;
 }
 
@@ -246,15 +373,15 @@ function Private(){
       if( xr.readyState == 4 && xr.status == 200 ){
          if( xr.responseText == "null" ){
             // Invalid private game
-            document.getElementById("join_fail").classList.remove('hidden');
+            byId("join_fail").classList.remove('hidden');
          }else{
             // Valid private game
 //            document.forms.join_form.classList.add("hidden");
-//            document.getElementById('join_priv_wait').classList.remove("hidden");
-            document.getElementById("join_fail").classList.add('hidden');
-            document.getElementById('join').classList.add('hidden');
-            document.getElementById('wait').classList.remove('hidden');
-            document.getElementById('wait_message').innerHTML = "Waiting for owner to start game";
+//            byId('join_priv_wait').classList.remove("hidden");
+            byId("join_fail").classList.add('hidden');
+            byId('join').classList.add('hidden');
+            byId('wait').classList.remove('hidden');
+            byId('wait_message').innerHTML = "Waiting for owner to start game";
          }
       }
    }
@@ -265,8 +392,8 @@ function Private(){
 
    xr.open( "POST", "ajax.php", true );
    xr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-   xr.setRequestHeader("Content-length", param.length);
-   xr.setRequestHeader("Connection", "close");
+   //xr.setRequestHeader("Content-length", param.length);
+   //xr.setRequestHeader("Connection", "close");
 
    xr.send( param );
    return false;

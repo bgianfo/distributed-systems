@@ -43,11 +43,21 @@ app.wsgi_app = SharedDataMiddleware(app.wsgi_app, {
 # Utility functions
 #
 
+def getport():
+    """ Return the internal IP of this machine """
+    try:
+        myurl = "http://169.254.169.254/latest/meta-data/local-ipv4"
+        hostname = urllib2.urlopen(url=myurl,timeout=1).read()
+        return 80
+    except:
+        return 8080
+
+
 def getip():
     """ Return the internal IP of this machine """
     try:
-        url = "http://169.254.169.254/latest/meta-data/local-ipv4"
-        hostname = urllib2.urlopen(url).read()
+        myurl = "http://169.254.169.254/latest/meta-data/local-ipv4"
+        hostname = urllib2.urlopen(url=myurl,timeout=1).read()
         return hostname
     except:
         return "127.0.0.1"
@@ -57,11 +67,11 @@ def gethost():
         if we arn't no EC2
     """
     try:
-        url = "http://169.254.169.254/latest/meta-data/public-hostname"
-        hostname = urllib2.urlopen(url).read()
+        myurl = "http://169.254.169.254/latest/meta-data/public-hostname"
+        hostname = urllib2.urlopen(url=myurl, timeout=1).read()
         return hostname
     except:
-        return "0.0.0.0"
+        return "127.0.0.1"
 
 def isAuthed():
     """
@@ -313,11 +323,11 @@ def nextQuestion(gid,prevId):
         gameData = game.get_data();
         questions = gameData["questions"]
 
+        qIndex = None
         nextQuestion = None
         if prevId == "0":
             nextQuestion = questions[0]
         else:
-            qIndex = None
             try:
                 qIndex = questions.index( prevId )
             except:
@@ -335,6 +345,9 @@ def nextQuestion(gid,prevId):
         # Add id into the question
         qdata = question.get_data()
         qdata["id"] = nextQuestion
+        qdata["status"] = "next"
+        if (prevId != "0") and (qIndex == QUESTION_LIMIT-1):
+            qdata["status"] = "done"
         # TODO: Add a status and score field
         return json.dumps(qdata)
 
@@ -384,6 +397,7 @@ def answerQuestion(gid,qid,answer,time_ms):
     qdata = question.get_data()
 
     if qdata["answer"] != answer:
+        print "Wrong: " + qdata["answer"]
         return "wrong"
 
     SEC_TO_MS =  1000
@@ -412,7 +426,10 @@ def answerQuestion(gid,qid,answer,time_ms):
         points = 500
     else:
         # Time is too fast, not counting it.
+        print "cheater"
         return API_ERROR
+
+    print "Score: " + str(points) + " points"
 
     userBucket = g.db.bucket( "users" )
     userObj = userBucket.get( user )
@@ -463,4 +480,4 @@ def getLeaderBoard(gid):
 
 # Run the webserver
 if __name__ == '__main__':
-    app.run( host=gethost(), port=80 )
+    app.run( host=gethost(), port=getport() )
