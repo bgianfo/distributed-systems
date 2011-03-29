@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent" android:orientation="vertical">
+    <ImageView android:id="@+id/imageView1" android:layout_width="fill_parent" android:src="@drawable/distriviaw" android:layout_height="40dip"></ImageView>
+    <TextView android:text="Leaderboard" android:id="@+id/textView1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="20sp"></TextView>
+    <TableLayout android:id="@+id/tableLayout1" android:layout_width="fill_parent" android:layout_height="wrap_content" android:isScrollContainer="true" android:scrollbarStyle="insideInset" android:scrollbars="vertical">
+        <TableRow android:id="@+id/tableRow1" android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <LinearLayout android:layout_height="wrap_content" android:layout_width="fill_parent" android:id="@+id/linearLayout1">
+                <TextView android:text="ProfRaj123" android:id="@+id/textView2" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+                <TextView android:text="10000" android:id="@+id/textView3" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+            </LinearLayout>
+        </TableRow>
+    </TableLayout>
+</LinearLayout>

@@ -1,6 +1,7 @@
 package edu.rit.cs.distrivia;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -75,6 +76,11 @@ public class RoundActivity extends Activity {
             public void onClick(View v) {
                 if (selection != null) {
                     submit();
+                    // Load Leaderboard after last question... Just testing for now
+                    Intent leaderIntent = new Intent();
+                    leaderIntent.setClassName("edu.rit.cs.distrivia",
+                            "edu.rit.cs.distrivia.LeaderboardActivity");
+                    startActivity(leaderIntent);
                 } else {
                     Toast.makeText(v.getContext(), "Please select an answer", 10)
                             .show();
