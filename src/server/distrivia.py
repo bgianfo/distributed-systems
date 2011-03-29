@@ -45,10 +45,12 @@ app.wsgi_app = SharedDataMiddleware(app.wsgi_app, {
 
 def getip():
     """ Return the internal IP of this machine """
-    return "127.0.0.1"
-    #if app.debug:
-    #else:
-    #    return socket.gethostbyname(socket.gethostname())
+    try:
+        url = "http://169.254.169.254/latest/meta-data/local-ipv4-hostname"
+        hostname = urllib2.urlopen(url).read()
+        return hostname
+    except:
+        return "127.0.0.1"
 
 def gethost():
     """ Return the outward facing hostname on EC2, or just the localhost
@@ -333,6 +335,7 @@ def nextQuestion(gid,prevId):
         # Add id into the question
         qdata = question.get_data()
         qdata["id"] = nextQuestion
+        # TODO: Add a status and score field
         return json.dumps(qdata)
 
 @app.route('/game/<gid>/answer/<qid>/<answer>/<int:time_ms>', methods=["POST"])
