@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Activity for players to answer questions during a round.
@@ -38,6 +39,7 @@ public class JoinActivity extends Activity {
             @Override
             public void onClick(final View v) {
                 privateLayout.setVisibility(View.INVISIBLE);
+                v.setEnabled(false);
                 playersLabel.setText("Players: 10/20");
                 Intent roundIntent = new Intent();
                 roundIntent.setClassName("edu.rit.cs.distrivia",
@@ -54,6 +56,16 @@ public class JoinActivity extends Activity {
         		String pass = privatePass.getText().toString().trim();
         		if (!name.equals("") && !pass.equals("")) {
         			publicLayout.setVisibility(View.GONE);
+        			v.setEnabled(false);
+        			Intent roundIntent = new Intent();
+                    roundIntent.setClassName("edu.rit.cs.distrivia",
+                            "edu.rit.cs.distrivia.RoundActivity");
+                    // SystemClock.sleep(2000);
+                    startActivity(roundIntent);
+        		}
+        		else {
+        			Toast.makeText(v.getContext(), "Enter name and pass", 10)
+        				.show();
         		}
         	}
         });
