@@ -13,7 +13,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPut;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.BasicHttpContext;
@@ -29,9 +29,9 @@ public class DistriviaAPI {
 
     private static HttpClient httpClient = new DefaultHttpClient();
     private static HttpContext localContext = new BasicHttpContext();
-    final private static String API_URL = "http://distrivia.com";
-    final private static String API_ERROR = "err";
-    final private static String API_SUCCESS = "suc";
+    final private static String API_URL = "http://distrivia.lame.ws";
+    final public static String API_ERROR = "err";
+    final public static String API_SUCCESS = "suc";
 
     /**
      * API call to login to Distrivia with a specific user name.
@@ -44,12 +44,11 @@ public class DistriviaAPI {
      * 
      * @throws DistriviaAPIException
      */
-    public static String login(final String userName)
-            throws DistriviaAPIException {
+    public static String login(final String userName) throws Exception {
         String url = new String(API_URL);
         url += "/login/" + userName;
 
-        final HttpPut op = new HttpPut(url);
+        final HttpPost op = new HttpPost(url);
         final HttpResponse response = executeRequest(op);
         final String data = responseToString(response);
 
@@ -67,17 +66,19 @@ public class DistriviaAPI {
      *            The user name to register with the service.
      * @return True on register success, false on register failure.
      */
-    public static boolean register(final String username) {
+    public static String register(final String username) throws Exception {
         String url = new String(API_URL);
 
         url += "/register/" + username;
 
-        HttpPut op = new HttpPut(url);
+        HttpPost op = new HttpPost(url);
         HttpResponse response = executeRequest(op);
 
         String data = responseToString(response);
 
-        return data.equals(API_SUCCESS);
+        return data;
+
+        // return data.equals(API_SUCCESS);
     }
 
     /**
@@ -93,7 +94,7 @@ public class DistriviaAPI {
      * @throws DistriviaAPIException
      */
     public static Question firstQuestion(final String authToken,
-            final String gameId) throws DistriviaAPIException {
+            final String gameId) throws Exception {
         return nextQuestion(authToken, gameId, "0");
     }
 
@@ -113,8 +114,7 @@ public class DistriviaAPI {
      * @throws DistriviaAPIException
      */
     public static Question nextQuestion(final String authToken,
-            final String gameId, final String prevId)
-            throws DistriviaAPIException {
+            final String gameId, final String prevId) throws Exception {
 
         String url = new String(API_URL);
 
@@ -159,7 +159,7 @@ public class DistriviaAPI {
      */
     public static boolean answerQuestion(final String authToken,
             final String gameId, final String answer, final int answerTime_ms)
-            throws DistriviaAPIException {
+            throws Exception {
         String url = new String(API_URL);
         url += "/game/" + gameId;
         url += "/answer/" + answer;
@@ -191,7 +191,7 @@ public class DistriviaAPI {
      * @throws DistriviaAPIException
      */
     public static Leaderboard leaderBoard(final String authToken,
-            final String gameId) throws DistriviaAPIException {
+            final String gameId) throws Exception {
 
         String url = new String(API_URL);
 
@@ -214,25 +214,26 @@ public class DistriviaAPI {
         return board;
     }
 
-    private static HttpResponse executeRequest(HttpRequestBase op) {
+    private static HttpResponse executeRequest(HttpRequestBase op)
+            throws Exception {
         HttpResponse response = null;
         try {
             response = httpClient.execute(op, localContext);
         } catch (ClientProtocolException e) {
-            e.printStackTrace();
+            throw e;
         } catch (IOException e) {
-            e.printStackTrace();
+            throw e;
         }
         return response;
     }
 
-    private static String responseToString(HttpResponse res) {
+    private static String responseToString(HttpResponse res) throws Exception {
 
         InputStream is = null;
         try {
             is = res.getEntity().getContent();
         } catch (Exception e) {
-            e.printStackTrace();
+            throw e;
         }
 
         if (is != null) {
@@ -248,9 +249,9 @@ public class DistriviaAPI {
                     writer.write(buffer, 0, n);
                 }
             } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
+                throw e;
             } catch (IOException e) {
-                e.printStackTrace();
+                throw e;
             } finally {
                 try {
                     is.close();

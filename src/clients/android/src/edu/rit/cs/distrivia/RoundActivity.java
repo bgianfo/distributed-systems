@@ -39,13 +39,13 @@ public class RoundActivity extends Activity {
             answer.setSelected(true);
             answer.setTextColor(Color.BLUE);
             if (answer == answerA)
-            	selection = "a";
+                selection = "a";
             else if (answer == answerB)
-            	selection = "b";
+                selection = "b";
             else if (answer == answerC)
-            	selection = "c";
+                selection = "c";
             else if (answer == answerD)
-            	selection = "d";
+                selection = "d";
             stopTime = SystemClock.elapsedRealtime();
         }
     };
@@ -76,14 +76,15 @@ public class RoundActivity extends Activity {
             public void onClick(View v) {
                 if (selection != null) {
                     submit();
-                    // Load Leaderboard after last question... Just testing for now
+                    // Load Leaderboard after last question... Just testing for
+                    // now
                     Intent leaderIntent = new Intent();
                     leaderIntent.setClassName("edu.rit.cs.distrivia",
                             "edu.rit.cs.distrivia.LeaderboardActivity");
                     startActivity(leaderIntent);
                 } else {
-                    Toast.makeText(v.getContext(), "Please select an answer", 10)
-                            .show();
+                    Toast.makeText(v.getContext(), "Please select an answer",
+                            10).show();
                 }
             }
         });
@@ -111,6 +112,9 @@ public class RoundActivity extends Activity {
         } catch (final DistriviaAPIException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
         return false;
     }
@@ -118,7 +122,7 @@ public class RoundActivity extends Activity {
     /**
      */
     private void setupButtons(final Question q) {
-    	question.setText(q.getQuestion());
+        question.setText(q.getQuestion());
         answerA.setText("A: " + q.getChoiceA());
         answerB.setText("B: " + q.getChoiceB());
         answerC.setText("C: " + q.getChoiceC());
