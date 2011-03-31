@@ -22,6 +22,7 @@ public class RoundActivity extends Activity {
 
     private String authToken;
     private String gameId;
+    private String username;
     private long startTime = 0;
     private long stopTime = 0;
     private String selection = null;
@@ -107,7 +108,7 @@ public class RoundActivity extends Activity {
 
         try {
             final boolean correct = DistriviaAPI.answerQuestion(authToken,
-                    gameId, selection, (int) decisionTime);
+                    username, gameId, selection, (int) decisionTime);
             return correct;
         } catch (final DistriviaAPIException e) {
             // TODO Auto-generated catch block

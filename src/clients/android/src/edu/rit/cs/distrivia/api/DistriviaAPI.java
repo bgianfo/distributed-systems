@@ -8,14 +8,19 @@ import java.io.Reader;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
 import org.json.JSONException;
@@ -29,7 +34,9 @@ public class DistriviaAPI {
 
     private static HttpClient httpClient = new DefaultHttpClient();
     private static HttpContext localContext = new BasicHttpContext();
-    final private static String API_URL = "http://distrivia.lame.ws";
+    final private static String API_PROTOCOL = "http";
+    final private static String API_ROOT = "distrivia.lame.ws";
+    final private static String API_URL = API_PROTOCOL + "://" + API_ROOT;
     final public static String API_ERROR = "err";
     final public static String API_SUCCESS = "suc";
 
@@ -48,9 +55,7 @@ public class DistriviaAPI {
         String url = new String(API_URL);
         url += "/login/" + userName;
 
-        final HttpPost op = new HttpPost(url);
-        final HttpResponse response = executeRequest(op);
-        final String data = responseToString(response);
+        final String data = post(url, null);
 
         if (data == API_ERROR) {
             throw new DistriviaAPIException("Login Failed");
@@ -68,17 +73,29 @@ public class DistriviaAPI {
      */
     public static String register(final String username) throws Exception {
         String url = new String(API_URL);
-
         url += "/register/" + username;
-
-        HttpPost op = new HttpPost(url);
-        HttpResponse response = executeRequest(op);
-
-        String data = responseToString(response);
+        String data = post(url, null);
 
         return data;
+    }
 
-        // return data.equals(API_SUCCESS);
+    /**
+     * @param token
+     * @param username
+     * @return The game id string
+     * @throws Exception
+     */
+    public static String join(final String token, final String username)
+            throws Exception {
+        String url = new String(API_URL);
+        url += "/game/join";
+
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("authToken", token));
+        params.add(new BasicNameValuePair("user", username));
+
+        String data = post(url, params);
+        return data;
     }
 
     /**
@@ -116,22 +133,21 @@ public class DistriviaAPI {
     public static Question nextQuestion(final String authToken,
             final String gameId, final String prevId) throws Exception {
 
-        String url = new String(API_URL);
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("authToken", authToken));
 
+        String url = new String(API_URL);
         url += "/game/" + gameId + "/next/" + prevId;
 
-        url += "?authToken=" + authToken;
-
-        HttpGet op = new HttpGet(url);
-        HttpResponse response = executeRequest(op);
+        String data = post(url, params);
 
         // Decompose JSON response into a Question object
         Question nextQ = null;
         try {
-            JSONObject json = new JSONObject(responseToString(response));
+            JSONObject json = new JSONObject(data);
             nextQ = Question.create(json);
         } catch (JSONException e) {
-            throw new DistriviaAPIException("Question request was malformed");
+            throw new DistriviaAPIException("Question request was malformed: ");
         }
 
         return nextQ;
@@ -143,6 +159,8 @@ public class DistriviaAPI {
      * @param authToken
      *            The authorization token for this session, obtained at user
      *            login.
+     * @param username
+     *            The user name to login with
      * @param gameId
      *            The unique identification string for the current game.
      * @param answer
@@ -158,17 +176,18 @@ public class DistriviaAPI {
      * @throws DistriviaAPIException
      */
     public static boolean answerQuestion(final String authToken,
-            final String gameId, final String answer, final int answerTime_ms)
-            throws Exception {
+            final String username, final String gameId, final String answer,
+            final int answerTime_ms) throws Exception {
         String url = new String(API_URL);
         url += "/game/" + gameId;
         url += "/answer/" + answer;
         url += "/time/" + answerTime_ms;
-        url += "?authToken=" + authToken;
 
-        HttpGet op = new HttpGet(url);
-        HttpResponse response = executeRequest(op);
-        String data = responseToString(response);
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("authToken", authToken));
+        params.add(new BasicNameValuePair("user", username));
+
+        String data = post(url, params);
 
         if (data.equals(API_ERROR)) {
             throw new DistriviaAPIException("Question's answer was malformed");
@@ -197,21 +216,39 @@ public class DistriviaAPI {
 
         url += "/game/" + gameId + "/leaderboard";
 
-        url += "?authToken=" + authToken;
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("authToken", authToken));
 
-        HttpGet op = new HttpGet(url);
-        HttpResponse response = executeRequest(op);
+        String data = post(url, params);
 
         // Decompose JSON response into a leader board object
         Leaderboard board = null;
         try {
-            JSONObject json = new JSONObject(responseToString(response));
+            JSONObject json = new JSONObject(data);
             board = Leaderboard.create(json);
         } catch (JSONException e) {
             throw new DistriviaAPIException("Leaderboard request was malformed");
         }
 
         return board;
+    }
+
+    private static String post(String url, List<NameValuePair> params)
+            throws Exception {
+        HttpPost op = new HttpPost(url);
+        if (params != null) {
+            op.setEntity(new UrlEncodedFormEntity(params));
+        }
+        HttpResponse response = executeRequest(op);
+        String data = responseToString(response);
+        return data;
+    }
+
+    private static String get(String url) throws Exception {
+        HttpGet op = new HttpGet(url);
+        HttpResponse response = executeRequest(op);
+        String data = responseToString(response);
+        return data;
     }
 
     private static HttpResponse executeRequest(HttpRequestBase op)
@@ -264,4 +301,5 @@ public class DistriviaAPI {
             return "";
         }
     }
+
 }
