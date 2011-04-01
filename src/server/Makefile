@@ -14,6 +14,7 @@ help default:
 deps:
 	pip install flask
 	pip install riak
+	pip install tornado
 
 init-db:
 	python db/insert-questions.py

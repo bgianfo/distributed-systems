@@ -22,6 +22,7 @@ public class RoundActivity extends Activity {
 
     private String authToken;
     private String gameId;
+    private String username;
     private long startTime = 0;
     private long stopTime = 0;
     private String selection = null;
@@ -39,13 +40,13 @@ public class RoundActivity extends Activity {
             answer.setSelected(true);
             answer.setTextColor(Color.BLUE);
             if (answer == answerA)
-            	selection = "a";
+                selection = "a";
             else if (answer == answerB)
-            	selection = "b";
+                selection = "b";
             else if (answer == answerC)
-            	selection = "c";
+                selection = "c";
             else if (answer == answerD)
-            	selection = "d";
+                selection = "d";
             stopTime = SystemClock.elapsedRealtime();
         }
     };
@@ -76,14 +77,15 @@ public class RoundActivity extends Activity {
             public void onClick(View v) {
                 if (selection != null) {
                     submit();
-                    // Load Leaderboard after last question... Just testing for now
+                    // Load Leaderboard after last question... Just testing for
+                    // now
                     Intent leaderIntent = new Intent();
                     leaderIntent.setClassName("edu.rit.cs.distrivia",
                             "edu.rit.cs.distrivia.LeaderboardActivity");
                     startActivity(leaderIntent);
                 } else {
-                    Toast.makeText(v.getContext(), "Please select an answer", 10)
-                            .show();
+                    Toast.makeText(v.getContext(), "Please select an answer",
+                            10).show();
                 }
             }
         });
@@ -106,9 +108,12 @@ public class RoundActivity extends Activity {
 
         try {
             final boolean correct = DistriviaAPI.answerQuestion(authToken,
-                    gameId, selection, (int) decisionTime);
+                    username, gameId, selection, (int) decisionTime);
             return correct;
         } catch (final DistriviaAPIException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
@@ -118,7 +123,7 @@ public class RoundActivity extends Activity {
     /**
      */
     private void setupButtons(final Question q) {
-    	question.setText(q.getQuestion());
+        question.setText(q.getQuestion());
         answerA.setText("A: " + q.getChoiceA());
         answerB.setText("B: " + q.getChoiceB());
         answerC.setText("C: " + q.getChoiceC());

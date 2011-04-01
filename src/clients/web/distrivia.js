@@ -10,6 +10,8 @@ var session = null;
 // Session username
 var username = null;
 
+var questionState = "next";
+
 var startTime = 0;
 var stopTime = 0;
 
@@ -89,7 +91,7 @@ function CheckStatus(score){
              var size = Object.size( game.leaderboard );
              if ( size < MAX_PLAYERS ) {
                 byId('wait_message').innerHTML = size + " / " + MAX_PLAYERS + " people";
-             } else if ( size == MAX_PLAYERS ) {
+             } else {
                 byId('wait').classList.add('hidden');
                 byId('game').classList.remove('hidden');
                 window.clearInterval( updater );
@@ -172,6 +174,17 @@ function SubmitAnswer(){
 
 function Next(){
 
+    if ( questionState == "done" ) {
+        byId('game').classList.add('hidden');
+        byId('join').classList.remove('hidden');
+
+        // TODO: Break out into function?
+        // Reset back to default
+        qid = "0";
+        gid = null;
+        questionState = "next";
+    }
+
    // On first occurance, don't submit.
    if ( qid != "0" ) {
        SubmitAnswer();
@@ -201,12 +214,11 @@ function Next(){
             // Update the current quesition id.
             qid = question.id;
          } else if ( question.status == "done" ){
-            byId('score').innerHTML = quest.score;
-            byId('game').classList.add('hidden');
-            byId('join').classList.remove('hidden');
+            questionState = "done";
+            UpdateGame( question );
          }
       }
-   }
+   };
 
    var param = "authToken=" + session + "&a=" + answer;
    var URI = "/game/" + gid + "/next/" + qid;
@@ -326,6 +338,34 @@ function Public(){
    return false;
 }
 
+function Register(){
+   var xr = XML();
+
+   xr.onreadystatechange = function(){
+      if ( xr.readyState == 4 && xr.status == 200 ){
+        if (  xr.responseText == API_ERROR ) {
+           alert( "Username: " + username + " already taken" );
+        } else {
+           Login();
+        }
+     } else {
+        // Server connection failure
+        // TODO: Show warning/error
+     }
+   };
+
+
+   username = document.forms.login_form.username.value;
+   //var pass = document.forms.login_form.password.value;
+
+   var URI = "/register/" + username;
+
+   xr.open( "POST", URI, true );
+   xr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+   xr.send();
+
+   return false;
+}
 function Login(){
    var xr = XML();
 

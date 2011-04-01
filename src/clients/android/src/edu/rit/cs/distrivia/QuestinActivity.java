@@ -1,14 +1,17 @@
 package edu.rit.cs.distrivia;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import edu.rit.cs.distrivia.api.DistriviaAPI;
+import edu.rit.cs.distrivia.model.GameData;
 
 /**
  * Main activity to provide login functionality to the Application.
@@ -52,5 +55,35 @@ public class QuestinActivity extends Activity {
                 }
             }
         });
+    }
+
+    private void login(String name, String pass) {
+
+        Context context = getApplicationContext();
+
+        String authToken = null;
+        try {
+            authToken = DistriviaAPI.login(name);
+        } catch (Exception e) {
+            Toast.makeText(context, "Service is down, please try gain later",
+                    10).show();
+            return;
+        }
+
+        boolean loginSuccessful = authToken != null;
+        loginSuccessful &= (!authToken.equals(DistriviaAPI.API_ERROR));
+
+        if (loginSuccessful) {
+
+            Toast.makeText(context, "Welcome " + name, 10).show();
+            GameData gd = new GameData(authToken, name);
+            Intent joinIntent = new Intent(context, JoinActivity.class);
+            // Make sure to pass session/game data to the next view
+            joinIntent.putExtra(GameData.class.getName(), gd);
+            startActivity(joinIntent);
+
+        } else {
+            Toast.makeText(getApplicationContext(), "Login failure", 10).show();
+        }
     }
 }
