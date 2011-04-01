@@ -326,6 +326,34 @@ function Public(){
    return false;
 }
 
+function Register(){
+   var xr = XML();
+
+   xr.onreadystatechange = function(){
+      if ( xr.readyState == 4 && xr.status == 200 ){
+        if (  xr.responseText == API_ERROR ) {
+           alert( "Username: " + username + " already taken" );
+        } else {
+           Login();
+        }
+     } else {
+        // Server connection failure
+        // TODO: Show warning/error
+     }
+   };
+
+
+   username = document.forms.login_form.username.value;
+   //var pass = document.forms.login_form.password.value;
+
+   var URI = "/register/" + username;
+
+   xr.open( "POST", URI, true );
+   xr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+   xr.send();
+
+   return false;
+}
 function Login(){
    var xr = XML();
 
