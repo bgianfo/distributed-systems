@@ -275,15 +275,15 @@ def joinGame():
     gamesBucket = client.bucket("games")
 
     # Map function to inspect tables and grab non full games
-    mapfn = """ function(value, keyData, arg) {
-                    ejsLog('map_reduce.log', "Test");
-                    var data = Riak.mapValuesJson( value )[0];
-                    if ( data.users.length < 20 ) {
-                        return [value.key];
-                    }
-                    return [];
-                }
-            """
+    mapfn = """
+    function(value, keyData, arg) {
+        var data = Riak.mapValuesJson( value )[0];
+        if ( data.users.length < 20 ) {
+            return [value.key];
+        }
+        return [];
+    }
+    """
     query = client.add("games")
     query.map( mapfn )
 
