@@ -12,9 +12,10 @@ from flask import g
 from flask import Flask
 from flask import json
 from flask import request
-from flask import session
 from flask import send_file
+
 from werkzeug import SharedDataMiddleware
+from werkzeug.contrib.fixers import ProxyFix
 
 import os
 import riak
@@ -23,10 +24,10 @@ import socket
 import urllib2
 
 app = Flask(__name__)
-app.debug = True
-app.config['DEBUG'] = True
+#app.debug = True
+#app.config['DEBUG'] = True
 app.config['SECRET_KEY'] = 'secret'
-
+app.wsgi_app = ProxyFix(app.wsgi_app)
 
 API_ERROR   = "err"
 API_SUCCESS = "suc"
@@ -80,7 +81,7 @@ def isAuthed():
 
     Return True if so, False if not.
     """
-    token = request.form['authToken']
+    token = str(request.form['authToken'])
     loggedIn = g.db.bucket("users").get("logged_in")
     if loggedIn.exists():
         data = loggedIn.get_data()
@@ -145,7 +146,8 @@ def initializeGame( user, passwd = None ):
 @app.before_request
 def beforeRequest():
     """ Connect to Riak before each request """
-    client = riak.RiakClient(host=getip())
+    client = riak.RiakClient(host=getip(), port=8087,
+            transport_class=riak.RiakPbcTransport)
     g.db = client
 
 @app.after_request
@@ -171,6 +173,7 @@ def register(user):
 
     API_SUCCESS on success, API_ERROR on failure
     """
+    user = str(user)
 
     # TODO: Take a passwd as a argument, SHA1 hash it + a salt
     #       and store the hash in the user object.
@@ -203,7 +206,7 @@ def login( userName ):
     # TODO: Take a passwd as a argument, SHA1 hash it + a salt
     #       and check if it matches the hash in the user object.
 
-
+    userName = str(userName)
     users = g.db.bucket( "users" )
     user = users.get( userName )
 
@@ -241,8 +244,8 @@ def newGame():
     if not isAuthed():
         return API_ERROR
 
-    user   = request.form["user"]
-    passwd = request.form["passwd"]
+    user   = str(request.form["user"])
+    passwd = str(request.form["passwd"])
 
     return initializeGame( user, passwd )
 
@@ -262,8 +265,8 @@ def joinGame():
     # Initialize arguments, riak variables and buckets
     client = g.db
     users = client.bucket("users")
-    user = request.form['user']
-    token = request.form['authToken']
+    user = str(request.form['user'])
+    token = str(request.form['authToken'])
 
     if user == "" or (not users.get(user).exists()):
         return API_ERROR
@@ -285,7 +288,7 @@ def joinGame():
     query.map( mapfn )
 
     for key in query.run():
-
+        key = str(key)
         # Add user to the game
         game = gamesBucket.get( key )
 
@@ -312,6 +315,8 @@ def nextQuestion(gid,prevId):
     if not isAuthed():
         return API_ERROR
 
+    gid = str(gid)
+    prevId = str(prevId)
     gamesBucket = g.db.bucket( "games" )
     game = gamesBucket.get( gid )
 
@@ -327,6 +332,7 @@ def nextQuestion(gid,prevId):
         nextQuestion = None
         if prevId == "0":
             nextQuestion = questions[0]
+            qIndex = 0
         else:
             try:
                 qIndex = questions.index( prevId )
@@ -334,19 +340,19 @@ def nextQuestion(gid,prevId):
                 return API_ERROR
 
             # Failure on this game being over
-            if qIndex >= QUESTION_LIMIT or (qIndex+1 >= len(questions)):
+            if (qIndex+1 >= len(questions)):
                 return API_ERROR
 
             # Fetch and construct the next question object
             nextQuestion = questions[qIndex+1]
 
         questionBucket = g.db.bucket( "questions" )
-        question = questionBucket.get(nextQuestion)
+        question = questionBucket.get(str(nextQuestion))
         # Add id into the question
         qdata = question.get_data()
         qdata["id"] = nextQuestion
         qdata["status"] = "next"
-        if (prevId != "0") and (qIndex == QUESTION_LIMIT-1):
+        if (qIndex+1 == len(questions)-1):
             qdata["status"] = "done"
         # TODO: Add a status and score field
         return json.dumps(qdata)
@@ -373,7 +379,10 @@ def answerQuestion(gid,qid,answer,time_ms):
     if not isAuthed():
         return API_ERROR
 
-    user = request.form["user"]
+    gid = str(gid)
+    qid = str(qid)
+    answer = str(answer)
+    user = str(request.form["user"])
     if user is None:
         return API_ERROR
 
@@ -466,6 +475,7 @@ def getLeaderBoard(gid):
     if not isAuthed():
         return API_ERROR
 
+    gid = str(gid)
     gamesBucket = g.db.bucket( "games" )
     game = gamesBucket.get( gid )
 
