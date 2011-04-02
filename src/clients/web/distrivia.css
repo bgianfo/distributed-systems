@@ -41,6 +41,8 @@ body{
 
 .form{
    margin: 0px;
+   display: inline-block;
+   text-align: left;
 }
 
 .error{
@@ -85,7 +87,6 @@ li.error_item:hover {
 
 /* Login Area CSS */
 .login{
-
 }
 
 .login_area{

@@ -17,7 +17,7 @@ var stopTime = 0;
 
 var updater = null;
 var answer = -1;
-var board = 1;
+var board_n = 1;
 
 var API_ERROR   = "err";
 var API_SUCCESS = "suc";
@@ -25,9 +25,8 @@ var MAX_PLAYERS = 1;
 
 var MSG = new Array();
 var MSG_N = 0;
+var MSG_C = 0;
 
-//var url = "", php = false;
-var url = "loop.php", php = true;
 
 // References to DOM objects
 var error;
@@ -37,33 +36,6 @@ var wait;
 var game;
 var login;
 var ans;
-
-function byId( paramId ) {
-   return document.getElementById( paramId );
-}
-
-function jsonify( buffer ) {
-    return eval( "(" + buffer + ")" );
-}
-
-function erl( param ){
-   if( php ){
-      var params = "";
-      if( param.charAt(0) == '/' )
-         param = param.substr(1);
-      var split = param.split("/");
-      for( var i = 0; i < split.length; i++ ){
-         if( i % 2 == 0 )
-            params += "&" + split[i] + "=";
-         else
-            params += split[i];
-      }
-      params = "?" + params.substring(1);
-      return url + params;
-   }else{
-      return url + param;
-   }
-}
 
 Object.size = function(obj) {
     var size = 0, key;
@@ -75,41 +47,58 @@ Object.size = function(obj) {
     return size;
 };
 
-function XML(){
-   var xr;
-   if( window.XMLHttpRequest ){
-      xr = new XMLHttpRequest();
-   }else{
-      xr = new ActiveXObject( "Microsoft.XMLHTTP" );
-   }
-   return xr;
-}
 
+/*
+ * Adds an error message to the error section
+ */
 function errMsg( message ){
+
    if( MSG.length == 0 ){
-      error.classList.remove('hidden');
-   }
+      error.innerHTML += "<li class='error_item' onclick='ER(this)' >" + message + "</li>";
+      //reveal( error );
+      $(error).fadeIn("fast");
+   }else{
+      var div = $("<div />");
+      var li = $("<li class='error_item' onclick='ER(this)'>" + message + "</li>" );
+      div.append(li);
+      div.hide();
 
+      $(error).append(div);
+      div.fadeIn("slow");
+      div.slideDown("slow");
+   }
    MSG[MSG_N++] = message;
-
-   error.innerHTML += "<li class='error_item' onclick='ER(" + MSG_N + ",this)' >" + message + "</li>";
+   MSG_C++;
 }
+// End errMsg()
 
-function ER( num, ref ){
-   ref.parentNode.removeChild(ref);
-   if( error.children.length == 0 ){
-      error.classList.add('hidden');
-      MSG = new Array();
-      MSG_N = 0;
+
+/*
+ * Removes an error message
+ */
+function ER( ref ){
+   MSG_C--;
+   if( MSG_C == 0 ){
+      errClear();
+   }else{
+      $(ref).slideUp("normal");
    }
 }
+// End ER()
 
+
+/*
+ * Removes all error messages
+ */
 function errClear(){
-   error.classList.add('hidden');
-   error.innerHTML = "";
+   $(error).fadeOut("slow", function(){
+      error.innerHTML = "";
+   });
    MSG = new Array();
    MSG_N = 0;
 }
+// End errClear()
+
 
 function Cancel(){
    var xr = XML();
@@ -313,56 +302,69 @@ function Answer( num ){
    answer = answers[num-1];
 }
 
+
+/*
+ * Gets universal leaderboard scores
+ */
 function More(){
-   // board_list 
    var xr = XML();
 
-   byId("board_list").classList.add('board_load');
+   var bl = byId('board_list');
+   addClass( bl, 'board_load' );
 
    xr.onreadystatechange = function(){
       if( xr.readyState == 4 && xr.status == 200 ){
-         byId("board_list").classList.remove('board_load');
+         removeClass( bl, 'board_load' );
+
          var bits = xr.responseText.split("\n");
-         if( bits[0] == board ){
+         if( bits[0] == board_n ){
             var more = "";
             for( var i = 1; i < bits.length; i+=2 ){
                more += "<li class='board_item'><div class='board_left'>" + bits[i] + "</div><div class='board_right'>" + bits[i+1] + "</div></li>";
-               board++;
+               board_n++;
             }
-            var list = byId('board_list');
-            list.innerHTML = list.innerHTML + more;
+            bl.innerHTML = bl.innerHTML + more;
+//            bl.scrollTop = bl.scrollHeight;
+            $(bl).animate({scrollTop: bl.scrollHeight - $(bl).height() }, 800);
          }else{
             console.log( bits[0] );
-            console.log( board );
+            console.log( board_n );
          }
       }
    }
 
-   var param = "post=more&i=" + session + "&n=" + board; 
+   var param = "post=more&i=" + session + "&n=" + board_n;
    xr.open( "POST", "ajax.php", true );
    xr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-   //xr.setRequestHeader("Content-length", param.length);
-   //xr.setRequestHeader("Connection", "close");
    xr.send(param);
 
    return false;
 }
+// End More()
 
+
+/*
+ * Shows universal leaderboard
+ */
 function Scores(){
-   board = 1;
+   board_n = 1;
    byId('board_list').innerHTML = "";
-   byId('join').classList.add('hidden');
-   byId('board').classList.remove('hidden');
+   swap(join,board);
    More();
-
    return false;
 }
+// End Scores()
 
+
+/*
+ * Goes to join screen from leaderboard
+ */
 function Home(){
-   byId('board').classList.add('hidden');
-   byId('join').classList.remove('hidden');
+   swap( board, join );
+
    return false;
 }
+// End Home()
 
 
 /*
@@ -443,12 +445,20 @@ function Register(){
       errMsg( "Please choose a password for your account" );
    }
 
-   var URI = erl( "/register/" + username );
+   var conf = document.forms.login_form.confirm.value.trim();
+   if( conf == "" ){
+      reveal( byId('confirm') );
+   }else if( conf != pass ){
+      errMsg( "Passwords don't match" );
+   }else{
 
-   if( username != "" && pass != "" ){
-      xr.open( "POST", URI, true );
-      xr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-      xr.send();
+      var URI = erl( "/register/" + username );
+
+      if( username != "" && pass != "" ){
+         xr.open( "POST", URI, true );
+         xr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+         xr.send();
+      }
    }
 
    return false;
@@ -472,8 +482,7 @@ function Login(){
             }else{
                // Valid login
                session = xr.responseText;
-               login.classList.add("hidden");
-               join.classList.remove('hidden');
+               swap( login, join );
                errClear();
             }
          }else{
@@ -541,6 +550,12 @@ function Join_Key(e){
 function Login_Key(e){
    if( e.keyCode == 13 ){
       Login();
+   }
+}
+
+function Register_Key(e){
+   if( e.keyCode == 13 ){
+      Register();
    }
 }
 

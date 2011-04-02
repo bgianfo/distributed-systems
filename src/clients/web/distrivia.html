@@ -1,7 +1,9 @@
 <head>
    <title>Distrivia</title>
    <link href='distrivia.css' rel='stylesheet' type='text/css' />
-   <script type='text/javascript' language='javascript' src='distrivia.js'/></script>
+   <script type='text/javascript' src='jquerydev.js'></script>
+   <script type='text/javascript' src='distrivia.js'></script>
+   <script type='text/javascript' src='distrivia_func.js'></script>
 </head>
 <body onload='Load()'>
 <noscript class='nos'><div>Distrivia requires javascript to be enabled</div></noscript>
@@ -28,9 +30,14 @@
                   <br>
                   <input class='login_input' type='password' name='password' onkeypress='Login_Key(event)' />
                </div>
+               <div id='confirm' class='hidden'>
+                  <label class='login_label' for='confirm'>Confirm Password:</label>
+                  <br>
+                  <input class='login_input' type='password' name='confirm' onkeypress='Register_Key(event)' />
+               </div>
                <div class='login_submit'>
-                  <a href='#' onclick='return Register()'>Register</a>
-                  <a href='#' onclick='return Login()'>Login</a>
+                  <a href='#' onclick='return Register()' style='float:left'>Register</a>
+                  <a href='#' onclick='return Login()' style='float:right'>Login</a>
                </div>
                <div class='login_invalid hidden' id='login_invalid'>Invalid Login</div>
             </form>
