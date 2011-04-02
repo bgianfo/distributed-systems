@@ -58,6 +58,7 @@ body{
 .error_item{
 /*   display: inline;*/
    margin-left: 1em;
+   padding-right: 16px;
 }
 
 li.error_item:hover {
