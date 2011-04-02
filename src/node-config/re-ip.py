@@ -33,13 +33,13 @@ def reipAppConfig():
     x = open("/etc/riak/app.config")
     for line in x.readlines():
         if "{pb_ip," in line:
-            now = "           {pb_ip, \""+ip+"\" }," 
+            now = "           {pb_ip, \"0.0.0.0\" }," 
             newlines += now  + "\n"
             print "Was: " + line.strip("\n")
             print "Now: " + now
             print ""
         elif "{http," in line:
-            now = "            {http, [ {\""+ip+"\", 8098 } ] },"
+            now = "            {http, [ {\"0.0.0.0\", 8098 } ] },"
             newlines += now + "\n"
             print "Was: " + line.strip("\n")
             print "Now: " + now 
