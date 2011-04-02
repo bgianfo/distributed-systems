@@ -55,7 +55,7 @@ Status can equal 'waiting', 'started', or 'done'
 
 Submit an Answer:
    Add to URL: /question/<question id>/<answer>
-   Add to Post: nothing
+   Add to Post: time=<time>
    Add to Return:
       Valid: if status == started, the next question. otherwise nothing
 
