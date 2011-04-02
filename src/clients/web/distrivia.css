@@ -43,6 +43,28 @@ body{
    margin: 0px;
 }
 
+.error{
+   -moz-box-shadow: 0px 0px 10px red;
+   -webkit-box-shadow: 0px 0px 10px red;
+   box-shadow: 0px 0px 10px red;
+
+   padding: 5px;
+   margin-top: 10px;
+   background-color: rgba( 255, 0, 0, 0.6 );
+
+   width: 302px;
+}
+
+.error_item{
+/*   display: inline;*/
+   margin-left: 1em;
+}
+
+li.error_item:hover {
+   background: url("close.png") no-repeat scroll right top transparent;
+   background-color: rgb( 135, 0, 0);
+}
+
 .nos{
    position: fixed;
    background-color: black;

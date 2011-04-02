@@ -23,12 +23,46 @@ var API_ERROR   = "err";
 var API_SUCCESS = "suc";
 var MAX_PLAYERS = 1;
 
+var MSG = new Array();
+var MSG_N = 0;
+
+//var url = "", php = false;
+var url = "loop.php", php = true;
+
+// References to DOM objects
+var error;
+var join;
+var board;
+var wait;
+var game;
+var login;
+var ans;
+
 function byId( paramId ) {
    return document.getElementById( paramId );
 }
 
 function jsonify( buffer ) {
     return eval( "(" + buffer + ")" );
+}
+
+function erl( param ){
+   if( php ){
+      var params = "";
+      if( param.charAt(0) == '/' )
+         param = param.substr(1);
+      var split = param.split("/");
+      for( var i = 0; i < split.length; i++ ){
+         if( i % 2 == 0 )
+            params += "&" + split[i] + "=";
+         else
+            params += split[i];
+      }
+      params = "?" + params.substring(1);
+      return url + params;
+   }else{
+      return url + param;
+   }
 }
 
 Object.size = function(obj) {
@@ -51,6 +85,32 @@ function XML(){
    return xr;
 }
 
+function errMsg( message ){
+   if( MSG.length == 0 ){
+      error.classList.remove('hidden');
+   }
+
+   MSG[MSG_N++] = message;
+
+   error.innerHTML += "<li class='error_item' onclick='ER(" + MSG_N + ",this)' >" + message + "</li>";
+}
+
+function ER( num, ref ){
+   ref.parentNode.removeChild(ref);
+   if( error.children.length == 0 ){
+      error.classList.add('hidden');
+      MSG = new Array();
+      MSG_N = 0;
+   }
+}
+
+function errClear(){
+   error.classList.add('hidden');
+   error.innerHTML = "";
+   MSG = new Array();
+   MSG_N = 0;
+}
+
 function Cancel(){
    var xr = XML();
 
@@ -70,6 +130,10 @@ function Cancel(){
    return false;
 }
 
+
+/*
+ * Polls the server while waiting to join a game
+ */
 function CheckStatus(score){
    var xr = XML();
 
@@ -81,8 +145,8 @@ function CheckStatus(score){
              var data = xr.responseText;
 
              if ( data == API_ERROR ) {
-                byId('wait').classList.add('hidden');
-                byId('join').classList.remove('hidden');
+                wait.classList.add('hidden');
+                join.classList.remove('hidden');
                 window.clearInterval( updater );
                 return;
              }
@@ -127,14 +191,13 @@ function CheckStatus(score){
 
    xr.open( "POST", URI, true );
    xr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-   //xr.setRequestHeader("Content-length", param.length);
-   //xr.setRequestHeader("Connection", "close");
    xr.send(param);
 }
+// End CheckStatus()
+
 
 function UpdateGame( question ){
    byId('game_question').innerHTML = question.question;
-   var ans = byId('answers').getElementsByTagName('a');
    ans[0].innerHTML = question.a;
    ans[1].innerHTML = question.b;
    ans[2].innerHTML = question.c;
@@ -301,71 +364,101 @@ function Home(){
    return false;
 }
 
+
+/*
+ * Joins a public game
+ */
 function Public(){
    var xr = XML();
 
    xr.onreadystatechange = function(){
-      if( xr.readyState == 4 && xr.status == 200 ){
+      if( xr.readyState == 4 ){
+         if( xr.status == 200 ){
 
-         var data = xr.responseText;
-         if( xr.responseText == API_ERROR ){
-            // Invalid login
-            byId('join').classList.add("hidden");
-            byId('login').classList.remove("hidden");
+            var data = xr.responseText;
+            if( xr.responseText == API_ERROR ){
+               // Invalid login
+               join.classList.add("hidden");
+               login.classList.remove("hidden");
+               errMsg( "Login session expired. Please log back in" );
+            }else{
+
+               // Save the game id ( global )
+               gid = data;
+
+               // Waiting to join
+               byId('wait_message').innerHTML = "Joining game...";
+               join.classList.add('hidden');
+               wait.classList.remove('hidden');
+               updater = window.setInterval("CheckStatus(false)",1000);
+            }
          }else{
-
-            // Save the game id ( global )
-            gid = data;
-
-            // Waiting to join
-            byId('wait_message').innerHTML = "Joining game...";
-            byId('join').classList.add('hidden');
-            byId('wait').classList.remove('hidden');
-            updater = window.setInterval("CheckStatus(false)",1000);
+            errMsg( "Server error, please try again in a few minutes" );
          }
       }
    }
 
    var param = "authToken=" + session + "&user=" + username;
-   var URI = "/game/join";
+   var URI = erl( "/game/join" );
 
    xr.open( "POST", URI, true );
    xr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-   //xr.setRequestHeader("Content-length", param.length);
-   //xr.setRequestHeader("Connection", "close");
    xr.send(param);
 
    return false;
 }
+// End Public()
 
+
+/*
+ * Registers a new user
+ */
 function Register(){
    var xr = XML();
 
    xr.onreadystatechange = function(){
-      if ( xr.readyState == 4 && xr.status == 200 ){
-        if (  xr.responseText == API_ERROR ) {
-           alert( "Username: " + username + " already taken" );
-        } else {
-           Login();
+      if( xr.readyState == 4 ){
+         if( xr.status == 200 ){
+            if (  xr.responseText == API_ERROR ) {
+               //alert( "Username: " + username + " already taken" );
+               errMsg( "Username '" + username + "' already taken" );
+            }else{
+               Login();
+            }
+        }else{
+           // Server connection failure
+           errMsg("Could not connect to server. Please wait a minute and try again");
         }
-     } else {
-        // Server connection failure
-        // TODO: Show warning/error
-     }
+      }
    };
 
 
-   username = document.forms.login_form.username.value;
-   //var pass = document.forms.login_form.password.value;
+   username = document.forms.login_form.username.value.trim();
+   if( username == "" ){
+      errMsg( "Please provide the username you would like to register" );
+   }
 
-   var URI = "/register/" + username;
+   var pass = document.forms.login_form.password.value.trim();
+   if( pass == "" ){
+      errMsg( "Please choose a password for your account" );
+   }
 
-   xr.open( "POST", URI, true );
-   xr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-   xr.send();
+   var URI = erl( "/register/" + username );
+
+   if( username != "" && pass != "" ){
+      xr.open( "POST", URI, true );
+      xr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xr.send();
+   }
 
    return false;
 }
+// End Register()
+
+
+/*
+ * Processes a log in attempt
+ */
 function Login(){
    var xr = XML();
 
@@ -375,36 +468,36 @@ function Login(){
             // Good to go
             if( xr.responseText == API_ERROR ){
                // Invalid login
-               byId('login_invalid').classList.remove('hidden');
+               errMsg("Invalid username / password");
             }else{
                // Valid login
                session = xr.responseText;
-               byId('login').classList.add("hidden");
-               byId('join').classList.remove('hidden');
-               byId('login_invalid').classList.add('hidden');
+               login.classList.add("hidden");
+               join.classList.remove('hidden');
+               errClear();
             }
          }else{
             // Server connection failure
-            // TODO: Show warning/error
+            errMsg("Could not connect to server. Please wait a minute and try again");
          }
       }
    }
 
 
-   username = document.forms.login_form.username.value;
+   username = document.forms.login_form.username.value.trim();
+   if( username == "" )
+      return false;
    var pass = document.forms.login_form.password.value;
    var param = "";
 
-   var URI = "/login/" + username;
-
+   var URI = erl( "/login/" + username );
    xr.open( "POST", URI, true );
    xr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-   //xr.setRequestHeader("Content-length", param.length);
-   //xr.setRequestHeader("Connection", "close");
    xr.send(param);
 
    return false;
 }
+// End Login()
 
 function Private(){
    var xr = XML();
@@ -457,4 +550,12 @@ function Load(){
    }else{
       document.forms.login_form.username.focus();
    }
+
+   error = byId('error');
+   login = byId('login');
+   join = byId('join');
+   game = byId('game');
+   board = byId('board');
+   wait = byId('wait');
+   ans = byId('answers').getElementsByTagName('a');
 }
