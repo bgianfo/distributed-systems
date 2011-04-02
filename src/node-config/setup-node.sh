@@ -46,6 +46,7 @@ rm -rf protobuf-2.3.0-1.fc12.i686.rpm
 rm -rf monit-5.2.4-1.el6.rf.x86_64.rpm
 
 # Setup our Riak config's
-INTERNALIP=`curl http://169.254.169.254/latest/meta-data/local-ipv4`
-sudo sed -i "s/127.0.0.1/$INTERNALIP/g" /etc/riak/vm.args
-sudo sed -i "s/127.0.0.1/$INTERNALIP/g" /etc/riak/app.config
+#INTERNALIP=`curl http://169.254.169.254/latest/meta-data/local-ipv4`
+#sudo sed -i "s/127.0.0.1/$INTERNALIP/g" /etc/riak/vm.args
+#sudo sed -i "s/127.0.0.1/$INTERNALIP/g" /etc/riak/app.config
+sudo python ~/distributed-systems/src/node-config/re-ip.py
