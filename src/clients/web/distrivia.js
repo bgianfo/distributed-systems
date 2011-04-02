@@ -140,13 +140,12 @@ function CheckStatus(score){
                 return;
              }
 
-             var game = jsonify( data );
-             var size = Object.size( game.leaderboard );
+             var gamedata = jsonify( data );
+             var size = Object.size( gamedata.leaderboard );
              if ( size < MAX_PLAYERS ) {
                 byId('wait_message').innerHTML = size + " / " + MAX_PLAYERS + " people";
              } else {
-                byId('wait').classList.add('hidden');
-                byId('game').classList.remove('hidden');
+                swap( wait, game );
                 window.clearInterval( updater );
                 // Load up question
                 Next();
@@ -226,16 +225,15 @@ function SubmitAnswer(){
 
 function Next(){
 
-    if ( questionState == "done" ) {
-        byId('game').classList.add('hidden');
-        byId('join').classList.remove('hidden');
+   if( questionState == "done" ){
+      swap( game, join );
 
-        // TODO: Break out into function?
-        // Reset back to default
-        qid = "0";
-        gid = null;
-        questionState = "next";
-    }
+      // TODO: Break out into function?
+      // Reset back to default
+      qid = "0";
+      gid = null;
+      questionState = "next";
+   }
 
    // On first occurance, don't submit.
    if ( qid != "0" ) {
@@ -380,8 +378,7 @@ function Public(){
             var data = xr.responseText;
             if( xr.responseText == API_ERROR ){
                // Invalid login
-               join.classList.add("hidden");
-               login.classList.remove("hidden");
+               swap( join, login );
                errMsg( "Login session expired. Please log back in" );
             }else{
 
@@ -390,8 +387,7 @@ function Public(){
 
                // Waiting to join
                byId('wait_message').innerHTML = "Joining game...";
-               join.classList.add('hidden');
-               wait.classList.remove('hidden');
+               swap( join, wait );
                updater = window.setInterval("CheckStatus(false)",1000);
             }
          }else{
