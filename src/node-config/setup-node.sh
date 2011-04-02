@@ -50,3 +50,5 @@ rm -rf monit-5.2.4-1.el6.rf.x86_64.rpm
 #sudo sed -i "s/127.0.0.1/$INTERNALIP/g" /etc/riak/vm.args
 #sudo sed -i "s/127.0.0.1/$INTERNALIP/g" /etc/riak/app.config
 sudo python ~/distributed-systems/src/node-config/re-ip.py
+sudo cp  ~/distributed-systems/src/node-config/monit.conf /etc/monit.conf
+
