@@ -16,7 +16,7 @@ import edu.rit.cs.distrivia.model.GameData;
 /**
  * Main activity to provide login functionality to the Application.
  */
-public class QuestinActivity extends Activity {
+public class LoginActivity extends Activity {
 
     private EditText uname;
 
