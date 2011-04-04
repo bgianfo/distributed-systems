@@ -18,10 +18,12 @@ from werkzeug import SharedDataMiddleware
 from werkzeug.contrib.fixers import ProxyFix
 
 import os
-import riak
-import uuid
+import riak    # Database client
+import uuid    # Unique Identifier generator
+import bcyrpt  # Password hashing library
 import socket
 import urllib2
+
 
 app = Flask(__name__)
 #app.debug = True
@@ -166,17 +168,25 @@ def indexer():
     index = os.path.abspath("../clients/web") + "/distrivia.html"
     return send_file(index)
 
-@app.route('/register/<user>', methods=["POST"])
-def register(user):
+@app.route('/register/<user_name>', methods=["POST"])
+def register(user_name):
     """
     Register a new user
 
     API_SUCCESS on success, API_ERROR on failure
     """
-    user = str(user)
 
-    # TODO: Take a passwd as a argument, SHA1 hash it + a salt
-    #       and store the hash in the user object.
+    # Make sure no bad/forbidden user's get through
+    if user_name == "logged_in" or user_name == "":
+        return API_ERROR
+
+    if request.form["password"] is None:
+        return API_ERROR
+
+
+
+    user_name = str(user_name)
+    password = str(request.form["password"])
 
     users_bucket = g.db.bucket( "users" )
 
@@ -186,13 +196,22 @@ def register(user):
 
     # Awesome, let's register this bad boy
     else:
+        # Hash the password with a random salt
+        hashed = bcrypt.hashpw( password, bcrypt.gensalt() )
+        # Clear out password's we no longer need
+        password = ""
+        request.form["password"] = ""
+
+        # Create a uuid for this user
         uid = str(uuid.uuid1())
-        newUser = users_bucket.new( user, data= { "uuid" : uid, "score" : 0 } )
+
+        udata =  { "uuid" : uid, "hash" : hashed, "score" : 0 } 
+        newUser = users_bucket.new( user, data=udata )
         newUser.store()
         return API_SUCCESS
 
-@app.route('/login/<userName>', methods=["POST"])
-def login( userName ):
+@app.route('/login/<user_name>', methods=["POST"])
+def login( user_name ):
     """
     Attempt to authenticate a user, return a auth token on success.
 
@@ -203,35 +222,42 @@ def login( userName ):
     otherwise return API_ERROR
     """
 
-    # TODO: Take a passwd as a argument, SHA1 hash it + a salt
-    #       and check if it matches the hash in the user object.
-
-    userName = str(userName)
-    users = g.db.bucket( "users" )
-    user = users.get( userName )
-
-    if user.exists():
-        # Create a new auth token for this user
-        # UUID's are pretty much guaranteed to be unique
-        uniqueId = user.get_data()["uuid"]
-
-        loggedIn = users.get("logged_in")
-        if loggedIn.exists():
-            vdata = loggedIn.get_data()
-            if uniqueId in vdata["users"]:
-                return uniqueId
-            else:
-                vdata["users"].append( uniqueId )
-                loggedIn = users.new("logged_in", data=vdata)
-                loggedIn.store()
-        else:
-            ldata = { "users": [ uniqueId ] }
-            loggedIn = users.new("logged_in", data=ldata)
-            loggedIn.store()
-
-        return uniqueId
-    else:
+    # Make sure no bad/forbidden user's get through
+    if user_name == "logged_in" or user_name == "":
         return API_ERROR
+
+    if request.form["password"] is None:
+        return API_ERROR
+
+    user_name = str(user_name)
+    password = str(request.form["password"])
+    users = g.db.bucket( "users" )
+    user = users.get( user_name )
+
+    # Can't log a non-existent user in
+    if user.exists():
+        user_data = user.get_data()
+
+        # Check to make sure the hashed password matches stored hash
+        if bcrypt.hashpw( password, user_data["pw_hash"] ) == user_data["pw_hash"]:
+            unique_id = user_data["uuid"]
+            logged_in = users.get("logged_in")
+            if logged_in.exists():
+                vdata = logged_in.get_data()
+                if unique_id in vdata["users"]:
+                    return uniqueId
+                else:
+                    vdata["users"].append( unique_id )
+                    logged_in = users.new("logged_in", data=vdata)
+                    logged_in.store()
+            else:
+                ldata = { "users": [ unique_id ] }
+                logged_in = users.new("logged_in", data=ldata)
+                logged_in.store()
+
+            return unique_id
+
+    return API_ERROR
 
 @app.route('/game/new')
 def newGame():
