@@ -1,5 +1,6 @@
 package edu.rit.cs.distrivia;
 
+import edu.rit.cs.distrivia.model.GameData;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ public class JoinActivity extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.join);
+        GameData gd = (GameData) getIntent().getExtras().getSerializable("game_data");
 
         final Button joinPublicButton = (Button) findViewById(R.id.join_public_button);
         final Button joinPrivateButton = (Button) findViewById(R.id.join_private_button);
@@ -44,7 +46,6 @@ public class JoinActivity extends Activity {
                 Intent roundIntent = new Intent();
                 roundIntent.setClassName("edu.rit.cs.distrivia",
                         "edu.rit.cs.distrivia.RoundActivity");
-                // SystemClock.sleep(2000);
                 startActivity(roundIntent);
             }
         });
@@ -60,7 +61,6 @@ public class JoinActivity extends Activity {
         			Intent roundIntent = new Intent();
                     roundIntent.setClassName("edu.rit.cs.distrivia",
                             "edu.rit.cs.distrivia.RoundActivity");
-                    // SystemClock.sleep(2000);
                     startActivity(roundIntent);
         		}
         		else {

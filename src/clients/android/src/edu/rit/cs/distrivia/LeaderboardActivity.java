@@ -2,13 +2,9 @@ package edu.rit.cs.distrivia;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.TableLayout;
 import android.widget.LinearLayout;
-import android.widget.TableLayout.LayoutParams;
 import android.widget.TableRow;
 import android.widget.TextView;
 
@@ -31,19 +27,11 @@ public class LeaderboardActivity extends Activity {
         
         leaderTable = (TableLayout) findViewById(R.id.leader_table);
         loadTable();
-        //FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
-        //		ViewGroup.LayoutParams.FILL_PARENT,
-        //		ViewGroup.LayoutParams.FILL_PARENT);
-        //leaderTable.setLayoutParams(lp);
         leaderTable.setStretchAllColumns(true);
     }
     
     private void loadTable() {
     	TableRow row = new TableRow(getApplicationContext());
-    	//TableLayout.LayoutParams rowLp = new TableLayout.LayoutParams(
-    	//		ViewGroup.LayoutParams.FILL_PARENT,
-    	//		ViewGroup.LayoutParams.FILL_PARENT,
-    	//		1.0f);
     	LinearLayout rowLayout = new LinearLayout(getApplicationContext());
     	rowLayout.setOrientation(LinearLayout.HORIZONTAL);
     	TextView name = new TextView(getApplicationContext());
