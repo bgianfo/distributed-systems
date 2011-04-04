@@ -3,6 +3,7 @@ package edu.rit.cs.distrivia;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -28,45 +29,40 @@ public class LoginActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.main);
 
-        final Button login = (Button) findViewById(R.id.login_button);
+        final Button loginBut = (Button) findViewById(R.id.login_button);
+        final Button registerBut = (Button) findViewById(R.id.register_button);
         uname = (EditText) findViewById(R.id.login_input_username);
         pass = (EditText) findViewById(R.id.login_input_password);
+        
+        SharedPreferences settings = getPreferences(MODE_PRIVATE);
+        String userName = settings.getString("uname", "");
+        uname.setText(userName);
+        if (userName.equals("")) {
+        	loginBut.setVisibility(View.GONE);
+        } else {
+        	registerBut.setVisibility(View.GONE);
+        }
 
-        login.setOnClickListener(new OnClickListener() {
+        loginBut.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(final View v) {
                 final String name = uname.getText().toString().trim();
                 final String passwd = pass.getText().toString().trim();
                 login(name, passwd);
-				/*try {
-					final String authToken = DistriviaAPI.login(name);
-					Toast.makeText(getApplicationContext(),
-                            "Welcome back, " + authToken, 10).show(); //name
-                    Intent joinIntent = new Intent();
-                    joinIntent.setClassName("edu.rit.cs.distrivia",
-                            "edu.rit.cs.distrivia.JoinActivity");
-                    startActivity(joinIntent);
-				} catch (DistriviaAPIException e) {
-					Toast.makeText(getApplicationContext(), "Login failure", 10)
-                    .show();
-				} catch (Exception e) {
-					//TODO Ask Brian how this exception is thrown
-				}*/
-				
-                //final boolean loginSuccessful = authToken != null;
-
-                /*if (loginSuccessful) {
-                    Toast.makeText(getApplicationContext(),
-                            "Welcome back, " + name, 10).show();
-                    Intent joinIntent = new Intent();
-                    joinIntent.setClassName("edu.rit.cs.distrivia",
-                            "edu.rit.cs.distrivia.JoinActivity");
-                    startActivity(joinIntent);
+            }
+        });
+        
+        registerBut.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                final String name = uname.getText().toString().trim();
+                final String passwd = pass.getText().toString().trim();
+                if (!name.equals("") && !passwd.equals("")) {
+                	register(name, passwd);
                 } else {
-                    Toast.makeText(getApplicationContext(), "Login failure", 10)
-                            .show();
+                	Toast.makeText(getApplicationContext(), "Missing username or password",
+                			10).show();
                 }
-                */
             }
         });
     }
@@ -87,7 +83,11 @@ public class LoginActivity extends Activity {
         loginSuccessful &= (!authToken.equals(DistriviaAPI.API_ERROR));
 
         if (loginSuccessful) {
-
+        	SharedPreferences settings = getPreferences(MODE_PRIVATE);
+        	SharedPreferences.Editor editor = settings.edit();
+        	editor.putString("uname", name);
+        	editor.commit();
+        	
             Toast.makeText(context, "Welcome " + name, 10).show();
             GameData gd = new GameData(authToken, name);
             Intent joinIntent = new Intent(context, JoinActivity.class);
@@ -97,6 +97,39 @@ public class LoginActivity extends Activity {
 
         } else {
             Toast.makeText(getApplicationContext(), "Login failure", 10).show();
+        }
+    }
+    
+    private void register(String name, String pass) {
+        Context context = getApplicationContext();
+
+        String authToken = null;
+        try {
+            authToken = DistriviaAPI.register(name);
+        } catch (Exception e) {
+            Toast.makeText(context, "Service is down, please try again later",
+                    10).show();
+            return;
+        }
+
+        boolean registerSuccessful = authToken != null;
+        registerSuccessful &= (!authToken.equals(DistriviaAPI.API_ERROR));
+
+        if (registerSuccessful) {
+        	SharedPreferences settings = getPreferences(MODE_PRIVATE);
+        	SharedPreferences.Editor editor = settings.edit();
+        	editor.putString("uname", name);
+        	editor.commit();
+        	
+            Toast.makeText(context, "Welcome " + name, 10).show();
+            GameData gd = new GameData(authToken, name);
+            Intent joinIntent = new Intent(context, JoinActivity.class);
+            // Make sure to pass session/game data to the next view
+            joinIntent.putExtra("game_data", gd);//(GameData.class.getName(), gd);
+            startActivity(joinIntent);
+
+        } else {
+            Toast.makeText(getApplicationContext(), "Register failure", 10).show();
         }
     }
 }

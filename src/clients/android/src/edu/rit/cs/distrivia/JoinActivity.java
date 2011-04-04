@@ -17,7 +17,7 @@ import android.widget.Toast;
  * Activity for players to answer questions during a round.
  */
 public class JoinActivity extends Activity {
-
+	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(final Bundle savedInstanceState) {
