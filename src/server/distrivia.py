@@ -31,7 +31,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret'
 app.wsgi_app = ProxyFix(app.wsgi_app)
 
-API_ERROR   = "err"
+API_ERROR = "err"
 API_SUCCESS = "suc"
 QUESTION_LIMIT = 20
 
@@ -50,7 +50,7 @@ def getport():
     """ Return the internal IP of this machine """
     try:
         myurl = "http://169.254.169.254/latest/meta-data/local-ipv4"
-        hostname = urllib2.urlopen(url=myurl,timeout=1).read()
+        hostname = urllib2.urlopen(url=myurl, timeout=1).read()
         return 80
     except:
         return 8080
@@ -60,10 +60,11 @@ def getip():
     """ Return the internal IP of this machine """
     try:
         myurl = "http://169.254.169.254/latest/meta-data/local-ipv4"
-        hostname = urllib2.urlopen(url=myurl,timeout=1).read()
+        hostname = urllib2.urlopen(url=myurl, timeout=1).read()
         return hostname
     except:
         return "127.0.0.1"
+
 
 def gethost():
     """ Return the outward facing hostname on EC2, or just the localhost
@@ -75,6 +76,7 @@ def gethost():
         return hostname
     except:
         return "127.0.0.1"
+
 
 def isAuthed():
     """
@@ -92,7 +94,7 @@ def isAuthed():
         return False
 
 
-def initializeGame( user, passwd = None ):
+def initializeGame(user, passwd=None):
     """ Create a new game """
 
     client = g.db
@@ -111,32 +113,32 @@ def initializeGame( user, passwd = None ):
         return (Math.round(Math.random())-0.5);
       }
       // Randomly sort the questions
-      sorted = values.sort( r );
+      sorted = values.sort(r);
       // Pick off the first 20
       return sorted.slice(0,19)
     }
     """
 
     query = client.add("questions")
-    query.map( mapfn )
-    query.reduce( reducefn )
+    query.map(mapfn)
+    query.reduce(reducefn)
 
     questions = []
     for key in query.run():
-        questions.append( key )
+        questions.append(key)
 
     gameBucket = client.bucket("games")
 
     gid = str(uuid.uuid1())
 
     gameData = {
-        "questions" : questions,
-        "id" : gid,
-        "users" : [ user ],
-        "leaderboard" : { user : 0 }
+        "questions": questions,
+        "id": gid,
+        "users": [user],
+        "leaderboard": {user: 0}
     }
 
-    game = gameBucket.new( gid, data = gameData )
+    game = gameBucket.new(gid, data=gameData)
     game.store()
 
     return gid
@@ -145,6 +147,7 @@ def initializeGame( user, passwd = None ):
 # Before and after request handlers
 #
 
+
 @app.before_request
 def beforeRequest():
     """ Connect to Riak before each request """
@@ -152,21 +155,25 @@ def beforeRequest():
             transport_class=riak.RiakPbcTransport)
     g.db = client
 
+
 @app.after_request
 def afterRequest(response):
     """ Closes Riak connection after each request """
     g.db = None
     return response
 
+
 #
 # Application routes
 #
+
 
 @app.route("/")
 def indexer():
     """ Default render-er for the client """
     index = os.path.abspath("../clients/web") + "/distrivia.html"
     return send_file(index)
+
 
 @app.route('/register/<user_name>', methods=["POST"])
 def register(user_name):
@@ -183,21 +190,19 @@ def register(user_name):
     if request.form["password"] is None:
         return API_ERROR
 
-
-
     user_name = str(user_name)
     password = str(request.form["password"])
 
-    users_bucket = g.db.bucket( "users" )
+    users_bucket = g.db.bucket("users")
 
     # The user already exists, so they can't register this name
-    if users_bucket.get( user ).exists():
+    if users_bucket.get(user_name).exists():
         return API_ERROR
 
     # Awesome, let's register this bad boy
     else:
         # Hash the password with a random salt
-        hashed = bcrypt.hashpw( password, bcrypt.gensalt() )
+        hashed = bcrypt.hashpw(password, bcrypt.gensalt())
         # Clear out password's we no longer need
         password = ""
         request.form["password"] = ""
@@ -205,13 +210,14 @@ def register(user_name):
         # Create a uuid for this user
         uid = str(uuid.uuid1())
 
-        udata =  { "uuid" : uid, "hash" : hashed, "score" : 0 } 
-        newUser = users_bucket.new( user, data=udata )
+        udata =  { "uuid": uid, "hash": hashed, "score": 0 }
+        newUser = users_bucket.new(user_name, data=udata)
         newUser.store()
         return API_SUCCESS
 
+
 @app.route('/login/<user_name>', methods=["POST"])
-def login( user_name ):
+def login(user_name):
     """
     Attempt to authenticate a user, return a auth token on success.
 
@@ -231,15 +237,15 @@ def login( user_name ):
 
     user_name = str(user_name)
     password = str(request.form["password"])
-    users = g.db.bucket( "users" )
-    user = users.get( user_name )
+    users = g.db.bucket("users")
+    user = users.get(user_name)
 
     # Can't log a non-existent user in
     if user.exists():
         user_data = user.get_data()
 
         # Check to make sure the hashed password matches stored hash
-        if bcrypt.hashpw( password, user_data["pw_hash"] ) == user_data["pw_hash"]:
+        if bcrypt.hashpw(password, user_data["pw_hash"]) == user_data["pw_hash"]:
             unique_id = user_data["uuid"]
             logged_in = users.get("logged_in")
             if logged_in.exists():
@@ -247,7 +253,7 @@ def login( user_name ):
                 if unique_id in vdata["users"]:
                     return uniqueId
                 else:
-                    vdata["users"].append( unique_id )
+                    vdata["users"].append(unique_id)
                     logged_in = users.new("logged_in", data=vdata)
                     logged_in.store()
             else:
@@ -258,6 +264,49 @@ def login( user_name ):
             return unique_id
 
     return API_ERROR
+
+@app.route('/leaderboard/<position>')
+def global_leaderbord(position = 0):
+    """
+    Get the global leader board for all ove distrivia
+    """
+
+    size  = 10
+
+    if not isAuthed():
+        return API_ERROR
+
+    # Map function to inspect grab all users and their score's
+    mapfn = """
+    function(value, keyData, arg) {
+        var data = Riak.mapValuesJson(value)[0];
+        return [value.key, data.score];
+    }
+    """
+
+    reducefn = """
+    function(values) {
+      function cmp(a,b) { a[1]-b[1]; };
+      // Sort by user score
+      sorted = values.sort(cmp);
+      return sorted.slice( %s, %s );
+    }
+    """ % ( position, position + size )
+
+
+    query = client.add("users")
+    query.map(mapfn)
+    query.reduce(reducefn)
+
+    board = {}
+
+    #  Pack users into the board
+    for result in query.run():
+        user  = result[0]
+        score = reulst[1]
+        board[user] = score
+
+    return json.dumps(board)
 
 @app.route('/game/new')
 def newGame():
@@ -273,7 +322,7 @@ def newGame():
     user   = str(request.form["user"])
     passwd = str(request.form["passwd"])
 
-    return initializeGame( user, passwd )
+    return initializeGame(user, passwd)
 
 @app.route('/game/join', methods=["POST"])
 def joinGame():
@@ -303,32 +352,32 @@ def joinGame():
     # Map function to inspect tables and grab non full games
     mapfn = """
     function(value, keyData, arg) {
-        var data = Riak.mapValuesJson( value )[0];
-        if ( data.users.length < 20 ) {
+        var data = Riak.mapValuesJson(value)[0];
+        if (data.users.length < 20) {
             return [value.key];
         }
         return [];
     }
     """
     query = client.add("games")
-    query.map( mapfn )
+    query.map(mapfn)
 
     for key in query.run():
         key = str(key)
         # Add user to the game
-        game = gamesBucket.get( key )
+        game = gamesBucket.get(key)
 
         vdata = game.get_data()
         if token in vdata["users"]:
             continue
-        vdata["users"].append( token )
+        vdata["users"].append(token)
         # Add user to the leader board
         vdata["leaderboard"][user] = 0
         game = gamesBucket.new(key, data=vdata)
         game.store()
         return key
 
-    gid = initializeGame( user )
+    gid = initializeGame(user)
     return gid
 
 @app.route('/game/<gid>/next/<prevId>', methods=["POST"])
@@ -343,8 +392,8 @@ def nextQuestion(gid,prevId):
 
     gid = str(gid)
     prevId = str(prevId)
-    gamesBucket = g.db.bucket( "games" )
-    game = gamesBucket.get( gid )
+    gamesBucket = g.db.bucket("games")
+    game = gamesBucket.get(gid)
 
     # Failure on bogus game ID
     if not game.exists():
@@ -361,7 +410,7 @@ def nextQuestion(gid,prevId):
             qIndex = 0
         else:
             try:
-                qIndex = questions.index( prevId )
+                qIndex = questions.index(prevId)
             except:
                 return API_ERROR
 
@@ -372,7 +421,7 @@ def nextQuestion(gid,prevId):
             # Fetch and construct the next question object
             nextQuestion = questions[qIndex+1]
 
-        questionBucket = g.db.bucket( "questions" )
+        questionBucket = g.db.bucket("questions")
         question = questionBucket.get(str(nextQuestion))
         # Add id into the question
         qdata = question.get_data()
@@ -417,15 +466,15 @@ def answerQuestion(gid,qid,answer,time_ms):
         return API_ERROR
 
     # Failure on bogus game ID
-    gamesBucket = g.db.bucket( "games" )
-    game = gamesBucket.get( gid )
+    gamesBucket = g.db.bucket("games")
+    game = gamesBucket.get(gid)
     if not game.exists():
         return API_ERROR
     # TODO: Make sure user is a member of this game.
 
     # Failure on bogus question ID
-    questionBucket = g.db.bucket( "questions" )
-    question = questionBucket.get( qid )
+    questionBucket = g.db.bucket("questions")
+    question = questionBucket.get(qid)
     if not question.exists():
         return API_ERROR
 
@@ -440,34 +489,30 @@ def answerQuestion(gid,qid,answer,time_ms):
     points = 0
     if time_ms > 10*SEC_TO_MS:
         # After ten seconds no points
-        return "correct"
-    elif time_ms > 9*SEC_TO_MS:
+    elif time_ms > 9 * SEC_TO_MS:
         points = 50
-    elif time_ms > 8*SEC_TO_MS:
+    elif time_ms > 8 * SEC_TO_MS:
         points = 100
-    elif time_ms > 7*SEC_TO_MS:
+    elif time_ms > 7 * SEC_TO_MS:
         points = 150
-    elif time_ms > 6*SEC_TO_MS:
+    elif time_ms > 6 * SEC_TO_MS:
         points = 200
-    elif time_ms > 5*SEC_TO_MS:
+    elif time_ms > 5 * SEC_TO_MS:
         points = 250
-    elif time_ms > 4*SEC_TO_MS:
+    elif time_ms > 4 * SEC_TO_MS:
         points = 300
-    elif time_ms > 3*SEC_TO_MS:
+    elif time_ms > 3 * SEC_TO_MS:
         points = 350
-    elif time_ms > 2*SEC_TO_MS:
+    elif time_ms > 2 * SEC_TO_MS:
         points = 400
-    elif time_ms > 1*SEC_TO_MS:
+    elif time_ms > 1 * SEC_TO_MS:
         points = 500
     else:
         # Time is too fast, not counting it.
-        print "cheater"
         return API_ERROR
 
-    print "Score: " + str(points) + " points"
-
-    userBucket = g.db.bucket( "users" )
-    userObj = userBucket.get( user )
+    userBucket = g.db.bucket("users")
+    userObj = userBucket.get(user)
     if not userObj.exists():
         return API_ERROR
 
@@ -477,9 +522,9 @@ def answerQuestion(gid,qid,answer,time_ms):
     gdata["leaderboard"][user] += points
     udata["score"] += points
 
-    game = gamesBucket.new( gid, data = gdata )
+    game = gamesBucket.new(gid, data = gdata)
     game.store()
-    userObj = userBucket.new( user, data = udata )
+    userObj = userBucket.new(user, data = udata)
     userObj.store()
 
     return "correct"
@@ -502,8 +547,8 @@ def getLeaderBoard(gid):
         return API_ERROR
 
     gid = str(gid)
-    gamesBucket = g.db.bucket( "games" )
-    game = gamesBucket.get( gid )
+    gamesBucket = g.db.bucket("games")
+    game = gamesBucket.get(gid)
 
     # Failure on bogus game ID
     if not game.exists():
@@ -516,4 +561,4 @@ def getLeaderBoard(gid):
 
 # Run the webserver
 if __name__ == '__main__':
-    app.run( host=gethost(), port=getport() )
+    app.run(host=gethost(), port=getport())

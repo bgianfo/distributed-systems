@@ -23,7 +23,7 @@ POST: authToken=<session id>
 Return:
    Valid: A set of names and scores (zero or more)
    Invalid: Error Code?  (invalid auth token)
-Status: Not implemented
+Status: Fully implemented
 
 Public Games:
    Server Notes:

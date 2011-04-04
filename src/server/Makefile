@@ -15,6 +15,7 @@ deps:
 	pip install flask
 	pip install riak
 	pip install tornado
+	pip install py-bcrypt
 
 init-db:
 	python db/insert-questions.py
