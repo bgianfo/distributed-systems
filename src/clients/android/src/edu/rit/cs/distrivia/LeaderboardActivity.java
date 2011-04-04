@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Window;
 import android.widget.TableLayout;
-import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
@@ -26,21 +25,22 @@ public class LeaderboardActivity extends Activity {
         setContentView(R.layout.leaderboard);
         
         leaderTable = (TableLayout) findViewById(R.id.leader_table);
-        loadTable();
         leaderTable.setStretchAllColumns(true);
+        loadTable();
     }
     
     private void loadTable() {
     	TableRow row = new TableRow(getApplicationContext());
-    	LinearLayout rowLayout = new LinearLayout(getApplicationContext());
-    	rowLayout.setOrientation(LinearLayout.HORIZONTAL);
+    	//LinearLayout rowLayout = new LinearLayout(getApplicationContext());
+    	//rowLayout.setOrientation(LinearLayout.HORIZONTAL);
     	TextView name = new TextView(getApplicationContext());
     	name.setText("Prof1");
+    	name.setWidth(200);
     	TextView score = new TextView(getApplicationContext());
     	score.setText("10000");
-    	rowLayout.addView(name);
-    	rowLayout.addView(score);
-    	row.addView(rowLayout);
+    	row.addView(name);
+    	row.addView(score);
+    	//row.addView(rowLayout);
     	leaderTable.addView(row);
     	
     }

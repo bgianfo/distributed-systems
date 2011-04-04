@@ -40,7 +40,7 @@ public class JoinActivity extends Activity {
         joinPublicButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(final View v) {
-                privateLayout.setVisibility(View.INVISIBLE);
+                privateLayout.setVisibility(View.GONE);
                 v.setEnabled(false);
                 playersLabel.setText("Players: 10/20");
                 Intent roundIntent = new Intent();
@@ -58,6 +58,7 @@ public class JoinActivity extends Activity {
         		if (!name.equals("") && !pass.equals("")) {
         			publicLayout.setVisibility(View.GONE);
         			v.setEnabled(false);
+        			playersLabel.setText("Players: 10/20");
         			Intent roundIntent = new Intent();
                     roundIntent.setClassName("edu.rit.cs.distrivia",
                             "edu.rit.cs.distrivia.RoundActivity");
