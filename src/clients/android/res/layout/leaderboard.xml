@@ -7,10 +7,8 @@
     <TextView android:text="Leaderboard" android:id="@+id/textView1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="20sp"></TextView>
     <TableLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:isScrollContainer="true" android:scrollbarStyle="insideInset" android:scrollbars="vertical" android:id="@+id/leader_table">
         <TableRow android:id="@+id/tableRow1" android:layout_height="wrap_content" android:layout_width="fill_parent">
-            <LinearLayout android:layout_height="wrap_content" android:layout_width="fill_parent" android:id="@+id/linearLayout1">
-                <TextView android:text="ProfRaj123" android:id="@+id/textView2" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
-                <TextView android:text="10000" android:id="@+id/textView3" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
-            </LinearLayout>
+            <TextView android:layout_width="200dip" android:text="ProfRaj123" android:id="@+id/textView2" android:layout_height="wrap_content"></TextView>
+            <TextView android:layout_width="wrap_content" android:text="10000" android:id="@+id/textView3" android:layout_height="wrap_content"></TextView>
         </TableRow>
     </TableLayout>
 </LinearLayout>

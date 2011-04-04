@@ -6,6 +6,11 @@ package edu.rit.cs.distrivia.api;
 public class DistriviaAPIException extends Exception {
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 2837222363918046817L;
+
+	/**
      * 
      */
     public DistriviaAPIException() {

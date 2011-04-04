@@ -28,14 +28,8 @@
         <Button android:id="@+id/join_public_button"
          android:layout_height="wrap_content"
          android:text="@string/join_public"
-         android:layout_width="fill_parent">
+         android:layout_width="fill_parent" android:layout_marginBottom="20dip">
          </Button>
-         
-        <TextView android:text=""
-         android:layout_width="wrap_content"
-         android:layout_height="50dip"
-         android:id="@+id/num_players_text">
-        </TextView>
         
     </LinearLayout>
     
@@ -57,8 +51,7 @@
          
             <TextView android:id="@+id/textView1"
              android:text="@string/private_name"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content">
+             android:layout_height="wrap_content" android:layout_width="75dip">
             </TextView>
             
             <EditText android:text=""
@@ -75,7 +68,7 @@
          
             <TextView android:id="@+id/textView4"
              android:text="@string/private_pass"
-             android:layout_width="wrap_content"
+             android:layout_width="75dip"
              android:layout_height="wrap_content">
             </TextView>
             
@@ -83,8 +76,7 @@
              android:id="@+id/private_pass_text"
              android:layout_height="wrap_content"
              android:layout_width="fill_parent"
-             android:password="true"
-             android:layout_gravity="right">
+             android:password="true">
             </EditText>
             
         </LinearLayout>
@@ -96,5 +88,10 @@
         </Button>
         
     </LinearLayout>
+    <TextView android:layout_height="wrap_content"
+     android:layout_width="fill_parent" 
+     android:text="" 
+     android:id="@+id/num_players_text">
+    </TextView>
     
 </LinearLayout>
