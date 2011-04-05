@@ -20,7 +20,7 @@ from werkzeug.contrib.fixers import ProxyFix
 import os
 import riak    # Database client
 import uuid    # Unique Identifier generator
-import bcyrpt  # Password hashing library
+import bcrypt  # Password hashing library
 import socket
 import urllib2
 
@@ -488,6 +488,7 @@ def answerQuestion(gid,qid,answer,time_ms):
 
     points = 0
     if time_ms > 10*SEC_TO_MS:
+        pass
         # After ten seconds no points
     elif time_ms > 9 * SEC_TO_MS:
         points = 50
