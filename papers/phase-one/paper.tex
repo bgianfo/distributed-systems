@@ -1,0 +1,146 @@
+\documentclass{dependencies/acm_proc_article-sp}
+
+\usepackage{url}
+\usepackage{color}
+\usepackage{verbatim}
+\usepackage{listings}
+\lstset{
+  language=C++,             % choose the language of the code
+  basicstyle=\small,       % the size of the fonts that are used for the code
+  numbers=left,                   % where to put the line-numbers
+  numberstyle=\footnotesize,      % the size of the fonts that are used for the line-numbers
+  stepnumber=0,                   % the step between two line-numbers. If it is 1 each line will be numbered
+  numbersep=5pt,                  % how far the line-numbers are from the code
+  backgroundcolor=\color{white},  % choose the background color. You must add \usepackage{color}
+  showspaces=false,               % show spaces adding particular underscores
+  showstringspaces=false,         % underline spaces within strings
+  showtabs=false,                 % show tabs within strings adding particular underscores
+  %frame=single,                   % adds a frame around the code
+  tabsize=2,              % sets default tabsize to 2 spaces
+  captionpos=t,                   % sets the caption-position to bottom
+  breaklines=false,        % sets automatic line breaking
+  breakatwhitespace=false,    % sets if automatic breaks should only happen at whitespace
+  escapeinside={\%}{)}          % if you want to add a comment within your code
+}
+
+% Get rid of the permission block
+\makeatletter
+\let\@copyrightspace\relax
+\makeatother
+
+\begin{document}
+
+%\title{ Distributed Systems: Project Description }
+\title{ Distrivia: A Distributed Trivia Game }
+\numberofauthors{3}
+\author{
+\alignauthor
+Brian Gianforcaro \\
+       \affaddr{Rochester Institue of Technology}\\
+       \email{bjg1955@rit.edu}
+\alignauthor
+Steven Glazer \\
+       \affaddr{Rochester Institue of Technology}\\
+       \email{sfg6126@rit.edu}
+\alignauthor
+Samuel Milton \\
+       \affaddr{Rochester Institue of Technology}\\
+       \email{srm2997@rit.edu}
+}
+\maketitle
+
+%\begin{abstract}
+%In this paper we detail our initial idea for a distributed trivia game.
+%We will explain general game play idea's as well as an example of the
+%possible architecture for our system.
+%\end{abstract}
+
+\section{What We've Done}
+So far, our work has mainly focused on getting everything setup to work as a
+distributed system. Getting the ground work done (for example servers and load
+distributers running) has provided us a way to quickly develop the clients and
+server as well as provided us with a way to reliably connect the servers to the
+clients.
+
+\subsection{Servers}
+Currently, we have 4 servers running. One server is being used as a web-monitor
+host. We are able to login to the web-monitor to see the status of all our
+servers, databases, and load distributers. This will help us manage if the
+services are running and allow us to track down any problems, if they arise.
+The other three servers are all running our server application and hosting the
+databases. Each server contains the server application that responds to clients
+as well as the Riak databases. Riak auto-synchronizes the databases between the
+3 servers. If we were to add a server, we would just need to updatrver as well
+as provided us with a way to reliably connect the servers to the clients.
+
+\subsection {Traffic}
+We have two load distributers set up. Both distributers are currently
+configured to divide the requests among the 3 active servers. The duplicate
+distributers allow for a load distributer to go down and we would still be able
+to serve requests to the servers. These load distributers are selected by the
+clients using round robin DNS where distrivia.lame.ws will select either load
+distributer that is up at random. This provides us will stability for access to
+the servers. The load distributers are set up the attempt to connect to a
+server twice before deeming it dead and removing it from its list of servers to
+direct clients towards.
+
+\subsection {Clients}
+Our focus for clients has been on a web-based client and an android
+application. Both clients have most of the their screens completed. The
+web-based client will be run from desktop platforms and laptop platforms. The
+android client will run on any android phone and does not use any unique
+services that require specific hardware.
+
+\section{What's Left}
+\subsection{Web Client}
+Joining/playing private games
+In-game leaderboard
+Finish connecting to actual serversver API
+Implement useful user warnings
+
+\subsection{Android}
+Connecting to server API
+Registration
+Private games
+Leaderboards
+Allowing users to control screens
+
+\subsection{Server}
+Passwords
+Private game joining
+Global leaderboard
+Finish setting up SSL on load distributers
+Set up 2 hot spares
+
+\section {Meeting the Requirements}
+-3 Devices (Android, Desktop, Laptop)
+-Reliable / Flexible communication (Multiple servers, multiple load
+distributers, 2 hot spares, proper communication to user)
+-Coordination/Cooperation (Synchronous Databases and Rounds consisting of many
+players)
+-Replication / Availability / Consistency (Riak handles synchronizing databases
+among servers. Load distributers provide availability)
+- Naming / Service Discovery
+- Fault tolerance / Handling of partial failures
+- Security (SSL)
+- Scalability (add new nodes and add to riak cluster and it's all set)
+- Use of an interesting distributed algorithm
+
+\newpage
+%
+% The following two commands are all you need in the
+% initial runs of your .tex file to
+% produce the bibliography for the citations in your paper.
+%\bibliographystyle{abbrv}
+%\bibliography{bibliography}  % sigproc.bib is the name of the Bibliography in this case
+% You must have a proper ".bib" file
+%  and remember to run:
+% latex bibtex latex
+% to resolve all references
+%
+% ACM needs 'a single self-contained file'!
+%
+%APPENDICES are optional
+\balancecolumns
+% That's all folks!
+\end{document}
