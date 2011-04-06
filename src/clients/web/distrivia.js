@@ -17,7 +17,7 @@ var stopTime = 0;
 
 var updater = null;
 var answer = -1;
-var board_n = 1;
+var board_n = 0;
 
 var API_ERROR   = "err";
 var API_SUCCESS = "suc";
@@ -314,25 +314,35 @@ function More(){
       if( xr.readyState == 4 && xr.status == 200 ){
          removeClass( bl, 'board_load' );
 
-         var bits = xr.responseText.split("\n");
-         if( bits[0] == board_n ){
+         var data = xr.responseText;
+         var board = jsonify( data );
+
+         var sortedboard = [];
+         for ( key in board ) {
+           sortedboard.push( [ key, board[key] ] );
+         }
+
+         // Sort by score
+         function sorter( a, b ) { a[1] - b[1]; };
+         sortedboard = sortedboard.sort( sorter );
+
             var more = "";
-            for( var i = 1; i < bits.length; i+=2 ){
-               more += "<li class='board_item'><div class='board_left'>" + bits[i] + "</div><div class='board_right'>" + bits[i+1] + "</div></li>";
+            for( var i = 0; i < sortedboard.length; i++ ) {
+               more += "<li class='board_item'><div class='board_left'>";
+               more += sortedboard[i][0];
+               more += "</div><div class='board_right'>";
+               more += sortedboard[i][1];
+               more += "</div></li>";
                board_n++;
             }
             bl.innerHTML = bl.innerHTML + more;
-//            bl.scrollTop = bl.scrollHeight;
+            bl.scrollTop = bl.scrollHeight;
             $(bl).animate({scrollTop: bl.scrollHeight - $(bl).height() }, 800);
-         }else{
-            console.log( bits[0] );
-            console.log( board_n );
-         }
       }
    }
 
-   var param = "post=more&i=" + session + "&n=" + board_n;
-   xr.open( "POST", "ajax.php", true );
+   var param = "authToken=" + session;
+   xr.open( "POST", "/leaderboard/"+board_n, true );
    xr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
    xr.send(param);
 
@@ -345,7 +355,7 @@ function More(){
  * Shows universal leaderboard
  */
 function Scores(){
-   board_n = 1;
+   board_n = 0;
    byId('board_list').innerHTML = "";
    swap(join,board);
    More();
@@ -451,9 +461,10 @@ function Register(){
       var URI = erl( "/register/" + username );
 
       if( username != "" && pass != "" ){
+         var param = "password=" + pass;
          xr.open( "POST", URI, true );
          xr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-         xr.send();
+         xr.send(param);
       }
    }
 
@@ -493,7 +504,7 @@ function Login(){
    if( username == "" )
       return false;
    var pass = document.forms.login_form.password.value;
-   var param = "";
+   var param = "password=" + pass;
 
    var URI = erl( "/login/" + username );
    xr.open( "POST", URI, true );

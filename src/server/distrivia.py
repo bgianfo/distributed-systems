@@ -26,8 +26,8 @@ import urllib2
 
 
 app = Flask(__name__)
-#app.debug = True
-#app.config['DEBUG'] = True
+app.debug = True
+app.config["DEBUG"] = True
 app.config['SECRET_KEY'] = 'secret'
 app.wsgi_app = ProxyFix(app.wsgi_app)
 
@@ -205,7 +205,6 @@ def register(user_name):
         hashed = bcrypt.hashpw(password, bcrypt.gensalt())
         # Clear out password's we no longer need
         password = ""
-        request.form["password"] = ""
 
         # Create a uuid for this user
         uid = str(uuid.uuid1())
@@ -245,13 +244,13 @@ def login(user_name):
         user_data = user.get_data()
 
         # Check to make sure the hashed password matches stored hash
-        if bcrypt.hashpw(password, user_data["pw_hash"]) == user_data["pw_hash"]:
+        if bcrypt.hashpw(password, user_data["hash"]) == user_data["hash"]:
             unique_id = user_data["uuid"]
             logged_in = users.get("logged_in")
             if logged_in.exists():
                 vdata = logged_in.get_data()
                 if unique_id in vdata["users"]:
-                    return uniqueId
+                    return unique_id
                 else:
                     vdata["users"].append(unique_id)
                     logged_in = users.new("logged_in", data=vdata)
@@ -265,13 +264,14 @@ def login(user_name):
 
     return API_ERROR
 
-@app.route('/leaderboard/<position>')
+@app.route('/leaderboard/<int:position>', methods=["POST"])
 def global_leaderbord(position = 0):
     """
     Get the global leader board for all ove distrivia
     """
 
     size  = 10
+    client = g.db
 
     if not isAuthed():
         return API_ERROR
@@ -280,7 +280,10 @@ def global_leaderbord(position = 0):
     mapfn = """
     function(value, keyData, arg) {
         var data = Riak.mapValuesJson(value)[0];
-        return [value.key, data.score];
+        if ( value.key !== "logged_in" ) {
+          return [[value.key, data.score]];
+        }
+        return [];
     }
     """
 
@@ -291,7 +294,7 @@ def global_leaderbord(position = 0):
       sorted = values.sort(cmp);
       return sorted.slice( %s, %s );
     }
-    """ % ( position, position + size )
+    """ % ( str(position), str(position + size) )
 
 
     query = client.add("users")
@@ -300,10 +303,13 @@ def global_leaderbord(position = 0):
 
     board = {}
 
+    query_results = query.run()
+
+    print query_results
     #  Pack users into the board
-    for result in query.run():
+    for result in query_results:
         user  = result[0]
-        score = reulst[1]
+        score = result[1]
         board[user] = score
 
     return json.dumps(board)
@@ -362,22 +368,27 @@ def joinGame():
     query = client.add("games")
     query.map(mapfn)
 
-    for key in query.run():
-        key = str(key)
-        # Add user to the game
-        game = gamesBucket.get(key)
+    query_result = query.run()
 
-        vdata = game.get_data()
-        if token in vdata["users"]:
-            continue
-        vdata["users"].append(token)
-        # Add user to the leader board
-        vdata["leaderboard"][user] = 0
-        game = gamesBucket.new(key, data=vdata)
-        game.store()
-        return key
+    if query_result != None:
+      for key in query_result:
+          key = str(key)
+          # Add user to the game
+          game = gamesBucket.get(key)
 
-    gid = initializeGame(user)
+          vdata = game.get_data()
+          if token in vdata["users"]:
+              continue
+          vdata["users"].append(token)
+          # Add user to the leader board
+          vdata["leaderboard"][user] = 0
+          game = gamesBucket.new(key, data=vdata)
+          game.store()
+          return key
+      gid = initializeGame(user)
+    else:
+        gid = initializeGame(user)
+
     return gid
 
 @app.route('/game/<gid>/next/<prevId>', methods=["POST"])
