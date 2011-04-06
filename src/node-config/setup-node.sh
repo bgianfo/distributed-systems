@@ -27,6 +27,8 @@ sudo yum -y install --nogpgcheck monit-5.2.4-1.el6.rf.x86_64.rpm
 
 sudo yum -y install nginx
 
+sudo yum -y install python26-devel
+
 # Install python flask library
 sudo easy_install flask
 
@@ -35,6 +37,9 @@ sudo easy_install riak
 
 # Install python tornado server
 sudo easy_install tornado
+
+# Install python bcrypt module
+sudo easy_install bcrypt
 
 # Install git commandline client
 sudo yum -y install git
