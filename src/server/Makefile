@@ -20,8 +20,8 @@ deps:
 init-db:
 	python db/insert-questions.py
 
-run lauch:
-	python distrivia.py
+run launch:
+	python server.py --logging=info --log_file_prefix=/home/ec2-user/server.log
 
 test:
 	python runner.py test
