@@ -19,7 +19,7 @@ import android.widget.Toast;
 public class JoinActivity extends Activity {
 	
     /** Called when the activity is first created. */
-    @Override
+	@Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);

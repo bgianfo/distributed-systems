@@ -13,8 +13,6 @@ import android.widget.TextView;
  */
 public class LeaderboardActivity extends Activity {
 
-    //private String authToken;
-    //private String gameId;
 	TableLayout leaderTable;
 
     /** Called when the activity is first created. */
@@ -30,19 +28,17 @@ public class LeaderboardActivity extends Activity {
     }
     
     private void loadTable() {
-    	TableRow row = new TableRow(getApplicationContext());
-    	//LinearLayout rowLayout = new LinearLayout(getApplicationContext());
-    	//rowLayout.setOrientation(LinearLayout.HORIZONTAL);
-    	TextView name = new TextView(getApplicationContext());
-    	name.setText("Prof1");
-    	name.setWidth(200);
-    	TextView score = new TextView(getApplicationContext());
-    	score.setText("10000");
-    	row.addView(name);
-    	row.addView(score);
-    	//row.addView(rowLayout);
-    	leaderTable.addView(row);
-    	
+	    for (int i=0; i < 30; i++) {
+	    	TableRow row = new TableRow(getApplicationContext());
+	    	TextView name = new TextView(getApplicationContext());
+	    	name.setText("Prof1");
+	    	name.setWidth(200);
+	    	TextView score = new TextView(getApplicationContext());
+	    	score.setText("10000");
+	    	row.addView(name);
+	    	row.addView(score);
+	    	leaderTable.addView(row);
+	    }	
     }
 
 }
