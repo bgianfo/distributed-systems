@@ -1,5 +1,8 @@
 API Proposal
 
+Status Codes:
+1 = Everything was ok
+
 Logging in:
  URL: /login/<username>
 POST: password=<password>
@@ -31,9 +34,11 @@ Public Games:
 Join Game:
  URL: /public/join
 POST: authToken=<session id>
-Return:
-   Valid: game id
-   Invalid: Error Code? (invalid auth token)
+Returned JSON:
+  Alwyas:
+   .status
+  On success
+   .id
 Status: Not implemented
 
 Private Games:
@@ -51,15 +56,25 @@ Game Actions (for public and private):
 All start with
  URL: /game/<game id>
 POST: authToken=<session id>
-The return value always contains the games leaderboard and a status
-Status can equal 'waiting', 'started', or 'done'
+Returned JSON:
+   .status
+If status == 1
+   .gamestatus == 'waiting' or 'started' or 'done'
+   .leaderboard
+If gamestatus == 'started'
+   .question
+   .qid
+   .a
+   .b
+   .c
+   .d
 Status: Not implemented
 
 Submit an Answer:
-   Add to URL: /question/<question id>/<answer>
-   Add to Post: time=<time>
-   Add to Return:
-      Valid: if status == started, the next question. otherwise nothing
+   Add to URL: /question/<question id>
+   Add to Post: a=<answer>&time=<time>
+   Add to Returned JSON:
+      See above 
 Status: Not implemented
 
 Create a Private Game:

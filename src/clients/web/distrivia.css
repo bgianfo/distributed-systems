@@ -189,6 +189,21 @@ a.answer:hover {
 /* End Leaderboard CSS */
 
 
+/* Game Leaderboard CSS */
+.game_board{
+   border: 1px solid gray;
+   float: left;
+}
+.wrapper{
+   float: left;
+}
+/* End Game Leaderboard CSS */
+
+.error_div{
+   float: left;
+   clear: left;
+}
+
 a:link {
    color: pink;
 }
