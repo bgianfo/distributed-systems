@@ -58,13 +58,13 @@ Samuel Milton \\
 \section {What We've Done}
 So far, our work has mainly focused on getting everything setup to work as a
 distributed system. Getting the ground work done (for example servers and load
-distributers running) has provided us a way to quickly develop the clients
+sharers running) has provided us a way to quickly develop the clients
 and server as well as provided us with a way to reliably connect the servers to
 the clients.
 \subsection {Servers}
 Currently, we have 6 servers running. One server is being used as a web-monitor
 host. We are able to login to the web-monitor to see the status of all our
-servers, databases, and load distributers. This will help us manage if the services
+servers, databases, and load sharers. This will help us manage if the services
 are running and allow us to track down any problems, if they arise. Three
 servers are all running our server application and hosting the databases.
 We also have two final servers that we have setup as hot spares in the event
@@ -74,19 +74,19 @@ the Riak \cite{riak} databases. Riak auto-synchronizes the databases between the
 Note that the hot spares are setup to be part of the database cluster so they
 have a full copy of the database on hand, however they don't accept any reads
 or writes directly.
-With this configuratoin if we were to add a server, we would just need to update 
+With this configuration if we were to add a server, we would just need to update 
 Riak and it would sync the databases to any additional servers as well. These servers,
 therefore, all contain the same information. If any servers go down, the distributed
 system would still run fine. We could have all servers go down except one and still
 be reliably handling requests.
 \subsection {Traffic}
-We have two load distributers set up. Both distributers are currently configured to
-divide the requests among the 3 active servers. The duplicate distributers allow
+We have two load sharers set up. Both sharers are currently configured to
+divide the requests among the three active servers. The duplicate sharers allow
 for a load distributer to go down and we would still be able to serve requests
-to the servers. These load distributers are selected by the clients using round
+to the servers. These load sharers are selected by the clients using round
 robin DNS where distrivia.lame.ws will select either load distributer that is
 up at random. This provides us will stability for access to the servers. The
-load distributers are set up the attempt to connect to a server twice before
+load sharers are setup to attempt to connect to a server twice before
 deeming it dead and removing it from its list of servers to direct clients towards.
 
 \subsection {Clients}
@@ -97,52 +97,65 @@ on any android phone and does not use any unique services that require specific
 hardware. The web client is nearly fully-functional. It currently can login/register
 players, join public games, and compete in public games. The android client has
 he UI done for all the different activities. The android client can successfully register
-and log players into games. We are actively adding features to both clients daily. 
+and log players into games. We are actively adding features to both clients daily.
 
 \subsection {Messages}
-We are currently using https protocol for our messages. This provides a secure
+We are currently using the https protocol for our messages. This provides a secure
 and usable messaging system that we have designed our client and server APIs to use.
 The actual messages are sent and received in two way's. Initially a user session key is
-genereated using the UUID \cite{uuid} algorithm and returned to the user on sucessful
-authenticaton. This session key is then passed back to the server with every in coming
+generated using the UUID \cite{uuid} algorithm and returned to the user on successful
+authentication. This session key is then passed back to the server with every in coming
 message. Messages are sent to the server using POST and GET request methods supported
 by the HTTP protocol. Responses from the server are in the form of JSON \cite{json} objects.
-JSON is a small, easily parsable format, representing objects in a human readable format as
+JSON is a small, easily parseable format, representing objects in a human readable format as
 they would be represented in JavaScript. With the web client the JSON object returned from
-the server is instantly useable, however for the android client we have to parse the JSON object
-into a native java object. The Android SDK provides libraries to do this, located in the
-org.json \cite{orgjson} package namespace.
+the server is instantly usable, however for the android client we have to parse the JSON object
+into a native Java object. The Android SDK provides libraries to do this, located in the
+org.json \cite{orgjson} package name space.
 \section {What's Left}
+\subsection {Server}
+The server is currently almost feature complete, but still needs a lot of
+testing. The only features it does not currently support is any sort of notion
+of a private game. Client registration, and login are all supported. A client can
+join a game, retrieve questions for that game, and answer questions. Both a
+global leader board and individual per game leader board can also be requested.
+As a group we have already found several inconsistencies and things we would
+like to change with how server API requests are structured. We have also thought of
+way's we can combine multiple requests into one, reducing the possible latency
+and overall communication time of multiple requests. To fix these
+inconsistencies members of the group worked to create a formal specification
+for the request protocol of each possible request. This allows the server and client
+programmers to work towards a common goal with out either making inappropriate
+assumptions about how the system will work. We are currently in the middle
+of refactoring the server to use the new requests detailed in the API.
+
 \subsection {Web Client}
-A lof of the main features of the web client are completed.
-However, there are stil a few remaining features that need to be implemented.
+A lot of the main features of the web client are completed.
+However, there are still a few remaining features that need to be implemented.
 The first is private games.
 Joining them has only been stubbed out with no functionality.
-The game playing routinees from public games should be compatible with private games, but may need a few tweeks as well.
-Next, while it currently supports a universal leaderboard, it also needs to be able to display one ingame.
-With the recent API changes, there are a few existing features which need to have thir API calls adjusted slightly.
+The game playing routines from public games should be compatible with private games, but may need a few tweaks as well.
+Next, while it currently supports a universal leader board, it also needs to be able to display one in game.
+With the recent API changes, there are a few existing features which need to have their API calls adjusted slightly.
 Another feature that needs to be finished is displaying useful warnings and error messages.
 While progress has been made on them and a reporting system has been built, messages still need to be fed into it.
-Lastly, when a user clicks on a button to do something like log in, the button should be disabled while waiting for a response, alternatively it needs to be able to handle sending out two calls for the same request and not getting confused if it gets two back.
+Lastly, when a user clicks on a button to do something like log in, the button should be disabled while waiting for a response,
+alternatively it needs to be able to handle sending out two calls for the same request and not getting confused if it gets two back.
 \subsection {Android}
 So far, the only connection to the server that the android client has is when it
 registers/logs in. We still need to connect the rest of the android client to
 the server API to make sure all the communication between the android client
 and the server are working. This includes joining public/private rounds,
-competing in these rounds, and viewing leaderboards. While the UI is nearly
+competing in these rounds, and viewing leader boards. While the UI is nearly
 finished on the android client, nearly all of the connections to the servers
 has yet to be done. Additionally, the android client needs to have more user
 feedback and increased ability for the users to control which activity they
 are in.
-\subsection {Server}
-Private game joining
-Global leaderboard
-
 \section {Meeting the Requirements}
 
 Our system has two unique clients. One of them is designed for the Android platform as an app.
 The other is a web client which is specifically being tested on Desktop and Laptop
-browsers, however it may work on many handheld web browsers as well.
+browsers, however it may work on many hand held web browsers as well.
 
 Our system supports having any number of servers and allowing any subset of them to fail.
 We are using Riak, which supports a 'shared nothing' architecture.  We can add a new server
@@ -153,7 +166,7 @@ up, the service will be available.
 
 We use round robin DNS to allow our clients to be completely ignorant of our servers.  Load distributors
 can be added and removed from the DNS server and the clients will be completely ignorant of this
-and unaffected.  The load distributors in turn know aboutour data servers and do their best to
+and unaffected.  The load sharers in turn know about our data servers and do their best to
 distribute the load across them.  When a new server is added, it is just added to our load distributor
 configuration file and clients can start using it.  When a server fails, the distributors will stop directing
 traffic to it.
@@ -162,23 +175,22 @@ traffic to it.
 We are currently using Riak as our database backend. We chose Riak for multiple
 reasons, but the biggest was it's focus on  scalability, fault-tolerance,
 availability, and replication. Riak is a Amazon Dynamo \cite{dynamo} inspired
-database, it supports full masterless replication. In Riak every node can
-server client requests and they are propogated to the rest of the cluster.
-In our system we have made sure that this replication occurs's between nodes
+database, it supports full master less replication. In Riak every node can
+server client requests and they are propagated to the rest of the cluster.
+In our system we have made sure that this replication occurs between nodes
 on Amazon EC2's internal Gigabit ethernet so it is as fast as possible. Riak
 also has the unique property that if all of the nodes but one fail, the single
 node can still accept both reads and writes to the database. When the other
 nodes return to operational state from failure, all changes will automatically
-be propogated to all of the nodes. This feature is the basis for our ability to
-support and recorver from partial failures. In the event that two Riak nodes accept
-writes from two seperate clients modifying the same data and Riak is unable
+be propagated to all of the nodes. This feature is the basis for our ability to
+support and recover from partial failures. In the event that two Riak nodes accept
+writes from two separate clients modifying the same data and Riak is unable
 to resolve the conflict the user is given both versions and allowed to resolve
 the conflict them selves. However we have configured our installation so this
 can not occur, we have specified that every available node must agree on a
-write before it is commited. Given the relatively small number of nodes (five)
+write before it is committed. Given the relatively small number of nodes (five)
 that will take part in this agreement, we decided that the possible overhead
 was acceptable for the increased level of consistency it gives us.
-
 
 Our team is taking a very proactive stance towards security. All of our machines are properly fire walled so that
 outside clients can not authenticate to our database cluster. Also we have implemented SSL through our entire infrastructure.
