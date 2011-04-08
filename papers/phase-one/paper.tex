@@ -62,7 +62,7 @@ sharers running) has provided us a way to quickly develop the clients
 and server as well as provided us with a way to reliably connect the servers to
 the clients.
 \subsection {Servers}
-Currently, we have 6 servers running. One server is being used as a web-monitor
+Currently, we have 6 servers running on Amazon's Elastic Compute Cload \cite{aec}. One server is being used as a web-monitor
 host. We are able to login to the web-monitor to see the status of all our
 servers, databases, and load sharers. This will help us manage if the services
 are running and allow us to track down any problems, if they arise. Three
@@ -88,6 +88,8 @@ robin DNS where distrivia.lame.ws will select either load distributer that is
 up at random. This provides us will stability for access to the servers. The
 load sharers are setup to attempt to connect to a server twice before
 deeming it dead and removing it from its list of servers to direct clients towards.
+Currently we are using the NGINX \cite{nginx} in a reverse proxy configuration
+for our load shareing needs.
 
 \subsection {Clients}
 Our focus for clients has been on a web-based client and an android application.
