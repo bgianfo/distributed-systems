@@ -62,18 +62,23 @@ distributers running) has provided us a way to quickly develop the clients
 and server as well as provided us with a way to reliably connect the servers to
 the clients.
 \subsection {Servers}
-Currently, we have 4 servers running. One server is being used as a web-monitor
+Currently, we have 6 servers running. One server is being used as a web-monitor
 host. We are able to login to the web-monitor to see the status of all our
 servers, databases, and load distributers. This will help us manage if the services
-are running and allow us to track down any problems, if they arise. The other three
+are running and allow us to track down any problems, if they arise. Three
 servers are all running our server application and hosting the databases.
+We also have two final servers that we have setup as hot spares in the event
+of partial or total failure.
 Each server contains the server application that responds to clients as well as
-the Riak \cite{riak} databases. Riak auto-synchronizes the databases between the 3 servers. If
-we were to add a server, we would just need to update Riak and it would sync the
-databases to any additional servers as well. These servers, therefore, all contain
-the same information. If any servers go down, the distributed system would still
-run fine. We could have all servers go down except one and still be reliably
-handling requests.
+the Riak \cite{riak} databases. Riak auto-synchronizes the databases between the 5 servers.
+Note that the hot spares are setup to be part of the database cluster so they
+have a full copy of the database on hand, however they don't accept any reads
+or writes directly.
+With this configuratoin if we were to add a server, we would just need to update 
+Riak and it would sync the databases to any additional servers as well. These servers,
+therefore, all contain the same information. If any servers go down, the distributed
+system would still run fine. We could have all servers go down except one and still
+be reliably handling requests.
 \subsection {Traffic}
 We have two load distributers set up. Both distributers are currently configured to
 divide the requests among the 3 active servers. The duplicate distributers allow
@@ -83,10 +88,7 @@ robin DNS where distrivia.lame.ws will select either load distributer that is
 up at random. This provides us will stability for access to the servers. The
 load distributers are set up the attempt to connect to a server twice before
 deeming it dead and removing it from its list of servers to direct clients towards.
-\subsection {Messages}
-We are currently using https protocol for our messages. This provides a secure
-and usable message system that we have conformed our client and server APIs to use.
-The actual message content is in the form of JSON objections \cite{json} 
+
 \subsection {Clients}
 Our focus for clients has been on a web-based client and an android application.
 Both clients have most of the their screens completed. The web-based client will
@@ -94,9 +96,22 @@ be run from desktop platforms and laptop platforms. The android client will run
 on any android phone and does not use any unique services that require specific
 hardware. The web client is nearly fully-functional. It currently can login/register
 players, join public games, and compete in public games. The android client has
-he UI done for all the different activities. The android client successfully registers
-and logs in players.
+he UI done for all the different activities. The android client can successfully register
+and log players into games. We are actively adding features to both clients daily. 
 
+\subsection {Messages}
+We are currently using https protocol for our messages. This provides a secure
+and usable messaging system that we have designed our client and server APIs to use.
+The actual messages are sent and received in two way's. Initially a user session key is
+genereated using the UUID \cite{uuid} algorithm and returned to the user on sucessful
+authenticaton. This session key is then passed back to the server with every in coming
+message. Messages are sent to the server using POST and GET request methods supported
+by the HTTP protocol. Responses from the server are in the form of JSON \cite{json} objects.
+JSON is a small, easily parsable format, representing objects in a human readable format as
+they would be represented in JavaScript. With the web client the JSON object returned from
+the server is instantly useable, however for the android client we have to parse the JSON object
+into a native java object. The Android SDK provides libraries to do this, located in the
+org.json \cite{orgjson} package namespace.
 \section {What's Left}
 \subsection {Web Client}
  Joining/playing private games
@@ -123,29 +138,51 @@ Our system has two unique clients. One of them is designed for the Android platf
 The other is a web client which is specifically being tested on Desktop and Laptop
 browsers, however it may work on many handheld web browsers as well.
 
-Our system supports having any number of servers and allowing any subset of them to fail.  We are using Riak, which supports a ''shared nothing' architecture.  We can add a new server by joining it to our database and starting the web server.  This can be done as many times as needed, allowing us to scale up our system.  These same principles also give us great fault tolerance, since any server is capable of running independently.  As long as one server is still up, the service will be available.
+Our system supports having any number of servers and allowing any subset of them to fail.
+We are using Riak, which supports a 'shared nothing' architecture.  We can add a new server
+by joining it to our database and starting the web server.  This can be done as many times
+as needed, allowing us to scale up our system.  These same principles also give us great fault
+tolerance, since any server is capable of running independently.  As long as one server is still
+up, the service will be available.
 
-We use round robin DNS to allow our clients to be completely ignorant of our servers.  Load distributors can be added and removed from the DNS server and the clients will be completely ignorant of this and unaffected.  The load distributors in turn know about our data servers and do their best to distribute the load across them.  When a new server is added, it is just added to our load distributor configuration file and clients can start using it.  When a server fails, the distributors will stop directing traffic to it.
-
-
-- Coordination/Cooperation (Synchronous Databases and Rounds consisting of many players)
-- Replication / Availability / Consistency (Riak handles synchronizing databases among servers. Load distributers provide availability)
-  < Needs stuff on Riak>
-
- Our team is taking a very proactive stance towards security. All of our machines are properly fire walled so that
- outside clients can not authenticate to our database cluster. Also we have implemented SSL through our entire infrastructure.
- Our load balancer's automatically redirect http:// to https:// and once you are in https:// at the load balancer, SSL continues all the
- way back to our actual web application back end serving responses over a SSL wrapped socket. This way no passwords are ever
- sent in clear text. Our group even found a SSL certificate authority who was willing to sign our SSL certificate for free. This gives
- us actual fully functional, authenticate able SSL infrastructure. In order to make sure that our system properly secures user information,
- we stuck with the industry standard of storing a hashed version of the users password instead of the password itself. We decided on using
- the cryptographically secure hashing function designed for passwords known as bcyrpt \cite{bcrypt}.
-
-- Use of an interesting distributed algorithm
+We use round robin DNS to allow our clients to be completely ignorant of our servers.  Load distributors
+can be added and removed from the DNS server and the clients will be completely ignorant of this
+and unaffected.  The load distributors in turn know aboutour data servers and do their best to
+distribute the load across them.  When a new server is added, it is just added to our load distributor
+configuration file and clients can start using it.  When a server fails, the distributors will stop directing
+traffic to it.
 
 
+We are currently using Riak as our database backend. We chose Riak for multiple
+reasons, but the biggest was it's focus on  scalability, fault-tolerance,
+availability, and replication. Riak is a Amazon Dynamo \cite{dynamo} inspired
+database, it supports full masterless replication. In Riak every node can
+server client requests and they are propogated to the rest of the cluster.
+In our system we have made sure that this replication occurs's between nodes
+on Amazon EC2's internal Gigabit ethernet so it is as fast as possible. Riak
+also has the unique property that if all of the nodes but one fail, the single
+node can still accept both reads and writes to the database. When the other
+nodes return to operational state from failure, all changes will automatically
+be propogated to all of the nodes. This feature is the basis for our ability to
+support and recorver from partial failures. In the event that two Riak nodes accept
+writes from two seperate clients modifying the same data and Riak is unable
+to resolve the conflict the user is given both versions and allowed to resolve
+the conflict them selves. However we have configured our installation so this
+can not occur, we have specified that every available node must agree on a
+write before it is commited. Given the relatively small number of nodes (five)
+that will take part in this agreement, we decided that the possible overhead
+was acceptable for the increased level of consistency it gives us.
 
-\newpage
+
+Our team is taking a very proactive stance towards security. All of our machines are properly fire walled so that
+outside clients can not authenticate to our database cluster. Also we have implemented SSL through our entire infrastructure.
+Our load balancer's automatically redirect http:// to https:// and once you are in https:// at the load balancer, SSL continues all the
+way back to our actual web application back end serving responses over a SSL wrapped socket. This way no passwords are ever
+sent in clear text. Our group even found a SSL certificate authority who was willing to sign our SSL certificate for free. This gives
+us actual fully functional, authenticate able SSL infrastructure. In order to make sure that our system properly secures user information,
+we stuck with the industry standard of storing a hashed version of the users password instead of the password itself. We decided on using
+the cryptographically secure hashing function designed for passwords known as bcyrpt \cite{bcrypt}.
+
 %
 % The following two commands are all you need in the
 % initial runs of your .tex file to
