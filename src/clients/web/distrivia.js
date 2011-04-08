@@ -20,7 +20,7 @@ var answer = -1;
 var board_n = 0;
 
 var API_ERROR   = "err";
-var API_SUCCESS = "suc";
+var API_SUCCESS = 1;
 var MAX_PLAYERS = 1;
 
 var MSG = new Array();
