@@ -114,10 +114,16 @@ into a native java object. The Android SDK provides libraries to do this, locate
 org.json \cite{orgjson} package namespace.
 \section {What's Left}
 \subsection {Web Client}
- Joining/playing private games
- In-game leaderboard
- inish connecting to actual server API
- Implement useful user warnings
+A lof of the main features of the web client are completed.
+However, there are stil a few remaining features that need to be implemented.
+The first is private games.
+Joining them has only been stubbed out with no functionality.
+The game playing routinees from public games should be compatible with private games, but may need a few tweeks as well.
+Next, while it currently supports a universal leaderboard, it also needs to be able to display one ingame.
+With the recent API changes, there are a few existing features which need to have thir API calls adjusted slightly.
+Another feature that needs to be finished is displaying useful warnings and error messages.
+While progress has been made on them and a reporting system has been built, messages still need to be fed into it.
+Lastly, when a user clicks on a button to do something like log in, the button should be disabled while waiting for a response, alternatively it needs to be able to handle sending out two calls for the same request and not getting confused if it gets two back.
 \subsection {Android}
 So far, the only connection to the server that the android client has is when it
 registers/logs in. We still need to connect the rest of the android client to
