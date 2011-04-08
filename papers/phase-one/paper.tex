@@ -164,19 +164,19 @@ as needed, allowing us to scale up our system.  These same principles also give 
 tolerance, since any server is capable of running independently.  As long as one server is still
 up, the service will be available.
 
-We use round robin DNS to allow our clients to be completely ignorant of our servers.  Load distributors
+We use round robin DNS to allow our clients to be completely ignorant of our servers.  Load sharers
 can be added and removed from the DNS server and the clients will be completely ignorant of this
 and unaffected.  The load sharers in turn know about our data servers and do their best to
-distribute the load across them.  When a new server is added, it is just added to our load distributor
-configuration file and clients can start using it.  When a server fails, the distributors will stop directing
+distribute the load across them.  When a new server is added, it is just added to our load sharer
+configuration file and clients can start using it.  When a server fails, the sharers will stop directing
 traffic to it.
 
 
 We are currently using Riak as our database backend. We chose Riak for multiple
 reasons, but the biggest was it's focus on  scalability, fault-tolerance,
 availability, and replication. Riak is a Amazon Dynamo \cite{dynamo} inspired
-database, it supports full master less replication. In Riak every node can
-server client requests and they are propagated to the rest of the cluster.
+database, it supports full masterless replication. In Riak every node can
+serve client requests and they are propagated to the rest of the cluster.
 In our system we have made sure that this replication occurs between nodes
 on Amazon EC2's internal Gigabit ethernet so it is as fast as possible. Riak
 also has the unique property that if all of the nodes but one fail, the single
@@ -192,12 +192,12 @@ write before it is committed. Given the relatively small number of nodes (five)
 that will take part in this agreement, we decided that the possible overhead
 was acceptable for the increased level of consistency it gives us.
 
-Our team is taking a very proactive stance towards security. All of our machines are properly fire walled so that
+Our team is taking a very proactive stance towards security. All of our machines are properly firewalled so that
 outside clients can not authenticate to our database cluster. Also we have implemented SSL through our entire infrastructure.
 Our load balancer's automatically redirect http:// to https:// and once you are in https:// at the load balancer, SSL continues all the
 way back to our actual web application back end serving responses over a SSL wrapped socket. This way no passwords are ever
 sent in clear text. Our group even found a SSL certificate authority who was willing to sign our SSL certificate for free. This gives
-us actual fully functional, authenticate able SSL infrastructure. In order to make sure that our system properly secures user information,
+us actual fully functional, authenticatable SSL infrastructure. In order to make sure that our system properly secures user information,
 we stuck with the industry standard of storing a hashed version of the users password instead of the password itself. We decided on using
 the cryptographically secure hashing function designed for passwords known as bcyrpt \cite{bcrypt}.
 
