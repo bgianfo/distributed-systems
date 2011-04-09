@@ -314,28 +314,15 @@ def global_leaderbord(position = 0):
 
     return json.dumps(board)
 
-@app.route('/game/new')
-def newGame():
-    """GET /game/new
 
-    Create a new game"""
-
-    # TODO: Add ability to create a specific game
-
-    if not isAuthed():
-        return API_ERROR
-
-    user   = str(request.form["user"])
-    passwd = str(request.form["passwd"])
-
-    return initializeGame(user, passwd)
 
 @app.route('/public/join', methods=["POST"])
 def public_join_game():
-    """POST /public/join
+    """
+    URL /public/join
 
-    Join a currently open game if available,
-    otherwise create a new one"""
+    Join a currently open game if available, otherwise create a new one.
+    """
 
     # Failure on authentication error
     if not isAuthed():
@@ -494,6 +481,99 @@ def nextQuestion(gid,prevId):
         # TODO: Add a status and score field
         return json.dumps(qdata)
 
+@app.route('/private/create/<int:numqestions>', methods=["POST"])
+def private_new_create(numquestions):
+    """
+    URL /private/create
+    POST:
+
+    Create a new private game
+    """
+
+    if not isAuthed():
+        return API_ERROR
+
+    name   = str(request.form["name"])
+    user   = str(request.form["user"])
+    passwd = str(request.form["password"])
+    token  = str(request.form["authToken"])
+
+    client = g.db
+    quesBucket = client.bucket("questions")
+
+    # Map function to inspect tables and grab non full games
+    mapfn = """
+    function(item) {
+      return [item.key];
+    }
+    """
+
+    reducefn = """
+    function(values) {
+      function r(){
+        return (Math.round(Math.random())-0.5);
+      }
+      // Randomly sort the questions
+      sorted = values.sort(r);
+      // Pick off the correct number of quesitons
+      return sorted.slice(0,%s)
+    }
+    """ % str(numquestions)
+
+    query = client.add("questions")
+    query.map(mapfn)
+    query.reduce(reducefn)
+
+    questions = []
+    for key in query.run():
+        questions.append(key)
+
+    games = client.bucket("games")
+
+    gid = str(uuid.uuid1())
+
+    gameData = {
+        "questions": questions,
+        "gamestatus": "waiting",
+        "id": gid,
+        "hash" : bcrypt.hashpw(passwd, bcrypt.gensalt()),
+        "users": [token],
+        "leaderboard": {user: 0}
+    }
+
+    game = games.new(gid, data=gameData)
+    game.store()
+
+    return gid
+
+@app.route('/private/start/<gid>', methods=["POST"])
+def private_new_create(gid):
+    """
+    URL /private/start/<gid>
+    POST: authToken=<session id>
+
+    Start a private game
+    """
+
+    if not isAuthed():
+        return API_ERROR
+
+    client = g.db
+    games = client.bucket(games)
+
+    game = games.get(qid)
+
+    if game.exists():
+        game_data = game.get_data();
+        game_data["gamestatus"] = "started"
+        game = games.new(gid, data=game_data)
+        game.store()
+        return 'ok'
+    else:
+        # TODO: Figure out which error code to return
+        return API_ERROR
+
+
 @app.route('/game/<gid>/answer/<qid>/<answer>/<int:time_ms>', methods=["POST"])
 def answerQuestion(gid,qid,answer,time_ms):
     """POST /game/<gid>/next/<qid>/<answer>/<time_ms>
@@ -550,8 +630,8 @@ def answerQuestion(gid,qid,answer,time_ms):
 
     points = 0
     if time_ms > 10*SEC_TO_MS:
-        pass
         # After ten seconds no points
+        point = 0
     elif time_ms > 9 * SEC_TO_MS:
         points = 50
     elif time_ms > 8 * SEC_TO_MS:

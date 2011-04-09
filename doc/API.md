@@ -42,7 +42,7 @@ Join Public Games:
  - POST: authToken=<session id>&user=<username>
  - Returned JSON:
    * Always:
-     + obj.status 
+     + obj.gamestatus 
    * On success:
      + obj.id
  - Status: Fully implemented
@@ -89,11 +89,11 @@ Submit an Answer:
 Create a Private Game:
 ----------------------
  - URL: /private/create/<num questions>
- - POST: authToken=<session id>&name=<game name>&password=<game password>
+ - POST: authToken=<session id>&name=<game name>&password=<game password>&user=<username>
  - Return:
    * Valid: game id
    * Invalid: Error Code (invalid auth token, game name in use)
- - Status: Not implemented
+ - Status: Implemented, haven't fully tested yet
 
 Start a private Game:
 ---------------------
@@ -102,5 +102,5 @@ Start a private Game:
  - Return:
    * Valid: 'ok'
    * Invalid: Error Code? (invalid auth token)
- - Status: Not implemented
+ - Status: Implemented, haven't fully tested yet
 
