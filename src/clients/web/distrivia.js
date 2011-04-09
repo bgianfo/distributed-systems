@@ -20,7 +20,7 @@ var answer = -1;
 var board_n = 0;
 
 var API_ERROR   = "err";
-var API_SUCCESS = "suc";
+var API_SUCCESS = 1;
 var MAX_PLAYERS = 1;
 
 var MSG = new Array();
@@ -106,13 +106,13 @@ function Cancel(){
    var param = "post=cancel&id=" + session;
    xr.open( "POST", "ajax.php", true );
    xr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-   //xr.setRequestHeader("Content-length", param.length);
-   //xr.setRequestHeader("Connection", "close");
    xr.send(param);
 
    byId('wait').classList.add('hidden');
    byId('join').classList.remove('hidden');
    byId('wait_message').innerHTML = "";
+   var scoreb = byId('game_board');
+   $(scoreb).animate({width:'hide'});
 
    window.clearInterval( updater );
 
@@ -123,59 +123,49 @@ function Cancel(){
 /*
  * Polls the server while waiting to join a game
  */
-function CheckStatus(score){
+function CheckStatus(){
    var xr = XML();
 
-   if ( !score ) {
+   xr.onreadystatechange = function(){
+      if( xr.readyState == 4 && xr.status == 200 ){
 
-       xr.onreadystatechange = function(){
-          if( xr.readyState == 4 && xr.status == 200 ){
+         var data = jsonify(xr.responseText);
+         var list = byId("game_list");
+      
+         if( data.status == 1 ){
 
-             var data = xr.responseText;
+            // Always update game leaderboard
+            var scores = "";
+            for( key in data.leaderboard ){
+               scores += "<li class='board_item'><div class='board_left'>" + key + "</div>";
+               scores += "<div class='board_right'>" + data.leaderboard[key] + "</div></li>";
+            }
+            list.innerHTML = scores;
+               
+            if( data.gamestatus == 'waiting' ){
+               // Game hasn't started
+               // TODO (probably nothing)
 
-             if ( data == API_ERROR ) {
-                wait.classList.add('hidden');
-                join.classList.remove('hidden');
-                window.clearInterval( updater );
-                return;
-             }
+            }else if( data.gamestatus == 'started' ){
+               // Game has started
+               swap( waiting, game );
+               UpdateGame( data );
 
-             var gamedata = jsonify( data );
-             var size = Object.size( gamedata.leaderboard );
-             if ( size < MAX_PLAYERS ) {
-                byId('wait_message').innerHTML = size + " / " + MAX_PLAYERS + " people";
-             } else {
-                swap( wait, game );
-                window.clearInterval( updater );
-                // Load up question
-                Next();
-             }
-          }
-       };
+            }else if( data.gamestatus == 'done' ){
+               // Game is finished
+               // TODO
+            }
 
-   } else {
-
-       xr.onreadystatechange = function(){
-          if( xr.readyState == 4 && xr.status == 200 ){
-
-             var data = xr.responseText;
-
-             if ( data == API_ERROR ) {
-                // TODO: Display warning...
-                return;
-             }
-
-             var game = jsonify( data );
-
-             byId('score').innerHTML = game.leaderboard[username];
-          }
-       };
-
-
+            // Update main screen score
+            byId('score').innerHTML = data.leaderboard[username];
+         }else{
+            errMsg( "Server connection failure" );
+         }
+      };
    }
 
    var param = "authToken=" + session;
-   var URI = "/game/" + gid + "/leaderboard";
+   var URI = erl("/game/" + gid );
 
    xr.open( "POST", URI, true );
    xr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -194,92 +184,50 @@ function UpdateGame( question ){
    startTime = new Date().getTime();
 }
 
-function SubmitAnswer(){
-
-
-   var xr = XML();
-
-   xr.onreadystatechange = function(){
-      if( xr.readyState == 4 && xr.status == 200 ){
-         var data = xr.responseText;
-         if ( data == API_ERROR ) {
-             // TODO: Display a warning?
-         } else if ( data == "wrong" ) {
-         } else if ( data == "correct" ) {
-         }
-         CheckStatus(true);
-      }
-   };
-
-   var time = stopTime - startTime;
-   var param = "authToken=" + session + "&user=" + username;
-   var URI = "/game/" + gid + "/answer/" + qid + "/" + answer + "/" + time;
-   xr.open( "POST", URI, true );
-   xr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-   //xr.setRequestHeader("Content-length", param.length);
-   //xr.setRequestHeader("Connection", "close");
-   xr.send(param);
-
-   return false;
-}
-
+/*
+ * Submits an answer and sets up the next question
+ */
 function Next(){
 
-   if( questionState == "done" ){
-      swap( game, join );
-
-      // TODO: Break out into function?
-      // Reset back to default
-      qid = "0";
-      gid = null;
-      questionState = "next";
-   }
-
-   // On first occurance, don't submit.
-   if ( qid != "0" ) {
-       SubmitAnswer();
-
-       // Deslect all answers
-       var ans = byId('answers').getElementsByTagName('a');
-       for( var i = 0; i < 4; i++ ){
-          ans[i].classList.remove('selected');
-       }
-   }
-
    var xr = XML();
    xr.onreadystatechange = function(){
-      if( xr.readyState == 4 && xr.status == 200 ){
+      if( xr.readyState == 4 ){
+         if( xr.status == 200 ){
 
-         var data = xr.responseText;
+            try{
+               var data = jsonify( xr.responseText );
 
-         if ( data == API_ERROR ) {
-             // TODO: Display a warning?
-             return;
-         }
-
-         var question = jsonify( data );
-
-         if( question.status == "next" ){
-            UpdateGame( question );
-            // Update the current quesition id.
-            qid = question.id;
-         } else if ( question.status == "done" ){
-            questionState = "done";
-            UpdateGame( question );
+               if( data.status == API_SUCCESS ){
+                  if( data.gamestatus == 'started' ){
+                     UpdateGame(data);
+                  }else if( data.gamestatus == 'done' ){
+                     swap( game, join );
+                     var scoreb = byId('game_board');
+                     $(scoreb).animation({width:"hide"});
+                  }
+               }else{
+                  // TODO Check status code
+                  errMsg( "Next() Status Code: " + data.status );
+               }
+            }catch( err ){
+               errMsg( "Question loading failed" );
+            }
+         }else{
+            errMsg( "Could not load next question" );
          }
       }
    };
 
-   var param = "authToken=" + session + "&a=" + answer;
-   var URI = "/game/" + gid + "/next/" + qid;
+   var param = "authToken=" + session + "&a=" + answer + "&time=" + 1;
+   var URI = erl("/game/" + gid + "/question/" + qid );
    xr.open( "POST", URI, true );
    xr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-   //xr.setRequestHeader("Content-length", param.length);
-   //xr.setRequestHeader("Connection", "close");
    xr.send(param);
 
    return false;
 }
+// End Next()
+
 
 function Answer( num ){
 
@@ -323,26 +271,25 @@ function More(){
          }
 
          // Sort by score
-         function sorter( a, b ) { a[1] - b[1]; };
-         sortedboard = sortedboard.sort( sorter );
+         sortedboard = sortedboard.sort( function(a,b){ return b[1] - a[1]; } );
 
-            var more = "";
-            for( var i = 0; i < sortedboard.length; i++ ) {
-               more += "<li class='board_item'><div class='board_left'>";
-               more += sortedboard[i][0];
-               more += "</div><div class='board_right'>";
-               more += sortedboard[i][1];
-               more += "</div></li>";
-               board_n++;
-            }
-            bl.innerHTML = bl.innerHTML + more;
-            bl.scrollTop = bl.scrollHeight;
-            $(bl).animate({scrollTop: bl.scrollHeight - $(bl).height() }, 800);
+         var more = "";
+         for( var i = 0; i < sortedboard.length; i++ ) {
+            more += "<li class='board_item'><div class='board_left'>";
+            more += sortedboard[i][0];
+            more += "</div><div class='board_right'>";
+            more += sortedboard[i][1];
+            more += "</div></li>";
+            board_n++;
+         }
+         bl.innerHTML = bl.innerHTML + more;
+         bl.scrollTop = bl.scrollHeight;
+         $(bl).animate({scrollTop: bl.scrollHeight - $(bl).height() }, 800);
       }
    }
 
    var param = "authToken=" + session;
-   xr.open( "POST", "/leaderboard/"+board_n, true );
+   xr.open( "POST", erl("/leaderboard/"+board_n), true );
    xr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
    xr.send(param);
 
@@ -385,20 +332,26 @@ function Public(){
       if( xr.readyState == 4 ){
          if( xr.status == 200 ){
 
-            var data = xr.responseText;
-            if( xr.responseText == API_ERROR ){
-               // Invalid login
-               swap( join, login );
-               errMsg( "Login session expired. Please log back in" );
-            }else{
+            try{
+               var data = jsonify(xr.responseText);
+               if( data.status == API_SUCCESS ){
+                  // Save the game id ( global )
+                  gid = data.id;
 
-               // Save the game id ( global )
-               gid = data;
+                  var scoreb = byId('game_board');
+                  $(scoreb).animate({width:'show'});
 
-               // Waiting to join
-               byId('wait_message').innerHTML = "Joining game...";
-               swap( join, wait );
-               updater = window.setInterval("CheckStatus(false)",1000);
+                  // Waiting to join
+                  byId('wait_message').innerHTML = "Joining game...";
+                  swap( join, wait );
+                  updater = window.setInterval("CheckStatus(false)",1000);
+               }else{
+                  // Invalid login
+                  swap( join, login );
+                  errMsg( "Login session expired. Please log back in" );
+               }
+            }catch(err){
+               errMsg( "Server error" );
             }
          }else{
             errMsg( "Server error, please try again in a few minutes" );
@@ -406,12 +359,12 @@ function Public(){
       }
    }
 
-   var param = "authToken=" + session + "&user=" + username;
-   var URI = erl( "/game/join" );
+   var param = "authToken=" + session;
+   var URI = erl( "/public/join" );
 
    xr.open( "POST", URI, true );
-   xr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-   xr.send(param);
+   xr.setRequestHeader( "Content-type", "application/x-www-form-urlencoded" );
+   xr.send( param );
 
    return false;
 }
