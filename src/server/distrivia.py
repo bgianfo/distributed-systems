@@ -135,6 +135,7 @@ def initializeGame(user, passwd=None):
         "questions": questions,
         "id": gid,
         "users": [user],
+        "status": "waiting",
         "leaderboard": {user: 0}
     }
 
@@ -672,34 +673,45 @@ def answerQuestion(gid,qid,answer,time_ms):
 
     return "correct"
 
-@app.route('/game/<gid>/leaderboard', methods=["POST"])
-def getLeaderBoard(gid):
-    """
-    Get the leaderboard for this game ID
 
-    Note: The leader board should be a simple JSON object.
-    {
-        <username> : <points>
-        "user1"    : 1000
-        "user2"    : 3000
-        "user2"    : 5000
-    }
+@app.route('/game/<gid>', methods=["POST"])
+def game_status(gid):
+    """
+    URL: /game/<gid>
+    Get the status for this game ID
     """
     # Failure on authentication error
     if not isAuthed():
         return API_ERROR
 
     gid = str(gid)
-    gamesBucket = g.db.bucket("games")
-    game = gamesBucket.get(gid)
+    client = g.db
+
+    games = client.bucket("games")
+    game = games.get(gid)
 
     # Failure on bogus game ID
     if not game.exists():
         return API_ERROR
     else:
         # Get the list of questions for this game
-        gameData = game.get_data();
-        return json.dumps(gameData)
+        gdata = game.get_data();
+
+        if gdata["status"] is "started":
+            # Merge first question with game data
+            qid = gdata.questions[0]
+            questions = client.bucket("questions")
+            ques = questions.get(qid)
+            qdata = ques.get_data()
+
+            gdata["question"] = qdata["question"]
+            gdata["qid"] = qid
+            gdata["a"] = qdata["a"]
+            gdata["b"] = qdata["b"]
+            gdata["c"] = qdata["c"]
+            gdata["d"] = qdata["d"]
+
+        return json.dumps(gdata)
 
 
 # Run the webserver
