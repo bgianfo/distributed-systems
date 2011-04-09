@@ -34,7 +34,7 @@ POST: authToken=<session id>
 Return:
    Valid: game id
    Invalid: Error Code? (invalid auth token)
-Status: Not implemented
+Status: Fully implemented
 
 Private Games:
    Server Notes:
