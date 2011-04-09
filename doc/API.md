@@ -2,6 +2,7 @@ API Proposal
 ============
 
 Status Codes:
+-------------
  - Everything was ok = 1
 
 Logging in:
@@ -38,7 +39,7 @@ Join Public Games:
    * Game created and users added to until full, then it starts
 
  - URL: /public/join
- - POST: authToken=<session id>
+ - POST: authToken=<session id>&user=<username>
  - Returned JSON:
    * Always:
      + obj.status 
@@ -51,11 +52,11 @@ Join Private Games:
  - Server Notes:
    * Game crated and users added until creator starts it
  - URL: /private/join/<game name>
- - POST: authToken=<session id>&password=<password>
+ - POST: authToken=<session id>&password=<password>&user=<user name>
  - Return:
    *  Valid: game id
    * Invalid: Error Code (invalid auth token, invalid credentials, already started)
- - Status: Not implemented
+ - Status: Implemented, haven't fully tested yet
 
 Game Actions (public & private):
 ================================

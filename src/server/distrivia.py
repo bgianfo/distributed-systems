@@ -330,14 +330,12 @@ def newGame():
 
     return initializeGame(user, passwd)
 
-@app.route('/game/join', methods=["POST"])
-def joinGame():
-    """POST /game/join
+@app.route('/public/join', methods=["POST"])
+def public_join_game():
+    """POST /public/join
 
     Join a currently open game if available,
     otherwise create a new one"""
-
-    # TODO: Add ability to join a specific game
 
     # Failure on authentication error
     if not isAuthed():
@@ -345,13 +343,7 @@ def joinGame():
 
     # Initialize arguments, riak variables and buckets
     client = g.db
-    users = client.bucket("users")
-    user = str(request.form['user'])
     token = str(request.form['authToken'])
-
-    if user == "" or (not users.get(user).exists()):
-        return API_ERROR
-
 
     gamesBucket = client.bucket("games")
 
@@ -387,9 +379,68 @@ def joinGame():
           return key
       gid = initializeGame(user)
     else:
-        gid = initializeGame(user)
+      gid = initializeGame(user)
 
     return gid
+
+@app.route('/private/join', methods=["POST"])
+def private_join_game():
+    """
+    URL /private/join
+
+    Join a not started private game if available, otherwise error.
+    """
+
+    # Failure on authentication error
+    if not isAuthed():
+        return API_ERROR
+
+    # Initialize arguments, riak variables and buckets
+    client = g.db
+    user   = str(request.form['user']);
+    token  = str(request.form['authToken'])
+    passwd = str(request.form['password'])
+
+    # Map function to inspect tables and grab not started, private games
+    mapfn = """
+    function(value, keyData, arg) {
+        var game = Riak.mapValuesJson(value)[0];
+        if (game.type == "private" && data.status != "waiting") {
+            // Get the key and password hash, that's all we need!
+            return [[value.key, data.hash]];
+        }
+        return [];
+    }
+    """
+
+    query = client.add("games")
+    query.map(mapfn)
+    query_result = query.run()
+
+    if query_result != None:
+
+      games = client.bucket("games")
+      for key, gpwhash in query_result:
+          key    = str(key)
+          pwhash = str(pwhash)
+
+          if bcrypt.hashpw(passwd,gpwhash) == gpwhash:
+              game = games.get(key)
+              vdata = game.get_data()
+              if token in vdata["users"]:
+                 return key
+              vdata["users"].append(token)
+              # Add user to the leader board
+              vdata["leaderboard"][user] = 0
+              game = gamesBucket.new(key, data=vdata)
+              game.store()
+              return key
+
+      return API_ERROR
+    else:
+      return API_ERROR
+
+
 
 @app.route('/game/<gid>/next/<prevId>', methods=["POST"])
 def nextQuestion(gid,prevId):
