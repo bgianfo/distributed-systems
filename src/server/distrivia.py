@@ -589,6 +589,7 @@ def private_new_create(numquestions):
     gameData = {
         "questions": questions,
         "gamestatus": "waiting",
+        "name": name
         "id": gid,
         "hash" : bcrypt.hashpw(passwd, bcrypt.gensalt()),
         "users": [token],
