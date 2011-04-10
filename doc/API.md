@@ -82,7 +82,7 @@ All start with:
 Submit an Answer:
 -----------------
  - Add to URL: /question/<question id>
- - Add to Post: a=<answer>&time=<time>
+ - Add to Post: a=<answer>&time=<time>&user=<user>
  - Add to Returned JSON:
    * See above
  - Status: Not implemented

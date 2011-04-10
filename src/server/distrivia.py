@@ -144,6 +144,59 @@ def initializeGame(user, passwd=None):
 
     return gid
 
+def calcscore(time_ms):
+    """
+    Calculate the users score from their answer time.
+    """
+    SEC_TO_MS =  1000
+
+    points = 0
+    if time_ms > 10*SEC_TO_MS:
+        # After ten seconds no points
+        point = 0
+    elif time_ms > 9 * SEC_TO_MS:
+        points = 50
+    elif time_ms > 8 * SEC_TO_MS:
+        points = 100
+    elif time_ms > 7 * SEC_TO_MS:
+        points = 150
+    elif time_ms > 6 * SEC_TO_MS:
+        points = 200
+    elif time_ms > 5 * SEC_TO_MS:
+        points = 250
+    elif time_ms > 4 * SEC_TO_MS:
+        points = 300
+    elif time_ms > 3 * SEC_TO_MS:
+        points = 350
+    elif time_ms > 2 * SEC_TO_MS:
+        points = 400
+    elif time_ms > 1 * SEC_TO_MS:
+        points = 500
+    else:
+        # Time is too fast, not counting it.
+        return API_ERROR
+
+    return points
+
+def merge_question_with_game(gdata, qid):
+    """
+    Merge a question's field with game data
+    """
+
+    client = g.db
+    questions = client.bucket("questions")
+    ques = questions.get(qid)
+    qdata = ques.get_data()
+
+    gdata["question"] = qdata["question"]
+    gdata["qid"] = qid
+    gdata["a"] = qdata["a"]
+    gdata["b"] = qdata["b"]
+    gdata["c"] = qdata["c"]
+    gdata["d"] = qdata["d"]
+
+    return gdata
+
 #
 # Before and after request handlers
 #
@@ -575,105 +628,6 @@ def private_new_create(gid):
         return API_ERROR
 
 
-@app.route('/game/<gid>/answer/<qid>/<answer>/<int:time_ms>', methods=["POST"])
-def answerQuestion(gid,qid,answer,time_ms):
-    """POST /game/<gid>/next/<qid>/<answer>/<time_ms>
-
-    URL Params:
-
-        gid - The game id
-        qid - The current question id
-        answer - The clients answer to the question: "a","b","c" or "d"
-        time_ms - The time it took the client to answer in milliseconds
-
-    Post Params:
-
-        authToken - The clients authorization token
-        user      - The clients user name (makes querying easier)
-
-    Answer a given question"""
-
-    # Failure on authentication error
-    if not isAuthed():
-        return API_ERROR
-
-    gid = str(gid)
-    qid = str(qid)
-    answer = str(answer)
-    user = str(request.form["user"])
-    if user is None:
-        return API_ERROR
-
-    # Make sure answer is sane
-    if answer not in ["a","b","c","d"]:
-        return API_ERROR
-
-    # Failure on bogus game ID
-    gamesBucket = g.db.bucket("games")
-    game = gamesBucket.get(gid)
-    if not game.exists():
-        return API_ERROR
-    # TODO: Make sure user is a member of this game.
-
-    # Failure on bogus question ID
-    questionBucket = g.db.bucket("questions")
-    question = questionBucket.get(qid)
-    if not question.exists():
-        return API_ERROR
-
-    qdata = question.get_data()
-
-    if qdata["answer"] != answer:
-        print "Wrong: " + qdata["answer"]
-        return "wrong"
-
-    SEC_TO_MS =  1000
-
-    points = 0
-    if time_ms > 10*SEC_TO_MS:
-        # After ten seconds no points
-        point = 0
-    elif time_ms > 9 * SEC_TO_MS:
-        points = 50
-    elif time_ms > 8 * SEC_TO_MS:
-        points = 100
-    elif time_ms > 7 * SEC_TO_MS:
-        points = 150
-    elif time_ms > 6 * SEC_TO_MS:
-        points = 200
-    elif time_ms > 5 * SEC_TO_MS:
-        points = 250
-    elif time_ms > 4 * SEC_TO_MS:
-        points = 300
-    elif time_ms > 3 * SEC_TO_MS:
-        points = 350
-    elif time_ms > 2 * SEC_TO_MS:
-        points = 400
-    elif time_ms > 1 * SEC_TO_MS:
-        points = 500
-    else:
-        # Time is too fast, not counting it.
-        return API_ERROR
-
-    userBucket = g.db.bucket("users")
-    userObj = userBucket.get(user)
-    if not userObj.exists():
-        return API_ERROR
-
-    udata = userObj.get_data()
-    gdata = game.get_data()
-
-    gdata["leaderboard"][user] += points
-    udata["score"] += points
-
-    game = gamesBucket.new(gid, data = gdata)
-    game.store()
-    userObj = userBucket.new(user, data = udata)
-    userObj.store()
-
-    return "correct"
-
-
 @app.route('/game/<gid>', methods=["POST"])
 def game_status(gid):
     """
@@ -712,6 +666,94 @@ def game_status(gid):
             gdata["d"] = qdata["d"]
 
         return json.dumps(gdata)
+
+@app.route('/game/<gid>/question/<qid>', methods=["POST"])
+def answerQuestion(gid,qid,answer,time_ms):
+    """
+    URL /game/<gid>/question/<qid>
+
+    URL Params:
+
+        gid - The game id
+        qid - The current question id
+
+    Post Params:
+        authToken - The clients authorization token
+        a    - The clients answer to the question: "a","b","c" or "d"
+        time - The time it took the client to answer in milliseconds
+        user      - The clients user name (makes querying easier)
+
+    Answer a given question
+    """
+
+    # Failure on authentication error
+    if not isAuthed():
+        return API_ERROR
+
+    client = g.db
+    gid = str(gid)
+    qid = str(qid)
+    answer  = str(request.form["a"])
+    time_ms = int(request.form["time"])
+
+    user = str(request.form["user"])
+    if user is None:
+        return API_ERROR
+
+    # Make sure answer is sane
+    if answer not in ["a","b","c","d"]:
+        return API_ERROR
+
+    # Calculate score and check it
+    score = calcscore(time_ms)
+    if score is API_ERROR:
+        return API_ERROR
+
+    # Failure on bogus game ID
+    games = client.bucket("games")
+    game = games.get(gid)
+    if not game.exists():
+        return API_ERROR
+    # TODO: Make sure user is a member of this game.
+
+    # Failure on bogus question ID
+    qb = client.bucket("questions")
+    question = qb.get(qid)
+    if not question.exists():
+        return API_ERROR
+
+    qdata = question.get_data()
+    gdata = game.get_data()
+
+    if qdata["answer"] == answer:
+        users = client.bucket("users")
+        user  = users.get(user)
+        if not user.exists():
+            return API_ERROR
+
+        gdata["leaderboard"][user] += points
+        game = games.new(gid, data = gdata)
+        game.store()
+
+        udata = users.get_data()
+        udata["score"] += points
+        user = users.new(user, data = udata)
+        user.store()
+
+    questions = gdata["questions"]
+
+    # Get the next question based on current index
+    qIndex = questions.index(qid)+1
+
+    # Failure on this game being over
+    if (qIndex >= len(questions)):
+        gdata["status"] = done:
+        return json.dumps( gdata )
+
+    else: # Fetch and construct the next question object
+        qid = questions[qIndex]
+        gdata = merge_question_with_game(gdata, qid)
+        return json.dumps( gdata )
 
 
 # Run the webserver
