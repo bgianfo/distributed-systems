@@ -181,6 +181,7 @@ function CheckStatus(){
 
 function UpdateGame( question ){
    byId('game_question').innerHTML = question.question;
+   qid = question.qid;
    ans[0].innerHTML = question.a;
    ans[1].innerHTML = question.b;
    ans[2].innerHTML = question.c;
@@ -361,7 +362,7 @@ function Public(){
                   errMsg( "Login session expired. Please log back in" );
                }
             }catch(err){
-               errMsg( "Join Error: Did not recieve JSON object" );
+               errMsg( "Did not recieve JSON object" );
             }
          }else{
             errMsg( "Server error, please try again in a few minutes" );
