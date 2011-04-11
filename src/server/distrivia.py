@@ -614,6 +614,7 @@ def game_status(gid):
         if gdata.has_key("hash"):
             gdata.pop("hash")
 
+        gdata["status"] = 1
         return json.dumps(gdata)
 
 @app.route('/game/<gid>/question/<qid>', methods=["POST"])
