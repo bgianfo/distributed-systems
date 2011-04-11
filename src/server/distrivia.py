@@ -194,11 +194,6 @@ def merge_question_with_game(gdata, qid):
     gdata["c"] = qdata["c"]
     gdata["d"] = qdata["d"]
 
-    gdata.pop("questions")
-    gdata.pop("users")
-    if gdata.has_key("hash"):
-        gdata.pop("hash")
-
     return gdata
 
 #
@@ -604,8 +599,14 @@ def game_status(gid):
 
         if gdata["gamestatus"] is "started":
             # Merge first question with game data
-            qid = gdata.questions[0]
+            qid = gdata["questions"][0]
             gdata = merge_question_with_game( gdata, qid )
+
+        gdata.pop("questions")
+        gdata.pop("users")
+        if gdata.has_key("hash"):
+            gdata.pop("hash")
+
 
         gdata["status"] = 1
         return json.dumps(gdata)
