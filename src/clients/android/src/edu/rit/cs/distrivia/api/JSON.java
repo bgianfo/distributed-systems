@@ -1,3 +1,6 @@
+package edu.rit.cs.distrivia.api;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -30,11 +33,11 @@ public class JSON{
 		JSONObject j = json.getJSONObject( "leaderboard" );
 		
 		String[][] board = new String[j.length()][j.length()];
-		String[] keys = JSONObject.getNames( j );
-		
-		for( int i = 0; i < keys.length; i++ ){
-			board[i][0] = keys[i];
-			board[i][1] = j.getString( keys[i] );
+		JSONArray a = j.names();
+		for( int i = 0; i < a.length(); i++ ){
+			String key = a.getString( i );
+			board[i][0] = key;
+			board[i][1] = j.getString( key );
 		}
 		
 		// TODO sort results
