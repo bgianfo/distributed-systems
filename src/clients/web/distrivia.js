@@ -27,6 +27,8 @@ var MSG = new Array();
 var MSG_N = 0;
 var MSG_C = 0;
 
+// Used to prevent multiple POST requests
+var xr_n = 0;
 
 // References to DOM objects
 var error;
@@ -36,6 +38,7 @@ var wait;
 var game;
 var login;
 var ans;
+var load;
 
 Object.size = function(obj) {
     var size = 0, key;
@@ -132,7 +135,7 @@ function CheckStatus(){
          var data = jsonify(xr.responseText);
          var list = byId("game_list");
       
-         if( data.status == 1 ){
+         if( true || data.status == 1 ){
 
             // Always update game leaderboard
             var scores = "";
@@ -150,10 +153,12 @@ function CheckStatus(){
                // Game has started
                swap( waiting, game );
                UpdateGame( data );
+               window.clearInterval(updater);
 
             }else if( data.gamestatus == 'done' ){
                // Game is finished
                // TODO
+               window.clearInterval(updater);
             }
 
             // Update main screen score
@@ -254,37 +259,40 @@ function Answer( num ){
  */
 function More(){
    var xr = XML();
+   var xml_n = ++xr_n;
 
    var bl = byId('board_list');
    addClass( bl, 'board_load' );
 
    xr.onreadystatechange = function(){
-      if( xr.readyState == 4 && xr.status == 200 ){
-         removeClass( bl, 'board_load' );
+      if( xr.readyState == 4 && xml_n == xr_n ){
+         if( xr.status == 200 ){
+            removeClass( bl, 'board_load' );
 
-         var data = xr.responseText;
-         var board = jsonify( data );
+            var data = xr.responseText;
+            var board = jsonify( data );
 
-         var sortedboard = [];
-         for ( key in board ) {
-           sortedboard.push( [ key, board[key] ] );
+            var sortedboard = [];
+            for ( key in board ) {
+              sortedboard.push( [ key, board[key] ] );
+            }
+
+            // Sort by score
+            sortedboard = sortedboard.sort( function(a,b){ return b[1] - a[1]; } );
+
+            var more = "";
+            for( var i = 0; i < sortedboard.length; i++ ) {
+               more += "<li class='board_item'><div class='board_left'>";
+               more += sortedboard[i][0];
+               more += "</div><div class='board_right'>";
+               more += sortedboard[i][1];
+               more += "</div></li>";
+               board_n++;
+            }
+            bl.innerHTML = bl.innerHTML + more;
+            bl.scrollTop = bl.scrollHeight;
+            $(bl).animate({scrollTop: bl.scrollHeight - $(bl).height() }, 800);
          }
-
-         // Sort by score
-         sortedboard = sortedboard.sort( function(a,b){ return b[1] - a[1]; } );
-
-         var more = "";
-         for( var i = 0; i < sortedboard.length; i++ ) {
-            more += "<li class='board_item'><div class='board_left'>";
-            more += sortedboard[i][0];
-            more += "</div><div class='board_right'>";
-            more += sortedboard[i][1];
-            more += "</div></li>";
-            board_n++;
-         }
-         bl.innerHTML = bl.innerHTML + more;
-         bl.scrollTop = bl.scrollHeight;
-         $(bl).animate({scrollTop: bl.scrollHeight - $(bl).height() }, 800);
       }
    }
 
@@ -327,9 +335,11 @@ function Home(){
  */
 function Public(){
    var xr = XML();
+   xr_n++;
+   var xml_n = xr_n;
 
    xr.onreadystatechange = function(){
-      if( xr.readyState == 4 ){
+      if( xr.readyState == 4 && xml_n == xr_n ){
          if( xr.status == 200 ){
 
             try{
@@ -351,15 +361,26 @@ function Public(){
                   errMsg( "Login session expired. Please log back in" );
                }
             }catch(err){
-               errMsg( "Server error" );
+               errMsg( "Did not recieve JSON object" );
+               gid = xr.responseText;
+               CheckStatus();
+               var scoreb = byId('game_board');
+               $(scoreb).animate({width:"show"});
+               byId('wait_message').innerHTML = 'Joining game...';
+               swap(join,wait);
+               updater = window.setInterval("CheckStatus()",5000);
             }
          }else{
             errMsg( "Server error, please try again in a few minutes" );
          }
+         unload();
       }
+      
    }
 
-   var param = "authToken=" + session;
+   loading();
+
+   var param = "authToken=" + session + "&user=" + username;
    var URI = erl( "/public/join" );
 
    xr.open( "POST", URI, true );
@@ -376,12 +397,13 @@ function Public(){
  */
 function Register(){
    var xr = XML();
+   xr_n++;
+   var xml_n = xr_n;
 
    xr.onreadystatechange = function(){
-      if( xr.readyState == 4 ){
+      if( xr.readyState == 4 && xml_n == xr_n ){
          if( xr.status == 200 ){
             if (  xr.responseText == API_ERROR ) {
-               //alert( "Username: " + username + " already taken" );
                errMsg( "Username '" + username + "' already taken" );
             }else{
                Login();
@@ -390,6 +412,7 @@ function Register(){
            // Server connection failure
            errMsg("Could not connect to server. Please wait a minute and try again");
         }
+        unload();
       }
    };
 
@@ -418,6 +441,7 @@ function Register(){
          xr.open( "POST", URI, true );
          xr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
          xr.send(param);
+         loading();
       }
    }
 
@@ -431,9 +455,12 @@ function Register(){
  */
 function Login(){
    var xr = XML();
+   xr_n++;
+   var xml_n = xr_n;
 
    xr.onreadystatechange = function(){
-      if( xr.readyState == 4 ){
+      if( xr.readyState == 4 && xml_n == xr_n ){
+
          if( xr.status == 200 ){
             // Good to go
             if( xr.responseText == API_ERROR ){
@@ -449,6 +476,7 @@ function Login(){
             // Server connection failure
             errMsg("Could not connect to server. Please wait a minute and try again");
          }
+         unload();
       }
    }
 
@@ -464,38 +492,43 @@ function Login(){
    xr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
    xr.send(param);
 
+   loading();
+
    return false;
 }
 // End Login()
 
 function Private(){
    var xr = XML();
+   xr_n++;
+   var xml_n = xr_n;
 
    xr.onreadystatechange = function(){
-      if( xr.readyState == 4 && xr.status == 200 ){
-         if( xr.responseText == "null" ){
-            // Invalid private game
-            byId("join_fail").classList.remove('hidden');
-         }else{
-            // Valid private game
-//            document.forms.join_form.classList.add("hidden");
-//            byId('join_priv_wait').classList.remove("hidden");
-            byId("join_fail").classList.add('hidden');
-            byId('join').classList.add('hidden');
-            byId('wait').classList.remove('hidden');
-            byId('wait_message').innerHTML = "Waiting for owner to start game";
+      if( xr.readyState == 4 && xml_n == xr_n ){
+         if( xr.status == 200 ){
+            if( xr.responseText == "null" ){
+               // Invalid private game
+               byId("join_fail").classList.remove('hidden');
+            }else{
+               // Valid private game
+//               document.forms.join_form.classList.add("hidden");
+//               byId('join_priv_wait').classList.remove("hidden");
+               byId("join_fail").classList.add('hidden');
+               byId('join').classList.add('hidden');
+               byId('wait').classList.remove('hidden');
+               byId('wait_message').innerHTML = "Waiting for owner to start game";
+            }
          }
       }
    }
 
    var name = document.forms.join_form.name.value;
    var pass = document.forms.join_form.pass.value;
-   var param = "post=joinp&i=" + session + "&n=" + name + "&p=" + pass;
+   var param = "authToken=" + session + "&user=" + name + "&p=" + pass;
+   var URI = erl( "/private/join" );
 
    xr.open( "POST", "ajax.php", true );
    xr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-   //xr.setRequestHeader("Content-length", param.length);
-   //xr.setRequestHeader("Connection", "close");
 
    xr.send( param );
    return false;
@@ -533,4 +566,5 @@ function Load(){
    board = byId('board');
    wait = byId('wait');
    ans = byId('answers').getElementsByTagName('a');
+   load = byId('load');
 }
