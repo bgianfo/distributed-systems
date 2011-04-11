@@ -645,7 +645,7 @@ def submit_question_answer(gid, qid):
 
     # Make sure answer is sane
     if answer not in ["a","b","c","d"]:
-        return "err: not a possible answer '" + answer "'"
+        return "err: not a possible answer '" + answer + "'"
 
     # Calculate score and check it
     score = calcscore(time_ms)
