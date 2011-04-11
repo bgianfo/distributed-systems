@@ -27,6 +27,7 @@ import urllib2
 DEBUG = True
 SECRET_KEY = 'secret'
 app = Flask(__name__)
+app.config.from_object(__name__)
 
 API_ERROR = "err"
 API_SUCCESS = "suc"
