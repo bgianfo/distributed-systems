@@ -674,7 +674,7 @@ def submit_question_answer(gid, qid):
         if not user.exists():
             return "err: no such user" 
 
-        gdata["leaderboard"][username] = score
+        gdata["leaderboard"][username] += score
         game = games.new(gid, data = gdata)
         game.store()
 
