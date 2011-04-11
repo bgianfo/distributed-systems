@@ -170,11 +170,8 @@ def calcscore(time_ms):
         points = 350
     elif time_ms > 2 * SEC_TO_MS:
         points = 400
-    elif time_ms > 1 * SEC_TO_MS:
-        points = 500
     else:
-        # Time is too fast, not counting it.
-        return API_ERROR
+        points = 500
 
     return points
 
