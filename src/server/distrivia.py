@@ -644,29 +644,29 @@ def submit_question_answer(gid, qid):
     username = str(request.form["user"])
 
     if username is None:
-        return API_ERROR
+        return "err: username not defined"
 
     # Make sure answer is sane
     if answer not in ["a","b","c","d"]:
-        return API_ERROR
+        return "err: not a possible answer '" + answer "'"
 
     # Calculate score and check it
     score = calcscore(time_ms)
     if score is API_ERROR:
-        return API_ERROR
+        return "err: answer was too fast"
 
     # Failure on bogus game ID
     games = client.bucket("games")
     game = games.get(gid)
     if not game.exists():
-        return API_ERROR
+        return "err: game doesn't exist"
     # TODO: Make sure user is a member of this game.
 
     # Failure on bogus question ID
     qb = client.bucket("questions")
     question = qb.get(qid)
     if not question.exists():
-        return API_ERROR
+        return "err: question doesn't exist"
 
     qdata = question.get_data()
     gdata = game.get_data()
@@ -675,7 +675,7 @@ def submit_question_answer(gid, qid):
         users = client.bucket("users")
         user  = users.get(username)
         if not user.exists():
-            return API_ERROR
+            return "err: no such user" 
 
         gdata["leaderboard"][username] = score
         game = games.new(gid, data = gdata)
