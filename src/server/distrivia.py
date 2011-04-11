@@ -33,7 +33,7 @@ app.wsgi_app = ProxyFix(app.wsgi_app)
 API_ERROR = "err"
 API_SUCCESS = "suc"
 QUESTION_LIMIT = 20
-
+NUM_USERS = 2
 
 # Add middle ware to server the web app client
 app.wsgi_app = SharedDataMiddleware(app.wsgi_app, {
@@ -386,7 +386,7 @@ def public_join_game():
     token = str(request.form['authToken'])
     user  = str(request.form['user'])
 
-    gamesBucket = client.bucket("games")
+    games = client.bucket("games")
 
     # Map function to inspect tables and grab non full games
     mapfn = """
@@ -407,7 +407,7 @@ def public_join_game():
         for key in query_result:
             key = str(key)
             # Add user to the game
-            game = gamesBucket.get(key)
+            game = games.get(key)
 
             vdata = game.get_data()
             if token in vdata["users"]:
@@ -415,7 +415,11 @@ def public_join_game():
             vdata["users"].append(token)
             # Add user to the leader board
             vdata["leaderboard"][user] = 0
-            game = gamesBucket.new(key, data=vdata)
+
+            if len(vdata["users"]) == NUM_USERS:
+                vdata["gamestatus"] = "started"
+
+            game = games.new(key, data=vdata)
             game.store()
             return key
 
@@ -605,6 +609,9 @@ def game_status(gid):
             gdata["c"] = qdata["c"]
             gdata["d"] = qdata["d"]
 
+        gdata.pop("questions")
+        gdata.pop("users")
+        gdata.pop("hash")
         return json.dumps(gdata)
 
 @app.route('/game/<gid>/question/<qid>', methods=["POST"])
