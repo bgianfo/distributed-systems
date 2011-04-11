@@ -600,7 +600,7 @@ def game_status(gid):
         if gdata["gamestatus"] == "started":
             # Merge first question with game data
             print "Trying to merge in questions"
-            qid = gdata["questions"][0]
+            qid = str(gdata["questions"][0])
             gdata = merge_question_with_game( gdata, qid )
         else:
             print "No mergy of the questions"
