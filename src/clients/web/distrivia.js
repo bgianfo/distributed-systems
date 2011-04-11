@@ -151,7 +151,7 @@ function CheckStatus(){
 
             }else if( data.gamestatus == 'started' ){
                // Game has started
-               swap( waiting, game );
+               swap( wait, game );
                UpdateGame( data );
                window.clearInterval(updater);
 
@@ -361,14 +361,7 @@ function Public(){
                   errMsg( "Login session expired. Please log back in" );
                }
             }catch(err){
-               errMsg( "Did not recieve JSON object" );
-               gid = xr.responseText;
-               CheckStatus();
-               var scoreb = byId('game_board');
-               $(scoreb).animate({width:"show"});
-               byId('wait_message').innerHTML = 'Joining game...';
-               swap(join,wait);
-               updater = window.setInterval("CheckStatus()",5000);
+               errMsg( "Join Error: Did not recieve JSON object" );
             }
          }else{
             errMsg( "Server error, please try again in a few minutes" );
