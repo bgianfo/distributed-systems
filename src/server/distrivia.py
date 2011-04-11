@@ -597,10 +597,13 @@ def game_status(gid):
         # Get the list of questions for this game
         gdata = game.get_data()
 
-        if gdata["gamestatus"] is "started":
+        if gdata["gamestatus"] == "started":
             # Merge first question with game data
+            print "Trying to merge in questions"
             qid = gdata["questions"][0]
             gdata = merge_question_with_game( gdata, qid )
+        else:
+            print "No mergy of the questions"
 
         gdata.pop("questions")
         gdata.pop("users")
