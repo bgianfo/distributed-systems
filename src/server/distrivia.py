@@ -392,12 +392,12 @@ def public_join_game():
     mapfn = """
     function(value, keyData, arg) {
         var data = Riak.mapValuesJson(value)[0];
-        if (data.users.length < 20) {
+        if (data.users.length < %d ) {
             return [value.key];
         }
         return [];
     }
-    """
+    """ % NUM_USERS
     query = client.add("games")
     query.map(mapfn)
 
