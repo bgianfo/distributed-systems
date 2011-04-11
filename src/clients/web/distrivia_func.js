@@ -23,6 +23,20 @@ function jsonify( buffer ) {
     return eval( "(" + buffer + ")" );
 }
 
+/*
+ * Activates loading indicator
+ */
+function loading(){
+   $(load).show();
+}
+
+/*
+ * Conceals loading indicator
+ */
+function unload(){
+   $(load).hide();
+}
+
 
 /*
  * 
