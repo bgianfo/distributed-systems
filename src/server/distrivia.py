@@ -194,6 +194,11 @@ def merge_question_with_game(gdata, qid):
     gdata["c"] = qdata["c"]
     gdata["d"] = qdata["d"]
 
+    gdata.pop("questions")
+    gdata.pop("users")
+    if gdata.has_key("hash"):
+        gdata.pop("hash")
+
     return gdata
 
 #
@@ -365,6 +370,7 @@ def global_leaderbord(position = 0):
         score = result[1]
         board[user] = score
 
+    board["status"] = 1
     return json.dumps(board)
 
 
@@ -421,9 +427,10 @@ def public_join_game():
 
             game = games.new(key, data=vdata)
             game.store()
-            return key
+            return json.dumps({ "id": key, "status":1 })
 
-    return initializeGame(user)
+    gid = initializeGame(user)
+    return json.dumps({ "id": gid, "status":1 })
 
 @app.route('/private/join', methods=["POST"])
 def private_join_game():
@@ -475,11 +482,11 @@ def private_join_game():
                 vdata["leaderboard"][user] = 0
                 game = games.new(key, data=vdata)
                 game.store()
-                return key
+                return json.dumps({ "id": key, "status":1 })
 
-        return API_ERROR
+        return json.dumps({"status":3})
     else:
-        return API_ERROR
+        return json.dumps({"status":3})
 
 @app.route('/private/create/<int:numqestions>', methods=["POST"])
 def private_new_create(numquestions):
@@ -598,21 +605,7 @@ def game_status(gid):
         if gdata["gamestatus"] is "started":
             # Merge first question with game data
             qid = gdata.questions[0]
-            questions = client.bucket("questions")
-            ques = questions.get(qid)
-            qdata = ques.get_data()
-
-            gdata["question"] = qdata["question"]
-            gdata["qid"] = qid
-            gdata["a"] = qdata["a"]
-            gdata["b"] = qdata["b"]
-            gdata["c"] = qdata["c"]
-            gdata["d"] = qdata["d"]
-
-        gdata.pop("questions")
-        gdata.pop("users")
-        if gdata.has_key("hash"):
-            gdata.pop("hash")
+            gdata = merge_question_with_game( gdata, qid )
 
         gdata["status"] = 1
         return json.dumps(gdata)
@@ -694,6 +687,8 @@ def answerQuestion(gid,qid,answer,time_ms):
 
     # Get the next question based on current index
     qIndex = questions.index(qid)+1
+
+    gdata["status"] = 1
 
     # Failure on this game being over
     if (qIndex >= len(questions)):
