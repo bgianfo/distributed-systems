@@ -615,7 +615,7 @@ def game_status(gid):
         return json.dumps(gdata)
 
 @app.route('/game/<gid>/question/<qid>', methods=["POST"])
-def answerQuestion(gid,qid,answer,time_ms):
+def answer_auestion(gid,qid):
     """
     URL /game/<gid>/question/<qid>
 
