@@ -693,6 +693,11 @@ def submit_question_answer(gid, qid):
 
     gdata["status"] = 1
 
+    gdata.pop("questions")
+    gdata.pop("users")
+    if gdata.has_key("hash"):
+        gdata.pop("hash")
+
     # Failure on this game being over
     if (qIndex >= len(questions)):
         gdata["gamestatus"] = "done"
