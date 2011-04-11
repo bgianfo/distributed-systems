@@ -24,11 +24,9 @@ import bcrypt  # Password hashing library
 import urllib2
 
 
+DEBUG = True
+SECRET_KEY = 'secret'
 app = Flask(__name__)
-app.debug = True
-app.config["DEBUG"] = True
-app.config['SECRET_KEY'] = 'secret'
-app.wsgi_app = ProxyFix(app.wsgi_app)
 
 API_ERROR = "err"
 API_SUCCESS = "suc"
@@ -40,6 +38,8 @@ app.wsgi_app = SharedDataMiddleware(app.wsgi_app, {
   '/': os.path.abspath("../clients/web")
 })
 
+# Add proxy fix middleware to the server 
+app.wsgi_app = ProxyFix(app.wsgi_app)
 
 #
 # Utility functions
@@ -599,11 +599,8 @@ def game_status(gid):
 
         if gdata["gamestatus"] == "started":
             # Merge first question with game data
-            print "Trying to merge in questions"
             qid = str(gdata["questions"][0])
             gdata = merge_question_with_game( gdata, qid )
-        else:
-            print "No mergy of the questions"
 
         gdata.pop("questions")
         gdata.pop("users")
@@ -614,8 +611,9 @@ def game_status(gid):
         gdata["status"] = 1
         return json.dumps(gdata)
 
+
 @app.route('/game/<gid>/question/<qid>', methods=["POST"])
-def answer_auestion(gid,qid):
+def answer_question(gid,qid):
     """
     URL /game/<gid>/question/<qid>
 
