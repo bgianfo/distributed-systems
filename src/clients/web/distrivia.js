@@ -224,7 +224,8 @@ function Next(){
       }
    };
 
-   var param = "authToken=" + session + "&a=" + answer + "&time=" + 1;
+   var time = stopTime - startTime;
+   var param = "authToken=" + session + "&a=" + answer + "&user=" + username + "&time=" + time;
    var URI = erl("/game/" + gid + "/question/" + qid );
    xr.open( "POST", URI, true );
    xr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");

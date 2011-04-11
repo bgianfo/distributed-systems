@@ -182,6 +182,7 @@ def merge_question_with_game(gdata, qid):
     """
     Merge a question's field with game data
     """
+    qid = str(qid)
 
     client = g.db
     questions = client.bucket("questions")
@@ -359,7 +360,6 @@ def global_leaderbord(position = 0):
 
     query_results = query.run()
 
-    print query_results
     #  Pack users into the board
     for result in query_results:
         user  = result[0]
@@ -614,7 +614,7 @@ def game_status(gid):
 
 
 @app.route('/game/<gid>/question/<qid>', methods=["POST"])
-def answer_question(gid,qid):
+def submit_question_answer(gid, qid):
     """
     URL /game/<gid>/question/<qid>
 
@@ -641,9 +641,9 @@ def answer_question(gid,qid):
     qid = str(qid)
     answer  = str(request.form["a"])
     time_ms = int(request.form["time"])
+    username = str(request.form["user"])
 
-    user = str(request.form["user"])
-    if user is None:
+    if username is None:
         return API_ERROR
 
     # Make sure answer is sane
@@ -673,17 +673,17 @@ def answer_question(gid,qid):
 
     if qdata["answer"] == answer:
         users = client.bucket("users")
-        user  = users.get(user)
+        user  = users.get(username)
         if not user.exists():
             return API_ERROR
 
-        gdata["leaderboard"][user] += score
+        gdata["leaderboard"][username] = score
         game = games.new(gid, data = gdata)
         game.store()
 
-        udata = users.get_data()
+        udata = user.get_data()
         udata["score"] += score
-        user = users.new(user, data = udata)
+        user = users.new(username, data = udata)
         user.store()
 
     questions = gdata["questions"]
