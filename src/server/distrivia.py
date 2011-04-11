@@ -21,7 +21,6 @@ import os
 import riak    # Database client
 import uuid    # Unique Identifier generator
 import bcrypt  # Password hashing library
-import socket
 import urllib2
 
 
@@ -50,7 +49,7 @@ def getport():
     """ Return the internal IP of this machine """
     try:
         myurl = "http://169.254.169.254/latest/meta-data/local-ipv4"
-        hostname = urllib2.urlopen(url=myurl, timeout=1).read()
+        urllib2.urlopen(url=myurl, timeout=1).read()
         return 80
     except:
         return 8080
@@ -98,7 +97,6 @@ def initializeGame(user, passwd=None):
     """ Create a new game """
 
     client = g.db
-    quesBucket = client.bucket("questions")
 
     # Map function to inspect tables and grab non full games
     mapfn = """
@@ -130,12 +128,13 @@ def initializeGame(user, passwd=None):
     gameBucket = client.bucket("games")
 
     gid = str(uuid.uuid1())
+    token = request.form["authToken"]
 
     gameData = {
         "questions": questions,
         "id": gid,
-        "users": [user],
-        "status": "waiting",
+        "users": [token],
+        "gamestatus": "waiting",
         "leaderboard": {user: 0}
     }
 
@@ -153,7 +152,7 @@ def calcscore(time_ms):
     points = 0
     if time_ms > 10*SEC_TO_MS:
         # After ten seconds no points
-        point = 0
+        points = 0
     elif time_ms > 9 * SEC_TO_MS:
         points = 50
     elif time_ms > 8 * SEC_TO_MS:
@@ -385,6 +384,7 @@ def public_join_game():
     # Initialize arguments, riak variables and buckets
     client = g.db
     token = str(request.form['authToken'])
+    user  = str(request.form['user'])
 
     gamesBucket = client.bucket("games")
 
@@ -404,25 +404,22 @@ def public_join_game():
     query_result = query.run()
 
     if query_result != None:
-      for key in query_result:
-          key = str(key)
-          # Add user to the game
-          game = gamesBucket.get(key)
+        for key in query_result:
+            key = str(key)
+            # Add user to the game
+            game = gamesBucket.get(key)
 
-          vdata = game.get_data()
-          if token in vdata["users"]:
-              continue
-          vdata["users"].append(token)
-          # Add user to the leader board
-          vdata["leaderboard"][user] = 0
-          game = gamesBucket.new(key, data=vdata)
-          game.store()
-          return key
-      gid = initializeGame(user)
-    else:
-      gid = initializeGame(user)
+            vdata = game.get_data()
+            if token in vdata["users"]:
+                continue
+            vdata["users"].append(token)
+            # Add user to the leader board
+            vdata["leaderboard"][user] = 0
+            game = gamesBucket.new(key, data=vdata)
+            game.store()
+            return key
 
-    return gid
+    return initializeGame(user)
 
 @app.route('/private/join', methods=["POST"])
 def private_join_game():
@@ -438,7 +435,7 @@ def private_join_game():
 
     # Initialize arguments, riak variables and buckets
     client = g.db
-    user   = str(request.form['user']);
+    user   = str(request.form['user'])
     token  = str(request.form['authToken'])
     passwd = str(request.form['password'])
 
@@ -446,7 +443,7 @@ def private_join_game():
     mapfn = """
     function(value, keyData, arg) {
         var game = Riak.mapValuesJson(value)[0];
-        if (game.type == "private" && data.status != "waiting") {
+        if (game.type == "private" && data.gamestatus != "waiting") {
             // Get the key and password hash, that's all we need!
             return [[value.key, data.hash]];
         }
@@ -459,81 +456,26 @@ def private_join_game():
     query_result = query.run()
 
     if query_result != None:
+        games = client.bucket("games")
+        for key, gpwhash in query_result:
+            key    = str(key)
+            pwhash = str(gpwhash)
 
-      games = client.bucket("games")
-      for key, gpwhash in query_result:
-          key    = str(key)
-          pwhash = str(pwhash)
+            if bcrypt.hashpw(passwd,pwhash) == pwhash:
+                game = games.get(key)
+                vdata = game.get_data()
+                if token in vdata["users"]:
+                    return key
+                vdata["users"].append(token)
+                # Add user to the leader board
+                vdata["leaderboard"][user] = 0
+                game = games.new(key, data=vdata)
+                game.store()
+                return key
 
-          if bcrypt.hashpw(passwd,gpwhash) == gpwhash:
-              game = games.get(key)
-              vdata = game.get_data()
-              if token in vdata["users"]:
-                 return key
-              vdata["users"].append(token)
-              # Add user to the leader board
-              vdata["leaderboard"][user] = 0
-              game = gamesBucket.new(key, data=vdata)
-              game.store()
-              return key
-
-      return API_ERROR
-    else:
-      return API_ERROR
-
-
-
-@app.route('/game/<gid>/next/<prevId>', methods=["POST"])
-def nextQuestion(gid,prevId):
-    """GET /game/<id>/next
-
-    Get the next question for this game ID"""
-
-    # Failure on authentication error
-    if not isAuthed():
-        return API_ERROR
-
-    gid = str(gid)
-    prevId = str(prevId)
-    gamesBucket = g.db.bucket("games")
-    game = gamesBucket.get(gid)
-
-    # Failure on bogus game ID
-    if not game.exists():
         return API_ERROR
     else:
-        # Get the list of questions for this game
-        gameData = game.get_data();
-        questions = gameData["questions"]
-
-        qIndex = None
-        nextQuestion = None
-        if prevId == "0":
-            nextQuestion = questions[0]
-            qIndex = 0
-        else:
-            try:
-                qIndex = questions.index(prevId)
-            except:
-                return API_ERROR
-
-            # Failure on this game being over
-            if (qIndex+1 >= len(questions)):
-                return API_ERROR
-
-            # Fetch and construct the next question object
-            nextQuestion = questions[qIndex+1]
-
-        questionBucket = g.db.bucket("questions")
-        question = questionBucket.get(str(nextQuestion))
-        # Add id into the question
-        qdata = question.get_data()
-        qdata["id"] = nextQuestion
-        qdata["status"] = "next"
-        if (qIndex+1 == len(questions)-1):
-            qdata["status"] = "done"
-        # TODO: Add a status and score field
-        return json.dumps(qdata)
+        return API_ERROR
 
 @app.route('/private/create/<int:numqestions>', methods=["POST"])
 def private_new_create(numquestions):
@@ -551,9 +493,7 @@ def private_new_create(numquestions):
     user   = str(request.form["user"])
     passwd = str(request.form["password"])
     token  = str(request.form["authToken"])
-
     client = g.db
-    quesBucket = client.bucket("questions")
 
     # Map function to inspect tables and grab non full games
     mapfn = """
@@ -589,7 +529,7 @@ def private_new_create(numquestions):
     gameData = {
         "questions": questions,
         "gamestatus": "waiting",
-        "name": name
+        "name": name,
         "id": gid,
         "hash" : bcrypt.hashpw(passwd, bcrypt.gensalt()),
         "users": [token],
@@ -602,7 +542,7 @@ def private_new_create(numquestions):
     return gid
 
 @app.route('/private/start/<gid>', methods=["POST"])
-def private_new_create(gid):
+def private_start(gid):
     """
     URL /private/start/<gid>
     POST: authToken=<session id>
@@ -614,12 +554,11 @@ def private_new_create(gid):
         return API_ERROR
 
     client = g.db
-    games = client.bucket(games)
-
-    game = games.get(qid)
+    games = client.bucket("games")
+    game = games.get(gid)
 
     if game.exists():
-        game_data = game.get_data();
+        game_data = game.get_data()
         game_data["gamestatus"] = "started"
         game = games.new(gid, data=game_data)
         game.store()
@@ -650,9 +589,9 @@ def game_status(gid):
         return API_ERROR
     else:
         # Get the list of questions for this game
-        gdata = game.get_data();
+        gdata = game.get_data()
 
-        if gdata["status"] is "started":
+        if gdata["gamestatus"] is "started":
             # Merge first question with game data
             qid = gdata.questions[0]
             questions = client.bucket("questions")
@@ -732,12 +671,12 @@ def answerQuestion(gid,qid,answer,time_ms):
         if not user.exists():
             return API_ERROR
 
-        gdata["leaderboard"][user] += points
+        gdata["leaderboard"][user] += score
         game = games.new(gid, data = gdata)
         game.store()
 
         udata = users.get_data()
-        udata["score"] += points
+        udata["score"] += score
         user = users.new(user, data = udata)
         user.store()
 
@@ -748,7 +687,7 @@ def answerQuestion(gid,qid,answer,time_ms):
 
     # Failure on this game being over
     if (qIndex >= len(questions)):
-        gdata["status"] = done:
+        gdata["gamestatus"] = "done"
         return json.dumps( gdata )
 
     else: # Fetch and construct the next question object
