@@ -24,7 +24,7 @@ kill:
 	sudo ps a | grep distrivia | grep -v grep | cut -d" " -f1 | sudo xargs kill -9
 	sudo ps a | grep server.py | grep -v grep | cut -d" " -f1 | sudo xargs kill -9
 
-run launch: kill
+run launch:
 	rm /home/ec2-user/server.log
 	python server.py --logging=info --log_file_prefix=/home/ec2-user/server.log
 
