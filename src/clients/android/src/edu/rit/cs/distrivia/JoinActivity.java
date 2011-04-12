@@ -1,8 +1,14 @@
 package edu.rit.cs.distrivia;
 
+import org.json.JSONException;
+
+import edu.rit.cs.distrivia.api.DistriviaAPI;
 import edu.rit.cs.distrivia.model.GameData;
+import edu.rit.cs.distrivia.api.JSON;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,13 +24,15 @@ import android.widget.Toast;
  */
 public class JoinActivity extends Activity {
 	
+	GameData gd;
+	
     /** Called when the activity is first created. */
 	@Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.join);
-        GameData gd = (GameData) getIntent().getExtras().getSerializable("game_data");
+        gd = (GameData) getIntent().getExtras().getSerializable("game_data");
 
         final Button joinPublicButton = (Button) findViewById(R.id.join_public_button);
         final Button joinPrivateButton = (Button) findViewById(R.id.join_private_button);
@@ -40,13 +48,14 @@ public class JoinActivity extends Activity {
         joinPublicButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(final View v) {
-                privateLayout.setVisibility(View.GONE);
-                v.setEnabled(false);
-                playersLabel.setText("Players: 10/20");
-                Intent roundIntent = new Intent();
-                roundIntent.setClassName("edu.rit.cs.distrivia",
-                        "edu.rit.cs.distrivia.RoundActivity");
-                startActivity(roundIntent);
+            	joinPublic();
+                //privateLayout.setVisibility(View.GONE);
+                //v.setEnabled(false);
+                //playersLabel.setText("Players: 10/20");
+                //Intent roundIntent = new Intent();
+                //roundIntent.setClassName("edu.rit.cs.distrivia",
+                //        "edu.rit.cs.distrivia.RoundActivity");
+                //startActivity(roundIntent);
             }
         });
         
@@ -72,4 +81,30 @@ public class JoinActivity extends Activity {
         });
 
     }
+	
+	private void joinPublic() {
+		Context context = getApplicationContext();
+
+        //GameData gameId = null;
+        try {
+            gd = DistriviaAPI.join(gd);
+        } catch (Exception e) {
+            Toast.makeText(context, "Service is down, please try again later",
+                    10).show();
+            return;
+        }
+        boolean joinSuccessful = gd.getGameID() != null;
+        //joinSuccessful &= (!authToken.equals(DistriviaAPI.API_ERROR));
+
+        if (joinSuccessful) {       	
+            //Toast.makeText(context, "Joined: " + j.status(), 10).show();
+            Intent roundIntent = new Intent();
+            roundIntent.setClassName("edu.rit.cs.distrivia",
+                    "edu.rit.cs.distrivia.RoundActivity");
+            startActivity(roundIntent);
+
+        } else {
+            Toast.makeText(getApplicationContext(), "Join failure", 10).show();
+        }
+	}
 }
