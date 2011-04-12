@@ -37,11 +37,6 @@ public class LoginActivity extends Activity {
         SharedPreferences settings = getPreferences(MODE_PRIVATE);
         String userName = settings.getString("uname", "");
         uname.setText(userName);
-        if (userName.equals("")) {
-        	loginBut.setVisibility(View.GONE);
-        } else {
-        	registerBut.setVisibility(View.GONE);
-        }
 
         loginBut.setOnClickListener(new OnClickListener() {
             @Override
