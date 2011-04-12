@@ -12,10 +12,10 @@ help default:
 		@echo ""
 
 deps:
-	pip install flask
-	pip install riak
-	pip install tornado
-	pip install py-bcrypt
+	easy_install install flask
+	easy_install install riak
+	easy_install install tornado
+	easy_install install py-bcrypt
 
 init-db:
 	python db/insert-questions.py
