@@ -25,7 +25,7 @@ kill:
 	sudo ps a | grep server.py | grep -v grep | cut -d" " -f1 | sudo xargs kill -9
 
 run launch:
-	rm /home/ec2-user/server.log
+	rm -rf /home/ec2-user/server.log
 	python server.py --logging=info --log_file_prefix=/home/ec2-user/server.log
 
 test:
