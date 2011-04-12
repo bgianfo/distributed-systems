@@ -34,7 +34,7 @@ public class DistriviaAPI {
 
     private static HttpClient httpClient = new DefaultHttpClient();
     private static HttpContext localContext = new BasicHttpContext();
-    final private static String API_PROTOCOL = "http";
+    final private static String API_PROTOCOL = "https";
     final private static String API_ROOT = "distrivia.lame.ws";
     final private static String API_URL = API_PROTOCOL + "://" + API_ROOT;
     final public static String API_ERROR = "err";
