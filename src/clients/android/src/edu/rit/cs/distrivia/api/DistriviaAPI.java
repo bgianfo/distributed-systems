@@ -11,6 +11,7 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
@@ -19,12 +20,19 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.conn.scheme.Scheme;
+import org.apache.http.conn.scheme.SchemeRegistry;
+import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.conn.SingleClientConnManager;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.protocol.BasicHttpContext;
-import org.apache.http.protocol.HttpContext;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpParams;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.util.Log;
+import edu.rit.cs.distrivia.model.GameData;
 
 /**
  * Main utility class which can talk to the Distrivia web service over
@@ -32,12 +40,16 @@ import org.json.JSONObject;
  */
 public class DistriviaAPI {
 
-    private static HttpClient httpClient = new DefaultHttpClient();
-    private static HttpContext localContext = new BasicHttpContext();
+    private static HttpClient httpClient = createHttpClient();
     final private static String API_PROTOCOL = "https";
     final private static String API_ROOT = "distrivia.lame.ws";
     final private static String API_URL = API_PROTOCOL + "://" + API_ROOT;
+    final private static int API_PORT = 443;
+
+    /** Constant representing API error */
     final public static String API_ERROR = "err";
+
+    /** Constant representing API success */
     final public static String API_SUCCESS = "suc";
 
     /**
@@ -45,21 +57,28 @@ public class DistriviaAPI {
      * 
      * @param userName
      *            The user name to attempt to login to distrivia with.
+     * @param pass
+     *            The user's password for authentication
      * 
      * @return The authorization users token on success, otherwise null on
      *         authentication failure.
      * 
-     * @throws DistriviaAPIException
+     * @throws Exception
      */
-    public static String login(final String userName) throws Exception {
-        String url = new String(API_URL);
+    public static String login(final String userName, final String pass)
+            throws Exception {
+        String url = new String();
         url += "/login/" + userName;
 
-        final String data = post(url, null);
+        final List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("password", pass));
+
+        final String data = post(url, params);
 
         if (data == API_ERROR) {
             throw new DistriviaAPIException("Login Failed");
         } else {
+            Log.d("DistriviaAPI", "The auth token: " + data);
             return data;
         }
     }
@@ -69,33 +88,67 @@ public class DistriviaAPI {
      * 
      * @param username
      *            The user name to register with the service.
+     * @param pass
      * @return True on register success, false on register failure.
+     * @throws Exception
      */
-    public static String register(final String username) throws Exception {
-        String url = new String(API_URL);
-        url += "/register/" + username;
-        String data = post(url, null);
+    public static String register(final String username, final String pass)
+            throws Exception {
 
+        String url = new String();
+        url += "/register/" + username;
+
+        final List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("password", pass));
+
+        final String data = post(url, params);
         return data;
     }
 
     /**
-     * @param token
-     * @param username
+     * @param gdata
      * @return The game id string
      * @throws Exception
      */
-    public static String join(final String token, final String username)
-            throws Exception {
-        String url = new String(API_URL);
-        url += "/game/join";
+    public static GameData join(GameData gdata) throws Exception {
+        String url = new String();
+        url += "/public/join";
 
         List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("authToken", token));
-        params.add(new BasicNameValuePair("user", username));
+        params.add(new BasicNameValuePair("authToken", gdata.getAuthToken()));
+        params.add(new BasicNameValuePair("user", gdata.getUserName()));
 
         String data = post(url, params);
-        return data;
+        JSON jsonParser = new JSON(data);
+
+        gdata.setGameId(jsonParser.gameid());
+
+        return gdata;
+    }
+
+    /**
+     * @param gdata
+     * @return The modified GameData object
+     * @throws Exception
+     */
+    public static GameData status(GameData gdata) throws Exception {
+        String url = new String();
+        url += "/game/" + gdata.getGameID();
+
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("authToken", gdata.getAuthToken()));
+
+        String data = post(url, params);
+        JSON jsonParser = new JSON(data);
+
+        // if ( jsonParser.status() == ) {
+
+        gdata.setGameId(jsonParser.gameid());
+        gdata.setStatus(jsonParser.gamestatus());
+
+        return gdata;
+        // }
+
     }
 
     /**
@@ -108,7 +161,7 @@ public class DistriviaAPI {
      *            The identification string for this game.
      * @return The next question in the game, or null if the game is over, or
      *         error.
-     * @throws DistriviaAPIException
+     * @throws Exception
      */
     public static Question firstQuestion(final String authToken,
             final String gameId) throws Exception {
@@ -128,7 +181,7 @@ public class DistriviaAPI {
      *            question fetch.
      * 
      * @return The next question in the game, or null if the game is over.
-     * @throws DistriviaAPIException
+     * @throws Exception
      */
     public static Question nextQuestion(final String authToken,
             final String gameId, final String prevId) throws Exception {
@@ -173,19 +226,19 @@ public class DistriviaAPI {
      * @return Return true if answer went through successfully, otherwise return
      *         false on error. Error could be, wrong authorization token,
      *         incorrect gameId, impossible answerTIme etc...
-     * @throws DistriviaAPIException
+     * @throws Exception
      */
-    public static boolean answerQuestion(final String authToken,
-            final String username, final String gameId, final String answer,
-            final int answerTime_ms) throws Exception {
-        String url = new String(API_URL);
-        url += "/game/" + gameId;
+    public static boolean answerQuestion(final GameData gdata,
+            final String answer, final int time_ms) throws Exception {
+
+        String url = new String();
+        url += "/game/" + gdata.getGameID();
         url += "/answer/" + answer;
-        url += "/time/" + answerTime_ms;
+        url += "/time/" + time_ms;
 
         List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("authToken", authToken));
-        params.add(new BasicNameValuePair("user", username));
+        params.add(new BasicNameValuePair("authToken", gdata.getAuthToken()));
+        params.add(new BasicNameValuePair("user", gdata.getUserName()));
 
         String data = post(url, params);
 
@@ -207,13 +260,12 @@ public class DistriviaAPI {
      * 
      * @return The game leader board at the time of the query, or null if the
      *         gameId does not exist, or the user is not properly logged in.
-     * @throws DistriviaAPIException
+     * @throws Exception
      */
     public static Leaderboard leaderBoard(final String authToken,
             final String gameId) throws Exception {
 
-        String url = new String(API_URL);
-
+        String url = new String();
         url += "/game/" + gameId + "/leaderboard";
 
         List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -235,6 +287,7 @@ public class DistriviaAPI {
 
     private static String post(String url, List<NameValuePair> params)
             throws Exception {
+
         HttpPost op = new HttpPost(url);
         if (params != null) {
             op.setEntity(new UrlEncodedFormEntity(params));
@@ -244,18 +297,46 @@ public class DistriviaAPI {
         return data;
     }
 
-    private static String get(String url) throws Exception {
+    private static String get(final String url) throws Exception {
         HttpGet op = new HttpGet(url);
         HttpResponse response = executeRequest(op);
         String data = responseToString(response);
         return data;
     }
 
+    private static HttpClient createHttpClient() {
+        /*
+         * HttpParams params = new BasicHttpParams();
+         * HttpProtocolParams.setVersion(params, HttpVersion.HTTP_1_1);
+         * HttpProtocolParams.setContentCharset(params,
+         * HTTP.DEFAULT_CONTENT_CHARSET);
+         * HttpProtocolParams.setUseExpectContinue(params, true);
+         * 
+         * SchemeRegistry schReg = new SchemeRegistry(); schReg.register(new
+         * Scheme("http", PlainSocketFactory .getSocketFactory(), 80));
+         * schReg.register(new Scheme("https",
+         * SSLSocketFactory.getSocketFactory(), 443)); ClientConnectionManager
+         * conMgr = new ThreadSafeClientConnManager( params, schReg);
+         */
+
+        SchemeRegistry schemeRegistry = new SchemeRegistry();
+        schemeRegistry.register(new Scheme("https", SSLSocketFactory
+                .getSocketFactory(), 443));
+
+        HttpParams params = new BasicHttpParams();
+
+        SingleClientConnManager mgr = new SingleClientConnManager(params,
+                schemeRegistry);
+
+        return new DefaultHttpClient(mgr, params);
+    }
+
     private static HttpResponse executeRequest(HttpRequestBase op)
             throws Exception {
+        HttpHost host = new HttpHost(API_ROOT, API_PORT, API_PROTOCOL);
         HttpResponse response = null;
         try {
-            response = httpClient.execute(op, localContext);
+            response = httpClient.execute(host, op);
         } catch (ClientProtocolException e) {
             throw e;
         } catch (IOException e) {

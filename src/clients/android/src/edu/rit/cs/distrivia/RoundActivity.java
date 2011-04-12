@@ -14,15 +14,14 @@ import android.widget.Toast;
 import edu.rit.cs.distrivia.api.DistriviaAPI;
 import edu.rit.cs.distrivia.api.DistriviaAPIException;
 import edu.rit.cs.distrivia.api.Question;
+import edu.rit.cs.distrivia.model.GameData;
 
 /**
  * Activity for players to answer questions during a round.
  */
 public class RoundActivity extends Activity {
 
-    private String authToken;
-    private String gameId;
-    private String username;
+    private GameData gdata;
     private long startTime = 0;
     private long stopTime = 0;
     private String selection = null;
@@ -107,8 +106,8 @@ public class RoundActivity extends Activity {
         final long decisionTime = stopTime - startTime;
 
         try {
-            final boolean correct = DistriviaAPI.answerQuestion(authToken,
-                    username, gameId, selection, (int) decisionTime);
+            final boolean correct = DistriviaAPI.answerQuestion(gdata,
+                    selection, (int) decisionTime);
             return correct;
         } catch (final DistriviaAPIException e) {
             // TODO Auto-generated catch block

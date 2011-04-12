@@ -11,6 +11,7 @@ public class GameData implements Serializable {
     private final String authToken;
     private final String userName;
     private String gameID;
+    private String status;
 
     /**
      * Constuct a semi-immutable GameData object
@@ -62,4 +63,19 @@ public class GameData implements Serializable {
         return authToken;
     }
 
+    public void setStatus(String gamestatus) {
+        status = gamestatus;
+    }
+
+    public boolean hasStarted() {
+        return status.equals("started");
+    }
+
+    public boolean isDone() {
+        return status.equals("done");
+    }
+
+    public boolean isWaiting() {
+        return status.equals("waiting");
+    }
 }
