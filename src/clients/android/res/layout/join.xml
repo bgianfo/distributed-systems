@@ -14,13 +14,15 @@
     <LinearLayout android:layout_width="fill_parent"
      android:layout_height="wrap_content"
      android:orientation="vertical"
-     android:id="@+id/public_layout">
+     android:background="#333333"
+     android:id="@+id/public_layout" 
+     android:layout_marginTop="20dip"
+     android:layout_marginBottom="20dip">
      
         <TextView android:id="@+id/textView2"
          android:text="@string/public_games"
          android:layout_height="wrap_content"
          android:layout_width="fill_parent" 
-         android:layout_marginTop="20.0sp"
          android:layout_marginBottom="20.0sp"
          android:textSize="20sp">
         </TextView>
@@ -28,7 +30,7 @@
         <Button android:id="@+id/join_public_button"
          android:layout_height="wrap_content"
          android:text="@string/join_public"
-         android:layout_marginBottom="20dip" android:layout_width="wrap_content" android:layout_gravity="center_horizontal">
+         android:layout_width="wrap_content" android:layout_gravity="center_horizontal">
          </Button>
         
     </LinearLayout>
@@ -36,6 +38,7 @@
     <LinearLayout android:layout_width="fill_parent"
      android:layout_height="wrap_content"
      android:orientation="vertical"
+     android:background="#333333"
      android:id="@+id/private_layout">
      
         <TextView android:id="@+id/textView3"
@@ -92,5 +95,7 @@
      android:text="" 
      android:id="@+id/num_players_text">
     </TextView>
+    
+    <Button android:id="@+id/button1" android:layout_height="wrap_content" android:text="View Global Leaderboard" android:layout_width="fill_parent"></Button>
     
 </LinearLayout>
