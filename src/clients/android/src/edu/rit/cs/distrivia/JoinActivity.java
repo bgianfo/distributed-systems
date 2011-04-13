@@ -49,14 +49,11 @@ public class JoinActivity extends Activity {
         joinPublicButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(final View v) {
+            	privateLayout.setVisibility(View.GONE);
+            	viewLeaderboardButton.setVisibility(View.GONE);
+                v.setEnabled(false);
+                playersLabel.setText("Waiting to join public game...");
             	joinPublic();
-                //privateLayout.setVisibility(View.GONE);
-                //v.setEnabled(false);
-                //playersLabel.setText("Players: 10/20");
-                //Intent roundIntent = new Intent();
-                //roundIntent.setClassName("edu.rit.cs.distrivia",
-                //        "edu.rit.cs.distrivia.RoundActivity");
-                //startActivity(roundIntent);
             }
         });
         
@@ -96,7 +93,6 @@ public class JoinActivity extends Activity {
 	private void joinPublic() {
 		Context context = getApplicationContext();
 
-        //GameData gameId = null;
         try {
             gd = DistriviaAPI.join(gd);
         } catch (Exception e) {
@@ -105,13 +101,15 @@ public class JoinActivity extends Activity {
             return;
         }
         boolean joinSuccessful = gd.getGameID() != null;
-        //joinSuccessful &= (!authToken.equals(DistriviaAPI.API_ERROR));
+        joinSuccessful &= (!gd.equals(DistriviaAPI.API_ERROR));
 
         if (joinSuccessful) {       	
-            //Toast.makeText(context, "Joined: " + j.status(), 10).show();
+            Toast.makeText(context, "Joining Public", 10).show();
             Intent roundIntent = new Intent();
             roundIntent.setClassName("edu.rit.cs.distrivia",
                     "edu.rit.cs.distrivia.RoundActivity");
+         // Make sure to pass session/game data to the next view
+            roundIntent.putExtra("game_data", gd);
             startActivity(roundIntent);
 
         } else {
