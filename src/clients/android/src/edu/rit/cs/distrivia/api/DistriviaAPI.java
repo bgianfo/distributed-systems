@@ -262,27 +262,20 @@ public class DistriviaAPI {
      *         gameId does not exist, or the user is not properly logged in.
      * @throws Exception
      */
-    public static Leaderboard leaderBoard(final String authToken,
-            final String gameId) throws Exception {
+    public static String[][] leaderBoard(final GameData gdata) throws Exception {
 
         String url = new String();
-        url += "/game/" + gameId + "/leaderboard";
+        url += "/leaderboard/0";
 
         List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("authToken", authToken));
+        params.add(new BasicNameValuePair("authToken", gdata.getAuthToken()));
 
         String data = post(url, params);
 
-        // Decompose JSON response into a leader board object
-        Leaderboard board = null;
-        try {
-            JSONObject json = new JSONObject(data);
-            board = Leaderboard.create(json);
-        } catch (JSONException e) {
-            throw new DistriviaAPIException("Leaderboard request was malformed");
-        }
+        JSON parser = new JSON(data);
 
-        return board;
+        String[][] lb = parser.leaderboard();
+        return lb;
     }
 
     private static String post(String url, List<NameValuePair> params)
