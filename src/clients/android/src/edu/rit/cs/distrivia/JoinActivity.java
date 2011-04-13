@@ -36,6 +36,7 @@ public class JoinActivity extends Activity {
 
         final Button joinPublicButton = (Button) findViewById(R.id.join_public_button);
         final Button joinPrivateButton = (Button) findViewById(R.id.join_private_button);
+        final Button viewLeaderboardButton = (Button) findViewById(R.id.view_leaderboard_button);
 
         final TextView playersLabel = (TextView) findViewById(R.id.num_players_text);
 
@@ -77,6 +78,16 @@ public class JoinActivity extends Activity {
         			Toast.makeText(v.getContext(), "Enter name and pass", 10)
         				.show();
         		}
+        	}
+        });
+        
+        viewLeaderboardButton.setOnClickListener(new OnClickListener() {
+        	@Override
+        	public void onClick(final View v) {
+        		Intent leaderboardIntent = new Intent();
+        		leaderboardIntent.setClassName("edu.rit.cs.distrivia",
+                "edu.rit.cs.distrivia.LeaderboardActivity");
+        		startActivity(leaderboardIntent);
         	}
         });
 

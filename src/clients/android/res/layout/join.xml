@@ -96,6 +96,6 @@
      android:id="@+id/num_players_text">
     </TextView>
     
-    <Button android:id="@+id/button1" android:layout_height="wrap_content" android:text="View Global Leaderboard" android:layout_width="fill_parent"></Button>
+    <Button android:layout_height="wrap_content" android:text="View Global Leaderboard" android:layout_width="fill_parent" android:id="@+id/view_leaderboard_button"></Button>
     
 </LinearLayout>
