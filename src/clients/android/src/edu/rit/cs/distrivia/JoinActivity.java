@@ -114,6 +114,7 @@ public class JoinActivity extends Activity {
         	catch (Exception e) {
         		Toast.makeText(context, "Service is down, please try again later",
         			10).show();
+        		return;
         	}
             Intent roundIntent = new Intent();
             roundIntent.setClassName("edu.rit.cs.distrivia",
