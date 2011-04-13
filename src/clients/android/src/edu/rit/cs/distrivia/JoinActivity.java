@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -104,7 +105,16 @@ public class JoinActivity extends Activity {
         joinSuccessful &= (!gd.equals(DistriviaAPI.API_ERROR));
 
         if (joinSuccessful) {       	
-            Toast.makeText(context, "Joining Public", 10).show();
+            //Toast.makeText(context, "Joining Public", 10).show();
+        	try {
+        		while ( DistriviaAPI.status(gd).isWaiting()) {
+        			SystemClock.sleep(5000);
+        		}
+        	}
+        	catch (Exception e) {
+        		Toast.makeText(context, "Service is down, please try again later",
+        			10).show();
+        	}
             Intent roundIntent = new Intent();
             roundIntent.setClassName("edu.rit.cs.distrivia",
                     "edu.rit.cs.distrivia.RoundActivity");
