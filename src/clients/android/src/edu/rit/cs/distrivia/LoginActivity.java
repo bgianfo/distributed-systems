@@ -137,6 +137,8 @@ public class LoginActivity extends Activity {
         Context context = getApplicationContext();
         loginBut.setEnabled(false);
         registerBut.setEnabled(false);
+        loginBut.postInvalidate();
+        registerBut.postInvalidate();
         
         String authToken = null;
         try {
