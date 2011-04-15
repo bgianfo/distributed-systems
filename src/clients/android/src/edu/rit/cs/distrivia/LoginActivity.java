@@ -1,6 +1,7 @@
 package edu.rit.cs.distrivia;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ public class LoginActivity extends Activity {
     private EditText pass;
     private Button loginBut;
     private Button registerBut;
+    private ProgressDialog dialog;
 
     /** Enumeration to define which action a button is performing. */
     enum ButtonAction {
@@ -52,6 +54,8 @@ public class LoginActivity extends Activity {
     private final Handler toastHandler = new Handler() {
         @Override
         public void handleMessage(final Message msg) {
+            // Cancel the loading dialog since something obviously happend.
+            dialog.dismiss();
             String txtmsg = msg.getData().getString("msg");
             Toast.makeText(getApplicationContext(), txtmsg, 10).show();
         }
@@ -114,7 +118,8 @@ public class LoginActivity extends Activity {
     }
 
     private void launchEvent(final ButtonAction action) {
-
+        dialog = ProgressDialog.show(LoginActivity.this, "", "Logging In...",
+                true);
         new Thread() {
             @Override
             public void run() {
