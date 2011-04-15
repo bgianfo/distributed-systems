@@ -1,15 +1,15 @@
 package edu.rit.cs.distrivia;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View.OnKeyListener;
+import android.os.Handler;
+import android.os.Message;
 import android.view.KeyEvent;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnKeyListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,6 +26,36 @@ public class LoginActivity extends Activity {
     private EditText pass;
     private Button loginBut;
     private Button registerBut;
+
+    /** Enumeration to define which action a button is performing. */
+    enum ButtonAction {
+        REGISTER_EVENT, LOGIN_EVENT
+    }
+
+    /**
+     * Handler to move onto the next Activity on successful login.
+     */
+    private final Handler loginHandler = new Handler() {
+        @Override
+        public void handleMessage(final Message msg) {
+            GameData gd = (GameData) msg.getData().getSerializable("game_data");
+            Intent joinIntent = new Intent(getBaseContext(), JoinActivity.class);
+            // Make sure to pass session/game data to the next view
+            joinIntent.putExtra("game_data", gd);
+            startActivity(joinIntent);
+        }
+    };
+
+    /**
+     * Handler to make toast notifications from the Networking thread.
+     */
+    private final Handler toastHandler = new Handler() {
+        @Override
+        public void handleMessage(final Message msg) {
+            String txtmsg = msg.getData().getString("msg");
+            Toast.makeText(getApplicationContext(), txtmsg, 10).show();
+        }
+    };
 
     /** Called when the activity is first created. */
     @Override
@@ -47,14 +77,8 @@ public class LoginActivity extends Activity {
         loginBut.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(final View v) {
-                final String name = uname.getText().toString().trim();
-                final String passwd = pass.getText().toString().trim();
-                if (!name.equals("") && !passwd.equals("")) {
-                    login(name, passwd);
-                } else {
-                    Toast.makeText(getApplicationContext(),
-                            "Missing username or password", 10).show();
-                }
+                disableButtons();
+                launchEvent(ButtonAction.LOGIN_EVENT);
             }
         });
 
@@ -62,51 +86,59 @@ public class LoginActivity extends Activity {
         registerBut.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(final View v) {
-                final String name = uname.getText().toString().trim();
-                final String passwd = pass.getText().toString().trim();
-                if (!name.equals("") && !passwd.equals("")) {
-                    register(name, passwd);
-                } else {
-                    Toast.makeText(getApplicationContext(),
-                            "Missing username or password", 10).show();
-                }
+                disableButtons();
+                launchEvent(ButtonAction.REGISTER_EVENT);
             }
         });
-        
+
         // Listener for enter key on password field
         pass.setOnKeyListener(new OnKeyListener() {
-        	public boolean onKey(View v, int keyCode, KeyEvent event) {
-        		if ((event.getAction() == KeyEvent.ACTION_DOWN) && 
-        				(keyCode == KeyEvent.KEYCODE_ENTER)) {
-        			final String name = uname.getText().toString().trim();
-                    final String passwd = pass.getText().toString().trim();
-                    if (!name.equals("") && !passwd.equals("")) {
-                        login(name, passwd);
-                    } else {
-                        Toast.makeText(getApplicationContext(),
-                                "Missing username or password", 10).show();
-                    }
-        			return true;
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if ((event.getAction() == KeyEvent.ACTION_DOWN)
+                        && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    disableButtons();
+                    launchEvent(ButtonAction.LOGIN_EVENT);
+                    return true;
                 }
-        		return false;
-        	}
+                return false;
+            }
         });
     }
 
-    private void login(String name, String passwd) {
-        Context context = getApplicationContext();
+    private void disableButtons() {
         loginBut.setEnabled(false);
         registerBut.setEnabled(false);
+        loginBut.invalidate();
+        registerBut.invalidate();
+    }
 
+    private void launchEvent(final ButtonAction action) {
+
+        new Thread() {
+            @Override
+            public void run() {
+                final String name = uname.getText().toString().trim();
+                final String passwd = pass.getText().toString().trim();
+                if (!name.equals("") && !passwd.equals("")) {
+                    if (action == ButtonAction.LOGIN_EVENT) {
+                        login(name, passwd);
+                    } else {
+                        register(name, passwd);
+                    }
+                } else {
+                    makeToast("Missing username or password");
+                }
+            }
+        }.start();
+    }
+
+    private void login(String name, String passwd) {
         String authToken = null;
         try {
             authToken = DistriviaAPI.login(name, passwd);
         } catch (Exception e) {
-            Log.d("Exception:", e.getMessage());
-            Toast.makeText(context, "Service is down, please try again later",
-                    10).show();
-            loginBut.setEnabled(true);
-            registerBut.setEnabled(true);
+            makeToast("Service is down, please try again later");
             return;
         }
 
@@ -119,35 +151,20 @@ public class LoginActivity extends Activity {
             editor.putString("uname", name);
             editor.commit();
 
-            Toast.makeText(context, "Welcome " + name, 10).show();
+            makeToast("Welcome " + name);
             GameData gd = new GameData(authToken, name);
-            Intent joinIntent = new Intent(context, JoinActivity.class);
-            // Make sure to pass session/game data to the next view
-            joinIntent.putExtra("game_data", gd);
-            startActivity(joinIntent);
-
+            relayGameData(gd);
         } else {
-            Toast.makeText(getApplicationContext(), "Login failure", 10).show();
-            loginBut.setEnabled(true);
-            registerBut.setEnabled(true);
+            makeToast("Login failure");
         }
     }
 
     private void register(String name, String passwd) {
-        Context context = getApplicationContext();
-        loginBut.setEnabled(false);
-        registerBut.setEnabled(false);
-        loginBut.postInvalidate();
-        registerBut.postInvalidate();
-        
         String authToken = null;
         try {
             authToken = DistriviaAPI.register(name, passwd);
         } catch (Exception e) {
-            Toast.makeText(context, "Service is down, please try again later",
-                    10).show();
-            loginBut.setEnabled(true);
-            registerBut.setEnabled(true);
+            makeToast("Service is down, please try again later");
             return;
         }
 
@@ -160,18 +177,28 @@ public class LoginActivity extends Activity {
             editor.putString("uname", name);
             editor.commit();
 
-            Toast.makeText(context, "Welcome " + name, 10).show();
-            GameData gd = new GameData(authToken, name);
-            Intent joinIntent = new Intent(context, JoinActivity.class);
-            // Make sure to pass session/game data to the next view
-            joinIntent.putExtra("game_data", gd);
-            startActivity(joinIntent);
+            makeToast("Welcome " + name);
 
+            GameData gd = new GameData(authToken, name);
+            relayGameData(gd);
         } else {
-            Toast.makeText(getApplicationContext(), "Register failure", 10)
-                    .show();
-            loginBut.setEnabled(true);
-            registerBut.setEnabled(true);
+            makeToast("Register failure");
         }
+    }
+
+    private void relayGameData(GameData gd) {
+        Bundle data = new Bundle();
+        data.putSerializable("game_data", gd);
+        Message msg = new Message();
+        msg.setData(data);
+        loginHandler.sendMessage(msg);
+    }
+
+    private void makeToast(String txtMsg) {
+        Bundle data = new Bundle();
+        data.putString("msg", txtMsg);
+        Message msg = new Message();
+        msg.setData(data);
+        toastHandler.sendMessage(msg);
     }
 }

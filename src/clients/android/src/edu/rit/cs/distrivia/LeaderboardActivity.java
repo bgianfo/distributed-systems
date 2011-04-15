@@ -49,15 +49,17 @@ public class LeaderboardActivity extends Activity {
             return;
         }
         for (int i = 0; i < board.length; i++) {
-            TableRow row = new TableRow(getApplicationContext());
-            TextView name = new TextView(getApplicationContext());
-            name.setText(board[i][USER]);
-            name.setWidth(200);
-            TextView score = new TextView(getApplicationContext());
-            score.setText(board[i][SCORE]);
-            row.addView(name);
-            row.addView(score);
-            leaderTable.addView(row);
+            if (!board[i][USER].equals("status")) {
+                TableRow row = new TableRow(getApplicationContext());
+                TextView name = new TextView(getApplicationContext());
+                name.setText(board[i][USER]);
+                name.setWidth(200);
+                TextView score = new TextView(getApplicationContext());
+                score.setText(board[i][SCORE]);
+                row.addView(name);
+                row.addView(score);
+                leaderTable.addView(row);
+            }
         }
     }
 }
