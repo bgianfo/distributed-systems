@@ -57,6 +57,14 @@ Samuel Milton \\
 
 \section {What We've Done}
 Much of our system has been implemented and is in the debugging phase. The server apps and the web client are nearly complete with some revisions happening as necessary. The extent of what has been finished for each part of our system is explained below.
+
+\subsection{Architecture Overview }
+\begin{figure}[h!]
+  \centering
+    \includegraphics[scale=0.4]{diagram.png}
+   \caption{High level overview of the system}
+ \end{figure}
+
 \subsection {Servers}
 Currently, we have 6 servers running on Amazon's Elastic Compute Cloud \cite{aec}. One server is being used as a web-monitor
 host. We are able to login to the web-monitor to see the status of all our
@@ -80,7 +88,9 @@ be reliably handling requests.
 The server is currently almost feature complete, but still needs a lot of
 testing. Client registration, and login are all supported. A client can
 join a game, retrieve questions for that game, and answer questions. Both a
-global leader board and individual per game leader board can also be requested. We recently refactored our API to be universally consistent. The servers and clients now work on a more consistent basis where the clients all expect the same information and use the same calls.
+global leader board and individual per game leader board can also be requested.
+We recently refactored our API to be more universally consistent.
+The servers and clients now work on a more consistent basis where the clients all expect the same information and use the same calls.
 
 \subsection {Traffic}
 We have two load sharers set up. Both sharers are currently configured to
@@ -116,6 +126,8 @@ they would be represented in JavaScript. With the web client the JSON object ret
 the server is instantly usable, however for the android client we have to parse the JSON object
 into a native Java object. The Android SDK provides libraries to do this, located in the
 org.json \cite{orgjson} package name space.
+
+
 
 \section {What's Left}
 \subsection {Server}
