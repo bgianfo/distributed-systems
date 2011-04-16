@@ -75,6 +75,13 @@ Riak and it would sync the databases to any additional servers as well. These se
 therefore, all contain the same information. If any servers go down, the distributed
 system would still run fine. We could have all servers go down except one and still
 be reliably handling requests.
+
+\subsection {Server Applications}
+The server is currently almost feature complete, but still needs a lot of
+testing. Client registration, and login are all supported. A client can
+join a game, retrieve questions for that game, and answer questions. Both a
+global leader board and individual per game leader board can also be requested. We recently refactored our API to be more universal. The servers and clients now work on a more consistent basis where the clients all expect the same information and use the same calls.
+
 \subsection {Traffic}
 We have two load sharers set up. Both sharers are currently configured to
 divide the requests among the three active servers and, if need be, the two hot spares. The duplicate sharers allow
@@ -109,23 +116,10 @@ they would be represented in JavaScript. With the web client the JSON object ret
 the server is instantly usable, however for the android client we have to parse the JSON object
 into a native Java object. The Android SDK provides libraries to do this, located in the
 org.json \cite{orgjson} package name space.
+
 \section {What's Left}
 \subsection {Server}
-The server is currently almost feature complete, but still needs a lot of
-testing. The only features it does not currently support is any sort of notion
-of a private game. Client registration, and login are all supported. A client can
-join a game, retrieve questions for that game, and answer questions. Both a
-global leader board and individual per game leader board can also be requested.
-As a group we have already found several inconsistencies and things we would
-like to change with how server API requests are structured. We have also thought of
-way's we can combine multiple requests into one, reducing the possible latency
-and overall communication time of multiple requests. To fix these
-inconsistencies members of the group worked to create a formal specification
-for the request protocol of each possible request. This allows the server and client
-programmers to work towards a common goal with out either making inappropriate
-assumptions about how the system will work. We are currently in the middle
-of refactoring the server to use the new requests detailed in the API.
-
+The server is nearly completed. The server application just needs to have some tweaks and further testing.
 \subsection {Web Client}
 A lot of the main features of the web client are completed.
 However, there are still a few remaining features that need to be implemented.
@@ -133,16 +127,8 @@ While private games are implemented on the server,
 Also, when a user clicks on a button to do something like log in, the button should be disabled while waiting for a response,
 alternatively it needs to be able to handle sending out two calls for the same request and not getting confused if it gets two back.
 \subsection {Android}
-EVERYTHING
-So far, the only connection to the server that the android client has is when it
-registers/logs in. We still need to connect the rest of the android client to
-the server API to make sure all the communication between the android client
-and the server are working. This includes joining public/private rounds,
-competing in these rounds, and viewing leader boards. While the UI is nearly
-finished on the android client, nearly all of the connections to the servers
-has yet to be done. Additionally, the android client needs to have more user
-feedback and increased ability for the users to control which activity they
-are in.
+We've started to thread the network calls to correctly register UI updates to the application. This is completed for most of the activities. There are really two big things left to implement on the android client: private games and competing in a round. Competing in a round is nearly finished, we just need to refresh the questions/answers and post the users answers to the server. Besides these two things, we just need to solidify the user interface, make it work with the back button with popping activities off the stack and other minor updates.
+
 \section {Meeting the Requirements}
 
 Our system has two unique clients. One of them is designed for the Android platform as an app.
