@@ -1,7 +1,6 @@
 package edu.rit.cs.distrivia.api;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 /**
  *
@@ -22,20 +21,21 @@ public class Question {
     /**
      * Factory method to create a question from JSON.
      * 
-     * @param arr
+     * @param parser
      *            The JSON object from the server.
      * @return A properly initialized question
      */
-    public static Question create(final JSONObject arr) {
+    public static Question create(JSON parser) {
         final Question q = new Question();
         try {
-            q.question = arr.getString("question");
-            q.choiceA = arr.getString("a");
-            q.choiceB = arr.getString("b");
-            q.choiceC = arr.getString("c");
-            q.choiceD = arr.getString("d");
-            q.id = arr.getString("id");
-        } catch (final JSONException e) {
+            q.question = parser.question();
+            q.choiceA = parser.a();
+            q.choiceB = parser.b();
+            q.choiceC = parser.c();
+            q.choiceD = parser.d();
+            q.id = parser.qid();
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
         return q;
     }

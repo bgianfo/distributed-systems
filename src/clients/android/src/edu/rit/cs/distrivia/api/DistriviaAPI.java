@@ -28,8 +28,6 @@ import org.apache.http.impl.conn.SingleClientConnManager;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpParams;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.util.Log;
 import edu.rit.cs.distrivia.model.GameData;
@@ -152,101 +150,35 @@ public class DistriviaAPI {
     }
 
     /**
-     * API call to get the initial multiple choice question in a game.
-     * 
-     * @param authToken
-     *            The authorization token for this session, obtained at user
-     *            login.
-     * @param gameId
-     *            The identification string for this game.
-     * @return The next question in the game, or null if the game is over, or
-     *         error.
-     * @throws Exception
-     */
-    public static Question firstQuestion(final String authToken,
-            final String gameId) throws Exception {
-        return nextQuestion(authToken, gameId, "0");
-    }
-
-    /**
      * API call to get the next multiple choice question in a game.
      * 
-     * @param authToken
-     *            The authorization token for this session, obtained at user
-     *            login.
-     * @param gameId
-     *            The identification string for this game.
-     * @param prevId
-     *            The previous question id, just pass "0" if this is the initial
-     *            question fetch.
+     * @param gd
+     * @param answer
+     * @param time
      * 
      * @return The next question in the game, or null if the game is over.
      * @throws Exception
      */
-    public static Question nextQuestion(final String authToken,
-            final String gameId, final String prevId) throws Exception {
-
-        List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("authToken", authToken));
+    public static GameData answer(final GameData gd, final String answer,
+            long time) throws Exception {
 
         String url = new String(API_URL);
-        url += "/game/" + gameId + "/next/" + prevId;
-
-        String data = post(url, params);
-
-        // Decompose JSON response into a Question object
-        Question nextQ = null;
-        try {
-            JSONObject json = new JSONObject(data);
-            nextQ = Question.create(json);
-        } catch (JSONException e) {
-            throw new DistriviaAPIException("Question request was malformed: ");
-        }
-
-        return nextQ;
-    }
-
-    /**
-     * API call to answer a given question that has been posed to a user.
-     * 
-     * @param authToken
-     *            The authorization token for this session, obtained at user
-     *            login.
-     * @param username
-     *            The user name to login with
-     * @param gameId
-     *            The unique identification string for the current game.
-     * @param answer
-     *            The answer to the question the user is currently work on.
-     *            Should be "a", "b", "c", or "d"
-     * @param answerTime_ms
-     *            The time in mili-seconds it took the user to answer the
-     *            question.
-     * 
-     * @return Return true if answer went through successfully, otherwise return
-     *         false on error. Error could be, wrong authorization token,
-     *         incorrect gameId, impossible answerTIme etc...
-     * @throws Exception
-     */
-    public static boolean answerQuestion(final GameData gdata,
-            final String answer, final int time_ms) throws Exception {
-
-        String url = new String();
-        url += "/game/" + gdata.getGameID();
-        url += "/answer/" + answer;
-        url += "/time/" + time_ms;
+        url += "/game/" + gd.getGameID() + "/question/" + gd.getCurrentQid();
 
         List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("authToken", gdata.getAuthToken()));
-        params.add(new BasicNameValuePair("user", gdata.getUserName()));
+        params.add(new BasicNameValuePair("authToken", gd.getAuthToken()));
+        params.add(new BasicNameValuePair("user", gd.getUserName()));
+        params.add(new BasicNameValuePair("time", String.valueOf(time)));
+        params.add(new BasicNameValuePair("a", answer));
 
         String data = post(url, params);
 
-        if (data.equals(API_ERROR)) {
-            throw new DistriviaAPIException("Question's answer was malformed");
-        }
+        JSON parser = new JSON(data);
+        Question q = Question.create(parser);
+        gd.setQuestion(q);
+        gd.setStatus(parser.gamestatus());
 
-        return data.equals("correct");
+        return gd;
     }
 
     /**
@@ -298,20 +230,6 @@ public class DistriviaAPI {
     }
 
     private static HttpClient createHttpClient() {
-        /*
-         * HttpParams params = new BasicHttpParams();
-         * HttpProtocolParams.setVersion(params, HttpVersion.HTTP_1_1);
-         * HttpProtocolParams.setContentCharset(params,
-         * HTTP.DEFAULT_CONTENT_CHARSET);
-         * HttpProtocolParams.setUseExpectContinue(params, true);
-         * 
-         * SchemeRegistry schReg = new SchemeRegistry(); schReg.register(new
-         * Scheme("http", PlainSocketFactory .getSocketFactory(), 80));
-         * schReg.register(new Scheme("https",
-         * SSLSocketFactory.getSocketFactory(), 443)); ClientConnectionManager
-         * conMgr = new ThreadSafeClientConnManager( params, schReg);
-         */
-
         SchemeRegistry schemeRegistry = new SchemeRegistry();
         schemeRegistry.register(new Scheme("https", SSLSocketFactory
                 .getSocketFactory(), 443));
@@ -338,6 +256,14 @@ public class DistriviaAPI {
         return response;
     }
 
+    /**
+     * Convert a HttpResponse into a regular string for consumption.
+     * 
+     * @param res
+     *            The response to parse.
+     * @return
+     * @throws Exception
+     */
     private static String responseToString(HttpResponse res) throws Exception {
 
         InputStream is = null;

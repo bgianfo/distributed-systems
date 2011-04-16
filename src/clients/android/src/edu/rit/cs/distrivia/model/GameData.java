@@ -2,6 +2,8 @@ package edu.rit.cs.distrivia.model;
 
 import java.io.Serializable;
 
+import edu.rit.cs.distrivia.api.Question;
+
 /**
  *
  */
@@ -12,6 +14,8 @@ public class GameData implements Serializable {
     private final String userName;
     private String gameID;
     private String status;
+    private int score;
+    private Question q;
 
     /**
      * Constuct a semi-immutable GameData object
@@ -77,5 +81,29 @@ public class GameData implements Serializable {
 
     public boolean isWaiting() {
         return status.equals("waiting");
+    }
+
+    public String getCurrentQid() {
+        if (q != null) {
+            return q.id();
+        } else {
+            return "0";
+        }
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public void setQuestion(Question q) {
+        this.q = q;
+    }
+
+    public Question getQuestion() {
+        return this.q;
     }
 }
