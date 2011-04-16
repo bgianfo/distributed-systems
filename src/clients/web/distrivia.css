@@ -178,6 +178,7 @@ a.answer:hover {
 .board_right{
    display: inline;
    float: right;
+   padding-left: 10px;
 }
 
 .board_load{
