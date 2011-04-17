@@ -29,6 +29,7 @@ var MSG_C = 0;
 
 // Used to prevent multiple POST requests
 var xr_n = 0;
+var board_shown = false;
 
 // References to DOM objects
 var error;
@@ -77,6 +78,20 @@ function errMsg( message ){
 
 
 /*
+ * Hides the ingame leaderboard
+ */
+function Hide(){
+   if( board_shown ){
+      var scoreb = byId("game_board");
+      $(scoreb).animate({width:'hide'});
+      board_shown = false;
+      byId('game_list').innerHTML = "";
+   }
+}
+// End Hide()
+
+
+/*
  * Removes an error message
  */
 function ER( ref ){
@@ -84,7 +99,7 @@ function ER( ref ){
    if( MSG_C == 0 ){
       errClear();
    }else{
-      $(ref).slideUp("normal");
+      $(ref).slideUp("fast");
    }
 }
 // End ER()
@@ -206,10 +221,17 @@ function Next(){
                if( data.status == API_SUCCESS ){
                   if( data.gamestatus == 'started' ){
                      UpdateGame(data);
+                     // Always update game leaderboard
+                     var scores = "";
+                     for( key in data.leaderboard ){
+                        scores += "<li class='board_item'><div class='board_left'>" + key + "</div>";
+                        scores += "<div class='board_right'>" + data.leaderboard[key] + "</div></li>";
+                     }
+                     byId('game_list').innerHTML = scores;
                   }else if( data.gamestatus == 'done' ){
                      swap( game, join );
-                     var scoreb = byId('game_board');
-                     $(scoreb).animation({width:"hide"});
+//                     var scoreb = byId('game_board');
+//                     $(scoreb).animate({width:"hide"});
                   }
                }else{
                   // TODO Check status code
@@ -276,7 +298,9 @@ function More(){
 
             var sortedboard = [];
             for ( key in board ) {
-              sortedboard.push( [ key, board[key] ] );
+               if( key != 'status' ){
+                  sortedboard.push( [ key, board[key] ] );
+               }
             }
 
             // Sort by score
@@ -351,7 +375,9 @@ function Public(){
                   gid = data.id;
 
                   var scoreb = byId('game_board');
+                  byId('game_list').innerHTML = "";
                   $(scoreb).animate({width:'show'});
+                  board_shown = true;
 
                   // Waiting to join
                   byId('wait_message').innerHTML = "Joining game...";
