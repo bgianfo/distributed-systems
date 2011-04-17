@@ -1,11 +1,20 @@
-package edu.rit.cs.distrivia.api;
+package edu.rit.cs.distrivia.model;
+
+import java.io.Serializable;
 
 import org.json.JSONException;
+
+import edu.rit.cs.distrivia.api.JSON;
 
 /**
  *
  */
-public class Question {
+public class Question implements Serializable {
+
+    /**
+     * Serializeable UID
+     */
+    private static final long serialVersionUID = 2103199974823935456L;
 
     private String id;
     private String question;
@@ -25,7 +34,7 @@ public class Question {
      *            The JSON object from the server.
      * @return A properly initialized question
      */
-    public static Question create(JSON parser) {
+    public static Question create(final JSON parser) {
         final Question q = new Question();
         try {
             q.question = parser.question();
@@ -34,7 +43,7 @@ public class Question {
             q.choiceC = parser.c();
             q.choiceD = parser.d();
             q.id = parser.qid();
-        } catch (JSONException e) {
+        } catch (final JSONException e) {
             e.printStackTrace();
         }
         return q;

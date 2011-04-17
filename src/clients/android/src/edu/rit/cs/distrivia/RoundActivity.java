@@ -1,6 +1,5 @@
 package edu.rit.cs.distrivia;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,7 +12,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import edu.rit.cs.distrivia.api.DistriviaAPI;
-import edu.rit.cs.distrivia.api.Question;
+import edu.rit.cs.distrivia.model.GameData;
+import edu.rit.cs.distrivia.model.Question;
 
 /**
  * Activity for players to answer questions during a round.
@@ -33,10 +33,7 @@ public class RoundActivity extends GameActivityBase {
         @Override
         public void handleMessage(Message msg) {
             if (gameData().isDone()) {
-                Intent i = new Intent();
-                i.setClassName("edu.rit.cs.distrivia",
-                        "edu.rit.cs.distrivia.LeaderboardActivity");
-                startActivity(i);
+                startActivity(LEADERBOARD_ACTIVITY);
             } else {
                 setupButtons(gameData().getQuestion());
             }
@@ -81,7 +78,6 @@ public class RoundActivity extends GameActivityBase {
             public void onClick(View v) {
                 if (selection != null) {
                     submitAndLoad();
-
                 } else {
                     Toast.makeText(v.getContext(), "Please select an answer",
                             10).show();
@@ -96,18 +92,18 @@ public class RoundActivity extends GameActivityBase {
 
         setupButtons(gameData().getQuestion());
 
-        // Store time which the screen stopped rendering.
-        startTime = SystemClock.elapsedRealtime();
     }
 
     private void submitAndLoad() {
-        final long decisionTime = stopTime - startTime;
+        final long time = stopTime - startTime;
         new Thread() {
             @Override
             public void run() {
+                // Submit answer/get next question
                 try {
-                    setGameData(DistriviaAPI.answer(gdata, selection,
-                            decisionTime));
+                    GameData gd = gameData();
+                    gd = DistriviaAPI.answer(gd, selection, time);
+                    setGameData(gd);
                 } catch (final Exception e) {
                     e.printStackTrace();
                     return;
@@ -128,6 +124,8 @@ public class RoundActivity extends GameActivityBase {
         answerC.setText("C: " + q.getChoiceC());
         answerD.setText("D: " + q.getChoiceD());
         deselectAll();
+        // Store time which the screen stopped rendering.
+        startTime = SystemClock.elapsedRealtime();
     }
 
     /**

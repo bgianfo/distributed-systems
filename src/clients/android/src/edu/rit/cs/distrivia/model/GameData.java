@@ -2,7 +2,6 @@ package edu.rit.cs.distrivia.model;
 
 import java.io.Serializable;
 
-import edu.rit.cs.distrivia.api.Question;
 
 /**
  *
@@ -18,7 +17,7 @@ public class GameData implements Serializable {
     private Question q;
 
     /**
-     * Constuct a semi-immutable GameData object
+     * Construct a GameData object
      * 
      * @param authToken
      *            Auth token logged in with
@@ -67,22 +66,37 @@ public class GameData implements Serializable {
         return authToken;
     }
 
-    public void setStatus(String gamestatus) {
+    /**
+     * @param gamestatus
+     */
+    public void setStatus(final String gamestatus) {
         status = gamestatus;
     }
 
+    /**
+     * @return True if the game is just starting
+     */
     public boolean hasStarted() {
         return status.equals("started");
     }
 
+    /**
+     * @return True if game is done, false other wise.
+     */
     public boolean isDone() {
         return status.equals("done");
     }
 
+    /**
+     * @return true if waiting, false other wise
+     */
     public boolean isWaiting() {
         return status.equals("waiting");
     }
 
+    /**
+     * @return the current question id
+     */
     public String getCurrentQid() {
         if (q != null) {
             return q.id();
@@ -91,18 +105,35 @@ public class GameData implements Serializable {
         }
     }
 
+    /**
+     * @return The current score in the game
+     */
     public int getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    /**
+     * @param score
+     */
+    public void setScore(final int score) {
         this.score = score;
     }
 
-    public void setQuestion(Question q) {
+    /**
+     * Set the current question in the game object.
+     * 
+     * @param q
+     *            The question to update with
+     */
+    public void setQuestion(final Question q) {
         this.q = q;
     }
 
+    /**
+     * Get current question
+     * 
+     * @return Return the question object
+     */
     public Question getQuestion() {
         return this.q;
     }

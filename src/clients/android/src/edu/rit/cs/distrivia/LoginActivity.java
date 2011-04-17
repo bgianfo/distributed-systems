@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -143,6 +144,7 @@ public class LoginActivity extends Activity {
         try {
             authToken = DistriviaAPI.login(name, passwd);
         } catch (Exception e) {
+            Log.d("login error:", e.getMessage());
             makeToast("Service is down, please try again later");
             return;
         }

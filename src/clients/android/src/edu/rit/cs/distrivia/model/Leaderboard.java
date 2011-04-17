@@ -1,4 +1,4 @@
-package edu.rit.cs.distrivia.api;
+package edu.rit.cs.distrivia.model;
 
 import java.util.ArrayList;
 import java.util.List;

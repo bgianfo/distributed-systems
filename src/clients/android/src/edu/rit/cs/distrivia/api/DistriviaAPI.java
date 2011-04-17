@@ -17,7 +17,6 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.conn.scheme.Scheme;
@@ -31,6 +30,7 @@ import org.apache.http.params.HttpParams;
 
 import android.util.Log;
 import edu.rit.cs.distrivia.model.GameData;
+import edu.rit.cs.distrivia.model.Question;
 
 /**
  * Main utility class which can talk to the Distrivia web service over
@@ -139,14 +139,13 @@ public class DistriviaAPI {
         String data = post(url, params);
         JSON jsonParser = new JSON(data);
 
-        // if ( jsonParser.status() == ) {
-
         gdata.setGameId(jsonParser.gameid());
         gdata.setStatus(jsonParser.gamestatus());
 
-        return gdata;
-        // }
+        Question q = Question.create(jsonParser);
+        gdata.setQuestion(q);
 
+        return gdata;
     }
 
     /**
@@ -184,14 +183,11 @@ public class DistriviaAPI {
     /**
      * API call to obtain the current leader board for a given game.
      * 
-     * @param authToken
-     *            The authorization token for this session, obtained at user
-     *            login.
-     * @param gameId
-     *            The unique identification string for the current game.
+     * @param gdata
      * 
      * @return The game leader board at the time of the query, or null if the
      *         gameId does not exist, or the user is not properly logged in.
+     * 
      * @throws Exception
      */
     public static String[][] leaderBoard(final GameData gdata) throws Exception {
@@ -217,13 +213,6 @@ public class DistriviaAPI {
         if (params != null) {
             op.setEntity(new UrlEncodedFormEntity(params));
         }
-        HttpResponse response = executeRequest(op);
-        String data = responseToString(response);
-        return data;
-    }
-
-    private static String get(final String url) throws Exception {
-        HttpGet op = new HttpGet(url);
         HttpResponse response = executeRequest(op);
         String data = responseToString(response);
         return data;

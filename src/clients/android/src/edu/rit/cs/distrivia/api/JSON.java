@@ -29,7 +29,9 @@ public class JSON {
     /**
      * Gets the status code of the request
      * 
-     * @return
+     * @return The status code
+     * 
+     * @throws JSONException
      */
     public int status() throws JSONException {
         return json.getInt("status");
@@ -45,9 +47,13 @@ public class JSON {
     }
 
     /**
-     * Gets an array of leaderboard data
+     * Gets an array of leader board data
+     * 
+     * @return Sorted leader board in 2D array format. The first position is the
+     *         Username, the score is the second position.
+     * 
+     * @throws JSONException
      */
-    @SuppressWarnings("unchecked")
     public String[][] leaderboard() throws JSONException {
 
         final String[][] board = new String[json.length()][json.length()];
