@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import edu.rit.cs.distrivia.api.DistriviaAPI;
@@ -28,6 +29,7 @@ public class RoundActivity extends GameActivityBase {
     private Button answerB;
     private Button answerC;
     private Button answerD;
+    private ProgressBar pbar;
 
     private final Handler loadHandler = new Handler() {
         @Override
@@ -40,11 +42,25 @@ public class RoundActivity extends GameActivityBase {
         }
     };
 
+    private final Handler pbarHandler = new Handler() {
+        public void handlemessage(Message msg) {
+
+        }
+    };
+
+    private final Runnable updateProgress = new Runnable() {
+        @Override
+        public void run() {
+            pbar.incrementProgressBy(1000);
+            pbarHandler.postDelayed(updateProgress, 500);
+        }
+    };
+
     OnClickListener answerListener = new OnClickListener() {
         @Override
         public void onClick(final View v) {
             stopTime = SystemClock.elapsedRealtime();
-
+            pbarHandler.removeCallbacks(updateProgress);
             deselectAll();
             final Button answer = (Button) v;
             answer.setSelected(true);
@@ -67,11 +83,14 @@ public class RoundActivity extends GameActivityBase {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.round);
 
+        pbar = (ProgressBar) findViewById(R.id.seekBar);
+        pbar.setMax(10000);
         question = (TextView) findViewById(R.id.question);
         answerA = (Button) findViewById(R.id.answer1_button);
         answerB = (Button) findViewById(R.id.answer2_button);
         answerC = (Button) findViewById(R.id.answer3_button);
         answerD = (Button) findViewById(R.id.answer4_button);
+
         Button submit = (Button) findViewById(R.id.answer_submit_button);
         submit.setOnClickListener(new OnClickListener() {
             @Override
@@ -126,6 +145,10 @@ public class RoundActivity extends GameActivityBase {
         deselectAll();
         // Store time which the screen stopped rendering.
         startTime = SystemClock.elapsedRealtime();
+
+        pbar.setProgress(0);
+        pbarHandler.removeCallbacks(updateProgress);
+        pbarHandler.postDelayed(updateProgress, 1000);
     }
 
     /**

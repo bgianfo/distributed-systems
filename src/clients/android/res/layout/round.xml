@@ -4,60 +4,57 @@
   android:layout_width="fill_parent"
   android:orientation="vertical" android:layout_height="fill_parent">
     <ImageView android:id="@+id/imageView1" android:src="@drawable/distriviaw" android:layout_width="fill_parent" android:layout_height="40dip"></ImageView>
-    <RelativeLayout android:paddingTop="10sp" android:layout_width="fill_parent" android:layout_height="fill_parent" android:id="@+id/round_layout">
-        <TextView android:layout_alignParentLeft="true" android:layout_height="wrap_content" android:textSize="20sp" android:layout_width="wrap_content" android:layout_alignParentRight="true" android:id="@+id/score_label" android:text="@string/score"></TextView>
-        <RelativeLayout android:paddingTop="10sp"
-         android:paddingRight="20sp"
-         android:paddingLeft="20sp"
-         android:layout_width="wrap_content"
-         android:layout_alignParentRight="true"
-         android:layout_alignParentLeft="true"
-         android:layout_height="wrap_content"
-         android:id="@+id/round_sublayout"
-         android:layout_below="@+id/score_label">
-         
-            <TextView android:id="@+id/question"
-             android:layout_height="wrap_content"
-             android:text="@string/question"
-             android:layout_below="@+id/score_label"
-             android:layout_width="fill_parent">
-            </TextView>
-            
-            <Button android:layout_height="wrap_content"
-             android:layout_below="@+id/question"
-             android:layout_marginTop="20.0sp"
-             android:text="@string/example_answer1"
-             android:layout_width="fill_parent"
-             android:id="@+id/answer1_button">
-            </Button>
-            
-            <Button android:text="@string/example_answer2"
-             android:layout_height="wrap_content"
-             android:layout_width="fill_parent"
-             android:layout_below="@+id/answer1_button"
-             android:id="@+id/answer2_button">
-             </Button>
-            
-            <Button android:layout_height="wrap_content"
-             android:layout_width="fill_parent"
-             android:text="@string/example_answer3"
-             android:layout_below="@+id/answer2_button"
-             android:id="@+id/answer3_button"></Button>
-            
-            <Button android:layout_height="wrap_content"
-             android:layout_width="fill_parent"
-             android:text="@string/example_answer4"
-             android:layout_below="@+id/answer3_button"
-             android:id="@+id/answer4_button"></Button>
-            
-            <Button android:layout_height="wrap_content"
-             android:layout_marginTop="20.0sp"
-             android:layout_width="fill_parent"
-             android:id="@+id/answer_submit_button"
-             android:text="@string/submit"
-             android:layout_below="@+id/answer4_button"
-             android:layout_centerHorizontal="true">
-            </Button>
-        </RelativeLayout>
-    </RelativeLayout>
+	<RelativeLayout android:paddingTop="10sp"
+		android:layout_width="fill_parent" android:layout_height="fill_parent"
+		android:id="@+id/round_layout">
+		<TextView android:layout_alignParentLeft="true"
+			android:layout_height="wrap_content" android:textSize="20sp"
+			android:layout_width="wrap_content" android:layout_alignParentRight="true"
+			android:id="@+id/score_label" android:text="@string/score"></TextView>
+	<RelativeLayout android:paddingTop="10sp"
+		android:paddingRight="20sp" android:paddingLeft="20sp"
+		android:layout_width="wrap_content" android:layout_alignParentRight="true"
+		android:layout_alignParentLeft="true" android:layout_height="wrap_content"
+		android:id="@+id/round_sublayout" android:layout_below="@+id/score_label">
+
+		<TextView android:id="@+id/question" android:layout_height="wrap_content"
+			android:text="@string/question" android:layout_below="@+id/score_label"
+			android:layout_width="fill_parent">
+		</TextView>
+
+		<Button android:layout_height="wrap_content"
+			android:layout_below="@+id/question" android:layout_marginTop="20.0sp"
+			android:text="@string/example_answer1" android:layout_width="fill_parent"
+			android:id="@+id/answer1_button">
+		</Button>
+
+		<Button android:text="@string/example_answer2"
+			android:layout_height="wrap_content" android:layout_width="fill_parent"
+			android:layout_below="@+id/answer1_button" android:id="@+id/answer2_button">
+		</Button>
+
+		<Button android:layout_height="wrap_content"
+			android:layout_width="fill_parent" android:text="@string/example_answer3"
+			android:layout_below="@+id/answer2_button" android:id="@+id/answer3_button">
+		</Button>
+
+		<Button android:layout_height="wrap_content"
+			android:layout_width="fill_parent" android:text="@string/example_answer4"
+			android:layout_below="@+id/answer3_button" android:id="@+id/answer4_button">
+		</Button>
+
+		<Button android:layout_height="wrap_content"
+			android:layout_marginTop="20.0sp" android:layout_width="fill_parent"
+			android:id="@+id/answer_submit_button" android:text="@string/submit"
+			android:layout_below="@+id/answer4_button"
+			android:layout_centerHorizontal="true">
+		</Button>
+		<ProgressBar android:id="@+id/seekBar"
+		 style="?android:attr/progressBarStyleHorizontal" 
+		 android:progress="0" android:layout_width="fill_parent"
+		 android:layout_height="wrap_content"
+		 android:layout_below="@+id/answer_submit_button" >
+	  </ProgressBar>
+	</RelativeLayout>
+	</RelativeLayout>
 </LinearLayout>

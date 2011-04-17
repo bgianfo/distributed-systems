@@ -82,7 +82,7 @@ public class LoginActivity extends Activity {
         loginBut.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(final View v) {
-                disableButtons();
+                toggleButtons();
                 launchEvent(ButtonAction.LOGIN_EVENT);
             }
         });
@@ -91,7 +91,7 @@ public class LoginActivity extends Activity {
         registerBut.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(final View v) {
-                disableButtons();
+                toggleButtons();
                 launchEvent(ButtonAction.REGISTER_EVENT);
             }
         });
@@ -102,7 +102,7 @@ public class LoginActivity extends Activity {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if ((event.getAction() == KeyEvent.ACTION_DOWN)
                         && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    disableButtons();
+                    toggleButtons();
                     launchEvent(ButtonAction.LOGIN_EVENT);
                     return true;
                 }
@@ -111,11 +111,13 @@ public class LoginActivity extends Activity {
         });
     }
 
-    private void disableButtons() {
-        loginBut.setEnabled(false);
-        registerBut.setEnabled(false);
-        loginBut.invalidate();
-        registerBut.invalidate();
+    private void toggleButtons() {
+        if (loginBut != null) {
+            loginBut.setEnabled(!loginBut.isEnabled());
+            registerBut.setEnabled(!registerBut.isEnabled());
+            loginBut.invalidate();
+            registerBut.invalidate();
+        }
     }
 
     private void launchEvent(final ButtonAction action) {
@@ -207,5 +209,22 @@ public class LoginActivity extends Activity {
         Message msg = new Message();
         msg.setData(data);
         toastHandler.sendMessage(msg);
+    }
+
+    /**
+     * @param bd
+     */
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (!loginBut.isEnabled()) {
+            toggleButtons();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        toggleButtons();
     }
 }

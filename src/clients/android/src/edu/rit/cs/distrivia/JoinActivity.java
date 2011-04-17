@@ -108,4 +108,5 @@ public class JoinActivity extends GameActivityBase {
             }
         }.start();
     }
+
 }
