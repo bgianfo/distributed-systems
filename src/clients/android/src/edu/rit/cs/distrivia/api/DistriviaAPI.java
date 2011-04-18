@@ -29,6 +29,8 @@ import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpParams;
 
 import android.util.Log;
+import android.widget.TableRow;
+import android.widget.TextView;
 import edu.rit.cs.distrivia.model.GameData;
 import edu.rit.cs.distrivia.model.Question;
 
@@ -176,6 +178,15 @@ public class DistriviaAPI {
         Question q = Question.create(parser);
         gd.setQuestion(q);
         gd.setStatus(parser.gamestatus());
+        // Get the users score
+        //String[][] board = parser.leaderboard();
+        /*
+        for (int i = 0; i < board.length; i++) {
+            if (board[i][0].equals(gd.getUserName())) {
+                gd.setScore(Integer.parseInt(board[i][1]));
+                break;
+            }
+        }*/
 
         return gd;
     }

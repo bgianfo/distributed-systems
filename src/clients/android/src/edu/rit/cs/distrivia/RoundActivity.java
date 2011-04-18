@@ -25,6 +25,7 @@ public class RoundActivity extends GameActivityBase {
     private long stopTime = 0;
     private String selection = null;
     private TextView question;
+    private TextView score;
     private Button answerA;
     private Button answerB;
     private Button answerC;
@@ -86,6 +87,7 @@ public class RoundActivity extends GameActivityBase {
         pbar = (ProgressBar) findViewById(R.id.seekBar);
         pbar.setMax(10000);
         question = (TextView) findViewById(R.id.question);
+        score = (TextView) findViewById(R.id.score_label);
         answerA = (Button) findViewById(R.id.answer1_button);
         answerB = (Button) findViewById(R.id.answer2_button);
         answerC = (Button) findViewById(R.id.answer3_button);
@@ -138,6 +140,7 @@ public class RoundActivity extends GameActivityBase {
      */
     private void setupButtons(final Question q) {
         question.setText(q.getQuestion());
+        score.setText("Score: " + gameData().getScore());
         answerA.setText("A: " + q.getChoiceA());
         answerB.setText("B: " + q.getChoiceB());
         answerC.setText("C: " + q.getChoiceC());
