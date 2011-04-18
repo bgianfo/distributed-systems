@@ -1,6 +1,5 @@
 package edu.rit.cs.distrivia;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -43,16 +42,12 @@ public class RoundActivity extends GameActivityBase {
         }
     };
 
-    private final Handler pbarHandler = new Handler() {
-        public void handlemessage(Message msg) {
-
-        }
-    };
+    private final Handler pbarHandler = new Handler();
 
     private final Runnable updateProgress = new Runnable() {
         @Override
         public void run() {
-            pbar.incrementProgressBy(1000);
+            pbar.setProgress((int) (SystemClock.elapsedRealtime() - startTime));
             pbarHandler.postDelayed(updateProgress, 500);
         }
     };
@@ -61,11 +56,14 @@ public class RoundActivity extends GameActivityBase {
         @Override
         public void onClick(final View v) {
             stopTime = SystemClock.elapsedRealtime();
+            updateProgress.run();
             pbarHandler.removeCallbacks(updateProgress);
+
             deselectAll();
+
             final Button answer = (Button) v;
-            answer.setSelected(true);
-            answer.setTextColor(Color.BLUE);
+            answer.setBackgroundResource(R.drawable.red);
+
             if (answer == answerA)
                 selection = "a";
             else if (answer == answerB)
@@ -74,6 +72,7 @@ public class RoundActivity extends GameActivityBase {
                 selection = "c";
             else if (answer == answerD)
                 selection = "d";
+
         }
     };
 
@@ -145,6 +144,7 @@ public class RoundActivity extends GameActivityBase {
         answerB.setText("B: " + q.getChoiceB());
         answerC.setText("C: " + q.getChoiceC());
         answerD.setText("D: " + q.getChoiceD());
+
         deselectAll();
         // Store time which the screen stopped rendering.
         startTime = SystemClock.elapsedRealtime();
@@ -158,15 +158,10 @@ public class RoundActivity extends GameActivityBase {
      * Reset all buttons to normal state.
      */
     private void deselectAll() {
-        answerA.setSelected(false);
-        answerB.setSelected(false);
-        answerC.setSelected(false);
-        answerD.setSelected(false);
-
-        answerA.setTextColor(Color.BLACK);
-        answerB.setTextColor(Color.BLACK);
-        answerC.setTextColor(Color.BLACK);
-        answerD.setTextColor(Color.BLACK);
+        answerA.setBackgroundResource(R.drawable.green);
+        answerB.setBackgroundResource(R.drawable.green);
+        answerC.setBackgroundResource(R.drawable.green);
+        answerD.setBackgroundResource(R.drawable.green);
         selection = null;
     }
 

@@ -25,28 +25,38 @@
 		<Button android:layout_height="wrap_content"
 			android:layout_below="@+id/question" android:layout_marginTop="20.0sp"
 			android:text="@string/example_answer1" android:layout_width="fill_parent"
+			style="@style/ButtonText"
+			android:background="@drawable/green"
 			android:id="@+id/answer1_button">
 		</Button>
 
 		<Button android:text="@string/example_answer2"
 			android:layout_height="wrap_content" android:layout_width="fill_parent"
+			style="@style/ButtonText"
+			android:background="@drawable/green"
 			android:layout_below="@+id/answer1_button" android:id="@+id/answer2_button">
 		</Button>
 
 		<Button android:layout_height="wrap_content"
 			android:layout_width="fill_parent" android:text="@string/example_answer3"
+			style="@style/ButtonText"
+			android:background="@drawable/green"
 			android:layout_below="@+id/answer2_button" android:id="@+id/answer3_button">
 		</Button>
 
 		<Button android:layout_height="wrap_content"
 			android:layout_width="fill_parent" android:text="@string/example_answer4"
+			style="@style/ButtonText"
+			android:background="@drawable/green"
 			android:layout_below="@+id/answer3_button" android:id="@+id/answer4_button">
 		</Button>
 
 		<Button android:layout_height="wrap_content"
 			android:layout_marginTop="20.0sp" android:layout_width="fill_parent"
 			android:id="@+id/answer_submit_button" android:text="@string/submit"
+			style="@style/ButtonText"
 			android:layout_below="@+id/answer4_button"
+			android:background="@drawable/black"
 			android:layout_centerHorizontal="true">
 		</Button>
 		<ProgressBar android:id="@+id/seekBar"
