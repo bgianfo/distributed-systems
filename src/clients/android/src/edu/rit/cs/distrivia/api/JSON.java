@@ -70,6 +70,29 @@ public class JSON {
     }
 
     /**
+     * Get the score for a user in the current game.
+     * 
+     * @param user
+     *            The user to get the user for.
+     * @return The score of the user in the current game, or -1 on error
+     * @throws JSONException
+     */
+    public int score(final String user) throws JSONException {
+
+        final JSONObject board = json.getJSONObject("leaderboard");
+        final JSONArray a = board.names();
+        for (int i = 0; i < a.length(); i++) {
+            final String key = a.getString(i);
+            if (key.equals(user)) {
+                int score = Integer.parseInt(board.getString(key));
+                return score;
+            }
+        }
+        return -1;
+
+    }
+
+    /**
      * Gets the question text
      */
     public String question() throws JSONException {
