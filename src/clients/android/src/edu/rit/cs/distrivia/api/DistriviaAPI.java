@@ -146,7 +146,7 @@ public class DistriviaAPI {
             Question q = Question.create(jsonParser);
             gdata.setQuestion(q);
         }
-        gdata.setLeaderboard(parser.localLeaderboard());
+        gdata.setLeaderboard(jsonParser.localLeaderboard());
         return gdata;
     }
 
