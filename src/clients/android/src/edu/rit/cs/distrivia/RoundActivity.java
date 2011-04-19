@@ -156,7 +156,7 @@ public class RoundActivity extends GameActivityBase {
         	scoreText.setTextColor(Color.RED);
         }
         score = gameData().getScore();
-        scoreText.setText("Score: " + score);
+        scoreText.setText(""+score);
         answerA.setText("A: " + q.getChoiceA());
         answerB.setText("B: " + q.getChoiceB());
         answerC.setText("C: " + q.getChoiceC());

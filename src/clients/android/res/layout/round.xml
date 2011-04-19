@@ -7,10 +7,16 @@
 	<RelativeLayout android:paddingTop="10sp"
 		android:layout_width="fill_parent" android:layout_height="fill_parent"
 		android:id="@+id/round_layout">
-		<TextView android:layout_alignParentLeft="true"
+		<TextView
 			android:layout_height="wrap_content" android:textSize="20sp"
-			android:layout_width="wrap_content" android:layout_alignParentRight="true"
-			android:id="@+id/score_label" android:text="@string/score"></TextView>
+			android:layout_width="wrap_content"
+			android:text="@string/score" android:id="@+id/score"></TextView>
+		<TextView android:text="0" 
+			android:layout_height="wrap_content" 
+			android:id="@+id/score_label" 
+			android:layout_width="wrap_content" 
+			android:layout_toRightOf="@+id/score"
+			android:textSize="20sp" android:layout_marginLeft="5dip"></TextView>
 	<RelativeLayout android:paddingTop="10sp"
 		android:paddingRight="20sp" android:paddingLeft="20sp"
 		android:layout_width="wrap_content" android:layout_alignParentRight="true"
