@@ -39,6 +39,7 @@ public class RoundActivity extends GameActivityBase {
             	gd.setLoadLocal(true);
             	setGameData(gd);
                 startActivity(LEADERBOARD_ACTIVITY);
+                finish();
             } else {
                 setupButtons(gameData().getQuestion());
             }

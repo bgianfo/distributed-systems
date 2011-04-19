@@ -2,11 +2,15 @@ package edu.rit.cs.distrivia;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import edu.rit.cs.distrivia.api.DistriviaAPI;
+import edu.rit.cs.distrivia.model.GameData;
 
 /**
  * Activity for players to answer questions during a round.
@@ -24,9 +28,20 @@ public class LeaderboardActivity extends GameActivityBase {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.leaderboard);
 
+        final Button okBut = (Button) findViewById(R.id.lead_complete);
         leaderTable = (TableLayout) findViewById(R.id.leader_table);
         leaderTable.setStretchAllColumns(true);
         loadTable(gameData().loadLocal());
+        
+        okBut.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GameData gd = gameData();
+                gd.setLoadLocal(false);
+                setGameData(gd);
+                startActivity(JOIN_ACTIVITY);
+            }
+        });
     }
 
     /**

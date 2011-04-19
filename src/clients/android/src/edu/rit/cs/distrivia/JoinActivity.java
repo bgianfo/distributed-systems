@@ -66,6 +66,7 @@ public class JoinActivity extends GameActivityBase {
             @Override
             public void onClick(final View v) {
                 startActivity(LEADERBOARD_ACTIVITY);
+                finish();
             }
         });
     }
