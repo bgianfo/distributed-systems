@@ -1,5 +1,6 @@
 package edu.rit.cs.distrivia;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -24,7 +25,9 @@ public class RoundActivity extends GameActivityBase {
     private long stopTime = 0;
     private String selection = null;
     private TextView question;
-    private TextView score;
+    private TextView scoreText;
+    private int score;
+    private int questionNum;
     private Button answerA;
     private Button answerB;
     private Button answerC;
@@ -41,6 +44,7 @@ public class RoundActivity extends GameActivityBase {
                 startActivity(LEADERBOARD_ACTIVITY);
                 finish();
             } else {
+            	questionNum++;
                 setupButtons(gameData().getQuestion());
             }
         }
@@ -90,11 +94,13 @@ public class RoundActivity extends GameActivityBase {
         pbar = (ProgressBar) findViewById(R.id.seekBar);
         pbar.setMax(10000);
         question = (TextView) findViewById(R.id.question);
-        score = (TextView) findViewById(R.id.score_label);
+        scoreText = (TextView) findViewById(R.id.score_label);
         answerA = (Button) findViewById(R.id.answer1_button);
         answerB = (Button) findViewById(R.id.answer2_button);
         answerC = (Button) findViewById(R.id.answer3_button);
         answerD = (Button) findViewById(R.id.answer4_button);
+        score = 0;
+        questionNum = 1;
 
         Button submit = (Button) findViewById(R.id.answer_submit_button);
         submit.setOnClickListener(new OnClickListener() {
@@ -143,7 +149,14 @@ public class RoundActivity extends GameActivityBase {
      */
     private void setupButtons(final Question q) {
         question.setText(q.getQuestion());
-        score.setText("Score: " + gameData().getScore());
+        if (score != gameData().getScore()) {
+        	scoreText.setTextColor(Color.GREEN);
+        }
+        else if (questionNum > 1) {
+        	scoreText.setTextColor(Color.RED);
+        }
+        score = gameData().getScore();
+        scoreText.setText("Score: " + score);
         answerA.setText("A: " + q.getChoiceA());
         answerB.setText("B: " + q.getChoiceB());
         answerC.setText("C: " + q.getChoiceC());
