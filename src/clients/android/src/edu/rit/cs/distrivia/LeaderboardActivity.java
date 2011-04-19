@@ -26,20 +26,28 @@ public class LeaderboardActivity extends GameActivityBase {
 
         leaderTable = (TableLayout) findViewById(R.id.leader_table);
         leaderTable.setStretchAllColumns(true);
-        loadTable();
+        loadTable(gameData().loadLocal());
     }
 
-    private void loadTable() {
-
-        String[][] board = null;
-        try {
-            board = DistriviaAPI.leaderBoard(gameData());
-        } catch (Exception e) {
-            Log.d("Load leaderboard: ", e.getMessage());
-            makeToast("The network is DOWN!");
-            return;
-        }
-
+    /**
+     * loads the leaderboard table with user/score data
+     * 
+     * @param loadLocal - grab local data if true, global if false
+     */
+    private void loadTable(boolean loadLocal) {
+    	String[][] board = null;
+    	if (loadLocal) {
+    		board = gameData().getLeaderboard();
+    	}
+    	else {
+    		try {
+    			board = DistriviaAPI.leaderBoard(gameData());
+    		} catch (Exception e) {
+    			Log.d("Load leaderboard: ", e.getMessage());
+    			makeToast("The network is DOWN!");
+    			return;
+    		}
+    	}
         for (int i = 0; i < board.length; i++) {
             if (!board[i][USER].equals("status")) {
                 TableRow row = new TableRow(getApplicationContext());

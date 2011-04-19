@@ -35,6 +35,9 @@ public class RoundActivity extends GameActivityBase {
         @Override
         public void handleMessage(Message msg) {
             if (gameData().isDone()) {
+            	GameData gd = gameData();
+            	gd.setLoadLocal(true);
+            	setGameData(gd);
                 startActivity(LEADERBOARD_ACTIVITY);
             } else {
                 setupButtons(gameData().getQuestion());

@@ -80,16 +80,34 @@ public class JSON {
     public int score(final String user) throws JSONException {
 
         final JSONObject board = json.getJSONObject("leaderboard");
-        final JSONArray a = board.names();
+        int score = -1;
+        if (board.has(user)) {
+        	score = Integer.parseInt(board.getString(user));
+        }
+        return score;
+    }
+    
+    /**
+     * Gets an array of local leader board data
+     * 
+     * @return Sorted leader board in 2D array format. The first position is the
+     *         Username, the score is the second position.
+     * @throws JSONException
+     */
+    public String[][] localLeaderboard() throws JSONException {
+    	
+    	final JSONObject temp = json.getJSONObject("leaderboard");
+        final JSONArray a = temp.names();
+        final String[][] board = new String[a.length()][2];
         for (int i = 0; i < a.length(); i++) {
             final String key = a.getString(i);
-            if (key.equals(user)) {
-                int score = Integer.parseInt(board.getString(key));
-                return score;
-            }
+            board[i][0] = key;
+            board[i][1] = temp.getString(key);
         }
-        return -1;
-
+        
+        java.util.Arrays.sort(board, new LeaderComparator());
+        
+        return board;
     }
 
     /**

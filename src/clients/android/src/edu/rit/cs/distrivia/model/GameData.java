@@ -13,8 +13,10 @@ public class GameData implements Serializable {
     private final String userName;
     private String gameID;
     private String status;
+    private String[][] leadboard;
     private int score;
     private Question q;
+    private boolean loadLocal = false;
 
     /**
      * Construct a GameData object
@@ -136,5 +138,41 @@ public class GameData implements Serializable {
      */
     public Question getQuestion() {
         return this.q;
+    }
+    
+    /**
+     * Set whether to load the local leaderboard
+     * 
+     * @param loadLocal
+     */
+    public void setLoadLocal(boolean loadLocal) {
+    	this.loadLocal = loadLocal;
+    }
+    
+    /**
+     * Get whether to load the local leaderboard
+     * 
+     * @return true if load local, false otherwise
+     */
+    public boolean loadLocal() {
+    	return this.loadLocal;
+    }
+    
+    /**
+     * Sets the local leaderboard data
+     * 
+     * @param leadboard
+     */
+    public void setLeaderboard(String[][] leadboard) {
+    	this.leadboard = leadboard;
+    }
+    
+    /**
+     * Get the local leaderboard
+     * 
+     * @return local leaderboard data
+     */
+    public String[][] getLeaderboard() {
+    	return this.leadboard;
     }
 }

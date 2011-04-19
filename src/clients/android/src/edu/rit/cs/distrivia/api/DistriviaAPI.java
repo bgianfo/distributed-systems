@@ -177,6 +177,9 @@ public class DistriviaAPI {
         gd.setQuestion(q);
         gd.setStatus(parser.gamestatus());
         gd.setScore(parser.score(gd.getUserName()));
+        if (gd.isDone()) {
+        	gd.setLeaderboard(parser.localLeaderboard());
+        }
 
         return gd;
     }

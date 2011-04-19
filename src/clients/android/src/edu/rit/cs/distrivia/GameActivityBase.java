@@ -27,7 +27,7 @@ public class GameActivityBase extends Activity {
     /** Game data storage for this activity */
     public GameData gdata = null;
     private final String GAME_DATA = "game_data";
-
+    
     /** Handler to move onto the next Activity on successful login. */
     private final Handler startHandler = new Handler() {
         @Override
