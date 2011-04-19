@@ -1,0 +1,142 @@
+// !$*UTF8*$!
+{
+	1D6058900D05DD3D006BFB54 /* distrivia */ = {
+		activeExec = 0;
+		executables = (
+			C184DD30135DEBAB005B7546 /* distrivia */,
+		);
+	};
+	29B97313FDCFA39411CA2CEA /* Project object */ = {
+		activeBuildConfigurationName = Debug;
+		activeExecutable = C184DD30135DEBAB005B7546 /* distrivia */;
+		activeTarget = 1D6058900D05DD3D006BFB54 /* distrivia */;
+		addToTargets = (
+			1D6058900D05DD3D006BFB54 /* distrivia */,
+		);
+		codeSenseManager = C184DD3F135DEBB1005B7546 /* Code sense */;
+		executables = (
+			C184DD30135DEBAB005B7546 /* distrivia */,
+		);
+		perUserDictionary = {
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					748,
+					20,
+					48.16259765625,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 324922283;
+			PBXWorkspaceStateSaveDate = 324922283;
+		};
+		perUserProjectItems = {
+			C184DD59135DEE07005B7546 /* PBXBookmark */ = C184DD59135DEE07005B7546 /* PBXBookmark */;
+			C184DD5A135DEE07005B7546 /* PBXBookmark */ = C184DD5A135DEE07005B7546 /* PBXBookmark */;
+			C184DD5D135DEE07005B7546 /* PlistBookmark */ = C184DD5D135DEE07005B7546 /* PlistBookmark */;
+			C184DD5E135DEE07005B7546 /* PlistBookmark */ = C184DD5E135DEE07005B7546 /* PlistBookmark */;
+		};
+		sourceControlManager = C184DD3E135DEBB1005B7546 /* Source Control */;
+		userBuildSettings = {
+		};
+	};
+	29B97316FDCFA39411CA2CEA /* main.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {691, 430}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 380}";
+			sepNavWindowFrame = "{{15, 465}, {750, 558}}";
+		};
+	};
+	8D1107310486CEB800E47090 /* distrivia-Info.plist */ = {
+		uiCtxt = {
+			sepNavWindowFrame = "{{714, 168}, {750, 558}}";
+		};
+	};
+	C184DD30135DEBAB005B7546 /* distrivia */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		dylibVariantSuffix = "";
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = distrivia;
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	C184DD3E135DEBB1005B7546 /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+			repositoryNamesForRoots = {
+				"" = "";
+			};
+		};
+	};
+	C184DD3F135DEBB1005B7546 /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	C184DD59135DEE07005B7546 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = C184DD4B135DEDBB005B7546 /* distrivia_icon.png */;
+	};
+	C184DD5A135DEE07005B7546 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = C184DD4B135DEDBB005B7546 /* distrivia_icon.png */;
+	};
+	C184DD5D135DEE07005B7546 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D1107310486CEB800E47090 /* distrivia-Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = "/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/distrivia-Info.plist";
+		rLen = 0;
+		rLoc = 9223372036854775807;
+	};
+	C184DD5E135DEE07005B7546 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D1107310486CEB800E47090 /* distrivia-Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+			CFBundleIdentifier,
+		);
+		name = "/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/distrivia-Info.plist";
+		rLen = 0;
+		rLoc = 9223372036854775807;
+	};
+}
