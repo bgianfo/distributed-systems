@@ -77,6 +77,9 @@ public class LoginActivity extends Activity {
         SharedPreferences settings = getPreferences(MODE_PRIVATE);
         String userName = settings.getString("uname", "");
         uname.setText(userName);
+        if (!userName.equals("")) {
+        	pass.requestFocus();
+        }
 
         // Listener for login button
         loginBut.setOnClickListener(new OnClickListener() {
