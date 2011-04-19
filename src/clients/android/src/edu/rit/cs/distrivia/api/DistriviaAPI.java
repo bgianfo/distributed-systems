@@ -142,9 +142,11 @@ public class DistriviaAPI {
         gdata.setGameId(jsonParser.gameid());
         gdata.setStatus(jsonParser.gamestatus());
 
-        Question q = Question.create(jsonParser);
-        gdata.setQuestion(q);
-
+        if ( gdata.hasStarted() ) {
+            Question q = Question.create(jsonParser);
+            gdata.setQuestion(q);
+        }
+        gdata.setLeaderboard(parser.localLeaderboard());
         return gdata;
     }
 
@@ -173,6 +175,7 @@ public class DistriviaAPI {
         String data = post(url, params);
 
         JSON parser = new JSON(data);
+
         Question q = Question.create(parser);
         gd.setQuestion(q);
         gd.setStatus(parser.gamestatus());
