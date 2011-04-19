@@ -1,5 +1,6 @@
 package edu.rit.cs.distrivia;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -51,6 +52,7 @@ public class LeaderboardActivity extends GameActivityBase {
      */
     private void loadTable(boolean loadLocal) {
     	String[][] board = null;
+    	String userName = gameData().getUserName();
     	if (loadLocal) {
     		board = gameData().getLeaderboard();
     	}
@@ -72,6 +74,10 @@ public class LeaderboardActivity extends GameActivityBase {
                 name.setText(board[i][USER]);
                 name.setWidth(NAME_WIDTH);
                 score.setText(board[i][SCORE]);
+                if (board[i][USER].equals(userName)) {
+                	name.setTextColor(Color.GREEN);
+                	score.setTextColor(Color.GREEN);
+                }
 
                 row.addView(name);
                 row.addView(score);
