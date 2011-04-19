@@ -56,6 +56,7 @@ public class JoinActivity extends GameActivityBase {
                     v.invalidate();
                     playersLabel.setText("Players: 10/20");
                     startActivity(ROUND_ACTIVITY);
+                    finish();
                 } else {
                     makeToast("Enter name and pass");
                 }
@@ -106,6 +107,7 @@ public class JoinActivity extends GameActivityBase {
                     return;
                 }
                 startActivity(ROUND_ACTIVITY);
+                finish();
             }
         }.start();
     }
