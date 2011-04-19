@@ -2,6 +2,7 @@ package edu.rit.cs.distrivia;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -20,6 +21,7 @@ public class LeaderboardActivity extends GameActivityBase {
     final int USER = 0;
     final int SCORE = 1;
     final int NAME_WIDTH = 200;
+    private final int UPDATE_MS = 5000;
     TableLayout leaderTable;
 
     /** Called when the activity is first created. */
@@ -33,6 +35,9 @@ public class LeaderboardActivity extends GameActivityBase {
         leaderTable = (TableLayout) findViewById(R.id.leader_table);
         leaderTable.setStretchAllColumns(true);
         loadTable(gameData().loadLocal());
+        if (gameData().loadLocal()) {
+        	updateTable();
+        }
         
         okBut.setOnClickListener(new OnClickListener() {
             @Override
@@ -84,5 +89,24 @@ public class LeaderboardActivity extends GameActivityBase {
                 leaderTable.addView(row);
             }
         }
+    }
+    
+    private void updateTable() {
+        new Thread() {
+            @Override
+            public void run() {
+            	SystemClock.sleep(UPDATE_MS);
+                try {
+                    while (true) {
+                        setGameData(DistriviaAPI.status(gameData()));
+                        loadTable(true);
+                        SystemClock.sleep(UPDATE_MS);
+                    }
+                } catch (Exception e) {
+                    makeToast("Service is down, please try again later");
+                    return;
+                }
+            }
+        }.start();
     }
 }
