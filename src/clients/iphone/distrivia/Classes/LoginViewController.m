@@ -10,8 +10,6 @@
 
 @implementation LoginViewController
 
-@synthesize loginBut;
-@synthesize registerBut;
 @synthesize userField;
 @synthesize passField;
 
@@ -52,7 +50,48 @@
 */
 
 - (IBAction) login:(id)sender {
-	JoinViewController *controller = [[JoinViewController alloc] initWithNibName:@"JoinView" bundle:nil];
+    NSString *username = [userField text];
+    NSString *passwd = [passField text];
+    if ([username length] == 0 || [passwd length] == 0) {
+        UIAlertView *e = [[UIAlertView alloc] initWithTitle: @"Incomplete Information" 
+                                                    message: @"Missing username or password"
+                                                   delegate: self cancelButtonTitle: @"Ok" 
+                                          otherButtonTitles: nil];
+        [e show];
+        [e release];
+    }
+     else {
+        [self startJoin];
+    }
+}
+
+- (IBAction) regis:(id)sender {
+    NSString *username = [userField text];
+    NSString *passwd = [passField text];
+    if ([username length] == 0 || [passwd length] == 0) {
+        UIAlertView *e = [[UIAlertView alloc] initWithTitle: @"Incomplete Information" 
+                                                    message: @"Missing username or password"
+                                                   delegate: self cancelButtonTitle: @"Ok" 
+                                          otherButtonTitles: nil];
+        [e show];
+        [e release];
+    } else {
+     	[self startJoin];   
+    }
+}
+
+- (IBAction) textFieldDoneEditing:(id)sender {
+    [self login:sender];
+    [sender resignFirstResponder];
+}
+
+- (IBAction) backgroundTap:(id)sender {
+    [userField resignFirstResponder];
+    [passField resignFirstResponder];
+}
+
+- (void)startJoin {
+    JoinViewController *controller = [[JoinViewController alloc] initWithNibName:@"JoinView" bundle:nil];
 	controller.delegate = self;
 	controller.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
 	[self presentModalViewController:controller animated:YES];
@@ -69,8 +108,6 @@
 
 - (void)viewDidUnload {
 	// Release any retained subviews of the main view.
-	self.loginBut = nil;
-    self.registerBut = nil;
     self.userField = nil;
     self.passField = nil;
 	[super viewDidUnload];
@@ -78,8 +115,6 @@
 
 
 - (void)dealloc {
-	[loginBut release];
-    [registerBut release];
     [userField release];
     [passField release];
     [super dealloc];
