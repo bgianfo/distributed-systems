@@ -9,7 +9,11 @@
 #import "LoginViewController.h"
 
 @implementation LoginViewController
+
 @synthesize loginBut;
+@synthesize registerBut;
+@synthesize userField;
+@synthesize passField;
 
 
 
@@ -66,12 +70,18 @@
 - (void)viewDidUnload {
 	// Release any retained subviews of the main view.
 	self.loginBut = nil;
+    self.registerBut = nil;
+    self.userField = nil;
+    self.passField = nil;
 	[super viewDidUnload];
 }
 
 
 - (void)dealloc {
 	[loginBut release];
+    [registerBut release];
+    [userField release];
+    [passField release];
     [super dealloc];
 }
 

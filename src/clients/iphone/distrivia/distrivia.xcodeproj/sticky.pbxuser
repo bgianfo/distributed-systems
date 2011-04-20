@@ -23,24 +23,24 @@
 	};
 	28D7ACF60DDB3853001CB0EB /* LoginViewController.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {572, 299}}";
-			sepNavSelRange = "{222, 0}";
-			sepNavVisRange = "{0, 335}";
+			sepNavIntBoundsRect = "{{0, 0}, {926, 578}}";
+			sepNavSelRange = "{566, 0}";
+			sepNavVisRange = "{0, 732}";
 			sepNavWindowFrame = "{{430, 340}, {750, 558}}";
 		};
 	};
 	28D7ACF70DDB3853001CB0EB /* LoginViewController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {926, 1027}}";
-			sepNavSelRange = "{865, 0}";
-			sepNavVisRange = "{0, 1160}";
+			sepNavIntBoundsRect = "{{0, 0}, {926, 1157}}";
+			sepNavSelRange = "{2023, 0}";
+			sepNavVisRange = "{935, 1163}";
 			sepNavWindowFrame = "{{38, 444}, {750, 558}}";
 		};
 	};
 	29B97313FDCFA39411CA2CEA /* Project object */ = {
 		activeBuildConfigurationName = Debug;
 		activeExecutable = C184DD30135DEBAB005B7546 /* distrivia */;
-		activeSDKPreference = iphoneos4.3;
+		activeSDKPreference = iphonesimulator4.3;
 		activeTarget = 1D6058900D05DD3D006BFB54 /* distrivia */;
 		addToTargets = (
 			1D6058900D05DD3D006BFB54 /* distrivia */,
@@ -78,6 +78,24 @@
 		perUserProjectItems = {
 			C1295FE5135E750B0092180F /* PBXTextBookmark */ = C1295FE5135E750B0092180F /* PBXTextBookmark */;
 			C1295FE8135E750B0092180F /* PlistBookmark */ = C1295FE8135E750B0092180F /* PlistBookmark */;
+			C1295FFC135E9FB60092180F /* PBXTextBookmark */ = C1295FFC135E9FB60092180F /* PBXTextBookmark */;
+			C1295FFD135E9FB60092180F /* PBXBookmark */ = C1295FFD135E9FB60092180F /* PBXBookmark */;
+			C1295FFE135E9FB60092180F /* PBXBookmark */ = C1295FFE135E9FB60092180F /* PBXBookmark */;
+			C1295FFF135E9FB60092180F /* PBXBookmark */ = C1295FFF135E9FB60092180F /* PBXBookmark */;
+			C1296000135E9FB60092180F /* PBXBookmark */ = C1296000135E9FB60092180F /* PBXBookmark */;
+			C1296001135E9FB60092180F /* PBXBookmark */ = C1296001135E9FB60092180F /* PBXBookmark */;
+			C1296002135E9FB60092180F /* PBXBookmark */ = C1296002135E9FB60092180F /* PBXBookmark */;
+			C1296003135E9FB60092180F /* PlistBookmark */ = C1296003135E9FB60092180F /* PlistBookmark */;
+			C1296004135E9FB60092180F /* PlistBookmark */ = C1296004135E9FB60092180F /* PlistBookmark */;
+			C1296009135EA3FF0092180F /* PlistBookmark */ = C1296009135EA3FF0092180F /* PlistBookmark */;
+			C129600A135EA3FF0092180F /* PBXTextBookmark */ = C129600A135EA3FF0092180F /* PBXTextBookmark */;
+			C129600B135EA3FF0092180F /* PBXTextBookmark */ = C129600B135EA3FF0092180F /* PBXTextBookmark */;
+			C129600C135EA3FF0092180F /* PBXTextBookmark */ = C129600C135EA3FF0092180F /* PBXTextBookmark */;
+			C129600D135EA3FF0092180F /* PlistBookmark */ = C129600D135EA3FF0092180F /* PlistBookmark */;
+			C129600E135EA4940092180F /* PBXTextBookmark */ = C129600E135EA4940092180F /* PBXTextBookmark */;
+			C129600F135EA4940092180F /* PBXTextBookmark */ = C129600F135EA4940092180F /* PBXTextBookmark */;
+			C1296010135EA4940092180F /* PBXTextBookmark */ = C1296010135EA4940092180F /* PBXTextBookmark */;
+			C1296011135EA4940092180F /* PlistBookmark */ = C1296011135EA4940092180F /* PlistBookmark */;
 			C149E39B135E640900D6A77D = C149E39B135E640900D6A77D /* PlistBookmark */;
 			C149E3BA135E6B5F00D6A77D = C149E3BA135E6B5F00D6A77D /* PBXTextBookmark */;
 			C149E3CB135E6E7F00D6A77D = C149E3CB135E6E7F00D6A77D /* PBXTextBookmark */;
@@ -121,12 +139,166 @@
 		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
 		name = "LoginViewController.m: 39";
 		rLen = 0;
-		rLoc = 865;
+		rLoc = 937;
 		rType = 0;
 		vrLen = 1160;
 		vrLoc = 0;
 	};
 	C1295FE8135E750B0092180F /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D1107310486CEB800E47090 /* distrivia-Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+			CFBundleIdentifier,
+		);
+		name = "/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/distrivia-Info.plist";
+		rLen = 0;
+		rLoc = 9223372036854775807;
+	};
+	C1295FFC135E9FB60092180F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
+		name = "LoginViewController.m: 11";
+		rLen = 0;
+		rLoc = 213;
+		rType = 0;
+		vrLen = 1160;
+		vrLoc = 0;
+	};
+	C1295FFD135E9FB60092180F /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = C1295FF0135E78E00092180F /* distrivia_icon3.png */;
+	};
+	C1295FFE135E9FB60092180F /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = C1295FF1135E78E00092180F /* distrivia_icon4.png */;
+	};
+	C1295FFF135E9FB60092180F /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = C184DD4B135DEDBB005B7546 /* distrivia_icon.png */;
+	};
+	C1296000135E9FB60092180F /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = C1B0370C135E4E9200E7BD63 /* distrivia_icon2.png */;
+	};
+	C1296001135E9FB60092180F /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = C1295FF2135E78E00092180F /* distrivia_icon5.png */;
+	};
+	C1296002135E9FB60092180F /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = C1B03743135E51D800E7BD63 /* distriviaw.png */;
+	};
+	C1296003135E9FB60092180F /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D1107310486CEB800E47090 /* distrivia-Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+			CFBundleIconFile,
+		);
+		name = "/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/distrivia-Info.plist";
+		rLen = 0;
+		rLoc = 9223372036854775807;
+	};
+	C1296004135E9FB60092180F /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D1107310486CEB800E47090 /* distrivia-Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+			CFBundleIdentifier,
+		);
+		name = "/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/distrivia-Info.plist";
+		rLen = 0;
+		rLoc = 9223372036854775807;
+	};
+	C1296009135EA3FF0092180F /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D1107310486CEB800E47090 /* distrivia-Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+			CFBundleIconFile,
+		);
+		name = "/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/distrivia-Info.plist";
+		rLen = 0;
+		rLoc = 9223372036854775807;
+	};
+	C129600A135EA3FF0092180F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 28D7ACF60DDB3853001CB0EB /* LoginViewController.h */;
+		name = "LoginViewController.h: 19";
+		rLen = 0;
+		rLoc = 629;
+		rType = 0;
+		vrLen = 634;
+		vrLoc = 0;
+	};
+	C129600B135EA3FF0092180F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
+		name = "LoginViewController.m: 11";
+		rLen = 0;
+		rLoc = 213;
+		rType = 0;
+		vrLen = 1089;
+		vrLoc = 0;
+	};
+	C129600C135EA3FF0092180F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
+		name = "LoginViewController.m: 53";
+		rLen = 0;
+		rLoc = 1267;
+		rType = 0;
+		vrLen = 1113;
+		vrLoc = 910;
+	};
+	C129600D135EA3FF0092180F /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D1107310486CEB800E47090 /* distrivia-Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+			CFBundleIdentifier,
+		);
+		name = "/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/distrivia-Info.plist";
+		rLen = 0;
+		rLoc = 9223372036854775807;
+	};
+	C129600E135EA4940092180F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 28D7ACF60DDB3853001CB0EB /* LoginViewController.h */;
+		name = "LoginViewController.h: 20";
+		rLen = 0;
+		rLoc = 566;
+		rType = 0;
+		vrLen = 732;
+		vrLoc = 0;
+	};
+	C129600F135EA4940092180F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
+		name = "LoginViewController.m: 53";
+		rLen = 0;
+		rLoc = 1267;
+		rType = 0;
+		vrLen = 1115;
+		vrLoc = 908;
+	};
+	C1296010135EA4940092180F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
+		name = "LoginViewController.m: 82";
+		rLen = 0;
+		rLoc = 2023;
+		rType = 0;
+		vrLen = 1163;
+		vrLoc = 935;
+	};
+	C1296011135EA4940092180F /* PlistBookmark */ = {
 		isa = PlistBookmark;
 		fRef = 8D1107310486CEB800E47090 /* distrivia-Info.plist */;
 		fallbackIsa = PBXBookmark;
@@ -180,7 +352,7 @@
 		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
 		name = "LoginViewController.m: 51";
 		rLen = 288;
-		rLoc = 1197;
+		rLoc = 1269;
 		rType = 0;
 		vrLen = 1158;
 		vrLoc = 710;
@@ -190,7 +362,7 @@
 		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
 		name = "LoginViewController.m: 39";
 		rLen = 0;
-		rLoc = 865;
+		rLoc = 937;
 		rType = 0;
 		vrLen = 1160;
 		vrLoc = 0;

@@ -216,7 +216,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>C1295FE8135E750B0092180F</string>
+						<string>C1296011135EA4940092180F</string>
 						<key>history</key>
 						<array>
 							<string>C149E3CF135E6F1300D6A77D</string>
@@ -318,8 +318,8 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>11</integer>
-									<integer>9</integer>
+									<integer>7</integer>
+									<integer>5</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -373,19 +373,22 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>C1295FE5135E750B0092180F</string>
+										<string>C1296010135EA4940092180F</string>
 										<key>history</key>
 										<array>
-											<string>C1B03703135E4E8900E7BD63</string>
 											<string>C1B03749135E54E600E7BD63</string>
-											<string>C1B0374B135E54E600E7BD63</string>
 											<string>C1B03797135E5AD800E7BD63</string>
-											<string>C1B03798135E5AD800E7BD63</string>
 											<string>C1B037A7135E5B6D00E7BD63</string>
 											<string>C1B037B3135E5E6200E7BD63</string>
-											<string>C149E39B135E640900D6A77D</string>
-											<string>C149E3BA135E6B5F00D6A77D</string>
-											<string>C149E3CE135E6F1300D6A77D</string>
+											<string>C1295FFD135E9FB60092180F</string>
+											<string>C1295FFE135E9FB60092180F</string>
+											<string>C1295FFF135E9FB60092180F</string>
+											<string>C1296000135E9FB60092180F</string>
+											<string>C1296001135E9FB60092180F</string>
+											<string>C1296002135E9FB60092180F</string>
+											<string>C1296009135EA3FF0092180F</string>
+											<string>C129600E135EA4940092180F</string>
+											<string>C129600F135EA4940092180F</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -581,8 +584,11 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
+		<string>C1296006135E9FB60092180F</string>
+		<string>C1296007135E9FB60092180F</string>
 		<string>C184DD3C135DEBB1005B7546</string>
 		<string>C184DD5B135DEE07005B7546</string>
+		<string>1C78EAAD065D492600B07095</string>
 		<string>1CD10A99069EF8BA00B06720</string>
 		<string>/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/distrivia.xcodeproj</string>
 	</array>
@@ -954,7 +960,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C78EAAD065D492600B07095</string>
-				<string>C149E3A4135E640900D6A77D</string>
+				<string>C1296005135E9FB60092180F</string>
 				<string>1C78EAAC065D492600B07095</string>
 			</array>
 			<key>ToolbarConfiguration</key>
