@@ -142,7 +142,7 @@ public class DistriviaAPI {
         gdata.setGameId(jsonParser.gameid());
         gdata.setStatus(jsonParser.gamestatus());
 
-        if ( gdata.hasStarted() ) {
+        if (gdata.hasStarted()) {
             Question q = Question.create(jsonParser);
             gdata.setQuestion(q);
         }
@@ -176,12 +176,15 @@ public class DistriviaAPI {
 
         JSON parser = new JSON(data);
 
-        Question q = Question.create(parser);
-        gd.setQuestion(q);
         gd.setStatus(parser.gamestatus());
         gd.setScore(parser.score(gd.getUserName()));
+
         if (gd.isDone()) {
-        	gd.setLeaderboard(parser.localLeaderboard());
+            gd.setLeaderboard(parser.localLeaderboard());
+            gd.setQuestion(null);
+        } else {
+            Question q = Question.create(parser);
+            gd.setQuestion(q);
         }
 
         return gd;

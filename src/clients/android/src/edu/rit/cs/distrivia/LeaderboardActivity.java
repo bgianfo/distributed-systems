@@ -2,11 +2,13 @@ package edu.rit.cs.distrivia;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -24,6 +26,36 @@ public class LeaderboardActivity extends GameActivityBase {
     private final int UPDATE_MS = 5000;
     TableLayout leaderTable;
 
+    Handler boardHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            String userName = gameData().getUserName();
+            String[][] board = (String[][]) msg.getData().getSerializable(
+                    "board");
+
+            leaderTable.removeAllViews();
+            for (int i = 0; i < board.length; i++) {
+                if (!board[i][USER].equals("status")) {
+                    TableRow row = new TableRow(getApplicationContext());
+                    TextView name = new TextView(getApplicationContext());
+                    TextView score = new TextView(getApplicationContext());
+
+                    name.setText(board[i][USER]);
+                    name.setWidth(NAME_WIDTH);
+                    score.setText(board[i][SCORE]);
+                    if (board[i][USER].equals(userName)) {
+                        name.setTextColor(Color.GREEN);
+                        score.setTextColor(Color.GREEN);
+                    }
+
+                    row.addView(name);
+                    row.addView(score);
+                    leaderTable.addView(row);
+                }
+            }
+        }
+    };
+
     /** Called when the activity is first created. */
     @Override
     public void onCreate(final Bundle savedInstanceState) {
@@ -36,9 +68,9 @@ public class LeaderboardActivity extends GameActivityBase {
         leaderTable.setStretchAllColumns(true);
         loadTable(gameData().loadLocal());
         if (gameData().loadLocal()) {
-        	updateTable();
+            updateTable();
         }
-        
+
         okBut.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,49 +85,36 @@ public class LeaderboardActivity extends GameActivityBase {
     /**
      * loads the leaderboard table with user/score data
      * 
-     * @param loadLocal - grab local data if true, global if false
+     * @param loadLocal
+     *            - grab local data if true, global if false
      */
     private void loadTable(boolean loadLocal) {
-    	String[][] board = null;
-    	String userName = gameData().getUserName();
-    	if (loadLocal) {
-    		board = gameData().getLeaderboard();
-    	}
-    	else {
-    		try {
-    			board = DistriviaAPI.leaderBoard(gameData());
-    		} catch (Exception e) {
-    			Log.d("Load leaderboard: ", e.getMessage());
-    			makeToast("The network is DOWN!");
-    			return;
-    		}
-    	}
-        for (int i = 0; i < board.length; i++) {
-            if (!board[i][USER].equals("status")) {
-                TableRow row = new TableRow(getApplicationContext());
-                TextView name = new TextView(getApplicationContext());
-                TextView score = new TextView(getApplicationContext());
-
-                name.setText(board[i][USER]);
-                name.setWidth(NAME_WIDTH);
-                score.setText(board[i][SCORE]);
-                if (board[i][USER].equals(userName)) {
-                	name.setTextColor(Color.GREEN);
-                	score.setTextColor(Color.GREEN);
-                }
-
-                row.addView(name);
-                row.addView(score);
-                leaderTable.addView(row);
+        String[][] board = null;
+        String userName = gameData().getUserName();
+        if (loadLocal) {
+            board = gameData().getLeaderboard();
+        } else {
+            try {
+                board = DistriviaAPI.leaderBoard(gameData());
+            } catch (Exception e) {
+                Log.d("Load leaderboard: ", e.getMessage());
+                makeToast("The network is DOWN!");
+                return;
             }
         }
+
+        Message msg = new Message();
+        Bundle data = new Bundle();
+        data.putSerializable("board", board);
+        msg.setData(data);
+        boardHandler.sendMessage(msg);
     }
-    
+
     private void updateTable() {
         new Thread() {
             @Override
             public void run() {
-            	SystemClock.sleep(UPDATE_MS);
+                SystemClock.sleep(UPDATE_MS);
                 try {
                     while (true) {
                         setGameData(DistriviaAPI.status(gameData()));
@@ -103,7 +122,7 @@ public class LeaderboardActivity extends GameActivityBase {
                         SystemClock.sleep(UPDATE_MS);
                     }
                 } catch (Exception e) {
-                	Log.v("Exception", e.getMessage());
+                    Log.v("Exception", e.getMessage());
                     makeToast("Service is down, please try again later");
                     return;
                 }
