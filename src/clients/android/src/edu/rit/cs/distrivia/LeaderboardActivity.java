@@ -25,6 +25,7 @@ public class LeaderboardActivity extends GameActivityBase {
     final int NAME_WIDTH = 200;
     private final int UPDATE_MS = 5000;
     TableLayout leaderTable;
+    Thread updateThread;
 
     Handler boardHandler = new Handler() {
         @Override
@@ -74,6 +75,9 @@ public class LeaderboardActivity extends GameActivityBase {
         okBut.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Stop I/O thread
+                updateThread.stop();
+
                 GameData gd = gameData();
                 gd.setLoadLocal(false);
                 setGameData(gd);
@@ -90,7 +94,6 @@ public class LeaderboardActivity extends GameActivityBase {
      */
     private void loadTable(boolean loadLocal) {
         String[][] board = null;
-        String userName = gameData().getUserName();
         if (loadLocal) {
             board = gameData().getLeaderboard();
         } else {
@@ -111,7 +114,7 @@ public class LeaderboardActivity extends GameActivityBase {
     }
 
     private void updateTable() {
-        new Thread() {
+        updateThread = new Thread() {
             @Override
             public void run() {
                 SystemClock.sleep(UPDATE_MS);
@@ -126,6 +129,7 @@ public class LeaderboardActivity extends GameActivityBase {
                     return;
                 }
             }
-        }.start();
+        };
+        updateThread.start();
     }
 }
