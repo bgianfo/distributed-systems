@@ -23,17 +23,17 @@
 	};
 	28D7ACF60DDB3853001CB0EB /* LoginViewController.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {926, 583}}";
-			sepNavSelRange = "{123, 0}";
-			sepNavVisRange = "{0, 434}";
+			sepNavIntBoundsRect = "{{0, 0}, {572, 299}}";
+			sepNavSelRange = "{222, 0}";
+			sepNavVisRange = "{0, 335}";
 			sepNavWindowFrame = "{{430, 340}, {750, 558}}";
 		};
 	};
 	28D7ACF70DDB3853001CB0EB /* LoginViewController.m */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {926, 1027}}";
-			sepNavSelRange = "{1197, 288}";
-			sepNavVisRange = "{0, 1089}";
+			sepNavSelRange = "{716, 0}";
+			sepNavVisRange = "{710, 1158}";
 			sepNavWindowFrame = "{{38, 444}, {750, 558}}";
 		};
 	};
@@ -96,6 +96,12 @@
 			C149E3C1135E6B9E00D6A77D /* PlistBookmark */ = C149E3C1135E6B9E00D6A77D /* PlistBookmark */;
 			C149E3C4135E6BC200D6A77D /* PBXTextBookmark */ = C149E3C4135E6BC200D6A77D /* PBXTextBookmark */;
 			C149E3C5135E6BC200D6A77D /* PlistBookmark */ = C149E3C5135E6BC200D6A77D /* PlistBookmark */;
+			C149E3C8135E6E1A00D6A77D /* PBXTextBookmark */ = C149E3C8135E6E1A00D6A77D /* PBXTextBookmark */;
+			C149E3C9135E6E1A00D6A77D /* PBXTextBookmark */ = C149E3C9135E6E1A00D6A77D /* PBXTextBookmark */;
+			C149E3CA135E6E1A00D6A77D /* PlistBookmark */ = C149E3CA135E6E1A00D6A77D /* PlistBookmark */;
+			C149E3CB135E6E7F00D6A77D /* PBXTextBookmark */ = C149E3CB135E6E7F00D6A77D /* PBXTextBookmark */;
+			C149E3CC135E6E7F00D6A77D /* PBXTextBookmark */ = C149E3CC135E6E7F00D6A77D /* PBXTextBookmark */;
+			C149E3CD135E6E7F00D6A77D /* PlistBookmark */ = C149E3CD135E6E7F00D6A77D /* PlistBookmark */;
 			C184DD5E135DEE07005B7546 = C184DD5E135DEE07005B7546 /* PlistBookmark */;
 			C1B03703135E4E8900E7BD63 = C1B03703135E4E8900E7BD63 /* PBXBookmark */;
 			C1B03749135E54E600E7BD63 = C1B03749135E54E600E7BD63 /* PBXTextBookmark */;
@@ -365,6 +371,70 @@
 		rLen = 0;
 		rLoc = 9223372036854775807;
 	};
+	C149E3C8135E6E1A00D6A77D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
+		name = "LoginViewController.m: 51";
+		rLen = 288;
+		rLoc = 1197;
+		rType = 0;
+		vrLen = 1158;
+		vrLoc = 710;
+	};
+	C149E3C9135E6E1A00D6A77D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
+		name = "LoginViewController.m: 51";
+		rLen = 288;
+		rLoc = 1197;
+		rType = 0;
+		vrLen = 1158;
+		vrLoc = 710;
+	};
+	C149E3CA135E6E1A00D6A77D /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D1107310486CEB800E47090 /* distrivia-Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+			CFBundleIdentifier,
+		);
+		name = "/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/distrivia-Info.plist";
+		rLen = 0;
+		rLoc = 9223372036854775807;
+	};
+	C149E3CB135E6E7F00D6A77D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
+		name = "LoginViewController.m: 51";
+		rLen = 288;
+		rLoc = 1197;
+		rType = 0;
+		vrLen = 1158;
+		vrLoc = 710;
+	};
+	C149E3CC135E6E7F00D6A77D /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
+		name = "LoginViewController.m: 33";
+		rLen = 0;
+		rLoc = 716;
+		rType = 0;
+		vrLen = 1158;
+		vrLoc = 710;
+	};
+	C149E3CD135E6E7F00D6A77D /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D1107310486CEB800E47090 /* distrivia-Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+			CFBundleIdentifier,
+		);
+		name = "/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/distrivia-Info.plist";
+		rLen = 0;
+		rLoc = 9223372036854775807;
+	};
 	C184DD30135DEBAB005B7546 /* distrivia */ = {
 		isa = PBXExecutable;
 		activeArgIndices = (
@@ -427,7 +497,7 @@
 	};
 	C1B03723135E4F6300E7BD63 /* JoinViewController.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {926, 583}}";
+			sepNavIntBoundsRect = "{{0, 0}, {926, 606}}";
 			sepNavSelRange = "{210, 0}";
 			sepNavVisRange = "{0, 544}";
 		};
