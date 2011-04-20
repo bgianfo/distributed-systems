@@ -216,7 +216,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>C1296011135EA4940092180F</string>
+						<string>C1296082135F31010092180F</string>
 						<key>history</key>
 						<array>
 							<string>C149E3CF135E6F1300D6A77D</string>
@@ -373,7 +373,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>C1296010135EA4940092180F</string>
+										<string>C1296081135F31010092180F</string>
 										<key>history</key>
 										<array>
 											<string>C1B03749135E54E600E7BD63</string>
@@ -386,9 +386,9 @@
 											<string>C1296000135E9FB60092180F</string>
 											<string>C1296001135E9FB60092180F</string>
 											<string>C1296002135E9FB60092180F</string>
-											<string>C1296009135EA3FF0092180F</string>
-											<string>C129600E135EA4940092180F</string>
-											<string>C129600F135EA4940092180F</string>
+											<string>C1296068135F2CC20092180F</string>
+											<string>C129607F135F31010092180F</string>
+											<string>C1296080135F31010092180F</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -584,10 +584,10 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>C1296006135E9FB60092180F</string>
+		<string>C1296074135F2F510092180F</string>
 		<string>C1296007135E9FB60092180F</string>
-		<string>C184DD3C135DEBB1005B7546</string>
 		<string>C184DD5B135DEE07005B7546</string>
+		<string>C184DD3C135DEBB1005B7546</string>
 		<string>1C78EAAD065D492600B07095</string>
 		<string>1CD10A99069EF8BA00B06720</string>
 		<string>/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/distrivia.xcodeproj</string>
@@ -614,7 +614,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string></string>
+								<string>LoginViewController.m</string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
@@ -623,7 +623,7 @@
 								<key>Frame</key>
 								<string>{{0, 0}, {500, 218}}</string>
 								<key>RubberWindowFrame</key>
-								<string>88 200 500 500 0 0 1680 1028 </string>
+								<string>98 228 500 500 0 0 1680 1028 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
@@ -631,6 +631,8 @@
 							<string>218pt</string>
 						</dict>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -647,7 +649,7 @@
 								<key>Frame</key>
 								<string>{{0, 223}, {500, 236}}</string>
 								<key>RubberWindowFrame</key>
-								<string>88 200 500 500 0 0 1680 1028 </string>
+								<string>98 228 500 500 0 0 1680 1028 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXBuildResultsModule</string>
@@ -677,11 +679,11 @@
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.buildV3</string>
 			<key>WindowString</key>
-			<string>88 200 500 500 0 0 1680 1028 </string>
+			<string>98 228 500 500 0 0 1680 1028 </string>
 			<key>WindowToolGUID</key>
 			<string>C184DD3C135DEBB1005B7546</string>
 			<key>WindowToolIsVisible</key>
-			<false/>
+			<true/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>
