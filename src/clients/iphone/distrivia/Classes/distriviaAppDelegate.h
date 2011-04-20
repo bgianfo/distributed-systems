@@ -8,15 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@class distriviaViewController;
+@class LoginViewController;
 
 @interface distriviaAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;
-    distriviaViewController *viewController;
+    LoginViewController *viewController;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
-@property (nonatomic, retain) IBOutlet distriviaViewController *viewController;
+@property (nonatomic, retain) IBOutlet LoginViewController *viewController;
 
 @end
 

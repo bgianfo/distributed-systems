@@ -1,14 +1,46 @@
 // !$*UTF8*$!
 {
+	1D3623240D0F684500981E51 /* distriviaAppDelegate.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {926, 611}}";
+			sepNavSelRange = "{190, 0}";
+			sepNavVisRange = "{0, 496}";
+		};
+	};
+	1D3623250D0F684500981E51 /* distriviaAppDelegate.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1965, 1079}}";
+			sepNavSelRange = "{228, 0}";
+			sepNavVisRange = "{0, 1691}";
+			sepNavWindowFrame = "{{61, 423}, {750, 558}}";
+		};
+	};
 	1D6058900D05DD3D006BFB54 /* distrivia */ = {
 		activeExec = 0;
 		executables = (
 			C184DD30135DEBAB005B7546 /* distrivia */,
 		);
 	};
+	28D7ACF60DDB3853001CB0EB /* LoginViewController.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {926, 611}}";
+			sepNavSelRange = "{123, 0}";
+			sepNavVisRange = "{0, 434}";
+			sepNavWindowFrame = "{{430, 340}, {750, 558}}";
+		};
+	};
+	28D7ACF70DDB3853001CB0EB /* LoginViewController.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {747, 1066}}";
+			sepNavSelRange = "{1299, 0}";
+			sepNavVisRange = "{1089, 488}";
+			sepNavWindowFrame = "{{38, 444}, {750, 558}}";
+		};
+	};
 	29B97313FDCFA39411CA2CEA /* Project object */ = {
 		activeBuildConfigurationName = Debug;
 		activeExecutable = C184DD30135DEBAB005B7546 /* distrivia */;
+		activeSDKPreference = iphoneos4.3;
 		activeTarget = 1D6058900D05DD3D006BFB54 /* distrivia */;
 		addToTargets = (
 			1D6058900D05DD3D006BFB54 /* distrivia */,
@@ -25,7 +57,7 @@
 					20,
 					748,
 					20,
-					48.16259765625,
+					48,
 					43,
 					43,
 					20,
@@ -40,14 +72,78 @@
 					PBXFileDataSource_Target_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 324922283;
-			PBXWorkspaceStateSaveDate = 324922283;
+			PBXPerProjectTemplateStateSaveDate = 324947585;
+			PBXWorkspaceStateSaveDate = 324947585;
 		};
 		perUserProjectItems = {
-			C184DD59135DEE07005B7546 /* PBXBookmark */ = C184DD59135DEE07005B7546 /* PBXBookmark */;
-			C184DD5A135DEE07005B7546 /* PBXBookmark */ = C184DD5A135DEE07005B7546 /* PBXBookmark */;
-			C184DD5D135DEE07005B7546 /* PlistBookmark */ = C184DD5D135DEE07005B7546 /* PlistBookmark */;
-			C184DD5E135DEE07005B7546 /* PlistBookmark */ = C184DD5E135DEE07005B7546 /* PlistBookmark */;
+			C184DD59135DEE07005B7546 = C184DD59135DEE07005B7546 /* PBXBookmark */;
+			C184DD5A135DEE07005B7546 = C184DD5A135DEE07005B7546 /* PBXBookmark */;
+			C184DD5D135DEE07005B7546 = C184DD5D135DEE07005B7546 /* PlistBookmark */;
+			C184DD5E135DEE07005B7546 = C184DD5E135DEE07005B7546 /* PlistBookmark */;
+			C1B03703135E4E8900E7BD63 /* PBXBookmark */ = C1B03703135E4E8900E7BD63 /* PBXBookmark */;
+			C1B03704135E4E8900E7BD63 /* PBXBookmark */ = C1B03704135E4E8900E7BD63 /* PBXBookmark */;
+			C1B03705135E4E8900E7BD63 /* PlistBookmark */ = C1B03705135E4E8900E7BD63 /* PlistBookmark */;
+			C1B03708135E4E8900E7BD63 /* PlistBookmark */ = C1B03708135E4E8900E7BD63 /* PlistBookmark */;
+			C1B0372F135E512A00E7BD63 /* PBXBookmark */ = C1B0372F135E512A00E7BD63 /* PBXBookmark */;
+			C1B03730135E512A00E7BD63 /* PlistBookmark */ = C1B03730135E512A00E7BD63 /* PlistBookmark */;
+			C1B03731135E512A00E7BD63 /* PBXTextBookmark */ = C1B03731135E512A00E7BD63 /* PBXTextBookmark */;
+			C1B03732135E512A00E7BD63 /* PBXTextBookmark */ = C1B03732135E512A00E7BD63 /* PBXTextBookmark */;
+			C1B03733135E512A00E7BD63 /* PBXTextBookmark */ = C1B03733135E512A00E7BD63 /* PBXTextBookmark */;
+			C1B03734135E512A00E7BD63 /* PBXTextBookmark */ = C1B03734135E512A00E7BD63 /* PBXTextBookmark */;
+			C1B03735135E512A00E7BD63 /* PBXTextBookmark */ = C1B03735135E512A00E7BD63 /* PBXTextBookmark */;
+			C1B03736135E512A00E7BD63 /* PBXTextBookmark */ = C1B03736135E512A00E7BD63 /* PBXTextBookmark */;
+			C1B03737135E512A00E7BD63 /* PBXTextBookmark */ = C1B03737135E512A00E7BD63 /* PBXTextBookmark */;
+			C1B03738135E512A00E7BD63 /* PBXBookmark */ = C1B03738135E512A00E7BD63 /* PBXBookmark */;
+			C1B03739135E512A00E7BD63 /* PBXTextBookmark */ = C1B03739135E512A00E7BD63 /* PBXTextBookmark */;
+			C1B0373A135E512A00E7BD63 /* PlistBookmark */ = C1B0373A135E512A00E7BD63 /* PlistBookmark */;
+			C1B03749135E54E600E7BD63 /* PBXTextBookmark */ = C1B03749135E54E600E7BD63 /* PBXTextBookmark */;
+			C1B0374A135E54E600E7BD63 /* PBXBookmark */ = C1B0374A135E54E600E7BD63 /* PBXBookmark */;
+			C1B0374B135E54E600E7BD63 /* PBXBookmark */ = C1B0374B135E54E600E7BD63 /* PBXBookmark */;
+			C1B0374C135E54E600E7BD63 /* PBXTextBookmark */ = C1B0374C135E54E600E7BD63 /* PBXTextBookmark */;
+			C1B0374D135E54E600E7BD63 /* PBXTextBookmark */ = C1B0374D135E54E600E7BD63 /* PBXTextBookmark */;
+			C1B0374E135E54E600E7BD63 /* PBXTextBookmark */ = C1B0374E135E54E600E7BD63 /* PBXTextBookmark */;
+			C1B0374F135E54E600E7BD63 /* PBXTextBookmark */ = C1B0374F135E54E600E7BD63 /* PBXTextBookmark */;
+			C1B03750135E54E600E7BD63 /* PBXTextBookmark */ = C1B03750135E54E600E7BD63 /* PBXTextBookmark */;
+			C1B03751135E54E600E7BD63 /* PlistBookmark */ = C1B03751135E54E600E7BD63 /* PlistBookmark */;
+			C1B03752135E550100E7BD63 /* PBXTextBookmark */ = C1B03752135E550100E7BD63 /* PBXTextBookmark */;
+			C1B03753135E550100E7BD63 /* PBXTextBookmark */ = C1B03753135E550100E7BD63 /* PBXTextBookmark */;
+			C1B03754135E550100E7BD63 /* PBXTextBookmark */ = C1B03754135E550100E7BD63 /* PBXTextBookmark */;
+			C1B03755135E550100E7BD63 /* PlistBookmark */ = C1B03755135E550100E7BD63 /* PlistBookmark */;
+			C1B03756135E559A00E7BD63 /* PBXTextBookmark */ = C1B03756135E559A00E7BD63 /* PBXTextBookmark */;
+			C1B03757135E559A00E7BD63 /* PBXTextBookmark */ = C1B03757135E559A00E7BD63 /* PBXTextBookmark */;
+			C1B03758135E559A00E7BD63 /* PBXTextBookmark */ = C1B03758135E559A00E7BD63 /* PBXTextBookmark */;
+			C1B03759135E559A00E7BD63 /* PlistBookmark */ = C1B03759135E559A00E7BD63 /* PlistBookmark */;
+			C1B0375A135E561A00E7BD63 /* PBXTextBookmark */ = C1B0375A135E561A00E7BD63 /* PBXTextBookmark */;
+			C1B0375B135E561A00E7BD63 /* PBXTextBookmark */ = C1B0375B135E561A00E7BD63 /* PBXTextBookmark */;
+			C1B0375C135E561A00E7BD63 /* PBXTextBookmark */ = C1B0375C135E561A00E7BD63 /* PBXTextBookmark */;
+			C1B0375D135E561A00E7BD63 /* PBXTextBookmark */ = C1B0375D135E561A00E7BD63 /* PBXTextBookmark */;
+			C1B0375E135E561A00E7BD63 /* PBXTextBookmark */ = C1B0375E135E561A00E7BD63 /* PBXTextBookmark */;
+			C1B0375F135E561A00E7BD63 /* PlistBookmark */ = C1B0375F135E561A00E7BD63 /* PlistBookmark */;
+			C1B03761135E56A600E7BD63 /* PBXTextBookmark */ = C1B03761135E56A600E7BD63 /* PBXTextBookmark */;
+			C1B03762135E56A600E7BD63 /* PlistBookmark */ = C1B03762135E56A600E7BD63 /* PlistBookmark */;
+			C1B03779135E58AC00E7BD63 /* PBXTextBookmark */ = C1B03779135E58AC00E7BD63 /* PBXTextBookmark */;
+			C1B0377A135E58AC00E7BD63 /* PBXTextBookmark */ = C1B0377A135E58AC00E7BD63 /* PBXTextBookmark */;
+			C1B0377B135E58AC00E7BD63 /* PBXTextBookmark */ = C1B0377B135E58AC00E7BD63 /* PBXTextBookmark */;
+			C1B0377C135E58AC00E7BD63 /* PBXTextBookmark */ = C1B0377C135E58AC00E7BD63 /* PBXTextBookmark */;
+			C1B0377D135E58AC00E7BD63 /* PBXTextBookmark */ = C1B0377D135E58AC00E7BD63 /* PBXTextBookmark */;
+			C1B0377E135E58AC00E7BD63 /* PlistBookmark */ = C1B0377E135E58AC00E7BD63 /* PlistBookmark */;
+			C1B03794135E5AD800E7BD63 /* PBXTextBookmark */ = C1B03794135E5AD800E7BD63 /* PBXTextBookmark */;
+			C1B03795135E5AD800E7BD63 /* PBXTextBookmark */ = C1B03795135E5AD800E7BD63 /* PBXTextBookmark */;
+			C1B03796135E5AD800E7BD63 /* PBXTextBookmark */ = C1B03796135E5AD800E7BD63 /* PBXTextBookmark */;
+			C1B03797135E5AD800E7BD63 /* PBXTextBookmark */ = C1B03797135E5AD800E7BD63 /* PBXTextBookmark */;
+			C1B03798135E5AD800E7BD63 /* PBXBookmark */ = C1B03798135E5AD800E7BD63 /* PBXBookmark */;
+			C1B03799135E5AD800E7BD63 /* PBXTextBookmark */ = C1B03799135E5AD800E7BD63 /* PBXTextBookmark */;
+			C1B0379A135E5AD800E7BD63 /* PBXTextBookmark */ = C1B0379A135E5AD800E7BD63 /* PBXTextBookmark */;
+			C1B0379B135E5AD800E7BD63 /* PlistBookmark */ = C1B0379B135E5AD800E7BD63 /* PlistBookmark */;
+			C1B0379D135E5B3D00E7BD63 /* PBXTextBookmark */ = C1B0379D135E5B3D00E7BD63 /* PBXTextBookmark */;
+			C1B0379E135E5B3D00E7BD63 /* PBXTextBookmark */ = C1B0379E135E5B3D00E7BD63 /* PBXTextBookmark */;
+			C1B0379F135E5B3D00E7BD63 /* PBXTextBookmark */ = C1B0379F135E5B3D00E7BD63 /* PBXTextBookmark */;
+			C1B037A0135E5B3D00E7BD63 /* PBXTextBookmark */ = C1B037A0135E5B3D00E7BD63 /* PBXTextBookmark */;
+			C1B037A1135E5B3D00E7BD63 /* PlistBookmark */ = C1B037A1135E5B3D00E7BD63 /* PlistBookmark */;
+			C1B037A7135E5B6D00E7BD63 /* PBXTextBookmark */ = C1B037A7135E5B6D00E7BD63 /* PBXTextBookmark */;
+			C1B037A8135E5B6D00E7BD63 /* PBXTextBookmark */ = C1B037A8135E5B6D00E7BD63 /* PBXTextBookmark */;
+			C1B037A9135E5B6D00E7BD63 /* PBXTextBookmark */ = C1B037A9135E5B6D00E7BD63 /* PBXTextBookmark */;
+			C1B037AA135E5B6D00E7BD63 /* PlistBookmark */ = C1B037AA135E5B6D00E7BD63 /* PlistBookmark */;
 		};
 		sourceControlManager = C184DD3E135DEBB1005B7546 /* Source Control */;
 		userBuildSettings = {
@@ -55,10 +151,17 @@
 	};
 	29B97316FDCFA39411CA2CEA /* main.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {691, 430}}";
+			sepNavIntBoundsRect = "{{0, 0}, {926, 611}}";
 			sepNavSelRange = "{0, 0}";
 			sepNavVisRange = "{0, 380}";
 			sepNavWindowFrame = "{{15, 465}, {750, 558}}";
+		};
+	};
+	32CA4F630368D1EE00C91783 /* distrivia_Prefix.pch */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {926, 588}}";
+			sepNavSelRange = "{187, 0}";
+			sepNavVisRange = "{0, 187}";
 		};
 	};
 	8D1107310486CEB800E47090 /* distrivia-Info.plist */ = {
@@ -125,9 +228,646 @@
 		);
 		name = "/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/distrivia-Info.plist";
 		rLen = 0;
-		rLoc = 9223372036854775807;
+		rLoc = 9223372036854775808;
 	};
 	C184DD5E135DEE07005B7546 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D1107310486CEB800E47090 /* distrivia-Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+			CFBundleIdentifier,
+		);
+		name = "/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/distrivia-Info.plist";
+		rLen = 0;
+		rLoc = 9223372036854775808;
+	};
+	C1B03703135E4E8900E7BD63 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = C184DD4B135DEDBB005B7546 /* distrivia_icon.png */;
+	};
+	C1B03704135E4E8900E7BD63 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = 8D1107310486CEB800E47090 /* distrivia-Info.plist */;
+	};
+	C1B03705135E4E8900E7BD63 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D1107310486CEB800E47090 /* distrivia-Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = "/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/distrivia-Info.plist";
+		rLen = 0;
+		rLoc = 9223372036854775807;
+	};
+	C1B03708135E4E8900E7BD63 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D1107310486CEB800E47090 /* distrivia-Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+			CFBundleIdentifier,
+		);
+		name = "/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/distrivia-Info.plist";
+		rLen = 0;
+		rLoc = 9223372036854775807;
+	};
+	C1B03723135E4F6300E7BD63 /* JoinViewController.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {926, 611}}";
+			sepNavSelRange = "{345, 0}";
+			sepNavVisRange = "{0, 352}";
+		};
+	};
+	C1B03724135E4F6300E7BD63 /* JoinViewController.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1139, 741}}";
+			sepNavSelRange = "{34, 0}";
+			sepNavVisRange = "{0, 1292}";
+		};
+	};
+	C1B0372F135E512A00E7BD63 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = C1B0370C135E4E9200E7BD63 /* distrivia_icon2.png */;
+	};
+	C1B03730135E512A00E7BD63 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D1107310486CEB800E47090 /* distrivia-Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+			CFBundleIdentifier,
+		);
+		name = "/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/distrivia-Info.plist";
+		rLen = 0;
+		rLoc = 9223372036854775807;
+	};
+	C1B03731135E512A00E7BD63 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = C1B03723135E4F6300E7BD63 /* JoinViewController.h */;
+		name = "JoinView.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 231;
+		vrLoc = 0;
+	};
+	C1B03732135E512A00E7BD63 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = C1B03724135E4F6300E7BD63 /* JoinViewController.m */;
+		name = "JoinView.m: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1075;
+		vrLoc = 366;
+	};
+	C1B03733135E512A00E7BD63 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
+		name = "LoginView.m: 9";
+		rLen = 0;
+		rLoc = 200;
+		rType = 0;
+		vrLen = 1132;
+		vrLoc = 0;
+	};
+	C1B03734135E512A00E7BD63 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 28D7ACF60DDB3853001CB0EB /* LoginViewController.h */;
+		name = "LoginView.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 261;
+		vrLoc = 0;
+	};
+	C1B03735135E512A00E7BD63 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1D3623240D0F684500981E51 /* distriviaAppDelegate.h */;
+		name = "distriviaAppDelegate.h: 5";
+		rLen = 0;
+		rLoc = 64;
+		rType = 0;
+		vrLen = 466;
+		vrLoc = 0;
+	};
+	C1B03736135E512A00E7BD63 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1D3623250D0F684500981E51 /* distriviaAppDelegate.m */;
+		name = "distriviaAppDelegate.m: 9";
+		rLen = 0;
+		rLoc = 199;
+		rType = 0;
+		vrLen = 1680;
+		vrLoc = 0;
+	};
+	C1B03737135E512A00E7BD63 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 29B97316FDCFA39411CA2CEA /* main.m */;
+		name = "main.m: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 380;
+		vrLoc = 0;
+	};
+	C1B03738135E512A00E7BD63 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = 32CA4F630368D1EE00C91783 /* distrivia_Prefix.pch */;
+	};
+	C1B03739135E512A00E7BD63 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 32CA4F630368D1EE00C91783 /* distrivia_Prefix.pch */;
+		name = "distrivia_Prefix.pch: 9";
+		rLen = 0;
+		rLoc = 187;
+		rType = 0;
+		vrLen = 187;
+		vrLoc = 0;
+	};
+	C1B0373A135E512A00E7BD63 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D1107310486CEB800E47090 /* distrivia-Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+			CFBundleIdentifier,
+		);
+		name = "/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/distrivia-Info.plist";
+		rLen = 0;
+		rLoc = 9223372036854775807;
+	};
+	C1B03749135E54E600E7BD63 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 32CA4F630368D1EE00C91783 /* distrivia_Prefix.pch */;
+		name = "distrivia_Prefix.pch: 9";
+		rLen = 0;
+		rLoc = 187;
+		rType = 0;
+		vrLen = 187;
+		vrLoc = 0;
+	};
+	C1B0374A135E54E600E7BD63 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = C1B0370C135E4E9200E7BD63 /* distrivia_icon2.png */;
+	};
+	C1B0374B135E54E600E7BD63 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = C1B03743135E51D800E7BD63 /* distriviaw.png */;
+	};
+	C1B0374C135E54E600E7BD63 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 28D7ACF60DDB3853001CB0EB /* LoginViewController.h */;
+		name = "LoginViewController.h: 12";
+		rLen = 0;
+		rLoc = 253;
+		rType = 0;
+		vrLen = 380;
+		vrLoc = 0;
+	};
+	C1B0374D135E54E600E7BD63 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
+		name = "LoginViewController.m: 51";
+		rLen = 0;
+		rLoc = 1485;
+		rType = 0;
+		vrLen = 984;
+		vrLoc = 586;
+	};
+	C1B0374E135E54E600E7BD63 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = C1B03723135E4F6300E7BD63 /* JoinViewController.h */;
+		name = "JoinViewController.h: 12";
+		rLen = 0;
+		rLoc = 248;
+		rType = 0;
+		vrLen = 241;
+		vrLoc = 0;
+	};
+	C1B0374F135E54E600E7BD63 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = C1B03724135E4F6300E7BD63 /* JoinViewController.m */;
+		name = "JoinView.m: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1237;
+		vrLoc = 204;
+	};
+	C1B03750135E54E600E7BD63 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = C1B03724135E4F6300E7BD63 /* JoinViewController.m */;
+		name = "JoinViewController.m: 12";
+		rLen = 0;
+		rLoc = 245;
+		rType = 0;
+		vrLen = 1260;
+		vrLoc = 0;
+	};
+	C1B03751135E54E600E7BD63 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D1107310486CEB800E47090 /* distrivia-Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+			CFBundleIdentifier,
+		);
+		name = "/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/distrivia-Info.plist";
+		rLen = 0;
+		rLoc = 9223372036854775807;
+	};
+	C1B03752135E550100E7BD63 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = C1B03723135E4F6300E7BD63 /* JoinViewController.h */;
+		name = "JoinViewController.h: 8";
+		rLen = 0;
+		rLoc = 154;
+		rType = 0;
+		vrLen = 241;
+		vrLoc = 0;
+	};
+	C1B03753135E550100E7BD63 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = C1B03724135E4F6300E7BD63 /* JoinViewController.m */;
+		name = "JoinViewController.m: 12";
+		rLen = 0;
+		rLoc = 245;
+		rType = 0;
+		vrLen = 1260;
+		vrLoc = 0;
+	};
+	C1B03754135E550100E7BD63 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = C1B03724135E4F6300E7BD63 /* JoinViewController.m */;
+		name = "JoinViewController.m: 8";
+		rLen = 0;
+		rLoc = 154;
+		rType = 0;
+		vrLen = 1260;
+		vrLoc = 0;
+	};
+	C1B03755135E550100E7BD63 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D1107310486CEB800E47090 /* distrivia-Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+			CFBundleIdentifier,
+		);
+		name = "/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/distrivia-Info.plist";
+		rLen = 0;
+		rLoc = 9223372036854775807;
+	};
+	C1B03756135E559A00E7BD63 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = C1B03724135E4F6300E7BD63 /* JoinViewController.m */;
+		name = "JoinViewController.m: 8";
+		rLen = 0;
+		rLoc = 154;
+		rType = 0;
+		vrLen = 1260;
+		vrLoc = 0;
+	};
+	C1B03757135E559A00E7BD63 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = C1B03723135E4F6300E7BD63 /* JoinViewController.h */;
+		name = "JoinViewController.h: 8";
+		rLen = 0;
+		rLoc = 154;
+		rType = 0;
+		vrLen = 241;
+		vrLoc = 0;
+	};
+	C1B03758135E559A00E7BD63 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
+		name = "LoginViewController.m: 50";
+		rLen = 0;
+		rLoc = 1195;
+		rType = 0;
+		vrLen = 1224;
+		vrLoc = 590;
+	};
+	C1B03759135E559A00E7BD63 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D1107310486CEB800E47090 /* distrivia-Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+			CFBundleIdentifier,
+		);
+		name = "/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/distrivia-Info.plist";
+		rLen = 0;
+		rLoc = 9223372036854775807;
+	};
+	C1B0375A135E561A00E7BD63 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = C1B03723135E4F6300E7BD63 /* JoinViewController.h */;
+		name = "JoinViewController.h: 9";
+		rLen = 0;
+		rLoc = 178;
+		rType = 0;
+		vrLen = 241;
+		vrLoc = 0;
+	};
+	C1B0375B135E561A00E7BD63 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = C1B03724135E4F6300E7BD63 /* JoinViewController.m */;
+		name = "JoinViewController.m: 9";
+		rLen = 0;
+		rLoc = 185;
+		rType = 0;
+		vrLen = 1260;
+		vrLoc = 0;
+	};
+	C1B0375C135E561A00E7BD63 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
+		name = "LoginViewController.m: 39";
+		rLen = 0;
+		rLoc = 865;
+		rType = 0;
+		vrLen = 1148;
+		vrLoc = 0;
+	};
+	C1B0375D135E561A00E7BD63 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 28D7ACF60DDB3853001CB0EB /* LoginViewController.h */;
+		name = "LoginViewController.h: 4";
+		rLen = 0;
+		rLoc = 45;
+		rType = 0;
+		vrLen = 380;
+		vrLoc = 0;
+	};
+	C1B0375E135E561A00E7BD63 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 28D7ACF60DDB3853001CB0EB /* LoginViewController.h */;
+		name = "LoginViewController.h: 8";
+		rLen = 0;
+		rLoc = 165;
+		rType = 0;
+		vrLen = 409;
+		vrLoc = 0;
+	};
+	C1B0375F135E561A00E7BD63 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D1107310486CEB800E47090 /* distrivia-Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+			CFBundleIdentifier,
+		);
+		name = "/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/distrivia-Info.plist";
+		rLen = 0;
+		rLoc = 9223372036854775807;
+	};
+	C1B03761135E56A600E7BD63 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 28D7ACF60DDB3853001CB0EB /* LoginViewController.h */;
+		name = "LoginViewController.h: 16";
+		rLen = 0;
+		rLoc = 375;
+		rType = 0;
+		vrLen = 427;
+		vrLoc = 0;
+	};
+	C1B03762135E56A600E7BD63 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D1107310486CEB800E47090 /* distrivia-Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+			CFBundleIdentifier,
+		);
+		name = "/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/distrivia-Info.plist";
+		rLen = 0;
+		rLoc = 9223372036854775807;
+	};
+	C1B03779135E58AC00E7BD63 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
+		name = "LoginViewController.m: 52";
+		rLen = 0;
+		rLoc = 1311;
+		rType = 0;
+		vrLen = 1158;
+		vrLoc = 716;
+	};
+	C1B0377A135E58AC00E7BD63 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = C1B03723135E4F6300E7BD63 /* JoinViewController.h */;
+		name = "JoinViewController.h: 17";
+		rLen = 0;
+		rLoc = 345;
+		rType = 0;
+		vrLen = 352;
+		vrLoc = 0;
+	};
+	C1B0377B135E58AC00E7BD63 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = C1B03724135E4F6300E7BD63 /* JoinViewController.m */;
+		name = "JoinViewController.m: 14";
+		rLen = 0;
+		rLoc = 245;
+		rType = 0;
+		vrLen = 1292;
+		vrLoc = 0;
+	};
+	C1B0377C135E58AC00E7BD63 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 28D7ACF60DDB3853001CB0EB /* LoginViewController.h */;
+		name = "LoginViewController.h: 16";
+		rLen = 0;
+		rLoc = 394;
+		rType = 0;
+		vrLen = 409;
+		vrLoc = 0;
+	};
+	C1B0377D135E58AC00E7BD63 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 28D7ACF60DDB3853001CB0EB /* LoginViewController.h */;
+		name = "LoginViewController.h: 12";
+		rLen = 0;
+		rLoc = 299;
+		rType = 0;
+		vrLen = 438;
+		vrLoc = 0;
+	};
+	C1B0377E135E58AC00E7BD63 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D1107310486CEB800E47090 /* distrivia-Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+			CFBundleIdentifier,
+		);
+		name = "/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/distrivia-Info.plist";
+		rLen = 0;
+		rLoc = 9223372036854775807;
+	};
+	C1B03794135E5AD800E7BD63 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
+		name = "LoginViewController.m: 52";
+		rLen = 0;
+		rLoc = 1311;
+		rType = 0;
+		vrLen = 1160;
+		vrLoc = 0;
+	};
+	C1B03795135E5AD800E7BD63 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1D3623240D0F684500981E51 /* distriviaAppDelegate.h */;
+		name = "distriviaAppDelegate.h: 5";
+		rLen = 0;
+		rLoc = 64;
+		rType = 0;
+		vrLen = 466;
+		vrLoc = 0;
+	};
+	C1B03796135E5AD800E7BD63 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = C1B03724135E4F6300E7BD63 /* JoinViewController.m */;
+		name = "JoinViewController.m: 4";
+		rLen = 0;
+		rLoc = 34;
+		rType = 0;
+		vrLen = 1292;
+		vrLoc = 0;
+	};
+	C1B03797135E5AD800E7BD63 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 29B97316FDCFA39411CA2CEA /* main.m */;
+		name = "main.m: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 380;
+		vrLoc = 0;
+	};
+	C1B03798135E5AD800E7BD63 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = C1B0370C135E4E9200E7BD63 /* distrivia_icon2.png */;
+	};
+	C1B03799135E5AD800E7BD63 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 28D7ACF60DDB3853001CB0EB /* LoginViewController.h */;
+		name = "LoginViewController.h: 6";
+		rLen = 0;
+		rLoc = 123;
+		rType = 0;
+		vrLen = 438;
+		vrLoc = 0;
+	};
+	C1B0379A135E5AD800E7BD63 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 28D7ACF60DDB3853001CB0EB /* LoginViewController.h */;
+		name = "LoginViewController.h: 6";
+		rLen = 0;
+		rLoc = 123;
+		rType = 0;
+		vrLen = 434;
+		vrLoc = 0;
+	};
+	C1B0379B135E5AD800E7BD63 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D1107310486CEB800E47090 /* distrivia-Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+			CFBundleIdentifier,
+		);
+		name = "/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/distrivia-Info.plist";
+		rLen = 0;
+		rLoc = 9223372036854775807;
+	};
+	C1B0379D135E5B3D00E7BD63 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 28D7ACF60DDB3853001CB0EB /* LoginViewController.h */;
+		name = "LoginViewController.h: 6";
+		rLen = 0;
+		rLoc = 123;
+		rType = 0;
+		vrLen = 434;
+		vrLoc = 0;
+	};
+	C1B0379E135E5B3D00E7BD63 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1D3623240D0F684500981E51 /* distriviaAppDelegate.h */;
+		name = "distriviaAppDelegate.h: 19";
+		rLen = 0;
+		rLoc = 471;
+		rType = 0;
+		vrLen = 496;
+		vrLoc = 0;
+	};
+	C1B0379F135E5B3D00E7BD63 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1D3623250D0F684500981E51 /* distriviaAppDelegate.m */;
+		name = "distriviaAppDelegate.m: 9";
+		rLen = 0;
+		rLoc = 199;
+		rType = 0;
+		vrLen = 1681;
+		vrLoc = 0;
+	};
+	C1B037A0135E5B3D00E7BD63 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1D3623250D0F684500981E51 /* distriviaAppDelegate.m */;
+		name = "distriviaAppDelegate.m: 9";
+		rLen = 0;
+		rLoc = 199;
+		rType = 0;
+		vrLen = 1408;
+		vrLoc = 1335;
+	};
+	C1B037A1135E5B3D00E7BD63 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D1107310486CEB800E47090 /* distrivia-Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+			CFBundleIdentifier,
+		);
+		name = "/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/distrivia-Info.plist";
+		rLen = 0;
+		rLoc = 9223372036854775807;
+	};
+	C1B037A7135E5B6D00E7BD63 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1D3623250D0F684500981E51 /* distriviaAppDelegate.m */;
+		name = "distriviaAppDelegate.m: 10";
+		rLen = 0;
+		rLoc = 228;
+		rType = 0;
+		vrLen = 1691;
+		vrLoc = 0;
+	};
+	C1B037A8135E5B6D00E7BD63 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1D3623240D0F684500981E51 /* distriviaAppDelegate.h */;
+		name = "distriviaAppDelegate.h: 19";
+		rLen = 0;
+		rLoc = 471;
+		rType = 0;
+		vrLen = 496;
+		vrLoc = 0;
+	};
+	C1B037A9135E5B6D00E7BD63 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1D3623240D0F684500981E51 /* distriviaAppDelegate.h */;
+		name = "distriviaAppDelegate.h: 19";
+		rLen = 0;
+		rLoc = 471;
+		rType = 0;
+		vrLen = 496;
+		vrLoc = 0;
+	};
+	C1B037AA135E5B6D00E7BD63 /* PlistBookmark */ = {
 		isa = PlistBookmark;
 		fRef = 8D1107310486CEB800E47090 /* distrivia-Info.plist */;
 		fallbackIsa = PBXBookmark;
