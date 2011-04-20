@@ -14,12 +14,14 @@
     IBOutlet UIButton *loginBut;
     IBOutlet UITextField *userField;
     IBOutlet UITextField *passField;
+    IBOutlet UIActivityIndicatorView *activeIndicate;
 }
 
 @property (retain, nonatomic) IBOutlet UIButton *registerBut;
 @property (retain, nonatomic) IBOutlet UIButton *loginBut;
 @property (retain, nonatomic) IBOutlet UITextField *userField;
 @property (retain, nonatomic) IBOutlet UITextField *passField;
+@property (retain, nonatomic) IBOutlet UIActivityIndicatorView *activeIndicate;
 
 - (IBAction) login:(id)sender;
 - (IBAction) regis:(id)sender;

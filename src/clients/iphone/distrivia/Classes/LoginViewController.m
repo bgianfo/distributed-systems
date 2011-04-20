@@ -14,6 +14,7 @@
 @synthesize loginBut;
 @synthesize userField;
 @synthesize passField;
+@synthesize activeIndicate;
 
 
 
@@ -49,6 +50,7 @@
                                                                      topCapHeight:0];
     [registerBut setBackgroundImage:stretchableButtonImagePressed forState:UIControlStateHighlighted];
     [loginBut setBackgroundImage:stretchableButtonImagePressed forState:UIControlStateHighlighted];
+    
     [super viewDidLoad];
 }
 
@@ -72,8 +74,8 @@
                                           otherButtonTitles: nil];
         [e show];
         [e release];
-    }
-     else {
+    } else {
+        [activeIndicate startAnimating];
         [self startJoin];
     }
 }
@@ -89,6 +91,7 @@
         [e show];
         [e release];
     } else {
+        [activeIndicate startAnimating];
      	[self startJoin];   
     }
 }
@@ -104,6 +107,7 @@
 }
 
 - (void)startJoin {
+    [activeIndicate stopAnimating];
     JoinViewController *controller = [[JoinViewController alloc] initWithNibName:@"JoinView" bundle:nil];
 	controller.delegate = self;
 	controller.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
@@ -125,6 +129,7 @@
     self.loginBut = nil;
     self.userField = nil;
     self.passField = nil;
+    self.activeIndicate = nil;
 	[super viewDidUnload];
 }
 
@@ -134,6 +139,7 @@
     [loginBut release];
     [userField release];
     [passField release];
+    [activeIndicate release];
     [super dealloc];
 }
 
