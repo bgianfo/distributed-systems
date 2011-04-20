@@ -24,16 +24,16 @@
 	28D7ACF60DDB3853001CB0EB /* LoginViewController.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {926, 578}}";
-			sepNavSelRange = "{653, 0}";
-			sepNavVisRange = "{0, 682}";
+			sepNavSelRange = "{569, 0}";
+			sepNavVisRange = "{0, 872}";
 			sepNavWindowFrame = "{{430, 340}, {750, 558}}";
 		};
 	};
 	28D7ACF70DDB3853001CB0EB /* LoginViewController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {926, 1547}}";
-			sepNavSelRange = "{2622, 0}";
-			sepNavVisRange = "{1264, 1652}";
+			sepNavIntBoundsRect = "{{0, 0}, {926, 1859}}";
+			sepNavSelRange = "{789, 0}";
+			sepNavVisRange = "{339, 1928}";
 			sepNavWindowFrame = "{{38, 444}, {750, 558}}";
 		};
 	};
@@ -160,6 +160,17 @@
 			C1296080135F31010092180F /* PBXTextBookmark */ = C1296080135F31010092180F /* PBXTextBookmark */;
 			C1296081135F31010092180F /* PBXTextBookmark */ = C1296081135F31010092180F /* PBXTextBookmark */;
 			C1296082135F31010092180F /* PlistBookmark */ = C1296082135F31010092180F /* PlistBookmark */;
+			C129608C135F371F0092180F /* PBXTextBookmark */ = C129608C135F371F0092180F /* PBXTextBookmark */;
+			C129608D135F371F0092180F /* PBXTextBookmark */ = C129608D135F371F0092180F /* PBXTextBookmark */;
+			C129608E135F371F0092180F /* PlistBookmark */ = C129608E135F371F0092180F /* PlistBookmark */;
+			C1296091135F38540092180F /* PBXTextBookmark */ = C1296091135F38540092180F /* PBXTextBookmark */;
+			C1296092135F38540092180F /* PBXTextBookmark */ = C1296092135F38540092180F /* PBXTextBookmark */;
+			C1296093135F38540092180F /* PBXTextBookmark */ = C1296093135F38540092180F /* PBXTextBookmark */;
+			C1296094135F38540092180F /* PlistBookmark */ = C1296094135F38540092180F /* PlistBookmark */;
+			C1296099135F39340092180F /* PBXTextBookmark */ = C1296099135F39340092180F /* PBXTextBookmark */;
+			C129609A135F39340092180F /* PlistBookmark */ = C129609A135F39340092180F /* PlistBookmark */;
+			C129609C135F39590092180F /* PBXTextBookmark */ = C129609C135F39590092180F /* PBXTextBookmark */;
+			C129609D135F39590092180F /* PlistBookmark */ = C129609D135F39590092180F /* PlistBookmark */;
 			C149E39B135E640900D6A77D = C149E39B135E640900D6A77D /* PlistBookmark */;
 			C149E3BA135E6B5F00D6A77D = C149E3BA135E6B5F00D6A77D /* PBXTextBookmark */;
 			C149E3CB135E6E7F00D6A77D = C149E3CB135E6E7F00D6A77D /* PBXTextBookmark */;
@@ -203,7 +214,7 @@
 		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
 		name = "LoginViewController.m: 39";
 		rLen = 0;
-		rLoc = 890;
+		rLoc = 1852;
 		rType = 0;
 		vrLen = 1160;
 		vrLoc = 0;
@@ -295,7 +306,7 @@
 		fRef = 28D7ACF60DDB3853001CB0EB /* LoginViewController.h */;
 		name = "LoginViewController.h: 19";
 		rLen = 0;
-		rLoc = 442;
+		rLoc = 632;
 		rType = 0;
 		vrLen = 634;
 		vrLoc = 0;
@@ -315,7 +326,7 @@
 		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
 		name = "LoginViewController.m: 53";
 		rLen = 0;
-		rLoc = 1791;
+		rLoc = 2753;
 		rType = 0;
 		vrLen = 1113;
 		vrLoc = 910;
@@ -337,7 +348,7 @@
 		fRef = 28D7ACF60DDB3853001CB0EB /* LoginViewController.h */;
 		name = "LoginViewController.h: 20";
 		rLen = 0;
-		rLoc = 379;
+		rLoc = 569;
 		rType = 0;
 		vrLen = 732;
 		vrLoc = 0;
@@ -347,7 +358,7 @@
 		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
 		name = "LoginViewController.m: 53";
 		rLen = 0;
-		rLoc = 1791;
+		rLoc = 2753;
 		rType = 0;
 		vrLen = 1115;
 		vrLoc = 908;
@@ -357,7 +368,7 @@
 		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
 		name = "LoginViewController.m: 82";
 		rLen = 0;
-		rLoc = 3306;
+		rLoc = 4372;
 		rType = 0;
 		vrLen = 1163;
 		vrLoc = 935;
@@ -379,7 +390,7 @@
 		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
 		name = "LoginViewController.m: 76";
 		rLen = 0;
-		rLoc = 3306;
+		rLoc = 4372;
 		rType = 0;
 		vrLen = 975;
 		vrLoc = 0;
@@ -401,7 +412,7 @@
 		fRef = 28D7ACF60DDB3853001CB0EB /* LoginViewController.h */;
 		name = "LoginViewController.h: 21";
 		rLen = 0;
-		rLoc = 674;
+		rLoc = 864;
 		rType = 0;
 		vrLen = 579;
 		vrLoc = 0;
@@ -421,7 +432,7 @@
 		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
 		name = "LoginViewController.m: 61";
 		rLen = 0;
-		rLoc = 1813;
+		rLoc = 2775;
 		rType = 0;
 		vrLen = 1327;
 		vrLoc = 861;
@@ -443,7 +454,7 @@
 		fRef = 28D7ACF60DDB3853001CB0EB /* LoginViewController.h */;
 		name = "LoginViewController.h: 21";
 		rLen = 0;
-		rLoc = 556;
+		rLoc = 746;
 		rType = 0;
 		vrLen = 576;
 		vrLoc = 0;
@@ -453,7 +464,7 @@
 		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
 		name = "LoginViewController.m: 61";
 		rLen = 0;
-		rLoc = 1813;
+		rLoc = 2775;
 		rType = 0;
 		vrLen = 1346;
 		vrLoc = 861;
@@ -463,7 +474,7 @@
 		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
 		name = "LoginViewController.m: 61";
 		rLen = 0;
-		rLoc = 1813;
+		rLoc = 2775;
 		rType = 0;
 		vrLen = 1325;
 		vrLoc = 861;
@@ -485,7 +496,7 @@
 		fRef = 28D7ACF60DDB3853001CB0EB /* LoginViewController.h */;
 		name = "LoginViewController.h: 22";
 		rLen = 0;
-		rLoc = 674;
+		rLoc = 864;
 		rType = 0;
 		vrLen = 596;
 		vrLoc = 0;
@@ -495,7 +506,7 @@
 		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
 		name = "LoginViewController.m: 53";
 		rLen = 0;
-		rLoc = 1791;
+		rLoc = 2753;
 		rType = 0;
 		vrLen = 1142;
 		vrLoc = 861;
@@ -505,7 +516,7 @@
 		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
 		name = "LoginViewController.m: 60";
 		rLen = 0;
-		rLoc = 2633;
+		rLoc = 3595;
 		rType = 0;
 		vrLen = 1212;
 		vrLoc = 740;
@@ -527,7 +538,7 @@
 		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
 		name = "LoginViewController.m: 60";
 		rLen = 0;
-		rLoc = 2634;
+		rLoc = 3596;
 		rType = 0;
 		vrLen = 1211;
 		vrLoc = 740;
@@ -549,7 +560,7 @@
 		fRef = 28D7ACF60DDB3853001CB0EB /* LoginViewController.h */;
 		name = "LoginViewController.h: 22";
 		rLen = 0;
-		rLoc = 674;
+		rLoc = 864;
 		rType = 0;
 		vrLen = 596;
 		vrLoc = 0;
@@ -559,7 +570,7 @@
 		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
 		name = "LoginViewController.m: 56";
 		rLen = 0;
-		rLoc = 1808;
+		rLoc = 2770;
 		rType = 0;
 		vrLen = 1211;
 		vrLoc = 740;
@@ -569,7 +580,7 @@
 		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
 		name = "LoginViewController.m: 57";
 		rLen = 0;
-		rLoc = 2393;
+		rLoc = 3355;
 		rType = 0;
 		vrLen = 1206;
 		vrLoc = 740;
@@ -591,7 +602,7 @@
 		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
 		name = "LoginViewController.m: 57";
 		rLen = 0;
-		rLoc = 2393;
+		rLoc = 3355;
 		rType = 0;
 		vrLen = 1207;
 		vrLoc = 742;
@@ -601,7 +612,7 @@
 		fRef = 28D7ACF60DDB3853001CB0EB /* LoginViewController.h */;
 		name = "LoginViewController.h: 22";
 		rLen = 0;
-		rLoc = 674;
+		rLoc = 864;
 		rType = 0;
 		vrLen = 596;
 		vrLoc = 0;
@@ -611,7 +622,7 @@
 		fRef = 28D7ACF60DDB3853001CB0EB /* LoginViewController.h */;
 		name = "LoginViewController.h: 21";
 		rLen = 0;
-		rLoc = 674;
+		rLoc = 864;
 		rType = 0;
 		vrLen = 576;
 		vrLoc = 0;
@@ -633,7 +644,7 @@
 		fRef = 28D7ACF60DDB3853001CB0EB /* LoginViewController.h */;
 		name = "LoginViewController.h: 22";
 		rLen = 0;
-		rLoc = 674;
+		rLoc = 864;
 		rType = 0;
 		vrLen = 596;
 		vrLoc = 0;
@@ -643,7 +654,7 @@
 		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
 		name = "LoginViewController.m: 57";
 		rLen = 0;
-		rLoc = 2393;
+		rLoc = 3355;
 		rType = 0;
 		vrLen = 1212;
 		vrLoc = 741;
@@ -653,7 +664,7 @@
 		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
 		name = "LoginViewController.m: 57";
 		rLen = 0;
-		rLoc = 2393;
+		rLoc = 3355;
 		rType = 0;
 		vrLen = 1212;
 		vrLoc = 741;
@@ -675,7 +686,7 @@
 		fRef = 28D7ACF60DDB3853001CB0EB /* LoginViewController.h */;
 		name = "LoginViewController.h: 22";
 		rLen = 0;
-		rLoc = 673;
+		rLoc = 863;
 		rType = 0;
 		vrLen = 596;
 		vrLoc = 0;
@@ -685,7 +696,7 @@
 		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
 		name = "LoginViewController.m: 53";
 		rLen = 0;
-		rLoc = 1791;
+		rLoc = 2753;
 		rType = 0;
 		vrLen = 1218;
 		vrLoc = 741;
@@ -695,7 +706,7 @@
 		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
 		name = "LoginViewController.m: 53";
 		rLen = 0;
-		rLoc = 1791;
+		rLoc = 2753;
 		rType = 0;
 		vrLen = 1212;
 		vrLoc = 741;
@@ -717,7 +728,7 @@
 		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
 		name = "LoginViewController.m: 53";
 		rLen = 0;
-		rLoc = 1791;
+		rLoc = 2753;
 		rType = 0;
 		vrLen = 1121;
 		vrLoc = 839;
@@ -739,7 +750,7 @@
 		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
 		name = "LoginViewController.m: 53";
 		rLen = 0;
-		rLoc = 1752;
+		rLoc = 2714;
 		rType = 0;
 		vrLen = 1141;
 		vrLoc = 839;
@@ -761,7 +772,7 @@
 		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
 		name = "LoginViewController.m: 55";
 		rLen = 0;
-		rLoc = 1752;
+		rLoc = 2714;
 		rType = 0;
 		vrLen = 1200;
 		vrLoc = 839;
@@ -783,7 +794,7 @@
 		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
 		name = "LoginViewController.m: 56";
 		rLen = 0;
-		rLoc = 1752;
+		rLoc = 2714;
 		rType = 0;
 		vrLen = 1224;
 		vrLoc = 839;
@@ -805,7 +816,7 @@
 		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
 		name = "LoginViewController.m: 58";
 		rLen = 0;
-		rLoc = 1752;
+		rLoc = 2714;
 		rType = 0;
 		vrLen = 1448;
 		vrLoc = 742;
@@ -827,7 +838,7 @@
 		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
 		name = "LoginViewController.m: 55";
 		rLen = 0;
-		rLoc = 1752;
+		rLoc = 2714;
 		rType = 0;
 		vrLen = 1462;
 		vrLoc = 742;
@@ -849,7 +860,7 @@
 		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
 		name = "LoginViewController.m: 63";
 		rLen = 0;
-		rLoc = 1785;
+		rLoc = 2747;
 		rType = 0;
 		vrLen = 1445;
 		vrLoc = 742;
@@ -882,7 +893,7 @@
 		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
 		name = "LoginViewController.m: 63";
 		rLen = 0;
-		rLoc = 1785;
+		rLoc = 2747;
 		rType = 0;
 		vrLen = 1482;
 		vrLoc = 742;
@@ -892,7 +903,7 @@
 		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
 		name = "LoginViewController.m: 66";
 		rLen = 0;
-		rLoc = 1793;
+		rLoc = 2755;
 		rType = 0;
 		vrLen = 1460;
 		vrLoc = 288;
@@ -913,7 +924,7 @@
 		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
 		name = "LoginViewController.m: 66";
 		rLen = 0;
-		rLoc = 1793;
+		rLoc = 2755;
 		rType = 0;
 		vrLen = 1472;
 		vrLoc = 288;
@@ -934,7 +945,7 @@
 		fRef = 28D7ACF60DDB3853001CB0EB /* LoginViewController.h */;
 		name = "LoginViewController.h: 22";
 		rLen = 0;
-		rLoc = 653;
+		rLoc = 843;
 		rType = 0;
 		vrLen = 643;
 		vrLoc = 0;
@@ -944,7 +955,7 @@
 		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
 		name = "LoginViewController.m: 26";
 		rLen = 0;
-		rLoc = 620;
+		rLoc = 667;
 		rType = 0;
 		vrLen = 1472;
 		vrLoc = 288;
@@ -954,7 +965,7 @@
 		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
 		name = "LoginViewController.m: 84";
 		rLen = 0;
-		rLoc = 2503;
+		rLoc = 3465;
 		rType = 0;
 		vrLen = 1420;
 		vrLoc = 1721;
@@ -975,7 +986,7 @@
 		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
 		name = "LoginViewController.m: 84";
 		rLen = 0;
-		rLoc = 2468;
+		rLoc = 3430;
 		rType = 0;
 		vrLen = 1629;
 		vrLoc = 1221;
@@ -996,7 +1007,7 @@
 		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
 		name = "LoginViewController.m: 84";
 		rLen = 0;
-		rLoc = 2466;
+		rLoc = 3428;
 		rType = 0;
 		vrLen = 1636;
 		vrLoc = 1221;
@@ -1017,7 +1028,7 @@
 		fRef = 28D7ACF60DDB3853001CB0EB /* LoginViewController.h */;
 		name = "LoginViewController.h: 23";
 		rLen = 0;
-		rLoc = 653;
+		rLoc = 843;
 		rType = 0;
 		vrLen = 682;
 		vrLoc = 0;
@@ -1027,7 +1038,7 @@
 		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
 		name = "LoginViewController.m: 90";
 		rLen = 0;
-		rLoc = 2622;
+		rLoc = 3584;
 		rType = 0;
 		vrLen = 1652;
 		vrLoc = 1264;
@@ -1037,12 +1048,126 @@
 		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
 		name = "LoginViewController.m: 90";
 		rLen = 0;
-		rLoc = 2622;
+		rLoc = 3584;
 		rType = 0;
 		vrLen = 1652;
 		vrLoc = 1264;
 	};
 	C1296082135F31010092180F /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D1107310486CEB800E47090 /* distrivia-Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = "/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/distrivia-Info.plist";
+		rLen = 0;
+		rLoc = 9223372036854775807;
+	};
+	C129608C135F371F0092180F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
+		name = "LoginViewController.m: 45";
+		rLen = 0;
+		rLoc = 1920;
+		rType = 0;
+		vrLen = 1620;
+		vrLoc = 886;
+	};
+	C129608D135F371F0092180F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
+		name = "LoginViewController.m: 42";
+		rLen = 0;
+		rLoc = 1824;
+		rType = 0;
+		vrLen = 1245;
+		vrLoc = 202;
+	};
+	C129608E135F371F0092180F /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D1107310486CEB800E47090 /* distrivia-Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = "/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/distrivia-Info.plist";
+		rLen = 0;
+		rLoc = 9223372036854775807;
+	};
+	C1296091135F38540092180F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 28D7ACF60DDB3853001CB0EB /* LoginViewController.h */;
+		name = "LoginViewController.h: 20";
+		rLen = 0;
+		rLoc = 569;
+		rType = 0;
+		vrLen = 872;
+		vrLoc = 0;
+	};
+	C1296092135F38540092180F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
+		name = "LoginViewController.m: 127";
+		rLen = 0;
+		rLoc = 4372;
+		rType = 0;
+		vrLen = 1094;
+		vrLoc = 2694;
+	};
+	C1296093135F38540092180F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
+		name = "LoginViewController.m: 49";
+		rLen = 0;
+		rLoc = 1824;
+		rType = 0;
+		vrLen = 1623;
+		vrLoc = 334;
+	};
+	C1296094135F38540092180F /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D1107310486CEB800E47090 /* distrivia-Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = "/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/distrivia-Info.plist";
+		rLen = 0;
+		rLoc = 9223372036854775807;
+	};
+	C1296099135F39340092180F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
+		name = "LoginViewController.m: 51";
+		rLen = 0;
+		rLoc = 1735;
+		rType = 0;
+		vrLen = 1813;
+		vrLoc = 334;
+	};
+	C129609A135F39340092180F /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D1107310486CEB800E47090 /* distrivia-Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = "/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/distrivia-Info.plist";
+		rLen = 0;
+		rLoc = 9223372036854775807;
+	};
+	C129609C135F39590092180F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
+		name = "LoginViewController.m: 38";
+		rLen = 0;
+		rLoc = 789;
+		rType = 0;
+		vrLen = 1928;
+		vrLoc = 339;
+	};
+	C129609D135F39590092180F /* PlistBookmark */ = {
 		isa = PlistBookmark;
 		fRef = 8D1107310486CEB800E47090 /* distrivia-Info.plist */;
 		fallbackIsa = PBXBookmark;
@@ -1095,7 +1220,7 @@
 		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
 		name = "LoginViewController.m: 51";
 		rLen = 0;
-		rLoc = 1791;
+		rLoc = 2753;
 		rType = 0;
 		vrLen = 1158;
 		vrLoc = 710;
@@ -1105,7 +1230,7 @@
 		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
 		name = "LoginViewController.m: 39";
 		rLen = 0;
-		rLoc = 890;
+		rLoc = 1852;
 		rType = 0;
 		vrLen = 1160;
 		vrLoc = 0;

@@ -18,6 +18,8 @@
 		C1295FF3135E78E00092180F /* distrivia_icon3.png in Resources */ = {isa = PBXBuildFile; fileRef = C1295FF0135E78E00092180F /* distrivia_icon3.png */; };
 		C1295FF4135E78E00092180F /* distrivia_icon4.png in Resources */ = {isa = PBXBuildFile; fileRef = C1295FF1135E78E00092180F /* distrivia_icon4.png */; };
 		C1295FF5135E78E00092180F /* distrivia_icon5.png in Resources */ = {isa = PBXBuildFile; fileRef = C1295FF2135E78E00092180F /* distrivia_icon5.png */; };
+		C1296088135F35110092180F /* blueButton.png in Resources */ = {isa = PBXBuildFile; fileRef = C1296086135F35110092180F /* blueButton.png */; };
+		C1296089135F35110092180F /* whiteButton.png in Resources */ = {isa = PBXBuildFile; fileRef = C1296087135F35110092180F /* whiteButton.png */; };
 		C149E38A135E5F3500D6A77D /* RoundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C149E388135E5F3500D6A77D /* RoundViewController.m */; };
 		C149E38B135E5F3500D6A77D /* RoundView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C149E389135E5F3500D6A77D /* RoundView.xib */; };
 		C184DD4C135DEDBB005B7546 /* distrivia_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = C184DD4B135DEDBB005B7546 /* distrivia_icon.png */; };
@@ -44,6 +46,8 @@
 		C1295FF0135E78E00092180F /* distrivia_icon3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = distrivia_icon3.png; sourceTree = "<group>"; };
 		C1295FF1135E78E00092180F /* distrivia_icon4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = distrivia_icon4.png; sourceTree = "<group>"; };
 		C1295FF2135E78E00092180F /* distrivia_icon5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = distrivia_icon5.png; sourceTree = "<group>"; };
+		C1296086135F35110092180F /* blueButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueButton.png; sourceTree = "<group>"; };
+		C1296087135F35110092180F /* whiteButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whiteButton.png; sourceTree = "<group>"; };
 		C149E387135E5F3500D6A77D /* RoundViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RoundViewController.h; path = Classes/RoundViewController.h; sourceTree = "<group>"; };
 		C149E388135E5F3500D6A77D /* RoundViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RoundViewController.m; path = Classes/RoundViewController.m; sourceTree = "<group>"; };
 		C149E389135E5F3500D6A77D /* RoundView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RoundView.xib; sourceTree = "<group>"; };
@@ -113,6 +117,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C1296086135F35110092180F /* blueButton.png */,
+				C1296087135F35110092180F /* whiteButton.png */,
 				C1295FF0135E78E00092180F /* distrivia_icon3.png */,
 				C1295FF1135E78E00092180F /* distrivia_icon4.png */,
 				C1295FF2135E78E00092180F /* distrivia_icon5.png */,
@@ -224,6 +230,8 @@
 				C1295FF3135E78E00092180F /* distrivia_icon3.png in Resources */,
 				C1295FF4135E78E00092180F /* distrivia_icon4.png in Resources */,
 				C1295FF5135E78E00092180F /* distrivia_icon5.png in Resources */,
+				C1296088135F35110092180F /* blueButton.png in Resources */,
+				C1296089135F35110092180F /* whiteButton.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -13,6 +13,8 @@
 
 @synthesize delegate;
 @synthesize pubButton;
+@synthesize priButton;
+@synthesize leadButton;
 
 // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 /*
@@ -25,12 +27,25 @@
 }
 */
 
-/*
+
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
+    UIImage *buttonImageNormal = [UIImage imageNamed:@"whiteButton.png"];
+    UIImage *stretchableButtonImageNormal = [buttonImageNormal stretchableImageWithLeftCapWidth:12 
+                                                                                   topCapHeight:0];
+    [priButton setBackgroundImage:stretchableButtonImageNormal forState:UIControlStateNormal];
+    [pubButton setBackgroundImage:stretchableButtonImageNormal forState:UIControlStateNormal];
+    [leadButton setBackgroundImage:stretchableButtonImageNormal forState:UIControlStateNormal];
+    
+    UIImage *buttonImagePressed = [UIImage imageNamed:@"blueButton.png"];
+    UIImage *stretchableButtonImagePressed = [buttonImagePressed stretchableImageWithLeftCapWidth:12 
+                                                                                     topCapHeight:0];
+    [priButton setBackgroundImage:stretchableButtonImagePressed forState:UIControlStateHighlighted];
+    [pubButton setBackgroundImage:stretchableButtonImagePressed forState:UIControlStateHighlighted];
+    [leadButton setBackgroundImage:stretchableButtonImagePressed forState:UIControlStateHighlighted];
     [super viewDidLoad];
 }
-*/
+
 
 /*
 // Override to allow orientations other than the default portrait orientation.
@@ -60,12 +75,16 @@
     // Release any retained subviews of the main view.
 	self.delegate = nil;
 	self.pubButton = nil;
+    self.priButton = nil;
+    self.leadButton = nil;
 	[super viewDidUnload];
 }
 
 
 - (void)dealloc {
 	[pubButton release];
+    [priButton release];
+    [leadButton release];
     [super dealloc];
 }
 

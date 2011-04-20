@@ -14,11 +14,15 @@
 @interface JoinViewController : UIViewController <RoundViewControllerDelegate> {
 
 	IBOutlet UIButton	*pubButton;
+    IBOutlet UIButton   *priButton;
+    IBOutlet UIButton   *leadButton;
 	
 }
 
 @property (nonatomic, assign) id <JoinViewControllerDelegate> delegate;
 @property (nonatomic, retain) IBOutlet UIButton *pubButton;
+@property (nonatomic, retain) IBOutlet UIButton *priButton;
+@property (nonatomic, retain) IBOutlet UIButton *leadButton;
 
 - (IBAction) joinPublic:(id)sender;
 

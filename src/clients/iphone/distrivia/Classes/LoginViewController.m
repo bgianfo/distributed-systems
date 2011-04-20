@@ -10,6 +10,8 @@
 
 @implementation LoginViewController
 
+@synthesize registerBut;
+@synthesize loginBut;
 @synthesize userField;
 @synthesize passField;
 
@@ -33,12 +35,23 @@
 */
 
 
-/*
+
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
+    UIImage *buttonImageNormal = [UIImage imageNamed:@"whiteButton.png"];
+    UIImage *stretchableButtonImageNormal = [buttonImageNormal stretchableImageWithLeftCapWidth:12 
+                                                                   topCapHeight:0];
+    [registerBut setBackgroundImage:stretchableButtonImageNormal forState:UIControlStateNormal];
+    [loginBut setBackgroundImage:stretchableButtonImageNormal forState:UIControlStateNormal];
+    
+    UIImage *buttonImagePressed = [UIImage imageNamed:@"blueButton.png"];
+    UIImage *stretchableButtonImagePressed = [buttonImagePressed stretchableImageWithLeftCapWidth:12 
+                                                                     topCapHeight:0];
+    [registerBut setBackgroundImage:stretchableButtonImagePressed forState:UIControlStateHighlighted];
+    [loginBut setBackgroundImage:stretchableButtonImagePressed forState:UIControlStateHighlighted];
     [super viewDidLoad];
 }
-*/
+
 
 
 /*
@@ -108,6 +121,8 @@
 
 - (void)viewDidUnload {
 	// Release any retained subviews of the main view.
+    self.registerBut = nil;
+    self.loginBut = nil;
     self.userField = nil;
     self.passField = nil;
 	[super viewDidUnload];
@@ -115,6 +130,8 @@
 
 
 - (void)dealloc {
+    [registerBut release];
+    [loginBut release];
     [userField release];
     [passField release];
     [super dealloc];

@@ -10,10 +10,14 @@
 #import "JoinViewController.h"
 
 @interface LoginViewController : UIViewController <JoinViewControllerDelegate> {
+    IBOutlet UIButton *registerBut;
+    IBOutlet UIButton *loginBut;
     IBOutlet UITextField *userField;
     IBOutlet UITextField *passField;
 }
 
+@property (retain, nonatomic) IBOutlet UIButton *registerBut;
+@property (retain, nonatomic) IBOutlet UIButton *loginBut;
 @property (retain, nonatomic) IBOutlet UITextField *userField;
 @property (retain, nonatomic) IBOutlet UITextField *passField;
 

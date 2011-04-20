@@ -216,7 +216,7 @@
 						<key>_historyCapacity</key>
 						<integer>0</integer>
 						<key>bookmark</key>
-						<string>C1296082135F31010092180F</string>
+						<string>C129609D135F39590092180F</string>
 						<key>history</key>
 						<array>
 							<string>C149E3CF135E6F1300D6A77D</string>
@@ -270,6 +270,8 @@
 			<key>Layout</key>
 			<array>
 				<dict>
+					<key>BecomeActive</key>
+					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -318,8 +320,8 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>7</integer>
-									<integer>5</integer>
+									<integer>12</integer>
+									<integer>9</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -354,8 +356,6 @@
 					<key>Dock</key>
 					<array>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -373,7 +373,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>C1296081135F31010092180F</string>
+										<string>C129609C135F39590092180F</string>
 										<key>history</key>
 										<array>
 											<string>C1B03749135E54E600E7BD63</string>
@@ -387,8 +387,8 @@
 											<string>C1296001135E9FB60092180F</string>
 											<string>C1296002135E9FB60092180F</string>
 											<string>C1296068135F2CC20092180F</string>
-											<string>C129607F135F31010092180F</string>
-											<string>C1296080135F31010092180F</string>
+											<string>C1296091135F38540092180F</string>
+											<string>C1296092135F38540092180F</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -766,10 +766,10 @@
 									<key>Frame</key>
 									<string>{{316, 0}, {378, 201}}</string>
 									<key>RubberWindowFrame</key>
-									<string>336 581 694 422 0 0 1680 1028 </string>
+									<string>180 485 694 422 0 0 1680 1028 </string>
 								</dict>
 								<key>RubberWindowFrame</key>
-								<string>336 581 694 422 0 0 1680 1028 </string>
+								<string>180 485 694 422 0 0 1680 1028 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXDebugSessionModule</string>
@@ -803,7 +803,7 @@
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debugV3</string>
 			<key>WindowString</key>
-			<string>336 581 694 422 0 0 1680 1028 </string>
+			<string>180 485 694 422 0 0 1680 1028 </string>
 			<key>WindowToolGUID</key>
 			<string>1CD10A99069EF8BA00B06720</string>
 			<key>WindowToolIsVisible</key>
