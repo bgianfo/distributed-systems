@@ -10,10 +10,11 @@
 
 
 @interface GameData : NSObject {
- NSString * status;
- NSString * token;
- NSString * username;
- int score;
+@private
+    NSString * status;
+    NSString * token;
+    NSString * username;
+    int score;
 }
 - (BOOL) hasStarted;
 
