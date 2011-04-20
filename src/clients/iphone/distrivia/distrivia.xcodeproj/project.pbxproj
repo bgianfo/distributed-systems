@@ -12,10 +12,14 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
-		2899E5220DE3E06400AC0155 /* distriviaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2899E5210DE3E06400AC0155 /* distriviaViewController.xib */; };
+		2899E5220DE3E06400AC0155 /* LoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2899E5210DE3E06400AC0155 /* LoginView.xib */; };
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
-		28D7ACF80DDB3853001CB0EB /* distriviaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D7ACF70DDB3853001CB0EB /* distriviaViewController.m */; };
+		28D7ACF80DDB3853001CB0EB /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */; };
 		C184DD4C135DEDBB005B7546 /* distrivia_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = C184DD4B135DEDBB005B7546 /* distrivia_icon.png */; };
+		C1B0370D135E4E9200E7BD63 /* distrivia_icon2.png in Resources */ = {isa = PBXBuildFile; fileRef = C1B0370C135E4E9200E7BD63 /* distrivia_icon2.png */; };
+		C1B03726135E4F6300E7BD63 /* JoinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B03724135E4F6300E7BD63 /* JoinViewController.m */; };
+		C1B03727135E4F6300E7BD63 /* JoinView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1B03725135E4F6300E7BD63 /* JoinView.xib */; };
+		C1B03744135E51D800E7BD63 /* distriviaw.png in Resources */ = {isa = PBXBuildFile; fileRef = C1B03743135E51D800E7BD63 /* distriviaw.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,14 +29,19 @@
 		1D6058910D05DD3D006BFB54 /* distrivia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = distrivia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		2899E5210DE3E06400AC0155 /* distriviaViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = distriviaViewController.xib; sourceTree = "<group>"; };
+		2899E5210DE3E06400AC0155 /* LoginView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginView.xib; sourceTree = "<group>"; };
 		28AD733E0D9D9553002E5188 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
-		28D7ACF60DDB3853001CB0EB /* distriviaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = distriviaViewController.h; sourceTree = "<group>"; };
-		28D7ACF70DDB3853001CB0EB /* distriviaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = distriviaViewController.m; sourceTree = "<group>"; };
+		28D7ACF60DDB3853001CB0EB /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginViewController.h; path = Classes/LoginViewController.h; sourceTree = "<group>"; };
+		28D7ACF70DDB3853001CB0EB /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = Classes/LoginViewController.m; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* distrivia_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = distrivia_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* distrivia-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "distrivia-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		C184DD4B135DEDBB005B7546 /* distrivia_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = distrivia_icon.png; sourceTree = "<group>"; };
+		C1B0370C135E4E9200E7BD63 /* distrivia_icon2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = distrivia_icon2.png; sourceTree = "<group>"; };
+		C1B03723135E4F6300E7BD63 /* JoinViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JoinViewController.h; sourceTree = "<group>"; };
+		C1B03724135E4F6300E7BD63 /* JoinViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JoinViewController.m; sourceTree = "<group>"; };
+		C1B03725135E4F6300E7BD63 /* JoinView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JoinView.xib; sourceTree = "<group>"; };
+		C1B03743135E51D800E7BD63 /* distriviaw.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = distriviaw.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,8 +63,6 @@
 			children = (
 				1D3623240D0F684500981E51 /* distriviaAppDelegate.h */,
 				1D3623250D0F684500981E51 /* distriviaAppDelegate.m */,
-				28D7ACF60DDB3853001CB0EB /* distriviaViewController.h */,
-				28D7ACF70DDB3853001CB0EB /* distriviaViewController.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -71,6 +78,8 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				C1B03729135E4FF300E7BD63 /* Login View */,
+				C1B03722135E4F3300E7BD63 /* Join View */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -92,8 +101,9 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C1B03743135E51D800E7BD63 /* distriviaw.png */,
+				C1B0370C135E4E9200E7BD63 /* distrivia_icon2.png */,
 				C184DD4B135DEDBB005B7546 /* distrivia_icon.png */,
-				2899E5210DE3E06400AC0155 /* distriviaViewController.xib */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* distrivia-Info.plist */,
 			);
@@ -108,6 +118,26 @@
 				288765A40DF7441C002DB57D /* CoreGraphics.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C1B03722135E4F3300E7BD63 /* Join View */ = {
+			isa = PBXGroup;
+			children = (
+				C1B03723135E4F6300E7BD63 /* JoinViewController.h */,
+				C1B03724135E4F6300E7BD63 /* JoinViewController.m */,
+				C1B03725135E4F6300E7BD63 /* JoinView.xib */,
+			);
+			name = "Join View";
+			sourceTree = "<group>";
+		};
+		C1B03729135E4FF300E7BD63 /* Login View */ = {
+			isa = PBXGroup;
+			children = (
+				28D7ACF60DDB3853001CB0EB /* LoginViewController.h */,
+				28D7ACF70DDB3853001CB0EB /* LoginViewController.m */,
+				2899E5210DE3E06400AC0155 /* LoginView.xib */,
+			);
+			name = "Login View";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -160,8 +190,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
-				2899E5220DE3E06400AC0155 /* distriviaViewController.xib in Resources */,
+				2899E5220DE3E06400AC0155 /* LoginView.xib in Resources */,
 				C184DD4C135DEDBB005B7546 /* distrivia_icon.png in Resources */,
+				C1B0370D135E4E9200E7BD63 /* distrivia_icon2.png in Resources */,
+				C1B03727135E4F6300E7BD63 /* JoinView.xib in Resources */,
+				C1B03744135E51D800E7BD63 /* distriviaw.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -174,7 +207,8 @@
 			files = (
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* distriviaAppDelegate.m in Sources */,
-				28D7ACF80DDB3853001CB0EB /* distriviaViewController.m in Sources */,
+				28D7ACF80DDB3853001CB0EB /* LoginViewController.m in Sources */,
+				C1B03726135E4F6300E7BD63 /* JoinViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

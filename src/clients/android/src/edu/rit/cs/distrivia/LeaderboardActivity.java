@@ -122,7 +122,6 @@ public class LeaderboardActivity extends GameActivityBase {
                         SystemClock.sleep(UPDATE_MS);
                     }
                 } catch (Exception e) {
-                    Log.v("Exception", e.getMessage());
                     makeToast("Service is down, please try again later");
                     return;
                 }

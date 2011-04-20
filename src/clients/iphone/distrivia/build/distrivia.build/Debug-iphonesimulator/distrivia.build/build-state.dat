@@ -1,16 +1,20 @@
 Tdistrivia
 v7
 r0
-t324922850.072138
+t324951024.127562
 cCheck dependencies
 cProcessInfoPlistFile /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/distrivia.app/Info.plist distrivia-Info.plist
 cCompileXIB /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/MainWindow.xib
-cCompileXIB /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/distriviaViewController.xib
+cCompileXIB /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/LoginView.xib
 cCpResource build/Debug-iphonesimulator/distrivia.app/distrivia_icon.png distrivia_icon.png
+cCpResource build/Debug-iphonesimulator/distrivia.app/distrivia_icon2.png distrivia_icon2.png
+cCompileXIB /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/JoinView.xib
+cCpResource build/Debug-iphonesimulator/distrivia.app/distriviaw.png distriviaw.png
 cProcessPCH /var/folders/Vm/VmRUYlgbFFu66Xm3zvchFk+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/distrivia_Prefix-gceucvabbbuetqfhyltjjimsvyjp/distrivia_Prefix.pch.gch distrivia_Prefix.pch normal i386 objective-c com.apple.compilers.gcc.4_2
 cCompileC build/distrivia.build/Debug-iphonesimulator/distrivia.build/Objects-normal/i386/main.o /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/main.m normal i386 objective-c com.apple.compilers.gcc.4_2
 cCompileC build/distrivia.build/Debug-iphonesimulator/distrivia.build/Objects-normal/i386/distriviaAppDelegate.o /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/Classes/distriviaAppDelegate.m normal i386 objective-c com.apple.compilers.gcc.4_2
-cCompileC build/distrivia.build/Debug-iphonesimulator/distrivia.build/Objects-normal/i386/distriviaViewController.o /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/Classes/distriviaViewController.m normal i386 objective-c com.apple.compilers.gcc.4_2
+cCompileC build/distrivia.build/Debug-iphonesimulator/distrivia.build/Objects-normal/i386/LoginViewController.o /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/Classes/LoginViewController.m normal i386 objective-c com.apple.compilers.gcc.4_2
+cCompileC build/distrivia.build/Debug-iphonesimulator/distrivia.build/Objects-normal/i386/JoinViewController.o /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/JoinViewController.m normal i386 objective-c com.apple.compilers.gcc.4_2
 cLd /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/distrivia.app/distrivia normal i386
 cGenerateDSYMFile /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/distrivia.app.dSYM /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/distrivia.app/distrivia
 cTouch /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/distrivia.app
@@ -45,18 +49,44 @@ c000000004D5616030000000000766870
 t1297487363
 s7759984
 
+N/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/Classes/LoginView.h
+c000000004DAE1C8D000000000000017C
+t1303256205
+s380
+i<UIKit/UIKit.h>
+i"JoinView.h"
+
+N/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/Classes/LoginView.m
+c000000004DAE1CAD00000000000005D4
+t1303256237
+s1492
+i"LoginView.h"
+
+N/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/Classes/LoginViewController.h
+c000000004DAE235400000000000001B2
+t1303257940
+s434
+i<UIKit/UIKit.h>
+i"JoinViewController.h"
+
+N/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/Classes/LoginViewController.m
+c000000004DAE1FD30000000000000752
+t1303257043
+s1874
+i"LoginViewController.h"
+
 N/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/Classes/distriviaAppDelegate.h
-c000000004DADB42B00000000000001FC
-t1303229483
-s508
+c000000004DAE23B600000000000001F0
+t1303258038
+s496
 i<UIKit/UIKit.h>
 
 N/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/Classes/distriviaAppDelegate.m
-c000000004DADB42B0000000000000AC5
-t1303229483
-s2757
+c000000004DAE23DD0000000000000AC1
+t1303258077
+s2753
 i"distriviaAppDelegate.h"
-i"distriviaViewController.h"
+i"LoginViewController.h"
 
 N/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/Classes/distriviaViewController.h
 c000000004DADB42B0000000000000105
@@ -70,34 +100,76 @@ t1303229483
 s1498
 i"distriviaViewController.h"
 
+N/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/JoinView.h
+c000000004DAE17E300000000000000E7
+t1303255011
+s231
+i<UIKit/UIKit.h>
+
+N/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/JoinView.m
+c000000004DAE17E300000000000005A1
+t1303255011
+s1441
+i"JoinView.h"
+
+N/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/JoinView.xib
+c000000004DAE1D8A0000000000007739
+t1303256458
+s30521
+
+N/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/JoinViewController.h
+c000000004DAE20FB0000000000000160
+t1303257339
+s352
+i<UIKit/UIKit.h>
+
+N/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/JoinViewController.m
+c000000004DAE210700000000000005CC
+t1303257351
+s1484
+i"JoinViewController.h"
+
+N/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/LoginView.xib
+c000000004DAE214E0000000000007479
+t1303257422
+s29817
+
 N/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/MainWindow.xib
-c000000004DADB42B0000000000004E41
-t1303229483
-s20033
+c000000004DAE246500000000000055F4
+t1303258213
+s22004
 
 N/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/distrivia.app
-t1303230037
-s272
+t1303258224
+s408
 
 N/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/distrivia.app.dSYM
-t1303229779
+t1303258092
 s102
 
 N/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/distrivia.app/Info.plist
-t1303230034
-s645
+t1303254837
+s646
+
+N/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/distrivia.app/JoinView.nib
+t1303256908
+s5427
+
+N/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/distrivia.app/LoginView.nib
+t1303257450
+s5266
 
 N/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/distrivia.app/MainWindow.nib
-t1303229773
-s1685
+t1303258224
+s1694
 
 N/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/distrivia.app/PkgInfo
-t1303230034
+t1303254837
 s8
 
 N/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/distrivia.app/distrivia
-t1303229778
-s17536
+t1303258092
+s19384
 
 N/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/distrivia.app/distriviaViewController.nib
 t1303230037
@@ -107,21 +179,45 @@ N/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clie
 t1303230034
 s10706
 
+N/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/distrivia.app/distrivia_icon2.png
+t1303254837
+s14461
+
+N/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/distrivia.app/distriviaw.png
+t1303256908
+s1783
+
+N/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/Objects-normal/i386/JoinView.o
+t1303255407
+s37980
+
+N/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/Objects-normal/i386/JoinViewController.o
+t1303257359
+s39464
+
+N/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/Objects-normal/i386/LoginView.o
+t1303255407
+s38068
+
+N/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/Objects-normal/i386/LoginViewController.o
+t1303257359
+s41748
+
 N/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/Objects-normal/i386/distrivia.LinkFileList
-c000000004DADB54A0000000000000254
-t1303229770
-s596
+c000000004DAE1F4A0000000000000319
+t1303256906
+s793
 
 N/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/Objects-normal/i386/distriviaAppDelegate.o
-t1303229777
-s51548
+t1303258092
+s51580
 
 N/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/Objects-normal/i386/distriviaViewController.o
 t1303229777
 s38108
 
 N/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/Objects-normal/i386/main.o
-t1303229777
+t1303255407
 s6432
 
 N/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/distriviaViewController.xib
@@ -130,8 +226,8 @@ t1303229918
 s26907
 
 N/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/distrivia_Prefix.pch
-c000000004DADB42B00000000000000BB
-t1303229483
+c000000004DAE196400000000000000BB
+t1303255396
 s187
 i<Foundation/Foundation.h>
 i<UIKit/UIKit.h>
@@ -141,6 +237,16 @@ c000000004DACED2A00000000000029D2
 t1303178538
 s10706
 
+N/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/distrivia_icon2.png
+c000000004DAE13BF000000000000387D
+t1303253951
+s14461
+
+N/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/distriviaw.png
+c000000004D8EAEC300000000000006F7
+t1301196483
+s1783
+
 N/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/main.m
 c000000004DADB42B000000000000017C
 t1303229483
@@ -148,21 +254,75 @@ s380
 i<UIKit/UIKit.h>
 
 N/var/folders/Vm/VmRUYlgbFFu66Xm3zvchFk+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/distrivia_Prefix-gceucvabbbuetqfhyltjjimsvyjp/distrivia_Prefix.pch.gch
-t1303229776
+t1303255407
 s15814064
 
 Ndistrivia-Info.plist
-c000000004DADB651000000000000039F
-t1303230033
-s927
+c000000004DAE24C00000000000000383
+t1303258304
+s899
 
 CCheck dependencies
 r0
-lSLF07#2@18"Check dependencies324922850#324922850#0(0"0(0#1#0"8608486944#0"0#
+lSLF07#2@18"Check dependencies324951023#324951023#0(0"0(0#1#0"8619291936#0"0#
+
+CCompileC build/distrivia.build/Debug-iphonesimulator/distrivia.build/Objects-normal/i386/JoinView.o /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/JoinView.m normal i386 objective-c com.apple.compilers.gcc.4_2
+s324948207.399557
+e324948207.665199
+r1
+xCompileC
+xbuild/distrivia.build/Debug-iphonesimulator/distrivia.build/Objects-normal/i386/JoinView.o
+x/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/JoinView.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.gcc.4_2
+lSLF07#2@118"Compile /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/JoinView.m324948207#324948207#0(0"0(0#0#110"/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/JoinView.m8619221792#2633"    cd /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=40300 -iquote /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/distrivia-generated-files.hmap -I/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/distrivia-own-target-headers.hmap -I/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/distrivia-all-target-headers.hmap -iquote /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/distrivia-project-headers.hmap -F/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator -I/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/include -I/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/DerivedSources/i386 -I/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/DerivedSources -include /var/folders/Vm/VmRUYlgbFFu66Xm3zvchFk+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/distrivia_Prefix-gceucvabbbuetqfhyltjjimsvyjp/distrivia_Prefix.pch -c /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/JoinView.m -o /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/Objects-normal/i386/JoinView.o0#
+
+CCompileC build/distrivia.build/Debug-iphonesimulator/distrivia.build/Objects-normal/i386/JoinViewController.o /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/JoinViewController.m normal i386 objective-c com.apple.compilers.gcc.4_2
+s324950159.366846
+e324950159.625359
+r1
+xCompileC
+xbuild/distrivia.build/Debug-iphonesimulator/distrivia.build/Objects-normal/i386/JoinViewController.o
+x/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/JoinViewController.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.gcc.4_2
+lSLF07#2@128"Compile /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/JoinViewController.m324950159#324950159#0(0"0(0#0#120"/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/JoinViewController.m8620225536#2653"    cd /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=40300 -iquote /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/distrivia-generated-files.hmap -I/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/distrivia-own-target-headers.hmap -I/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/distrivia-all-target-headers.hmap -iquote /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/distrivia-project-headers.hmap -F/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator -I/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/include -I/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/DerivedSources/i386 -I/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/DerivedSources -include /var/folders/Vm/VmRUYlgbFFu66Xm3zvchFk+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/distrivia_Prefix-gceucvabbbuetqfhyltjjimsvyjp/distrivia_Prefix.pch -c /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/JoinViewController.m -o /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/Objects-normal/i386/JoinViewController.o0#
+
+CCompileC build/distrivia.build/Debug-iphonesimulator/distrivia.build/Objects-normal/i386/LoginView.o /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/Classes/LoginView.m normal i386 objective-c com.apple.compilers.gcc.4_2
+s324948207.383724
+e324948207.476098
+r1
+xCompileC
+xbuild/distrivia.build/Debug-iphonesimulator/distrivia.build/Objects-normal/i386/LoginView.o
+x/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/Classes/LoginView.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.gcc.4_2
+lSLF07#2@127"Compile /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/Classes/LoginView.m324948207#324948207#0(0"0(0#0#119"/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/Classes/LoginView.m8618930304#2643"    cd /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=40300 -iquote /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/distrivia-generated-files.hmap -I/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/distrivia-own-target-headers.hmap -I/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/distrivia-all-target-headers.hmap -iquote /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/distrivia-project-headers.hmap -F/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator -I/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/include -I/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/DerivedSources/i386 -I/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/DerivedSources -include /var/folders/Vm/VmRUYlgbFFu66Xm3zvchFk+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/distrivia_Prefix-gceucvabbbuetqfhyltjjimsvyjp/distrivia_Prefix.pch -c /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/Classes/LoginView.m -o /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/Objects-normal/i386/LoginView.o0#
+
+CCompileC build/distrivia.build/Debug-iphonesimulator/distrivia.build/Objects-normal/i386/LoginViewController.o /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/Classes/LoginViewController.m normal i386 objective-c com.apple.compilers.gcc.4_2
+s324950159.362491
+e324950159.626570
+r1
+xCompileC
+xbuild/distrivia.build/Debug-iphonesimulator/distrivia.build/Objects-normal/i386/LoginViewController.o
+x/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/Classes/LoginViewController.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.gcc.4_2
+o/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/Classes/LoginViewController.m: In function '-[LoginViewController login:]':
+o/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/Classes/LoginViewController.m:52: warning: class 'LoginViewController' does not implement the 'JoinViewControllerDelegate' protocol
+lSLF07#2@137"Compile /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/Classes/LoginViewController.m324950159#324950159#0(408"/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/Classes/LoginViewController.m: In function '-[LoginViewController login:]':/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/Classes/LoginViewController.m:52: warning: class 'LoginViewController' does not implement the 'JoinViewControllerDelegate' protocol1(22@88"Class 'LoginViewController' does not implement the 'JoinViewControllerDelegate' protocol324950159#176#232#0(6@129"/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/Classes/LoginViewController.m324949843#52#0#52#0#45"class '*' does not implement the '*' protocol0(0#0#129"/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/Classes/LoginViewController.m8612667968#2663"    cd /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=40300 -iquote /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/distrivia-generated-files.hmap -I/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/distrivia-own-target-headers.hmap -I/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/distrivia-all-target-headers.hmap -iquote /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/distrivia-project-headers.hmap -F/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator -I/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/include -I/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/DerivedSources/i386 -I/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/DerivedSources -include /var/folders/Vm/VmRUYlgbFFu66Xm3zvchFk+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/distrivia_Prefix-gceucvabbbuetqfhyltjjimsvyjp/distrivia_Prefix.pch -c /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/Classes/LoginViewController.m -o /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/Objects-normal/i386/LoginViewController.o0#
 
 CCompileC build/distrivia.build/Debug-iphonesimulator/distrivia.build/Objects-normal/i386/distriviaAppDelegate.o /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/Classes/distriviaAppDelegate.m normal i386 objective-c com.apple.compilers.gcc.4_2
-s324922577.146476
-e324922577.588058
+s324950891.933188
+e324950892.116313
 r1
 xCompileC
 xbuild/distrivia.build/Debug-iphonesimulator/distrivia.build/Objects-normal/i386/distriviaAppDelegate.o
@@ -171,7 +331,9 @@ xnormal
 xi386
 xobjective-c
 xcom.apple.compilers.gcc.4_2
-lSLF07#2@138"Compile /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/Classes/distriviaAppDelegate.m324922577#324922577#0(0"0(0#0#130"/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/Classes/distriviaAppDelegate.m8602188800#2665"    cd /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=40300 -iquote /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/distrivia-generated-files.hmap -I/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/distrivia-own-target-headers.hmap -I/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/distrivia-all-target-headers.hmap -iquote /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/distrivia-project-headers.hmap -F/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator -I/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/include -I/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/DerivedSources/i386 -I/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/DerivedSources -include /var/folders/Vm/VmRUYlgbFFu66Xm3zvchFk+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/distrivia_Prefix-gceucvabbbuetqfhyltjjimsvyjp/distrivia_Prefix.pch -c /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/Classes/distriviaAppDelegate.m -o /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/Objects-normal/i386/distriviaAppDelegate.o0#
+oIn file included from /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/Classes/distriviaAppDelegate.m:10:
+o/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/Classes/LoginViewController.h:12: warning: no definition of protocol 'JoinViewControllerDelegate' is found
+lSLF07#2@138"Compile /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/Classes/distriviaAppDelegate.m324950891#324950892#0(364"In file included from /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/Classes/distriviaAppDelegate.m:10:/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/Classes/LoginViewController.h:12: warning: no definition of protocol 'JoinViewControllerDelegate' is found1(22@63"No definition of protocol 'JoinViewControllerDelegate' is found324950892#157#207#2(7@152"In file included from /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/Classes/distriviaAppDelegate.m324950892#18446744073709551615#0#0(6@130"/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/Classes/distriviaAppDelegate.m324950877#10#0#10#0#0"0(13@196"No definition of protocol 'JoinViewControllerDelegate' is found in /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/Classes/LoginViewController.h324950892#18446744073709551615#0#0(6@129"/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/Classes/LoginViewController.h324950740#12#0#12#0#0"0(6@129"/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/Classes/LoginViewController.h324950740#12#0#12#0#0"0(0#0#130"/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/Classes/distriviaAppDelegate.m8617394496#2665"    cd /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=40300 -iquote /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/distrivia-generated-files.hmap -I/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/distrivia-own-target-headers.hmap -I/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/distrivia-all-target-headers.hmap -iquote /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/distrivia-project-headers.hmap -F/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator -I/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/include -I/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/DerivedSources/i386 -I/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/DerivedSources -include /var/folders/Vm/VmRUYlgbFFu66Xm3zvchFk+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/distrivia_Prefix-gceucvabbbuetqfhyltjjimsvyjp/distrivia_Prefix.pch -c /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/Classes/distriviaAppDelegate.m -o /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/Objects-normal/i386/distriviaAppDelegate.o0#
 
 CCompileC build/distrivia.build/Debug-iphonesimulator/distrivia.build/Objects-normal/i386/distriviaViewController.o /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/Classes/distriviaViewController.m normal i386 objective-c com.apple.compilers.gcc.4_2
 s324922577.573346
@@ -187,8 +349,8 @@ xcom.apple.compilers.gcc.4_2
 lSLF07#2@141"Compile /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/Classes/distriviaViewController.m324922577#324922577#0(0"0(0#0#133"/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/Classes/distriviaViewController.m8602424192#2671"    cd /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=40300 -iquote /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/distrivia-generated-files.hmap -I/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/distrivia-own-target-headers.hmap -I/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/distrivia-all-target-headers.hmap -iquote /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/distrivia-project-headers.hmap -F/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator -I/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/include -I/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/DerivedSources/i386 -I/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/DerivedSources -include /var/folders/Vm/VmRUYlgbFFu66Xm3zvchFk+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/distrivia_Prefix-gceucvabbbuetqfhyltjjimsvyjp/distrivia_Prefix.pch -c /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/Classes/distriviaViewController.m -o /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/Objects-normal/i386/distriviaViewController.o0#
 
 CCompileC build/distrivia.build/Debug-iphonesimulator/distrivia.build/Objects-normal/i386/main.o /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/main.m normal i386 objective-c com.apple.compilers.gcc.4_2
-s324922577.145377
-e324922577.573178
+s324948207.129962
+e324948207.383633
 r1
 xCompileC
 xbuild/distrivia.build/Debug-iphonesimulator/distrivia.build/Objects-normal/i386/main.o
@@ -197,15 +359,31 @@ xnormal
 xi386
 xobjective-c
 xcom.apple.compilers.gcc.4_2
-lSLF07#2@114"Compile /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/main.m324922577#324922577#0(0"0(0#0#106"/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/main.m8602168352#2625"    cd /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=40300 -iquote /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/distrivia-generated-files.hmap -I/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/distrivia-own-target-headers.hmap -I/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/distrivia-all-target-headers.hmap -iquote /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/distrivia-project-headers.hmap -F/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator -I/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/include -I/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/DerivedSources/i386 -I/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/DerivedSources -include /var/folders/Vm/VmRUYlgbFFu66Xm3zvchFk+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/distrivia_Prefix-gceucvabbbuetqfhyltjjimsvyjp/distrivia_Prefix.pch -c /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/main.m -o /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/Objects-normal/i386/main.o0#
+lSLF07#2@114"Compile /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/main.m324948207#324948207#0(0"0(0#0#106"/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/main.m8619197248#2625"    cd /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=40300 -iquote /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/distrivia-generated-files.hmap -I/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/distrivia-own-target-headers.hmap -I/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/distrivia-all-target-headers.hmap -iquote /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/distrivia-project-headers.hmap -F/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator -I/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/include -I/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/DerivedSources/i386 -I/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/DerivedSources -include /var/folders/Vm/VmRUYlgbFFu66Xm3zvchFk+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/distrivia_Prefix-gceucvabbbuetqfhyltjjimsvyjp/distrivia_Prefix.pch -c /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/main.m -o /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/Objects-normal/i386/main.o0#
+
+CCompileXIB /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/JoinView.xib
+s324949706.117092
+e324949708.209235
+r1
+xCompileXIB
+x/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/JoinView.xib
+lSLF07#2@23"CompileXIB JoinView.xib324949706#324949708#0(0"0(0#0#112"/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/JoinView.xib8603129696#751"    cd /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia    setenv IBC_MINIMUM_COMPATIBILITY_VERSION 4.3    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/distrivia.app/JoinView.nib /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/JoinView.xib --sdk /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk0#
+
+CCompileXIB /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/LoginView.xib
+s324950248.713439
+e324950251.002600
+r1
+xCompileXIB
+x/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/LoginView.xib
+lSLF07#2@24"CompileXIB LoginView.xib324950248#324950251#0(0"0(0#0#113"/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/LoginView.xib8612919776#753"    cd /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia    setenv IBC_MINIMUM_COMPATIBILITY_VERSION 4.3    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/distrivia.app/LoginView.nib /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/LoginView.xib --sdk /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk0#
 
 CCompileXIB /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/MainWindow.xib
-s324922570.575566
-e324922574.445348
+s324951023.325329
+e324951024.121215
 r1
 xCompileXIB
 x/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/MainWindow.xib
-lSLF07#2@25"CompileXIB MainWindow.xib324922570#324922574#0(0"0(0#0#114"/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/MainWindow.xib8601660320#755"    cd /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia    setenv IBC_MINIMUM_COMPATIBILITY_VERSION 4.3    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/distrivia.app/MainWindow.nib /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/MainWindow.xib --sdk /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk0#
+lSLF07#2@25"CompileXIB MainWindow.xib324951023#324951024#0(0"0(0#0#114"/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/MainWindow.xib8618384032#755"    cd /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia    setenv IBC_MINIMUM_COMPATIBILITY_VERSION 4.3    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/distrivia.app/MainWindow.nib /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/MainWindow.xib --sdk /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk0#
 
 CCompileXIB /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/distriviaViewController.xib
 s324922834.049916
@@ -224,37 +402,55 @@ xbuild/Debug-iphonesimulator/distrivia.app/distrivia_icon.png
 xdistrivia_icon.png
 lSLF07#2@23"Copy distrivia_icon.png324922834#324922834#0(0"0(0#0#118"/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/distrivia_icon.png8608092384#661"    cd /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -resolve-src-symlinks /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/distrivia_icon.png /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/distrivia.app0#
 
+CCpResource build/Debug-iphonesimulator/distrivia.app/distrivia_icon2.png distrivia_icon2.png
+s324947637.115847
+e324947637.274260
+r1
+xCpResource
+xbuild/Debug-iphonesimulator/distrivia.app/distrivia_icon2.png
+xdistrivia_icon2.png
+lSLF07#2@24"Copy distrivia_icon2.png324947637#324947637#0(0"0(0#0#119"/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/distrivia_icon2.png31244220637446252#662"    cd /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -resolve-src-symlinks /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/distrivia_icon2.png /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/distrivia.app0#
+
+CCpResource build/Debug-iphonesimulator/distrivia.app/distriviaw.png distriviaw.png
+s324949708.132569
+e324949708.359266
+r1
+xCpResource
+xbuild/Debug-iphonesimulator/distrivia.app/distriviaw.png
+xdistriviaw.png
+lSLF07#2@19"Copy distriviaw.png324949708#324949708#0(0"0(0#0#114"/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/distriviaw.png8618500416#657"    cd /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -resolve-src-symlinks /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/distriviaw.png /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/distrivia.app0#
+
 CGenerateDSYMFile /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/distrivia.app.dSYM /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/distrivia.app/distrivia
-s324922578.663569
-e324922579.244087
+s324950892.512129
+e324950892.739916
 r1
 xGenerateDSYMFile
 x/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/distrivia.app.dSYM
 x/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/distrivia.app/distrivia
-lSLF07#2@115"GenerateDSYMFile build/Debug-iphonesimulator/distrivia.app.dSYM build/Debug-iphonesimulator/distrivia.app/distrivia324922578#324922579#0(0"0(0#0#151"/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/distrivia.app/distrivia8601043680#572"    cd /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/usr/bin/dsymutil /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/distrivia.app/distrivia -o /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/distrivia.app.dSYM0#
+lSLF07#2@115"GenerateDSYMFile build/Debug-iphonesimulator/distrivia.app.dSYM build/Debug-iphonesimulator/distrivia.app/distrivia324950892#324950892#0(0"0(0#0#151"/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/distrivia.app/distrivia8617314336#572"    cd /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/usr/bin/dsymutil /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/distrivia.app/distrivia -o /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/distrivia.app.dSYM0#
 
 CLd /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/distrivia.app/distrivia normal i386
-s324922577.633527
-e324922578.663441
+s324950892.116406
+e324950892.511409
 r1
 xLd
 x/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/distrivia.app/distrivia
 xnormal
 xi386
-lSLF07#2@156"Link /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/distrivia.app/distrivia324922577#324922578#0(0"0(0#0#0"8601986016#1215"    cd /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia    setenv MACOSX_DEPLOYMENT_TARGET 10.6    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -arch i386 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk -L/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator -F/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator -filelist /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/Objects-normal/i386/distrivia.LinkFileList -mmacosx-version-min=10.6 -Xlinker -objc_abi_version -Xlinker 2 -framework Foundation -framework UIKit -framework CoreGraphics -o /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/distrivia.app/distrivia0#
+lSLF07#2@156"Link /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/distrivia.app/distrivia324950892#324950892#0(0"0(0#0#0"8619470304#1215"    cd /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia    setenv MACOSX_DEPLOYMENT_TARGET 10.6    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -arch i386 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk -L/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator -F/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator -filelist /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/Objects-normal/i386/distrivia.LinkFileList -mmacosx-version-min=10.6 -Xlinker -objc_abi_version -Xlinker 2 -framework Foundation -framework UIKit -framework CoreGraphics -o /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/distrivia.app/distrivia0#
 
 CProcessInfoPlistFile /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/distrivia.app/Info.plist distrivia-Info.plist
-s324922834.046186
-e324922834.049790
+s324947637.055695
+e324947637.115598
 r1
 xProcessInfoPlistFile
 x/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/distrivia.app/Info.plist
 xdistrivia-Info.plist
-lSLF07#2@28"Process distrivia-Info.plist324922834#324922834#0(0"0(0#0#120"/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/distrivia-Info.plist8608786144#668"    cd /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-infoPlistUtility distrivia-Info.plist -genpkginfo /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/distrivia.app/PkgInfo -expandbuildsettings -format binary -platform iphonesimulator -o /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/distrivia.app/Info.plist0#
+lSLF07#2@28"Process distrivia-Info.plist324947637#324947637#0(0"0(0#0#120"/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/distrivia-Info.plist32370056120631408#668"    cd /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-infoPlistUtility distrivia-Info.plist -genpkginfo /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/distrivia.app/PkgInfo -expandbuildsettings -format binary -platform iphonesimulator -o /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/distrivia.app/Info.plist0#
 
 CProcessPCH /var/folders/Vm/VmRUYlgbFFu66Xm3zvchFk+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/distrivia_Prefix-gceucvabbbuetqfhyltjjimsvyjp/distrivia_Prefix.pch.gch distrivia_Prefix.pch normal i386 objective-c com.apple.compilers.gcc.4_2
-s324922574.445755
-e324922577.145165
+s324948204.695467
+e324948207.129830
 r1
 xProcessPCH
 x/var/folders/Vm/VmRUYlgbFFu66Xm3zvchFk+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/distrivia_Prefix-gceucvabbbuetqfhyltjjimsvyjp/distrivia_Prefix.pch.gch
@@ -263,13 +459,13 @@ xnormal
 xi386
 xobjective-c
 xcom.apple.compilers.gcc.4_2
-lSLF07#2@31"Precompile distrivia_Prefix.pch324922574#324922577#0(0"0(0#0#120"/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/distrivia_Prefix.pch8602109184#2454"    cd /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c-header -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=40300 -iquote /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/distrivia-generated-files.hmap -I/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/distrivia-own-target-headers.hmap -I/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/distrivia-all-target-headers.hmap -iquote /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/distrivia-project-headers.hmap -F/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator -I/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/include -I/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/DerivedSources/i386 -I/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/DerivedSources -c /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/distrivia_Prefix.pch -o /var/folders/Vm/VmRUYlgbFFu66Xm3zvchFk+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/distrivia_Prefix-gceucvabbbuetqfhyltjjimsvyjp/distrivia_Prefix.pch.gch0#
+lSLF07#2@31"Precompile distrivia_Prefix.pch324948204#324948207#0(0"0(0#0#120"/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/distrivia_Prefix.pch6872890463640253440#2454"    cd /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c-header -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.3.sdk -fexceptions -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -D__IPHONE_OS_VERSION_MIN_REQUIRED=40300 -iquote /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/distrivia-generated-files.hmap -I/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/distrivia-own-target-headers.hmap -I/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/distrivia-all-target-headers.hmap -iquote /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/distrivia-project-headers.hmap -F/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator -I/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/include -I/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/DerivedSources/i386 -I/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/distrivia.build/Debug-iphonesimulator/distrivia.build/DerivedSources -c /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/distrivia_Prefix.pch -o /var/folders/Vm/VmRUYlgbFFu66Xm3zvchFk+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/distrivia_Prefix-gceucvabbbuetqfhyltjjimsvyjp/distrivia_Prefix.pch.gch0#
 
 CTouch /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/distrivia.app
-s324922837.577139
-e324922837.610005
+s324951024.122483
+e324951024.127532
 r1
 xTouch
 x/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/distrivia.app
-lSLF07#2@147"Touch /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/distrivia.app324922837#324922837#0(0"0(0#0#0"8606361664#402"    cd /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /usr/bin/touch -c /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/distrivia.app0#
+lSLF07#2@147"Touch /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/distrivia.app324951024#324951024#0(0"0(0#0#0"8617359392#402"    cd /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /usr/bin/touch -c /Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/build/Debug-iphonesimulator/distrivia.app0#
 
