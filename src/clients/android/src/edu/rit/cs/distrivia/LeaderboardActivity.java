@@ -6,10 +6,12 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -38,17 +40,40 @@ public class LeaderboardActivity extends GameActivityBase {
             for (int i = 0; i < board.length; i++) {
                 if (!board[i][USER].equals("status")) {
                     TableRow row = new TableRow(getApplicationContext());
+
+                    if (i % 2 == 0) {
+                        row.setBackgroundResource(R.drawable.black);
+                    } else {
+                        row.setBackgroundResource(R.drawable.gray);
+                    }
                     TextView name = new TextView(getApplicationContext());
                     TextView score = new TextView(getApplicationContext());
 
                     name.setText(board[i][USER]);
                     name.setWidth(NAME_WIDTH);
+                    name.setTextSize(25);
+                    name.setGravity(Gravity.CENTER_VERTICAL);
                     score.setText(board[i][SCORE]);
+                    score.setTextSize(25);
+                    score.setGravity(Gravity.CENTER_VERTICAL);
                     if (board[i][USER].equals(userName)) {
                         name.setTextColor(Color.GREEN);
                         score.setTextColor(Color.GREEN);
                     }
 
+                    ImageView iv = new ImageView(getBaseContext());
+
+                    iv.setImageDrawable(getResources().getDrawable(
+                            R.drawable.user));
+
+                    /*
+                     * LayoutParams p = new LayoutParams(); p.width =
+                     * android.view.ViewGroup.LayoutParams.FILL_PARENT;
+                     * name.setLayoutParams(p); iv.setLayoutParams(p); //
+                     * score.setLayoutParams(p);
+                     */
+                    iv.setPadding(4, 0, 4, 0);
+                    row.addView(iv);
                     row.addView(name);
                     row.addView(score);
                     leaderTable.addView(row);
@@ -66,7 +91,7 @@ public class LeaderboardActivity extends GameActivityBase {
 
         final Button okBut = (Button) findViewById(R.id.lead_complete);
         leaderTable = (TableLayout) findViewById(R.id.leader_table);
-        leaderTable.setStretchAllColumns(true);
+        // leaderTable.setShrinkAllColumns(true);
         loadTable(gameData().loadLocal());
         if (gameData().loadLocal()) {
             updateTable();
