@@ -41,6 +41,7 @@ public class JoinActivity extends GameActivityBase {
                 this, R.array.qnum_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+        spinner.setSelection(1);
 
         pubButton.setOnClickListener(new OnClickListener() {
             @Override

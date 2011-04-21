@@ -85,7 +85,7 @@
         </LinearLayout>
         <LinearLayout android:id="@+id/linearLayout4" android:layout_width="fill_parent" android:layout_height="wrap_content">
             <TextView android:text="Number of Questions:" android:id="@+id/textView5" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
-            <Spinner android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/private_qnum_spin"></Spinner>
+            <Spinner android:layout_height="wrap_content" android:id="@+id/private_qnum_spin" android:layout_width="fill_parent"></Spinner>
         </LinearLayout>
         <LinearLayout android:id="@+id/linearLayout3" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_gravity="center_horizontal">
             <Button android:id="@+id/create_private_button" android:layout_height="wrap_content" android:text="Create Private" android:layout_width="140dip"></Button>

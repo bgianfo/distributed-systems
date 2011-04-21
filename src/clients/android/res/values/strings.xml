@@ -30,7 +30,6 @@
     <string name="private_name">Name:  </string>
     <string name="private_pass">Pass:    </string>
     
-    <string name="qnum_prompt">10</string>
     <string-array name="qnum_array">
         <item>5</item>
         <item>10</item>

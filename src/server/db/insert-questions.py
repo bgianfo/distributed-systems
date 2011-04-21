@@ -7,6 +7,8 @@ client = riak.RiakClient()
 # 
 # Questions are from: 
 # http://www.diva-girl-parties-and-stuff.com/art-trivia.html
+# and
+# http://www.appsychology.com/HowPass/MC%20quizes/MCquizeshome.htm
 #
 
 questions = client.bucket('questions')
@@ -192,3 +194,15 @@ q = {
 entry = questions.new( "art-15", data = q )
 entry.store()
 
+
+q = {
+ "question" : "Computer programs capable of doing things that require intelligence when done by people are associated with",
+ "a" : "Artificial Intelligence",
+ "b" : "Proxemics",
+ "c" : "Cerebronic",
+ "d" : "Computerized Creativity",
+ "answer" : "a"
+}
+
+entry = questions.new( "art-15", data = q )
+entry.store()
