@@ -128,15 +128,18 @@ public class DistriviaAPI {
      * Joins Private Round
      * 
      * @param gdata
+     * @param gameName
+     * @param pass
      * @return The game id string
      * @throws Exception
      */
-    public static GameData joinPrivate(GameData gdata) throws Exception {
+    public static GameData joinPrivate(GameData gdata, String gameName, String pass) throws Exception {
         String url = new String();
-        url += "/private/join";
+        url += "/private/join/"+gameName;
 
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("authToken", gdata.getAuthToken()));
+        params.add(new BasicNameValuePair("password", pass));
         params.add(new BasicNameValuePair("user", gdata.getUserName()));
 
         String data = post(url, params);
@@ -145,6 +148,52 @@ public class DistriviaAPI {
         gdata.setGameId(jsonParser.gameid());
 
         return gdata;
+    }
+    
+    /**
+     * Creates Private Round
+     * 
+     * @param gdata
+     * @param gameName
+     * @param pass
+     * @param numQs
+     * @return The game id string
+     * @throws Exception
+     */
+    public static GameData createPrivate(GameData gdata, String gameName, String pass, int numQs) throws Exception {
+        String url = new String();
+        url += "/private/create/"+numQs;
+
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("authToken", gdata.getAuthToken()));
+        params.add(new BasicNameValuePair("name", gameName));
+        params.add(new BasicNameValuePair("password", pass));
+        params.add(new BasicNameValuePair("user", gdata.getUserName()));
+
+        String data = post(url, params);
+        JSON jsonParser = new JSON(data);
+
+        gdata.setGameId(jsonParser.gameid());
+
+        return gdata;
+    }
+    
+    /**
+     * Starts Private Round
+     * 
+     * @param gdata
+     * @return True if game started, false otherwise
+     * @throws Exception
+     */
+    public static boolean startPrivate(GameData gdata) throws Exception {
+        String url = new String();
+        url += "/private/start/"+gdata.getGameID();
+
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("authToken", gdata.getAuthToken()));
+
+        String data = post(url, params);
+        return data.equals("ok");
     }
 
     /**

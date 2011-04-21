@@ -5,9 +5,11 @@ import android.os.SystemClock;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import edu.rit.cs.distrivia.api.DistriviaAPI;
 
@@ -32,7 +34,13 @@ public class JoinActivity extends GameActivityBase {
         final EditText privateName = (EditText) findViewById(R.id.private_name_text);
         final EditText privatePass = (EditText) findViewById(R.id.private_pass_text);
         final LinearLayout publicLayout = (LinearLayout) findViewById(R.id.public_layout);
-        final LinearLayout privateLayout = (LinearLayout) findViewById(R.id.private_layout);
+        final LinearLayout privateLayout = (LinearLayout) findViewById(R.id.private_layout); 
+        final Spinner spinner = (Spinner) findViewById(R.id.private_qnum_spin);
+        
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                this, R.array.qnum_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
 
         pubButton.setOnClickListener(new OnClickListener() {
             @Override

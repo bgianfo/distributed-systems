@@ -29,4 +29,16 @@
     <string name="private_games">Join Private Game</string>
     <string name="private_name">Name:  </string>
     <string name="private_pass">Pass:    </string>
+    
+    <string name="qnum_prompt">10</string>
+    <string-array name="qnum_array">
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+        <item>25</item>
+        <item>30</item>
+        <item>35</item>
+        <item>40</item>
+    </string-array>
 </resources>
