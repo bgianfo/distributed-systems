@@ -204,5 +204,161 @@ q = {
  "answer" : "a"
 }
 
-entry = questions.new( "art-15", data = q )
+entry = questions.new( "cog-1", data = q )
+entry.store()
+
+
+q = {
+ "question" : "__________ is the study of the meaning of words and language",
+ "a" : "Linguistics",
+ "b" : "Encoding",
+ "c" : "Semantics",
+ "d" : "Syntax",
+ "answer" : "c"
+}
+
+entry = questions.new( "cog-2", data = q )
+entry.store()
+
+
+q = {
+ "question" : "Representations used in thinking include",
+ "a" : "Mnemonic devices",
+ "b" : "Kinesthesis",
+ "c" : "Concepts",
+ "d" : "Primarily figments of the imagination",
+ "answer" : "c"
+}
+
+entry = questions.new( "cog-3", data = q )
+entry.store()
+
+
+q = {
+ "question" : "Basic speech sounds are called",
+ "a" : "Morphemes",
+ "b" : "Syllables",
+ "c" : "Phonemes",
+ "d" : "Syntax",
+ "answer" : "c"
+}
+
+entry = questions.new( "cog-4", data = q )
+entry.store()
+
+
+q = {
+ "question" : "A solution that correctly states the requirements for success in solving a problem but not in sufficient detail for further action is called a(n) ________ solution",
+ "a" : "Heuristic",
+ "b" : "General",
+ "c" : "Functional",
+ "d" : "Specific",
+ "answer" : "b"
+}
+
+entry = questions.new( "cog-5", data = q )
+entry.store()
+
+
+q = {
+ "question" : "Fluency, flexibility, and originality would be most characteristic of which type of thought?",
+ "a" : "Convergent thinking",
+ "b" : "Mechanical problem-solving",
+ "c" : "Rote problem-solving",
+ "d" : "Brainstorming",
+ "answer" : "d"
+}
+
+entry = questions.new( "cog-6", data = q )
+entry.store()
+
+
+q = {
+ "question" : "What type of concept is \'uncle\'",
+ "a" : "Conjunctive",
+ "b" : "Relational",
+ "c" : "Relative",
+ "d" : "Disjunctive",
+ "answer" : "b"
+}
+
+entry = questions.new( "cog-7", data = q )
+entry.store()
+
+
+q = {
+ "question" : "The inability to see new uses for familiar objects is termed",
+ "a" : "Non-flexible thinking",
+ "b" : "Functional fixedness",
+ "c" : "Proactive inhibition",
+ "d" : "Interference",
+ "answer" : "b"
+}
+
+entry = questions.new( "cog-8", data = q )
+entry.store()
+
+
+q = {
+ "question" : "A person who is concerned about health, but who continues to smoke cigarettes, is making an error in judgement called",
+ "a" : "Functional fixedness",
+ "b" : "Ignoring the base rate",
+ "c" : "Representativeness",
+ "d" : "Framing",
+ "answer" : "b"
+}
+
+entry = questions.new( "cog-9", data = q )
+entry.store()
+
+
+q = {
+ "question" : "Language is termed productive if it",
+ "a" : "Allows for communication of thoughts and ideas",
+ "b" : "Is capable of generating new ideas and possibilities",
+ "c" : "Increases one\'s adaptation to a changing environment",
+ "d" : "Provides a set of rules for making sounds into words and words into sentences",
+ "answer" : "b"
+}
+
+entry = questions.new( "cog-10", data = q )
+entry.store()
+
+
+q = {
+ "question" : "Which of the following is usually associated with creativity?",
+ "a" : "Convergent thinking",
+ "b" : "Divergent thinking",
+ "c" : "Modeling",
+ "d" : "Syntax",
+ "answer" : "b"
+}
+
+entry = questions.new( "cog-11", data = q )
+entry.store()
+
+
+q = {
+ "question" : "Heuristics are problem solving strategies which",
+ "a" : "Use a trial and error approach",
+ "b" : "Use random search strategies",
+ "c" : "Guarantee success in solving a problem",
+ "d" : "Reduce the number of alternatives",
+ "answer" : "d"
+}
+
+entry = questions.new( "cog-12", data = q )
+entry.store()
+
+
+q = {
+ "question" : "Characteristics of creativity include",
+ "a" : "Convergence",
+ "b" : "Flexibility",
+ "c" : "Gender differences",
+ "d" : "Rigid personality factors",
+ "answer" : "b"
+}
+
+entry = questions.new( "cog-13", data = q )
 entry.store()
