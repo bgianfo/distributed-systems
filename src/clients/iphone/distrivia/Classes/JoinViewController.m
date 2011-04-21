@@ -61,6 +61,16 @@
 }
 */
 
+- (IBAction) viewLeaderboard:(id)sender {
+	LeaderboardViewController *controller = [[LeaderboardViewController alloc]
+											 initWithNibName:@"LeaderboardView" 
+											 bundle:nil];
+	controller.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+	[self presentModalViewController:controller animated:YES];
+	
+	[controller release];
+}
+
 - (IBAction)joinPublic:(id)sender {
 	RoundViewController *controller = [[RoundViewController alloc] initWithNibName:@"RoundView" bundle:nil];
 	controller.delegate = self;

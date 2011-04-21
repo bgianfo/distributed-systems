@@ -10,7 +10,10 @@
 
 
 @interface LeaderboardViewController : UIViewController {
-
+	IBOutlet UITableView	*boardView;
+	
 }
+
+@property (retain, nonatomic) IBOutlet UITableView *boardView;
 
 @end

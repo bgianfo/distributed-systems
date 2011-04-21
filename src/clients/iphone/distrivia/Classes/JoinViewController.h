@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "RoundViewController.h"
+#import "LeaderboardViewController.h"
 
 @protocol JoinViewControllerDelegate;
 
@@ -33,6 +34,7 @@
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView *activeIndicate;
 
 - (IBAction) joinPublic:(id)sender;
+- (IBAction) viewLeaderboard:(id)sender;
 - (IBAction) textFieldDoneEditing:(id)sender;
 - (IBAction) backgroundTap:(id)sender;
 
