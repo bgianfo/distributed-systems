@@ -101,7 +101,9 @@ public class LeaderboardActivity extends GameActivityBase {
             @Override
             public void onClick(View v) {
                 // Stop I/O thread
-                updateThread.stop();
+            	if (updateThread != null) {
+            		updateThread.stop();
+            	}
 
                 GameData gd = gameData();
                 gd.setLoadLocal(false);

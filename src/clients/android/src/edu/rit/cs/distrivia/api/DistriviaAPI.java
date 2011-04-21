@@ -123,6 +123,29 @@ public class DistriviaAPI {
 
         return gdata;
     }
+    
+    /**
+     * Joins Private Round
+     * 
+     * @param gdata
+     * @return The game id string
+     * @throws Exception
+     */
+    public static GameData joinPrivate(GameData gdata) throws Exception {
+        String url = new String();
+        url += "/private/join";
+
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("authToken", gdata.getAuthToken()));
+        params.add(new BasicNameValuePair("user", gdata.getUserName()));
+
+        String data = post(url, params);
+        JSON jsonParser = new JSON(data);
+
+        gdata.setGameId(jsonParser.gameid());
+
+        return gdata;
+    }
 
     /**
      * @param gdata
