@@ -31,16 +31,16 @@
 	};
 	28D7ACF70DDB3853001CB0EB /* LoginViewController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {926, 1820}}";
-			sepNavSelRange = "{3661, 0}";
-			sepNavVisRange = "{1891, 1804}";
+			sepNavIntBoundsRect = "{{0, 0}, {926, 1911}}";
+			sepNavSelRange = "{3469, 227}";
+			sepNavVisRange = "{3379, 1171}";
 			sepNavWindowFrame = "{{38, 444}, {750, 558}}";
 		};
 	};
 	29B97313FDCFA39411CA2CEA /* Project object */ = {
 		activeBuildConfigurationName = Debug;
 		activeExecutable = C184DD30135DEBAB005B7546 /* distrivia */;
-		activeSDKPreference = iphonesimulator4.3;
+		activeSDKPreference = iphoneos4.3;
 		activeTarget = 1D6058900D05DD3D006BFB54 /* distrivia */;
 		addToTargets = (
 			1D6058900D05DD3D006BFB54 /* distrivia */,
@@ -220,6 +220,20 @@
 	8D1107310486CEB800E47090 /* distrivia-Info.plist */ = {
 		uiCtxt = {
 			sepNavWindowFrame = "{{714, 168}, {750, 558}}";
+		};
+	};
+	C0961663135E9C5D00BDFFA6 /* JSONKit.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {926, 39182}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 1942}";
+		};
+	};
+	C0961664135E9C5D00BDFFA6 /* JSONKit.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {926, 3549}}";
+			sepNavSelRange = "{253, 0}";
+			sepNavVisRange = "{0, 1942}";
 		};
 	};
 	C1295FE5135E750B0092180F /* PBXTextBookmark */ = {
@@ -1196,7 +1210,7 @@
 		fRef = C1B03723135E4F6300E7BD63 /* JoinViewController.h */;
 		name = "JoinViewController.h: 25";
 		rLen = 0;
-		rLoc = 694;
+		rLoc = 1129;
 		rType = 0;
 		vrLen = 738;
 		vrLoc = 0;
@@ -1206,7 +1220,7 @@
 		fRef = C1B03724135E4F6300E7BD63 /* JoinViewController.m */;
 		name = "JoinViewController.m: 25";
 		rLen = 0;
-		rLoc = 691;
+		rLoc = 786;
 		rType = 0;
 		vrLen = 2252;
 		vrLoc = 224;
@@ -1445,16 +1459,16 @@
 	};
 	C1B03723135E4F6300E7BD63 /* JoinViewController.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {926, 601}}";
-			sepNavSelRange = "{694, 0}";
-			sepNavVisRange = "{0, 738}";
+			sepNavIntBoundsRect = "{{0, 0}, {926, 596}}";
+			sepNavSelRange = "{1129, 0}";
+			sepNavVisRange = "{0, 1258}";
 		};
 	};
 	C1B03724135E4F6300E7BD63 /* JoinViewController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1139, 1118}}";
-			sepNavSelRange = "{691, 0}";
-			sepNavVisRange = "{224, 2252}";
+			sepNavIntBoundsRect = "{{0, 0}, {1139, 1508}}";
+			sepNavSelRange = "{154, 0}";
+			sepNavVisRange = "{0, 1761}";
 		};
 	};
 	C1B03749135E54E600E7BD63 /* PBXTextBookmark */ = {
