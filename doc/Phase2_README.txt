@@ -30,6 +30,8 @@ Installation
 	        Select the project and click through to complete import. When
 	        the project is loaded, you may Run as Android Application. This
 	        will launch the Android Simulator and load the application.
+	    b) Device - follow the steps followed at the following link:
+	        http://developer.android.com/guide/developing/device.html
 
 	4. iPhone Client
 		Currently, the iPhone client does no talking to the server. 
