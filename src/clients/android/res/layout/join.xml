@@ -83,11 +83,10 @@
             </EditText>
             
         </LinearLayout>
-        
-        <Button android:layout_height="wrap_content"
-         android:id="@+id/join_private_button"
-         android:text="Join Private" android:layout_width="wrap_content" android:layout_gravity="center_horizontal">
-        </Button>
+        <LinearLayout android:id="@+id/linearLayout3" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_gravity="center_horizontal">
+            <Button android:id="@+id/create_private_button" android:layout_height="wrap_content" android:text="Create Private" android:layout_width="140dip"></Button>
+            <Button android:id="@+id/join_private_button" android:layout_height="wrap_content" android:text="Join Private" android:layout_gravity="center_horizontal" android:layout_width="140dip"></Button>
+        </LinearLayout>
         
     </LinearLayout>
     <TextView android:layout_height="wrap_content"
