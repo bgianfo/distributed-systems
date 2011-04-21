@@ -50,13 +50,14 @@ Samuel Milton \\
 \maketitle
 
 %\begin{abstract}
-%In this paper we detail our initial idea for a distributed trivia game.
-%We will explain general game play idea's as well as an example of the
-%possible architecture for our system.
+%In this paper we detail our current progress on our distributed trivia game.
+%We will explain what has been done so far, what we need to do, and how we
+%have met the requirements for the project. We also discuss the architecture
+%for our system.
 %\end{abstract}
 
 \section {What We've Done}
-Much of our system has been implemented and is in the debugging phase. The server apps and the web client are nearly complete with some revisions happening as necessary. The extent of what has been finished for each part of our system is explained below.
+Much of our system has been implemented and is in the debugging phase. The server apps, web client, and android client are nearly complete with some revisions happening as necessary. We have also started development on an application for the iPhone platform. The extent of what has been finished for each part of our system is explained below.
 
 \subsection{Architecture Overview }
 \begin{figure}[h!]
@@ -109,9 +110,11 @@ Our focus for clients has been on a web-based client and an android application.
 Both clients have most of the the workings completed. The web-based client will
 be run from desktop platforms and laptop platforms. The android client will run
 on any android phone running OS 2.1 or higher and does not use any unique services that require specific
-hardware. The web client is nearly fully-functional. It currently can login/register
-players, view leaderboards, join public games, and compete in public games. The android client has UI done for all the different activities. The android client can successfully register
-and log players into games, view leaderboards, and join public games. We are actively adding features to both clients, daily.
+hardware. Both clients are nearly fully-functional. They can, currently, login/register
+players, view leaderboards, join public games, and compete in public games. We are actively adding features to both clients, daily.
+We have also started development on an iPhone application for distrivia. This client does not yet communicate with the server, but 
+it does implement nearly all the views seen in the other clients. We have been setting up the network communication for the iPhone
+platform as well.
 
 \subsection {Messages}
 We are currently using the https protocol for our messages. This provides a secure
@@ -139,12 +142,17 @@ While private games are implemented on the server,
 Also, when a user clicks on a button to do something like log in, the button should be disabled while waiting for a response,
 alternatively it needs to be able to handle sending out two calls for the same request and not getting confused if it gets two back.
 \subsection {Android}
-We've started to thread the network calls to correctly register UI updates to the application. This is completed for most of the activities. There are really two big things left to implement on the android client: private games and competing in a round. Competing in a round is nearly finished, we just need to refresh the questions/answers and post the users answers to the server. Besides these two things, we just need to solidify the user interface, make it work with the back button with popping activities off the stack and other minor updates.
+Private gameplay is the largest thing left for the android client. Besides this we've just been fixing bugs and cleaning up the UI.
+\subsection {iPhone}
+The iPhone application just started development in the last couple days. We have built most of the UI but need to connect all of the actions
+to the server. We will need to implement everything, including login/registration, joining public/private games, viewing leaderboards,
+and competing in rounds.
 
 \section {Meeting the Requirements}
 
-Our system has two unique clients. One of them is designed for the Android platform as an app.
-The other is a web client which is specifically being tested on Desktop and Laptop
+Our system has three unique clients. One of them is designed for the Android platform as an app.
+Another is designed for the iPhone platform as a native app.
+The third is a web client, which is specifically being tested on Desktop and Laptop
 browsers, however it may work on many hand held web browsers as well.
 
 Our system supports having any number of servers and allowing any subset of them to fail.
