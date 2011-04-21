@@ -102,7 +102,8 @@ Usage
 		The leaderboard screen shows the standings of players of Distrivia.
 	There are two forms of the leaderboard. One leaderboard shows the players
 	with the global rankings. This global leaderboard can be accessed from the
-	join screen using the "View Global Leaderboard" button. The other leaderboard
+	join screen using the "View Global Leaderboard" button. The other
+	leaderboard
 	shows the rankings of the players in a round. For the web client, this is
 	shown while competing in the round. For the android and iphone clients, 
 	this is shown upon completion of the round.
