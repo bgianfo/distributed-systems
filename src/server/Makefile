@@ -21,7 +21,6 @@ init-db:
 	python db/insert-questions.py
 
 kill:
-	sudo ps a | grep distrivia | grep -v grep | cut -d" " -f1 | xargs sudo kill -s 9
 	sudo ps a | grep server.py | grep -v grep | cut -d" " -f1 | xargs sudo kill -s 9
 
 run launch:
