@@ -87,6 +87,7 @@ function Hide(){
       board_shown = false;
       byId('game_list').innerHTML = "";
    }
+   window.clearInterval(updater);
 }
 // End Hide()
 
@@ -141,7 +142,7 @@ function Cancel(){
 /*
  * Polls the server while waiting to join a game
  */
-function CheckStatus(){
+function CheckStatus( postgame ){
    var xr = XML();
 
    xr.onreadystatechange = function(){
@@ -160,7 +161,9 @@ function CheckStatus(){
             }
             list.innerHTML = scores;
                
-            if( data.gamestatus == 'waiting' ){
+            if( postgame ){
+               // Do nothing at postgame
+            }else if( data.gamestatus == 'waiting' ){
                // Game hasn't started
                // TODO (probably nothing)
 
@@ -172,7 +175,6 @@ function CheckStatus(){
 
             }else if( data.gamestatus == 'done' ){
                // Game is finished
-               // TODO
                window.clearInterval(updater);
             }
 
@@ -230,8 +232,13 @@ function Next(){
                      byId('game_list').innerHTML = scores;
                   }else if( data.gamestatus == 'done' ){
                      swap( game, join );
-//                     var scoreb = byId('game_board');
-//                     $(scoreb).animate({width:"hide"});
+                     var scores = "";
+                     for( key in data.leaderboard ){
+                        scores += "<li class='board_item'><div class='board_left'>" + key + "</div>";
+                        scores += "<div class='board_right'>" + data.leaderboard[key] + "</div></li>";
+                     }
+                     byId('game_list').innerHTML = scores;
+                     updater = window.setInterval("CheckStatus(true)",5000);
                   }
                }else{
                   // TODO Check status code
@@ -357,9 +364,81 @@ function Home(){
 
 
 /*
+ * Creates a private game
+ */
+function Make(){
+   var xr = XML();
+   var xml_n = ++xr_n;
+   xr.onreadystatechange = function(){
+      if( xr.readyState == 4 && xml_n == xr_n ){
+         if( xr.status == 200 ){
+           try{
+              var data = jsonify( xr.responseText );
+               
+               if( data.status == -1 ){
+                  swap( join, login );
+                  errMsg( "Your session expired." );
+               }else if( data.status == 1 ){
+                  $( byId('num_q') ).hide("slow");
+                  $( byId('gconfirm') ).hide("slow");
+                  errMsg( "Game is created, but nothing further is implemented on this client." );
+               }
+
+           }catch(err){
+               errMsg( "Couldn't create game, server error." );
+           }
+         }
+      }
+   };
+
+   var gname = document.forms.join_form.name.value.trim();
+   var gpas1 = document.forms.join_form.pass.value.trim();
+   var gpas2 = document.forms.join_form.cpass.value.trim();
+   var gnum = document.forms.join_form.num.value.trim();
+
+   var valid = true;
+
+   if( gpas1 == "" ){
+      errMsg( "Please give a password." );
+      valid = false;
+   }
+
+   if( !$(document.forms.join_form.cpass).is(":visible") ){
+      // Display hidden fields
+      reveal( byId('gconfirm') );
+      reveal( byId('num_q') );
+      valid = false;
+   }else if( gpas1 != gpas2 ){
+      errMsg( "Passwords don't match." );
+      valid = false;
+   }
+
+   var num = parseInt( gnum );
+   if( isNaN( num ) ){
+      errMsg( "Please give the number of questions to generate." );
+      valid = false;
+   }else{
+      gnum = num;
+   }
+
+   if( valid ){
+      var param = "authToken=" + session + "&name=" + gname + "&password=" + gpas1 + "&user=" + username;
+      xr.open( "POST", erl("/private/create/" + gnum), true );
+      xr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xr.send(param);
+   }
+
+   return false;
+}
+// End Make()
+
+/*
  * Joins a public game
  */
 function Public(){
+   // Clear any previous updater
+   window.clearInterval(updater);
+
    var xr = XML();
    xr_n++;
    var xml_n = xr_n;
@@ -520,6 +599,9 @@ function Login(){
 // End Login()
 
 function Private(){
+   // Clear any previous upater
+   window.clearInterval(updater);
+
    var xr = XML();
    xr_n++;
    var xml_n = xr_n;
@@ -527,31 +609,66 @@ function Private(){
    xr.onreadystatechange = function(){
       if( xr.readyState == 4 && xml_n == xr_n ){
          if( xr.status == 200 ){
-            if( xr.responseText == "null" ){
-               // Invalid private game
-               byId("join_fail").classList.remove('hidden');
-            }else{
-               // Valid private game
-//               document.forms.join_form.classList.add("hidden");
-//               byId('join_priv_wait').classList.remove("hidden");
-               byId("join_fail").classList.add('hidden');
-               byId('join').classList.add('hidden');
-               byId('wait').classList.remove('hidden');
-               byId('wait_message').innerHTML = "Waiting for owner to start game";
+            try{
+               var data = jsonify( xr.responseText );
+
+               if( data.status == 1 ){
+                  swap( join, wait );
+
+                  // Save the game id ( global )
+                  gid = data.id;
+
+                  var scoreb = byId('game_board');
+                  byId('game_list').innerHTML = "";
+                  $(scoreb).animate({width:'show'});
+                  board_shown = true;
+
+                  // Waiting to join
+                  byId('wait_message').innerHTML = "Joining game...";
+                  swap( join, wait );
+                  updater = window.setInterval("CheckStatus(false)",1000);
+
+               }else if( data.status == -2 ){
+                  errMsg( "That game has already started." );
+               }else if( data.status == -3 ){
+                  errMsg( "Invalid game name and/or password." );
+               }else if( data.status == -1 ){
+                  swap( join, login );
+                  errMsg( "Your login session expired." );
+               }else{
+                  errMsg( "This shouldn't have happened. Sorry." );
+               }
+
+            }catch(err){
+               errMsg( "Server connection error" );
             }
          }
       }
    }
 
-   var name = document.forms.join_form.name.value;
-   var pass = document.forms.join_form.pass.value;
-   var param = "authToken=" + session + "&user=" + name + "&p=" + pass;
-   var URI = erl( "/private/join" );
+   var gname = document.forms.join_form.name.value.trim();
+   var gpass = document.forms.join_form.pass.value.trim();
 
-   xr.open( "POST", "ajax.php", true );
-   xr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+   var go = true;
+   if( gname == "" ){
+      errMsg( "Please provide a game name." );
+      go = false;
+   }
+   if( gpass == "" ){
+      errMsg( "Please provide the game password." );
+      go = false;
+   }
 
-   xr.send( param );
+   if( go ){
+      var param = "authToken=" + session + "&user=" + username + "&password=" + gpass;
+//      var URI = erl( "/private/join/" + gname );
+      var URI = erl( "/private/join/" );
+
+      xr.open( "POST", URI, true );
+      xr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+      xr.send( param );
+   }
    return false;
 }
 
