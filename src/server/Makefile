@@ -21,8 +21,8 @@ init-db:
 	python db/insert-questions.py
 
 kill:
-	sudo ps a | grep distrivia | grep -v grep | cut -d" " -f1 | sudo xargs kill -9
-	sudo ps a | grep server.py | grep -v grep | cut -d" " -f1 | sudo xargs kill -9
+	sudo ps a | grep distrivia | grep -v grep | cut -d" " -f1 | xargs sudo kill -9
+	sudo ps a | grep server.py | grep -v grep | cut -d" " -f1 | xargs sudo kill -9
 
 run launch:
 	rm -rf /home/ec2-user/server.log
