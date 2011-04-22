@@ -4,6 +4,7 @@ API Proposal
 Status Codes:
 -------------
  - Everything was ok = 1
+ - Login session invalid = -1
 
 Logging in:
 -----------
