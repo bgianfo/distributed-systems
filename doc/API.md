@@ -1,10 +1,11 @@
 API Proposal
 ============
 
-Status Codes:
+Status Codes (Universal):
 -------------
  - Everything was ok = 1
  - Login session invalid = -1
+ - See individual section for codes specific to them
 
 Logging in:
 -----------
