@@ -56,6 +56,8 @@ Join Private Games:
  - Return:
    *  Valid: game id
    * Invalid: Error Code (invalid auth token, invalid credentials, already started)
+     + -3 = Invalid login
+     + -2 = Game has already started
  - Status: Implemented, haven't fully tested yet
 
 Game Actions (public & private):
