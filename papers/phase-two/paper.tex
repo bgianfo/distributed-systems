@@ -57,7 +57,10 @@ Samuel Milton \\
 %\end{abstract}
 
 \section {What We've Done}
-Much of our system has been implemented and is in the debugging phase. The server apps, web client, and android client are nearly complete with some revisions happening as necessary. We have also started development on an application for the iPhone platform. The extent of what has been finished for each part of our system is explained below.
+Much of our system has been implemented and is in the debugging phase.
+The server application, web client, and Android client are nearly complete with some revisions happening as necessary.
+We have also started development on an application for the iPhone platform.
+The extent of what has been finished for each part of our system is explained below.
 
 \subsection{Architecture Overview }
 \begin{figure}[h!]
@@ -68,8 +71,8 @@ Much of our system has been implemented and is in the debugging phase. The serve
 
 \subsection {Servers}
 Currently, we have 6 servers running on Amazon's Elastic Compute Cloud \cite{aec}. One server is being used as a web-monitor
-host. We are able to login to the web-monitor to see the status of all our
-servers, databases, and load sharers. This will help us manage if the services
+host running Monit\cite{monit}. We are able to login to the web-monitor to see the status of all our
+servers, databases, and load sharers. This will help us manage whether or not the services
 are running and allow us to track down any problems, if they arise. Three
 servers are all running our server application and hosting the databases.
 We also have two final servers that we have setup as hot spares in the event
@@ -106,10 +109,10 @@ Currently we are using the NGINX \cite{nginx} in a reverse proxy configuration
 for our load sharing needs.
 
 \subsection {Clients}
-Our focus for clients has been on a web-based client and an android application.
+Our focus for clients has been on a web-based client and an Android application.
 Both clients have most of the workings completed. The web-based client will
-be run from desktop platforms and laptop platforms. The android client will run
-on any android phone running OS 2.1 or higher and does not use any unique services that require specific
+be run from desktop platforms and laptop platforms. The Android client will run
+on any Android phone running OS 2.1 or higher and does not use any unique services that require specific
 hardware. Both clients are nearly fully-functional. They can, currently, login/register
 players, view leaderboards, join public games, and compete in public games. We are actively adding features to both clients, daily.
 We have also started development on an iPhone application for distrivia. This client does not yet communicate with the server, but 
@@ -126,11 +129,9 @@ message. Messages are sent to the server using POST and GET request methods supp
 by the HTTP protocol. Responses from the server are in the form of JSON \cite{json} objects.
 JSON is a small, easily parseable format, representing objects in a human readable format as
 they would be represented in JavaScript. With the web client the JSON object returned from
-the server is instantly usable, however for the android client we have to parse the JSON object
+the server is instantly usable, however for the Android client we have to parse the JSON object
 into a native Java object. The Android SDK provides libraries to do this, located in the
 org.json \cite{orgjson} package name space.
-
-
 
 \section {What's Left}
 \subsection {Server}
@@ -141,7 +142,7 @@ However, there are still a few remaining features that need to be implemented.
 The only major feature remaining is private games, which are largely unstarted, although it will reuse most of the public game code.
 In addition to this, buttons should be disabled when clicked to prevent users from spamming the server with repeat messages.
 \subsection {Android}
-Private gameplay is the largest thing left for the android client. Besides this we've just been fixing bugs and cleaning up the UI.
+Private gameplay is the largest thing left for the Android client. Besides this we've just been fixing bugs and cleaning up the UI.
 \subsection {iPhone}
 The iPhone application just started development in the last couple days. We have built most of the UI but need to connect all of the actions
 to the server. We will need to implement everything, including login/registration, joining public/private games, viewing leaderboards,
@@ -196,7 +197,7 @@ way back to our actual web application back end serving responses over a SSL wra
 sent in clear text. Our group even found a SSL certificate authority who was willing to sign our SSL certificate for free. This gives
 us actual fully functional, authenticatable SSL infrastructure. In order to make sure that our system properly secures user information,
 we stuck with the industry standard of storing a hashed version of the users password instead of the password itself. We decided on using
-the cryptographically secure hashing function designed for passwords known as bcyrpt \cite{bcrypt}.
+the cryptographically secure hashing function designed for passwords known as bcrypt \cite{bcrypt}.
 
 \newpage
 %
