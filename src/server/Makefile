@@ -21,9 +21,9 @@ init-db:
 	python db/insert-questions.py
 
 kill:
-	sudo ps a | grep server.py | grep -v grep | cut -d" " -f1 | xargs sudo kill -s 9
+	pkill -f "python server.py"
 
-run launch:
+run launch: kill
 	rm -rf /home/ec2-user/server.log
 	python server.py --logging=info --log_file_prefix=/home/ec2-user/server.log &
 
