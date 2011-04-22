@@ -1,6 +1,7 @@
 from tornado.wsgi import WSGIContainer
 from tornado.httpserver import HTTPServer
 from tornado.ioloop import IOLoop
+import tornado.autoreload
 import tornado.options
 from distrivia import app
 
@@ -19,4 +20,5 @@ tornado.options.parse_command_line()
 wsgiApp = WSGIContainer(app)
 http_server = HTTPServer(wsgiApp, ssl_options=ssl_files)
 http_server.listen(443)
-IOLoop.instance().start()
+ioloop = IOLoop.instance()
+tornado.autoreload.start(ioloop)
