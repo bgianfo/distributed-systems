@@ -481,7 +481,7 @@ def private_join_game():
     else:
         return json.dumps({"status":3})
 
-@app.route('/private/create/<int:numqestions>', methods=["POST"])
+@app.route('/private/create/<int:numquestions>', methods=["POST"])
 def private_new_create(numquestions):
     """
     URL /private/create
