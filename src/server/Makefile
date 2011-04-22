@@ -25,7 +25,7 @@ kill:
 
 run launch:
 	rm -rf /home/ec2-user/server.log
-	python server.py --logging=info --log_file_prefix=/home/ec2-user/server.log
+	python server.py --logging=info --log_file_prefix=/home/ec2-user/server.log &
 
 test:
 	python runner.py test
