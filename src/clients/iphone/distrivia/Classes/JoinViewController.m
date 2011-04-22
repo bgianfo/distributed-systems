@@ -12,9 +12,13 @@
 @implementation JoinViewController
 
 @synthesize delegate;
-@synthesize pubButton;
-@synthesize priButton;
-@synthesize leadButton;
+@synthesize pubBut;
+@synthesize priJoinBut;
+@synthesize priCreateBut;
+@synthesize leadBut;
+@synthesize nameField;
+@synthesize passField;
+@synthesize activeIndicate;
 
 // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 /*
@@ -33,16 +37,18 @@
     UIImage *buttonImageNormal = [UIImage imageNamed:@"whiteButton.png"];
     UIImage *stretchableButtonImageNormal = [buttonImageNormal stretchableImageWithLeftCapWidth:12 
                                                                                    topCapHeight:0];
-    [priButton setBackgroundImage:stretchableButtonImageNormal forState:UIControlStateNormal];
-    [pubButton setBackgroundImage:stretchableButtonImageNormal forState:UIControlStateNormal];
-    [leadButton setBackgroundImage:stretchableButtonImageNormal forState:UIControlStateNormal];
+    [priJoinBut setBackgroundImage:stretchableButtonImageNormal forState:UIControlStateNormal];
+    [priCreateBut setBackgroundImage:stretchableButtonImageNormal forState:UIControlStateNormal];
+    [pubBut setBackgroundImage:stretchableButtonImageNormal forState:UIControlStateNormal];
+    [leadBut setBackgroundImage:stretchableButtonImageNormal forState:UIControlStateNormal];
     
     UIImage *buttonImagePressed = [UIImage imageNamed:@"blueButton.png"];
     UIImage *stretchableButtonImagePressed = [buttonImagePressed stretchableImageWithLeftCapWidth:12 
                                                                                      topCapHeight:0];
-    [priButton setBackgroundImage:stretchableButtonImagePressed forState:UIControlStateHighlighted];
-    [pubButton setBackgroundImage:stretchableButtonImagePressed forState:UIControlStateHighlighted];
-    [leadButton setBackgroundImage:stretchableButtonImagePressed forState:UIControlStateHighlighted];
+    [priJoinBut setBackgroundImage:stretchableButtonImagePressed forState:UIControlStateHighlighted];
+    [priCreateBut setBackgroundImage:stretchableButtonImagePressed forState:UIControlStateHighlighted];
+    [pubBut setBackgroundImage:stretchableButtonImagePressed forState:UIControlStateHighlighted];
+    [leadBut setBackgroundImage:stretchableButtonImagePressed forState:UIControlStateHighlighted];
     [super viewDidLoad];
 }
 
@@ -55,6 +61,16 @@
 }
 */
 
+- (IBAction) viewLeaderboard:(id)sender {
+	LeaderboardViewController *controller = [[LeaderboardViewController alloc]
+											 initWithNibName:@"LeaderboardView" 
+											 bundle:nil];
+	controller.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+	[self presentModalViewController:controller animated:YES];
+	
+	[controller release];
+}
+
 - (IBAction)joinPublic:(id)sender {
 	RoundViewController *controller = [[RoundViewController alloc] initWithNibName:@"RoundView" bundle:nil];
 	controller.delegate = self;
@@ -62,6 +78,15 @@
 	[self presentModalViewController:controller animated:YES];
 	
 	[controller release];
+}
+
+- (IBAction) textFieldDoneEditing:(id)sender {
+    [sender resignFirstResponder];
+}
+
+- (IBAction) backgroundTap:(id)sender {
+    [nameField resignFirstResponder];
+    [passField resignFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -74,17 +99,25 @@
 - (void)viewDidUnload {
     // Release any retained subviews of the main view.
 	self.delegate = nil;
-	self.pubButton = nil;
-    self.priButton = nil;
-    self.leadButton = nil;
+	self.pubBut = nil;
+    self.priJoinBut = nil;
+    self.priCreateBut = nil;
+    self.leadBut = nil;
+    self.nameField = nil;
+    self.passField = nil;
+    self.activeIndicate = nil;
 	[super viewDidUnload];
 }
 
 
 - (void)dealloc {
-	[pubButton release];
-    [priButton release];
-    [leadButton release];
+	[pubBut release];
+    [priJoinBut release];
+    [priCreateBut release];
+    [leadBut release];
+    [nameField release];
+    [passField release];
+    [activeIndicate release];
     [super dealloc];
 }
 

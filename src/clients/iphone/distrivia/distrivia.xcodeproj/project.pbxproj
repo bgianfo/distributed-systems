@@ -23,6 +23,8 @@
 		C1295FF5135E78E00092180F /* distrivia_icon5.png in Resources */ = {isa = PBXBuildFile; fileRef = C1295FF2135E78E00092180F /* distrivia_icon5.png */; };
 		C1296088135F35110092180F /* blueButton.png in Resources */ = {isa = PBXBuildFile; fileRef = C1296086135F35110092180F /* blueButton.png */; };
 		C1296089135F35110092180F /* whiteButton.png in Resources */ = {isa = PBXBuildFile; fileRef = C1296087135F35110092180F /* whiteButton.png */; };
+		C129610613603CB70092180F /* LeaderboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C129610413603CB70092180F /* LeaderboardViewController.m */; };
+		C129610713603CB70092180F /* LeaderboardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C129610513603CB70092180F /* LeaderboardView.xib */; };
 		C149E38A135E5F3500D6A77D /* RoundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C149E388135E5F3500D6A77D /* RoundViewController.m */; };
 		C149E38B135E5F3500D6A77D /* RoundView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C149E389135E5F3500D6A77D /* RoundView.xib */; };
 		C184DD4C135DEDBB005B7546 /* distrivia_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = C184DD4B135DEDBB005B7546 /* distrivia_icon.png */; };
@@ -57,6 +59,9 @@
 		C1295FF2135E78E00092180F /* distrivia_icon5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = distrivia_icon5.png; sourceTree = "<group>"; };
 		C1296086135F35110092180F /* blueButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueButton.png; sourceTree = "<group>"; };
 		C1296087135F35110092180F /* whiteButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whiteButton.png; sourceTree = "<group>"; };
+		C129610313603CB70092180F /* LeaderboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LeaderboardViewController.h; path = Classes/LeaderboardViewController.h; sourceTree = "<group>"; };
+		C129610413603CB70092180F /* LeaderboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LeaderboardViewController.m; path = Classes/LeaderboardViewController.m; sourceTree = "<group>"; };
+		C129610513603CB70092180F /* LeaderboardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LeaderboardView.xib; sourceTree = "<group>"; };
 		C149E387135E5F3500D6A77D /* RoundViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RoundViewController.h; path = Classes/RoundViewController.h; sourceTree = "<group>"; };
 		C149E388135E5F3500D6A77D /* RoundViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RoundViewController.m; path = Classes/RoundViewController.m; sourceTree = "<group>"; };
 		C149E389135E5F3500D6A77D /* RoundView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RoundView.xib; sourceTree = "<group>"; };
@@ -108,6 +113,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				C129610213603CA00092180F /* Leaderboard View */,
 				C149E386135E5F1F00D6A77D /* Round View */,
 				C1B03729135E4FF300E7BD63 /* Login View */,
 				C1B03722135E4F3300E7BD63 /* Join View */,
@@ -154,6 +160,16 @@
 				288765A40DF7441C002DB57D /* CoreGraphics.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C129610213603CA00092180F /* Leaderboard View */ = {
+			isa = PBXGroup;
+			children = (
+				C129610313603CB70092180F /* LeaderboardViewController.h */,
+				C129610413603CB70092180F /* LeaderboardViewController.m */,
+				C129610513603CB70092180F /* LeaderboardView.xib */,
+			);
+			name = "Leaderboard View";
 			sourceTree = "<group>";
 		};
 		C149E386135E5F1F00D6A77D /* Round View */ = {
@@ -247,6 +263,7 @@
 				C1295FF5135E78E00092180F /* distrivia_icon5.png in Resources */,
 				C1296088135F35110092180F /* blueButton.png in Resources */,
 				C1296089135F35110092180F /* whiteButton.png in Resources */,
+				C129610713603CB70092180F /* LeaderboardView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -265,6 +282,7 @@
 				C0961665135E9C5D00BDFFA6 /* JSONKit.m in Sources */,
 				C0961669135E9CC300BDFFA6 /* GameData.m in Sources */,
 				C0524B9F135F870900BE6E98 /* DistriviaAPI.m in Sources */,
+				C129610613603CB70092180F /* LeaderboardViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

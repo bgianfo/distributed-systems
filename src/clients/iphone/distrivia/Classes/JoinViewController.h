@@ -8,22 +8,34 @@
 
 #import <UIKit/UIKit.h>
 #import "RoundViewController.h"
+#import "LeaderboardViewController.h"
 
 @protocol JoinViewControllerDelegate;
 
 @interface JoinViewController : UIViewController <RoundViewControllerDelegate> {
 
-	IBOutlet UIButton	*pubButton;
-    IBOutlet UIButton   *priButton;
-    IBOutlet UIButton   *leadButton;
+	IBOutlet UIButton	*pubBut;
+    IBOutlet UIButton   *priJoinBut;
+    IBOutlet UIButton   *priCreateBut;
+    IBOutlet UIButton   *leadBut;
+    IBOutlet UITextField    *nameField;
+    IBOutlet UITextField    *passField;
+    IBOutlet UIActivityIndicatorView    *activeIndicate;
 	
 }
 
 @property (nonatomic, assign) id <JoinViewControllerDelegate> delegate;
-@property (nonatomic, retain) IBOutlet UIButton *pubButton;
-@property (nonatomic, retain) IBOutlet UIButton *priButton;
-@property (nonatomic, retain) IBOutlet UIButton *leadButton;
+@property (nonatomic, retain) IBOutlet UIButton *pubBut;
+@property (nonatomic, retain) IBOutlet UIButton *priJoinBut;
+@property (nonatomic, retain) IBOutlet UIButton *priCreateBut;
+@property (nonatomic, retain) IBOutlet UIButton *leadBut;
+@property (nonatomic, retain) IBOutlet UITextField *nameField;
+@property (nonatomic, retain) IBOutlet UITextField *passField;
+@property (nonatomic, retain) IBOutlet UIActivityIndicatorView *activeIndicate;
 
 - (IBAction) joinPublic:(id)sender;
+- (IBAction) viewLeaderboard:(id)sender;
+- (IBAction) textFieldDoneEditing:(id)sender;
+- (IBAction) backgroundTap:(id)sender;
 
 @end
