@@ -40,7 +40,7 @@
 	29B97313FDCFA39411CA2CEA /* Project object */ = {
 		activeBuildConfigurationName = Debug;
 		activeExecutable = C184DD30135DEBAB005B7546 /* distrivia */;
-		activeSDKPreference = iphonesimulator4.3;
+		activeSDKPreference = iphoneos4.3;
 		activeTarget = 1D6058900D05DD3D006BFB54 /* distrivia */;
 		addToTargets = (
 			1D6058900D05DD3D006BFB54 /* distrivia */,
@@ -292,7 +292,7 @@
 	C149E387135E5F3500D6A77D /* RoundViewController.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {926, 591}}";
-			sepNavSelRange = "{230, 0}";
+			sepNavSelRange = "{338, 0}";
 			sepNavVisRange = "{0, 845}";
 			sepNavWindowFrame = "{{15, 465}, {750, 558}}";
 		};
