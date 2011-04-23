@@ -28,7 +28,8 @@ public class JoinActivity extends GameActivityBase {
         setContentView(R.layout.join);
 
         final Button pubButton = (Button) findViewById(R.id.join_public_button);
-        final Button priButton = (Button) findViewById(R.id.join_private_button);
+        final Button priJoinButton = (Button) findViewById(R.id.join_private_button);
+        final Button priCreateButton = (Button) findViewById(R.id.create_private_button);
         final Button lbButton = (Button) findViewById(R.id.view_leaderboard_button);
         final TextView playersLabel = (TextView) findViewById(R.id.num_players_text);
         final EditText privateName = (EditText) findViewById(R.id.private_name_text);
@@ -54,7 +55,7 @@ public class JoinActivity extends GameActivityBase {
             }
         });
 
-        priButton.setOnClickListener(new OnClickListener() {
+        priJoinButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(final View v) {
                 String name = privateName.getText().toString().trim();
@@ -62,14 +63,31 @@ public class JoinActivity extends GameActivityBase {
                 if (!name.equals("") && !pass.equals("")) {
                     publicLayout.setVisibility(View.GONE);
                     v.setEnabled(false);
-                    v.invalidate();
-                    playersLabel.setText("Players: 10/20");
-                    startActivity(ROUND_ACTIVITY);
-                    finish();
+                    priCreateButton.setEnabled(false);
+                    playersLabel.setText("Waiting to join private game...");
+                    joinPrivate(name, pass);
                 } else {
                     makeToast("Enter name and pass");
                 }
             }
+        });
+        
+        priCreateButton.setOnClickListener(new OnClickListener() {
+        	@Override
+        	public void onClick(final View v) {
+        		String name = privateName.getText().toString().trim();
+                String pass = privatePass.getText().toString().trim();
+                if (!name.equals("") && !pass.equals("")) {
+                    publicLayout.setVisibility(View.GONE);
+                    v.setEnabled(false);
+                    priJoinButton.setEnabled(false);
+                    playersLabel.setText("Press Start Game when you're ready to begin...");
+                    int numQs = Integer.parseInt((String)spinner.getSelectedItem());
+                    createPrivate(name, pass, numQs);
+                } else {
+                    makeToast("Enter name and pass");
+                }
+        	}
         });
 
         lbButton.setOnClickListener(new OnClickListener() {
@@ -119,6 +137,85 @@ public class JoinActivity extends GameActivityBase {
                 finish();
             }
         }.start();
+    }
+    
+    /**
+     * Creates a private game and waits till the player chooses to start the game
+     * 
+     * @param name
+     * @param pass
+     * @param numQs
+     */
+    private void createPrivate(final String name, final String pass, final int numQs) {
+    	new Thread() {
+    		@Override
+    		public void run() {
+    			try {
+    				setGameData(DistriviaAPI.createPrivate(gameData(), name, pass, numQs));
+    			}
+    			catch (Exception e) {
+    				makeToast("Service is down, please try again later");
+    				return;
+    			}
+    			boolean createSuccessful = gameData().getGameID() != null;
+    			createSuccessful &= (!gameData().getGameID().equals(
+                        DistriviaAPI.API_ERROR));
+    			if (!createSuccessful) {
+    				makeToast("Create failure");
+    				return;
+    			}
+    			try {
+                    while (true) {
+                        setGameData(DistriviaAPI.status(gameData()));
+                        if (!gameData().isWaiting()) {
+                            break;
+                        }
+                        SystemClock.sleep(UPDATE_MS);
+                    }
+                } catch (Exception e) {
+                    makeToast("Service is down, please try again later");
+                    return;
+                }
+    			startActivity(ROUND_ACTIVITY);
+                finish();
+    		}
+    	}.start();
+    }
+    
+    private void joinPrivate(final String name, final String pass) {
+    	new Thread() {
+    		@Override
+    		public void run() {
+    			try {
+    				setGameData(DistriviaAPI.joinPrivate(gameData(), name, pass));
+    			}
+    			catch (Exception e) {
+    				makeToast("Service is down, please try again later");
+    				return;
+    			}
+    			boolean joinSuccessful = gameData().getGameID() != null;
+    			joinSuccessful &= (!gameData().getGameID().equals(
+                        DistriviaAPI.API_ERROR));
+    			if (!joinSuccessful) {
+    				makeToast("Join failure");
+    				return;
+    			}
+    			try {
+                    while (true) {
+                        setGameData(DistriviaAPI.status(gameData()));
+                        if (!gameData().isWaiting()) {
+                            break;
+                        }
+                        SystemClock.sleep(UPDATE_MS);
+                    }
+                } catch (Exception e) {
+                    makeToast("Service is down, please try again later");
+                    return;
+                }
+    			startActivity(ROUND_ACTIVITY);
+                finish();
+    		}
+    	}.start();
     }
 
 }

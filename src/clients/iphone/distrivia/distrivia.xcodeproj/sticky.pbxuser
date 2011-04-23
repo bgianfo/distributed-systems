@@ -40,7 +40,7 @@
 	29B97313FDCFA39411CA2CEA /* Project object */ = {
 		activeBuildConfigurationName = Debug;
 		activeExecutable = C184DD30135DEBAB005B7546 /* distrivia */;
-		activeSDKPreference = iphoneos4.3;
+		activeSDKPreference = iphonesimulator4.3;
 		activeTarget = 1D6058900D05DD3D006BFB54 /* distrivia */;
 		addToTargets = (
 			1D6058900D05DD3D006BFB54 /* distrivia */,
@@ -94,6 +94,8 @@
 			C12961211360E2830092180F /* PBXTextBookmark */ = C12961211360E2830092180F /* PBXTextBookmark */;
 			C12961371360E2D10092180F /* PBXTextBookmark */ = C12961371360E2D10092180F /* PBXTextBookmark */;
 			C129613B1360E3060092180F /* PBXTextBookmark */ = C129613B1360E3060092180F /* PBXTextBookmark */;
+			C1296151136397CC0092180F /* PBXTextBookmark */ = C1296151136397CC0092180F /* PBXTextBookmark */;
+			C1296152136397CC0092180F /* PlistBookmark */ = C1296152136397CC0092180F /* PlistBookmark */;
 			C1B03749135E54E600E7BD63 = C1B03749135E54E600E7BD63 /* PBXTextBookmark */;
 			C1B03797135E5AD800E7BD63 = C1B03797135E5AD800E7BD63 /* PBXTextBookmark */;
 			C1B037A7135E5B6D00E7BD63 = C1B037A7135E5B6D00E7BD63 /* PBXTextBookmark */;
@@ -288,6 +290,28 @@
 		rType = 0;
 		vrLen = 845;
 		vrLoc = 0;
+	};
+	C1296151136397CC0092180F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = C149E387135E5F3500D6A77D /* RoundViewController.h */;
+		name = "RoundViewController.h: 16";
+		rLen = 0;
+		rLoc = 338;
+		rType = 0;
+		vrLen = 845;
+		vrLoc = 0;
+	};
+	C1296152136397CC0092180F /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D1107310486CEB800E47090 /* distrivia-Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+			CFBundleExecutable,
+		);
+		name = "/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/distrivia-Info.plist";
+		rLen = 0;
+		rLoc = 9223372036854775807;
 	};
 	C149E387135E5F3500D6A77D /* RoundViewController.h */ = {
 		uiCtxt = {

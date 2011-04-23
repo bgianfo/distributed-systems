@@ -278,13 +278,13 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>4</integer>
-									<integer>1</integer>
+									<integer>42</integer>
+									<integer>29</integer>
 									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 0}, {211, 812}}</string>
+							<string>{{0, 3}, {211, 812}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -314,14 +314,12 @@
 					<key>Dock</key>
 					<array>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>RoundViewController.h</string>
+								<string>distrivia-Info.plist</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -329,11 +327,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>RoundViewController.h</string>
+										<string>distrivia-Info.plist</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>C129613B1360E3060092180F</string>
+										<string>C1296152136397CC0092180F</string>
 										<key>history</key>
 										<array>
 											<string>C1B03749135E54E600E7BD63</string>
@@ -346,14 +344,14 @@
 											<string>C1296000135E9FB60092180F</string>
 											<string>C1296001135E9FB60092180F</string>
 											<string>C1296002135E9FB60092180F</string>
-											<string>C12960C6135F42C90092180F</string>
 											<string>C129610913603D170092180F</string>
 											<string>C129610A13603D170092180F</string>
 											<string>C129610B13603D170092180F</string>
 											<string>C129610C13603D170092180F</string>
 											<string>C129610D13603D170092180F</string>
 											<string>C129610E13603D170092180F</string>
-											<string>C12961191360E2640092180F</string>
+											<string>C1296151136397CC0092180F</string>
+											<string>C12960C6135F42C90092180F</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -552,9 +550,9 @@
 		<string>C129613C1360E3060092180F</string>
 		<string>C129613A1360E2D10092180F</string>
 		<string>C184DD3C135DEBB1005B7546</string>
+		<string>/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/distrivia.xcodeproj</string>
 		<string>1C78EAAD065D492600B07095</string>
 		<string>1CD10A99069EF8BA00B06720</string>
-		<string>/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/distrivia.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
 	<string>117 145 1220 871 0 0 1680 1028 </string>
