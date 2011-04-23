@@ -9,7 +9,7 @@
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIconFile</key>
-	<string>distrivia_icon5.png</string>
+	<string>distrivia_icon8.png</string>
 	<key>CFBundleIdentifier</key>
 	<string>edu.cs.rit.Distrivia</string>
 	<key>CFBundleInfoDictionaryVersion</key>
