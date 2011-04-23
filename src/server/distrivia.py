@@ -477,11 +477,11 @@ def private_join_game():
                 game.store()
                 return json.dumps({ "id": key, "status":1 })
 
-        return json.dumps({"status":3})
+        return json.dumps({"status":-3})
     else:
-        return json.dumps({"status":3})
+        return json.dumps({"status":-2})
 
-@app.route('/private/create/<int:numqestions>', methods=["POST"])
+@app.route('/private/create/<int:numquestions>', methods=["POST"])
 def private_new_create(numquestions):
     """
     URL /private/create

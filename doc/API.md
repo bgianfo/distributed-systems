@@ -1,9 +1,11 @@
 API Proposal
 ============
 
-Status Codes:
+Status Codes (Universal):
 -------------
  - Everything was ok = 1
+ - Login session invalid = -1
+ - See individual section for codes specific to them
 
 Logging in:
 -----------
@@ -56,6 +58,8 @@ Join Private Games:
  - Return:
    *  Valid: game id
    * Invalid: Error Code (invalid auth token, invalid credentials, already started)
+     + -2 = Game has already started
+     + -3 = Invalid game name/pass combination
  - Status: Implemented, haven't fully tested yet
 
 Game Actions (public & private):

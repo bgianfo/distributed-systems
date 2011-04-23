@@ -36,15 +36,15 @@
 \author{
 \alignauthor
 Brian Gianforcaro \\
-       \affaddr{Rochester Institue of Technology}\\
+       \affaddr{Rochester Institute of Technology}\\
        \email{bjg1955@rit.edu}
 \alignauthor
 Steven Glazer \\
-       \affaddr{Rochester Institue of Technology}\\
+       \affaddr{Rochester Institute of Technology}\\
        \email{sfg6126@rit.edu}
 \alignauthor
 Samuel Milton \\
-       \affaddr{Rochester Institue of Technology}\\
+       \affaddr{Rochester Institute of Technology}\\
        \email{srm2997@rit.edu}
 }
 \maketitle
@@ -57,7 +57,10 @@ Samuel Milton \\
 %\end{abstract}
 
 \section {What We've Done}
-Much of our system has been implemented and is in the debugging phase. The server apps, web client, and android client are nearly complete with some revisions happening as necessary. We have also started development on an application for the iPhone platform. The extent of what has been finished for each part of our system is explained below.
+Much of our system has been implemented and is in the debugging phase.
+The server application, web client, and Android client are nearly complete with some revisions happening as necessary.
+We have also started development on an application for the iPhone platform.
+The extent of what has been finished for each part of our system is explained below.
 
 \subsection{Architecture Overview }
 \begin{figure}[h!]
@@ -68,8 +71,8 @@ Much of our system has been implemented and is in the debugging phase. The serve
 
 \subsection {Servers}
 Currently, we have 6 servers running on Amazon's Elastic Compute Cloud \cite{aec}. One server is being used as a web-monitor
-host. We are able to login to the web-monitor to see the status of all our
-servers, databases, and load sharers. This will help us manage if the services
+host running Monit\cite{monit}. We are able to login to the web-monitor to see the status of all our
+servers, databases, and load sharers. This will help us manage whether or not the services
 are running and allow us to track down any problems, if they arise. Three
 servers are all running our server application and hosting the databases.
 We also have two final servers that we have setup as hot spares in the event
@@ -99,17 +102,19 @@ divide the requests among the three active servers and, if need be, the two hot 
 for a load distributer to go down and we would still be able to serve requests
 to the servers. These load sharers are selected by the clients using round
 robin DNS where distrivia.lame.ws will select either load distributer that is
-up at random. This provides us will stability for access to the servers. The
-load sharers are setup to attempt to connect to a server twice before
-deeming it dead and removing it from its list of servers to direct clients towards.
+up at random. If a load distributer should go down or become unreachable the
+DNS service will no longer serve that hosts DNS record until it is again
+reachable. This provides us with stability for accessing the servers. The
+load sharers are set up to attempt to connect to a server twice in a one second
+period before deeming it dead and removing it from its list of servers to direct clients towards.
 Currently we are using the NGINX \cite{nginx} in a reverse proxy configuration
 for our load sharing needs.
 
 \subsection {Clients}
-Our focus for clients has been on a web-based client and an android application.
-Both clients have most of the the workings completed. The web-based client will
-be run from desktop platforms and laptop platforms. The android client will run
-on any android phone running OS 2.1 or higher and does not use any unique services that require specific
+Our focus for clients has been on a web-based client and an Android application.
+Both clients have most of the workings completed. The web-based client will
+be run from desktop platforms and laptop platforms. The Android client will run
+on any Android phone running OS 2.1 or higher and does not use any unique services that require specific
 hardware. Both clients are nearly fully-functional. They can, currently, login/register
 players, view leaderboards, join public games, and compete in public games. We are actively adding features to both clients, daily.
 We have also started development on an iPhone application for distrivia. This client does not yet communicate with the server, but 
@@ -120,17 +125,15 @@ platform as well.
 We are currently using the https protocol for our messages. This provides a secure
 and usable messaging system that we have designed our client and server APIs to use.
 The actual messages are sent and received in two way's. Initially a user session key is
-generated using the UUID \cite{uuid} algorithm and returned to the user on successful
+generated using the UUID\cite{uuid} algorithm and returned to the user on successful
 authentication. This session key is then passed back to the server with every in coming
 message. Messages are sent to the server using POST and GET request methods supported
 by the HTTP protocol. Responses from the server are in the form of JSON \cite{json} objects.
 JSON is a small, easily parseable format, representing objects in a human readable format as
 they would be represented in JavaScript. With the web client the JSON object returned from
-the server is instantly usable, however for the android client we have to parse the JSON object
+the server is instantly usable, however for the Android client we have to parse the JSON object
 into a native Java object. The Android SDK provides libraries to do this, located in the
 org.json \cite{orgjson} package name space.
-
-
 
 \section {What's Left}
 \subsection {Server}
@@ -138,20 +141,22 @@ The server is nearly completed. The server application just needs to have some t
 \subsection {Web Client}
 A lot of the main features of the web client are completed.
 However, there are still a few remaining features that need to be implemented.
-While private games are implemented on the server, 
-Also, when a user clicks on a button to do something like log in, the button should be disabled while waiting for a response,
-alternatively it needs to be able to handle sending out two calls for the same request and not getting confused if it gets two back.
+The only major feature remaining is private games, which are largely unstarted, although it will reuse most of the public game code.
+In addition to this, buttons should be disabled when clicked to prevent users from spamming the server with repeat messages.
 \subsection {Android}
-Private gameplay is the largest thing left for the android client. Besides this we've just been fixing bugs and cleaning up the UI.
+Private game play is the largest thing left for the Android client. Besides this we've just been fixing bugs and cleaning up the
+user interface.
 \subsection {iPhone}
-The iPhone application just started development in the last couple days. We have built most of the UI but need to connect all of the actions
+The iPhone application just started development in the last couple days. We
+have built most of the user interface but need to connect all of the actions
 to the server. We will need to implement everything, including login/registration, joining public/private games, viewing leaderboards,
 and competing in rounds.
 
 \section {Meeting the Requirements}
 
-Our system has three unique clients. One of them is designed for the Android platform as an app.
-Another is designed for the iPhone platform as a native app.
+Our system has three unique clients. One of them is designed for the Android
+platform as an application.
+Another is designed for the iPhone platform as a native application.
 The third is a web client, which is specifically being tested on Desktop and Laptop
 browsers, however it may work on many hand held web browsers as well.
 
@@ -197,7 +202,7 @@ way back to our actual web application back end serving responses over a SSL wra
 sent in clear text. Our group even found a SSL certificate authority who was willing to sign our SSL certificate for free. This gives
 us actual fully functional, authenticatable SSL infrastructure. In order to make sure that our system properly secures user information,
 we stuck with the industry standard of storing a hashed version of the users password instead of the password itself. We decided on using
-the cryptographically secure hashing function designed for passwords known as bcyrpt \cite{bcrypt}.
+the cryptographically secure hashing function designed for passwords known as bcrypt \cite{bcrypt}.
 
 \newpage
 %
