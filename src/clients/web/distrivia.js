@@ -513,63 +513,77 @@ function Public(ref){
  * Registers a new user
  */
 function Register(ref){
-   if( disabled('register') ){
-      return false;
-   }else{
-      disable('register', ref);
+   var func = 'register'; // Method name (for enabling/disable use
+   if( disabled(func) ){  // Check if method has been disabled
+      return false;       // Do nothing if disabled
+   }else{                 
+      disable(func, ref); // If not disabled, disable it
    }
 
-   var xr = XML();
-   xr_n++;
-   var xml_n = xr_n;
-   $(ref).addClass("disable", ref);
+   var xr = XML();     // Start an xmlhttprequest object
+   var xml_n = ++xr_n; // Get a POST message number
 
+   // Callback for POST reply
    xr.onreadystatechange = function(){
+      // Check if message is fully recieved
+      // and that the current message number is the same as local one
       if( xr.readyState == 4 && xml_n == xr_n ){
+
          if( xr.status == 200 ){
-            if (  xr.responseText == API_ERROR ) {
+            if( xr.responseText == API_ERROR ){
                errMsg( "Username '" + username + "' already taken" );
             }else{
+               // Registration successfull, auto log in
                Login();
             }
+
          }else{
             // Server connection failure
             errMsg("Could not connect to server. Please wait a minute and try again");
          }
-         unload();
-         enable('register', ref);
+
+         unload(); // Hide loading icon
+         enable(func, ref); // Re-enable register button
       }
    };
 
 
-   username = document.forms.login_form.username.value.trim();
+   // Get input fields
+   username = document.forms.login_form.username.value.trim(); // username
+   var pass = document.forms.login_form.password.value.trim(); // password
+   var conf = document.forms.login_form.confirm.value.trim();  // confirm password
+
+   // Check if username has been input
    if( username == "" ){
       errMsg( "Please provide the username you would like to register" );
    }
 
-   var pass = document.forms.login_form.password.value.trim();
+   // Check if password has been input
    if( pass == "" ){
       errMsg( "Please choose a password for your account" );
    }
 
-   var conf = document.forms.login_form.confirm.value.trim();
-   if( conf == "" ){
+   // Check confirmation password
+   if( !$(document.forms.login_form.confirm).is(":visible") ){
+      // Confirm field not visible, show it
       reveal( byId('confirm') );
-      enable('register', ref);
-   }else if( conf != pass ){
-      errMsg( "Passwords don't match" );
-      enable('register', ref);
-   }else{
+      enable(func, ref); // Re-enable register button
 
+   }else if( conf != pass ){
+      // Passwords don't match, show error
+      errMsg( "Passwords don't match" );
+      enable(func, ref); // Re-enable register button
+
+   }else{
+      // Field checks succeeded, send POST
       var URI = erl( "/register/" + username );
 
-      if( username != "" && pass != "" ){
-         var param = "password=" + pass;
-         xr.open( "POST", URI, true );
-         xr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-         xr.send(param);
-         loading();
-      }
+      var param = "password=" + pass;
+      xr.open( "POST", URI, true );
+      xr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xr.send(param);
+
+      loading(); // Show loading icon
    }
 
    return false;
