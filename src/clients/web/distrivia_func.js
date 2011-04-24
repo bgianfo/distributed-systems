@@ -9,6 +9,7 @@ var url = "", php = false; // Use local server
 
 var timeout = 5000;
 var disabler = {};
+var refs = {};
 
 
 /*
@@ -38,6 +39,22 @@ function loading(){
  */
 function unload(){
    $(load).hide();
+}
+
+/*
+ * Gets an element by id
+ * Remembers elements for faster second lookups
+ */
+function id( id ){
+   if( !!refs[id] ){
+      return refs[id];
+   }else{
+      var tmp = document.getElementById( id );
+      if( tmp != null ){
+         refs[id] = tmp;
+      }
+      return tmp
+   }
 }
 
 /*

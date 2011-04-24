@@ -1,35 +1,30 @@
-// Current game id
-var gid = null;
+// Game variables
+var gid = null;    // Game id
+var qid = "0";     // Question id
+var startTime = 0; // Question started
+var stopTime = 0;  // Answer picked
 
-// Current question ID
-var qid = "0";
-
-// Authentication session token
-var session = null;
-
-// Session username
-var username = null;
-
-var questionState = "next";
-
-var startTime = 0;
-var stopTime = 0;
-
-var updater = null;
-var answer = -1;
-var board_n = 0;
-
+// Constants
 var API_ERROR   = "err";
 var API_SUCCESS = 1;
-var MAX_PLAYERS = 1;
 
-var MSG = new Array();
-var MSG_N = 0;
-var MSG_C = 0;
+// Session variables
+var session = null; // Auth token
+var username = null;// User name
 
-// Used to prevent multiple POST requests
-var xr_n = 0;
-var board_shown = false;
+// Error system variables
+var MSG = new Array(); // List of messages
+var MSG_N = 0;         // Next message id number
+var MSG_C = 0;         // Number of currently displayed messages
+
+// Misc vars
+var updater = null; // Auto updated for leaderboard
+var answer = -1;    // Currently picked answer
+var board_n = 0;    // Number of users displayed on main leaderboard
+var xr_n = 0;       // Current POST message id
+var xr_n_check = 0; // Last CheckStatus POST id
+var board_shown = false; // True == ingame leaderboard is shown
+
 
 // References to DOM objects
 var error;
@@ -58,10 +53,11 @@ Object.size = function(obj) {
 function errMsg( message ){
 
    if( MSG.length == 0 ){
+      // No displayed messages, add message and display message area
       error.innerHTML += "<li class='error_item' onclick='ER(this)' >" + message + "</li>";
-      //reveal( error );
       $(error).fadeIn("fast");
    }else{
+      // Messages already displayed, add new one to list
       var div = $("<div />");
       var li = $("<li class='error_item' onclick='ER(this)'>" + message + "</li>" );
       div.append(li);
@@ -71,6 +67,8 @@ function errMsg( message ){
       div.fadeIn("slow");
       div.slideDown("slow");
    }
+
+   // Update message counters
    MSG[MSG_N++] = message;
    MSG_C++;
 }
@@ -81,12 +79,14 @@ function errMsg( message ){
  * Hides the ingame leaderboard
  */
 function Hide(){
+   // If it's displayed hide it
    if( board_shown ){
-      var scoreb = byId("game_board");
-      $(scoreb).animate({width:'hide'});
+      $( id('game_board') ).animate({width:'hide'});
       board_shown = false;
-      byId('game_list').innerHTML = "";
+      id('game_list').innerHTML = "";
    }
+
+   // Clear any auto-updater for leaderboard
    window.clearInterval(updater);
 }
 // End Hide()
@@ -98,8 +98,10 @@ function Hide(){
 function ER( ref ){
    MSG_C--;
    if( MSG_C == 0 ){
+      // No messages left, hide whole message section
       errClear();
    }else{
+      // Still messages left, hide only specified message
       $(ref).slideUp("fast");
    }
 }
@@ -119,24 +121,25 @@ function errClear(){
 // End errClear()
 
 
+/*
+ * Cancels joining a game
+ */
 function Cancel(){
    var xr = XML();
 
-   var param = "post=cancel&id=" + session;
-   xr.open( "POST", "ajax.php", true );
+   // Send POST informing server of cancel (ignore any reply)
+   var param = "authToken=" + session;
+   xr.open( "POST", erl( "/cancel/" + gid ), true );
    xr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
    xr.send(param);
 
-   byId('wait').classList.add('hidden');
-   byId('join').classList.remove('hidden');
-   byId('wait_message').innerHTML = "";
-   var scoreb = byId('game_board');
-   $(scoreb).animate({width:'hide'});
-
-   window.clearInterval( updater );
+   // Return to join screen
+   swap( id('wait'), id('join') );
+   Hide();
 
    return false;
 }
+// End Cancel()
 
 
 /*
@@ -144,14 +147,20 @@ function Cancel(){
  */
 function CheckStatus( postgame ){
    var xr = XML();
+   var xml_n = ++xr_n;
+   // Note: This method uses the xr_n slightly differently
+   // In order to keep a flow of leaderboard updates, it will act on all
+   // messages that come back as long as its more recent than the last one
+   // it parsed.
 
    xr.onreadystatechange = function(){
-      if( xr.readyState == 4 && xr.status == 200 ){
+      if( xr.readyState == 4 && xml_n > xr_n_check && xr.status == 200 ){
+         xr_n_check = xml_n;
 
          var data = jsonify(xr.responseText);
-         var list = byId("game_list");
+         var list = id("game_list");
       
-         if( true || data.status == 1 ){
+         if( true || data.status == API_SUCCESS ){
 
             // Always update game leaderboard
             var scores = "";
@@ -169,7 +178,8 @@ function CheckStatus( postgame ){
 
             }else if( data.gamestatus == 'started' ){
                // Game has started
-               swap( wait, game );
+               xr_n_check = xr_n; // Disable all other CheckStatus from parsing
+               swap( id('wait'), id('game') );
                UpdateGame( data );
                window.clearInterval(updater);
 
@@ -179,7 +189,7 @@ function CheckStatus( postgame ){
             }
 
             // Update main screen score
-            byId('score').innerHTML = data.leaderboard[username];
+            id('score').innerHTML = data.leaderboard[username];
          }else{
             errMsg( "Server connection failure" );
          }
@@ -196,25 +206,44 @@ function CheckStatus( postgame ){
 // End CheckStatus()
 
 
+/*
+ * Updates the game screen
+ */
 function UpdateGame( question ){
-   byId('game_question').innerHTML = question.question;
+   id('game_question').innerHTML = question.question;
    qid = question.qid;
    ans[0].innerHTML = question.a;
    ans[1].innerHTML = question.b;
    ans[2].innerHTML = question.c;
    ans[3].innerHTML = question.d;
 
-   startTime = new Date().getTime();
+   for( var i = 0; i < ans.length; i++ ){
+      $(ans[i]).removeClass('selected');
+   }
+   answer = -1;
+   ans[0].focus();
+
+   startTime = stopTime = new Date().getTime();
 }
+// End UpdateGame()
+
 
 /*
  * Submits an answer and sets up the next question
  */
-function Next(){
+function Next( ref ){
+   var func = "next";
+   if( disabled(func, ref) ){
+      return false;
+   }else{
+      disable(func, ref);
+   }
 
    var xr = XML();
+   var xml_n = ++xr_n;
+
    xr.onreadystatechange = function(){
-      if( xr.readyState == 4 ){
+      if( xr.readyState == 4 && xml_n == xr_n ){
          if( xr.status == 200 ){
 
             try{
@@ -250,39 +279,52 @@ function Next(){
          }else{
             errMsg( "Could not load next question" );
          }
+
+         enable( func, ref );
       }
    };
 
-   var time = stopTime - startTime;
-   var param = "authToken=" + session + "&a=" + answer + "&user=" + username + "&time=" + time;
-   var URI = erl("/game/" + gid + "/question/" + qid );
-   xr.open( "POST", URI, true );
-   xr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-   xr.send(param);
+   if( answer != -1 ){
+      var time = stopTime - startTime;
+      var param = "authToken=" + session + "&a=" + answer + "&user=" + username + "&time=" + time;
+      var URI = erl("/game/" + gid + "/question/" + qid );
+      xr.open( "POST", URI, true );
+      xr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xr.send(param);
+      errClear();
+   }else{
+      enable( func, ref );
+      errMsg( "Please select an answer." );
+   }
 
    return false;
 }
 // End Next()
 
 
+/*
+ * Selects ans answer
+ */
 function Answer( num ){
 
    // Store the selection time
    stopTime = new Date().getTime();
 
-   var ans = byId('answers').getElementsByTagName('a');
    for( var i = 0; i < 4; i++ ){
       if( num == i + 1 ){
-         ans[i].classList.add('selected');
+         $( ans[i] ).addClass('selected');
       }else{
-         ans[i].classList.remove('selected');
+         $( ans[i] ).removeClass('selected');
       }
    }
 
    var answers = ["a","b","c","d"];
 
    answer = answers[num-1];
+
+//   id('next').focus();
 }
+// End Answer
 
 
 /*
@@ -386,7 +428,7 @@ function Make(){
                if( data.status == -1 ){
                   swap( join, login );
                   errMsg( "Your session expired." );
-               }else if( data.status == 1 ){
+               }else if( data.status == API_SUCCESS ){
                   $( byId('num_q') ).hide("slow");
                   $( byId('gconfirm') ).hide("slow");
                   errMsg( "Game is created, but nothing further is implemented on this client." );
@@ -477,7 +519,7 @@ function Public(ref){
                   // Waiting to join
                   byId('wait_message').innerHTML = "Joining game...";
                   swap( join, wait );
-                  updater = window.setInterval("CheckStatus(false)",1000);
+                  updater = window.setInterval("CheckStatus(false)",2500);
                }else{
                   // Invalid login
                   swap( join, login );
@@ -661,7 +703,7 @@ function Private(){
             try{
                var data = jsonify( xr.responseText );
 
-               if( data.status == 1 ){
+               if( data.status == API_SUCCESS ){
                   swap( join, wait );
 
                   // Save the game id ( global )
@@ -729,13 +771,13 @@ function Join_Key(e){
 
 function Login_Key(e){
    if( e.keyCode == 13 ){
-      Login();
+      Login( id('login_btn') );
    }
 }
 
 function Register_Key(e){
    if( e.keyCode == 13 ){
-      Register();
+      Register( id('reg_btn') );
    }
 }
 

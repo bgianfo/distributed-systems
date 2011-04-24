@@ -62,6 +62,13 @@ Join Private Games:
      + -3 = Invalid game name/pass combination
  - Status: Implemented, haven't fully tested yet
 
+Cancel Join:
+------------
+ - URL: /cancel/<game id>
+ - POST: authToken=<session id>
+ - Returned JSON:
+   * Normal status codes (1 or -1)
+
 Game Actions (public & private):
 ================================
 

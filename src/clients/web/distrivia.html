@@ -36,8 +36,8 @@
                   <input class='login_input' type='password' name='confirm' onkeypress='Register_Key(event)' />
                </div>
                <div class='login_submit'>
-                  <a href='#' onclick='return Register(this)' style='float:left'>Register</a>
-                  <a href='#' onclick='return Login(this)' style='float:right'>Login</a>
+                  <a href='#' onclick='return Register(this)' style='float:left' id='reg_btn'>Register</a>
+                  <a href='#' onclick='return Login(this)' style='float:right' id='login_btn'>Login</a>
                </div>
                <div class='login_invalid hidden' id='login_invalid'>Invalid Login</div>
             </form>
@@ -46,11 +46,12 @@
 
       <!-- Join a game -->
       <div class='join hidden' id='join'>
-         <div class='sub_header' id='join_header'>Join a game?</div>
+         <div class='sub_header' id='join_header'>Public Game</div>
          <div class='join_public' id='join_public'>
             <a href='#' onclick='return Public(this)'>Join Public</a>
          </div>
-         <div class='sub_header' id='join_priv_head'>Join Private Game</div>
+         <div class='divider'></div>
+         <div class='sub_header' id='join_priv_head'>Private Game</div>
          <div class='join_priv' id='join_priv'>
             <form class='form' name='join_form'>
                <div class='join_row'>
@@ -75,6 +76,7 @@
                </div>
             </form>
          </div>
+         <div class='divider'></div>
          <div class='join_board'><a href='#' onclick='return Scores()'>View Leaderboard</a></div>
       </div>
 
@@ -95,7 +97,7 @@
             <a class='answer' href='#' tabindex=0 onclick='return Answer(4)'></a>
          </div>
          <div class='game_bottom'>
-            <a href='#' onclick='return Next()' class='next'>ok</a>
+            <a href='#' onclick='return Next(this)' class='next' id='next'>Next!</a>
          </div>
       </div>
 
