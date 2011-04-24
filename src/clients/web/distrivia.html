@@ -36,8 +36,8 @@
                   <input class='login_input' type='password' name='confirm' onkeypress='Register_Key(event)' />
                </div>
                <div class='login_submit'>
-                  <a href='#' onclick='return Register()' style='float:left'>Register</a>
-                  <a href='#' onclick='return Login()' style='float:right'>Login</a>
+                  <a href='#' onclick='return Register(this)' style='float:left'>Register</a>
+                  <a href='#' onclick='return Login(this)' style='float:right'>Login</a>
                </div>
                <div class='login_invalid hidden' id='login_invalid'>Invalid Login</div>
             </form>
@@ -48,7 +48,7 @@
       <div class='join hidden' id='join'>
          <div class='sub_header' id='join_header'>Join a game?</div>
          <div class='join_public' id='join_public'>
-            <a href='#' onclick='return Public()'>Join Public</a>
+            <a href='#' onclick='return Public(this)'>Join Public</a>
          </div>
          <div class='sub_header' id='join_priv_head'>Join Private Game</div>
          <div class='join_priv' id='join_priv'>
@@ -63,15 +63,15 @@
                </div>
                <div class='join_row hidden' id='gconfirm'>
                   <div class='join_left'><label for='cpass'>Pass:</label></div>
-                  <div class='join_input_wrapper'><input class='join_input' type='password' name='cpass' /></div>
+                  <div class='join_input_wrapper'><input class='join_input' type='password' name='cpass' onkeypress='Make_Key(event)'/></div>
                </div>
                <div class='join_row hidden' id='num_q'>
                   <label for='num'>Number of questions:</label>
-                  <input type='text' style='width: 2em' name='num' maxlength=2 value='20' />
+                  <input type='text' style='width: 2em' name='num' maxlength=2 value='20' onkeypress='Make_Key(event)'/>
                </div>
                <div class='join_row' style='margin-left: 4em'>
-                  <a href='#' style='float:left' onclick='return Make()'>Create</a>
-                  <a href='#' style='float:right' onclick='return Private()'>Join</a>
+                  <a href='#' style='float:left' onclick='return Private()'>Join</a>
+                  <a href='#' style='float:right' onclick='return Make()'>Create</a>
                </div>
             </form>
          </div>
@@ -108,7 +108,7 @@
             <ol class='board_list board_load' id='board_list'>
             </ol>
             <div class='board_bottom'>
-               <a href='#' onclick='return More()'>more...</a>
+               <a href='#' onclick='return More(this)'>more...</a>
             </div>
          </div>
       </div>

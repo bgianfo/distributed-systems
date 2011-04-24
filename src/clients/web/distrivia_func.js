@@ -7,6 +7,9 @@
 var url = "", php = false; // Use local server
 //var url = "loop.php", php = true; // User loop.php ajax server with &a=b notation
 
+var timeout = 5000;
+var disabler = {};
+
 
 /*
  * Gets an document element
@@ -37,6 +40,47 @@ function unload(){
    $(load).hide();
 }
 
+/*
+ * Checks if a method is disabled
+ */
+function disabled( name ){
+   try{
+      return new Date().getTime() - disabler[name] < timeout;
+   }catch(err){
+      return false;
+   }
+}
+
+/*
+ * Marks a method disabled and optionally disables an element
+ */
+function disable( name, ref ){
+   disabler[name] = new Date().getTime();
+   if( !!ref ){
+      $(ref).addClass("disable");
+      window.setTimeout(
+         function(){ autoEnable(name,ref); }, timeout + 1000 );
+   }
+}
+
+/*
+ * Marks a method enabled and optionally enables an element
+ */
+function enable( name, ref ){
+   disabler[name] = 0;
+   if( !!ref ){
+      $(ref).removeClass("disable");
+   }
+}
+
+/*
+ * Re-enables an element automatically
+ */
+function autoEnable(name,ref){
+   if( new Date().getTime() - disabler[name] > timeout ){
+      $(ref).removeClass("disable");
+   }
+}
 
 /*
  * 

@@ -235,3 +235,8 @@ a:hover {
 a:active {
    color: red;
 }
+
+a.disable{
+   color: #4c4c4c;
+   cursor: default;
+}

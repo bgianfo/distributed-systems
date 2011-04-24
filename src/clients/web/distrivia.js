@@ -288,7 +288,14 @@ function Answer( num ){
 /*
  * Gets universal leaderboard scores
  */
-function More(){
+function More(ref){
+   var func = "more";
+   if( disabled(func, ref) ){
+      return false;
+   }else{
+      disable(func, ref);
+   }
+
    var xr = XML();
    var xml_n = ++xr_n;
 
@@ -325,6 +332,7 @@ function More(){
             bl.innerHTML = bl.innerHTML + more;
             bl.scrollTop = bl.scrollHeight;
             $(bl).animate({scrollTop: bl.scrollHeight - $(bl).height() }, 800);
+            enable( func, ref );
          }
       }
    }
@@ -372,9 +380,9 @@ function Make(){
    xr.onreadystatechange = function(){
       if( xr.readyState == 4 && xml_n == xr_n ){
          if( xr.status == 200 ){
-           try{
-              var data = jsonify( xr.responseText );
-               
+            try{
+            var data = jsonify( xr.responseText );
+                           
                if( data.status == -1 ){
                   swap( join, login );
                   errMsg( "Your session expired." );
@@ -386,6 +394,7 @@ function Make(){
 
            }catch(err){
                errMsg( "Couldn't create game, server error." );
+
            }
          }
       }
@@ -435,7 +444,14 @@ function Make(){
 /*
  * Joins a public game
  */
-function Public(){
+function Public(ref){
+   var func = "joinpub";
+   if( disabled(func, ref) ){
+      return false;
+   }else{
+      disable(func, ref);
+   }
+
    // Clear any previous updater
    window.clearInterval(updater);
 
@@ -474,6 +490,7 @@ function Public(){
             errMsg( "Server error, please try again in a few minutes" );
          }
          unload();
+         enable( func, ref );
       }
       
    }
@@ -495,10 +512,17 @@ function Public(){
 /*
  * Registers a new user
  */
-function Register(){
+function Register(ref){
+   if( disabled('register') ){
+      return false;
+   }else{
+      disable('register', ref);
+   }
+
    var xr = XML();
    xr_n++;
    var xml_n = xr_n;
+   $(ref).addClass("disable", ref);
 
    xr.onreadystatechange = function(){
       if( xr.readyState == 4 && xml_n == xr_n ){
@@ -508,11 +532,12 @@ function Register(){
             }else{
                Login();
             }
-        }else{
-           // Server connection failure
-           errMsg("Could not connect to server. Please wait a minute and try again");
-        }
-        unload();
+         }else{
+            // Server connection failure
+            errMsg("Could not connect to server. Please wait a minute and try again");
+         }
+         unload();
+         enable('register', ref);
       }
    };
 
@@ -530,8 +555,10 @@ function Register(){
    var conf = document.forms.login_form.confirm.value.trim();
    if( conf == "" ){
       reveal( byId('confirm') );
+      enable('register', ref);
    }else if( conf != pass ){
       errMsg( "Passwords don't match" );
+      enable('register', ref);
    }else{
 
       var URI = erl( "/register/" + username );
@@ -553,7 +580,14 @@ function Register(){
 /*
  * Processes a log in attempt
  */
-function Login(){
+function Login(ref){
+   var func = "login";
+   if( disabled(func, ref) ){
+      return false;
+   }else{
+      disable(func, ref);
+   }
+
    var xr = XML();
    xr_n++;
    var xml_n = xr_n;
@@ -577,6 +611,7 @@ function Login(){
             errMsg("Could not connect to server. Please wait a minute and try again");
          }
          unload();
+         enable( func, ref );
       }
    }
 
@@ -636,7 +671,7 @@ function Private(){
                   swap( join, login );
                   errMsg( "Your login session expired." );
                }else{
-                  errMsg( "This shouldn't have happened. Sorry." );
+                  errMsg( "Server returned an invalid status code: " + data.status + "." );
                }
 
             }catch(err){
@@ -687,6 +722,12 @@ function Login_Key(e){
 function Register_Key(e){
    if( e.keyCode == 13 ){
       Register();
+   }
+}
+
+function Make_Key(e){
+   if( e.keyCode == 13 ){
+      Make();
    }
 }
 
