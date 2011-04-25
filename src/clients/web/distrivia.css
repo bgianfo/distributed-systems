@@ -86,6 +86,14 @@ li.error_item:hover {
    margin-bottom: 10px;
 }
 
+.divider{
+/*   background-color: #4C4C4C; */
+   background-color: gray;
+   height: 1px;
+   margin-bottom: 15px;
+   margin-top: 15px;
+}
+
 /* Login Area CSS */
 .login{
 }
@@ -118,9 +126,16 @@ li.error_item:hover {
 
 
 /* Join Game CSS */
+.join{
+   text-align: center;
+}
+
 .join_public{
    text-align: center;
-   margin-bottom: 20px;
+}
+
+.join_priv{
+   text-align: left;
 }
 
 .join_header{
@@ -133,7 +148,6 @@ li.error_item:hover {
 
 .join_board{
    text-align: center;
-   margin-top: 20px;
 }
 
 .join_input_wrapper{
@@ -166,13 +180,7 @@ a.answer:hover {
    text-align: center;
 }
 
-.selected{
-   border: 1px solid white;
-   color: red;
-}
-
 .next{
-   border: 1px solid white;
    padding: 0 20px;
 }
 /* End Game CSS */
@@ -235,3 +243,14 @@ a:hover {
 a:active {
    color: red;
 }
+
+a.disable{
+   color: #4c4c4c;
+   cursor: default;
+}
+
+a.selected{
+   border: 1px solid white;
+   color: red;
+}
+
