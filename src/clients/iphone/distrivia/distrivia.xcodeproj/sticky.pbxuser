@@ -23,17 +23,17 @@
 	};
 	28D7ACF60DDB3853001CB0EB /* LoginViewController.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {926, 601}}";
-			sepNavSelRange = "{829, 0}";
-			sepNavVisRange = "{0, 1006}";
+			sepNavIntBoundsRect = "{{0, 0}, {926, 591}}";
+			sepNavSelRange = "{268, 0}";
+			sepNavVisRange = "{0, 974}";
 			sepNavWindowFrame = "{{430, 340}, {750, 558}}";
 		};
 	};
 	28D7ACF70DDB3853001CB0EB /* LoginViewController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {926, 1911}}";
-			sepNavSelRange = "{3469, 227}";
-			sepNavVisRange = "{3379, 1171}";
+			sepNavIntBoundsRect = "{{0, 0}, {926, 1976}}";
+			sepNavSelRange = "{232, 0}";
+			sepNavVisRange = "{0, 1320}";
 			sepNavWindowFrame = "{{38, 444}, {750, 558}}";
 		};
 	};
@@ -176,9 +176,16 @@
 	};
 	C129610313603CB70092180F /* LeaderboardViewController.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {926, 596}}";
+			sepNavIntBoundsRect = "{{0, 0}, {926, 591}}";
 			sepNavSelRange = "{0, 0}";
-			sepNavVisRange = "{0, 265}";
+			sepNavVisRange = "{0, 364}";
+		};
+	};
+	C129610413603CB70092180F /* LeaderboardViewController.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1139, 754}}";
+			sepNavSelRange = "{171, 0}";
+			sepNavVisRange = "{0, 1318}";
 		};
 	};
 	C129610913603D170092180F /* PBXTextBookmark */ = {
@@ -206,7 +213,7 @@
 		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
 		name = "LoginViewController.m: 99";
 		rLen = 227;
-		rLoc = 3469;
+		rLoc = 3500;
 		rType = 0;
 		vrLen = 1171;
 		vrLoc = 3379;
@@ -216,7 +223,7 @@
 		fRef = C1B03723135E4F6300E7BD63 /* JoinViewController.h */;
 		name = "JoinViewController.h: 33";
 		rLen = 0;
-		rLoc = 1129;
+		rLoc = 1123;
 		rType = 0;
 		vrLen = 1258;
 		vrLoc = 0;
@@ -256,7 +263,7 @@
 		fRef = C149E387135E5F3500D6A77D /* RoundViewController.h */;
 		name = "RoundViewController.h: 36";
 		rLen = 0;
-		rLoc = 845;
+		rLoc = 732;
 		rType = 0;
 		vrLen = 845;
 		vrLoc = 0;
@@ -266,7 +273,7 @@
 		fRef = C149E387135E5F3500D6A77D /* RoundViewController.h */;
 		name = "RoundViewController.h: 36";
 		rLen = 0;
-		rLoc = 845;
+		rLoc = 732;
 		rType = 0;
 		vrLen = 845;
 		vrLoc = 0;
@@ -276,7 +283,7 @@
 		fRef = C149E387135E5F3500D6A77D /* RoundViewController.h */;
 		name = "RoundViewController.h: 12";
 		rLen = 0;
-		rLoc = 230;
+		rLoc = 190;
 		rType = 0;
 		vrLen = 845;
 		vrLoc = 0;
@@ -286,7 +293,7 @@
 		fRef = C149E387135E5F3500D6A77D /* RoundViewController.h */;
 		name = "RoundViewController.h: 12";
 		rLen = 0;
-		rLoc = 230;
+		rLoc = 190;
 		rType = 0;
 		vrLen = 845;
 		vrLoc = 0;
@@ -296,7 +303,7 @@
 		fRef = C149E387135E5F3500D6A77D /* RoundViewController.h */;
 		name = "RoundViewController.h: 16";
 		rLen = 0;
-		rLoc = 338;
+		rLoc = 298;
 		rType = 0;
 		vrLen = 845;
 		vrLoc = 0;
@@ -313,19 +320,33 @@
 		rLen = 0;
 		rLoc = 9223372036854775807;
 	};
+	C12961541365572C0092180F /* RootViewController.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {926, 591}}";
+			sepNavSelRange = "{761, 0}";
+			sepNavVisRange = "{0, 768}";
+		};
+	};
+	C12961551365572C0092180F /* RootViewController.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1139, 1079}}";
+			sepNavSelRange = "{1952, 0}";
+			sepNavVisRange = "{0, 1126}";
+		};
+	};
 	C149E387135E5F3500D6A77D /* RoundViewController.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {926, 591}}";
-			sepNavSelRange = "{338, 0}";
-			sepNavVisRange = "{0, 845}";
+			sepNavSelRange = "{383, 0}";
+			sepNavVisRange = "{0, 732}";
 			sepNavWindowFrame = "{{15, 465}, {750, 558}}";
 		};
 	};
 	C149E388135E5F3500D6A77D /* RoundViewController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1139, 806}}";
-			sepNavSelRange = "{164, 0}";
-			sepNavVisRange = "{0, 1303}";
+			sepNavIntBoundsRect = "{{0, 0}, {1139, 1287}}";
+			sepNavSelRange = "{2075, 0}";
+			sepNavVisRange = "{1360, 978}";
 		};
 	};
 	C184DD30135DEBAB005B7546 /* distrivia */ = {
@@ -374,16 +395,16 @@
 	};
 	C1B03723135E4F6300E7BD63 /* JoinViewController.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {926, 596}}";
-			sepNavSelRange = "{1129, 0}";
-			sepNavVisRange = "{0, 1258}";
+			sepNavIntBoundsRect = "{{0, 0}, {926, 591}}";
+			sepNavSelRange = "{243, 0}";
+			sepNavVisRange = "{0, 1331}";
 		};
 	};
 	C1B03724135E4F6300E7BD63 /* JoinViewController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1139, 1508}}";
-			sepNavSelRange = "{154, 0}";
-			sepNavVisRange = "{0, 1761}";
+			sepNavIntBoundsRect = "{{0, 0}, {1139, 1612}}";
+			sepNavSelRange = "{255, 0}";
+			sepNavVisRange = "{0, 1655}";
 		};
 	};
 	C1B03749135E54E600E7BD63 /* PBXTextBookmark */ = {

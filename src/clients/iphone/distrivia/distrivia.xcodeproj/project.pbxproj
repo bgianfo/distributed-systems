@@ -28,6 +28,7 @@
 		C1296140136357D50092180F /* distrivia_icon6.png in Resources */ = {isa = PBXBuildFile; fileRef = C129613D136357D50092180F /* distrivia_icon6.png */; };
 		C1296141136357D50092180F /* distrivia_icon7.png in Resources */ = {isa = PBXBuildFile; fileRef = C129613E136357D50092180F /* distrivia_icon7.png */; };
 		C1296142136357D50092180F /* distrivia_icon8.png in Resources */ = {isa = PBXBuildFile; fileRef = C129613F136357D50092180F /* distrivia_icon8.png */; };
+		C12961561365572C0092180F /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C12961551365572C0092180F /* RootViewController.m */; };
 		C149E38A135E5F3500D6A77D /* RoundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C149E388135E5F3500D6A77D /* RoundViewController.m */; };
 		C149E38B135E5F3500D6A77D /* RoundView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C149E389135E5F3500D6A77D /* RoundView.xib */; };
 		C184DD4C135DEDBB005B7546 /* distrivia_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = C184DD4B135DEDBB005B7546 /* distrivia_icon.png */; };
@@ -68,6 +69,8 @@
 		C129613D136357D50092180F /* distrivia_icon6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = distrivia_icon6.png; sourceTree = "<group>"; };
 		C129613E136357D50092180F /* distrivia_icon7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = distrivia_icon7.png; sourceTree = "<group>"; };
 		C129613F136357D50092180F /* distrivia_icon8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = distrivia_icon8.png; sourceTree = "<group>"; };
+		C12961541365572C0092180F /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
+		C12961551365572C0092180F /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		C149E387135E5F3500D6A77D /* RoundViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RoundViewController.h; path = Classes/RoundViewController.h; sourceTree = "<group>"; };
 		C149E388135E5F3500D6A77D /* RoundViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RoundViewController.m; path = Classes/RoundViewController.m; sourceTree = "<group>"; };
 		C149E389135E5F3500D6A77D /* RoundView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RoundView.xib; sourceTree = "<group>"; };
@@ -104,6 +107,8 @@
 				1D3623250D0F684500981E51 /* distriviaAppDelegate.m */,
 				C0961667135E9CC300BDFFA6 /* GameData.h */,
 				C0961668135E9CC300BDFFA6 /* GameData.m */,
+				C12961541365572C0092180F /* RootViewController.h */,
+				C12961551365572C0092180F /* RootViewController.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -295,6 +300,7 @@
 				C0961669135E9CC300BDFFA6 /* GameData.m in Sources */,
 				C0524B9F135F870900BE6E98 /* DistriviaAPI.m in Sources */,
 				C129610613603CB70092180F /* LeaderboardViewController.m in Sources */,
+				C12961561365572C0092180F /* RootViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

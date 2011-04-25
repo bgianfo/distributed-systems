@@ -11,7 +11,6 @@
 
 @implementation RoundViewController
 
-@synthesize delegate;
 @synthesize question;
 @synthesize aBut;
 @synthesize bBut;
@@ -77,7 +76,6 @@
 
 - (void)viewDidUnload {
     // Release any retained subviews of the main view.
-	self.delegate = nil;
 	self.question = nil;
 	self.aBut = nil;
 	self.bBut = nil;

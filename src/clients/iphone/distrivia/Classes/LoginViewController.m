@@ -7,6 +7,7 @@
 //
 
 #import "LoginViewController.h"
+#import "JoinViewController.h"
 
 @implementation LoginViewController
 
@@ -109,7 +110,6 @@
 - (void)startJoin {
     [activeIndicate stopAnimating];
     JoinViewController *controller = [[JoinViewController alloc] initWithNibName:@"JoinView" bundle:nil];
-	controller.delegate = self;
 	controller.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
 	[self presentModalViewController:controller animated:YES];
 	

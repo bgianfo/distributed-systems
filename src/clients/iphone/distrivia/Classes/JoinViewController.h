@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "RoundViewController.h"
-#import "LeaderboardViewController.h"
 
-@protocol JoinViewControllerDelegate;
 
-@interface JoinViewController : UIViewController <RoundViewControllerDelegate> {
+@class LeaderboardViewController;
+@class RoundViewController;
+
+@interface JoinViewController : UIViewController {
 
 	IBOutlet UIButton	*pubBut;
     IBOutlet UIButton   *priJoinBut;
@@ -24,7 +24,6 @@
 	
 }
 
-@property (nonatomic, assign) id <JoinViewControllerDelegate> delegate;
 @property (nonatomic, retain) IBOutlet UIButton *pubBut;
 @property (nonatomic, retain) IBOutlet UIButton *priJoinBut;
 @property (nonatomic, retain) IBOutlet UIButton *priCreateBut;

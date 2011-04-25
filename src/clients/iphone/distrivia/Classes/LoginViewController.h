@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "JoinViewController.h"
 
-@interface LoginViewController : UIViewController <JoinViewControllerDelegate> {
+@class JoinViewController;
+
+@interface LoginViewController : UIViewController {
     IBOutlet UIButton *registerBut;
     IBOutlet UIButton *loginBut;
     IBOutlet UITextField *userField;

@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol RoundViewControllerDelegate;
-
 @interface RoundViewController : UIViewController {
 
 	IBOutlet UILabel	*question;
@@ -21,7 +19,6 @@
 	
 }
 
-@property (nonatomic, assign) id <RoundViewControllerDelegate> delegate;
 @property (nonatomic, retain) IBOutlet UILabel *question;
 @property (nonatomic, retain) IBOutlet UIButton *aBut;
 @property (nonatomic, retain) IBOutlet UIButton *bBut;

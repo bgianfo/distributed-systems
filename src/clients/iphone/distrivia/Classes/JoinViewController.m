@@ -7,11 +7,12 @@
 //
 
 #import "JoinViewController.h"
+#import "RoundViewController.h"
+#import "LeaderboardViewController.h"
 
 
 @implementation JoinViewController
 
-@synthesize delegate;
 @synthesize pubBut;
 @synthesize priJoinBut;
 @synthesize priCreateBut;
@@ -73,7 +74,6 @@
 
 - (IBAction)joinPublic:(id)sender {
 	RoundViewController *controller = [[RoundViewController alloc] initWithNibName:@"RoundView" bundle:nil];
-	controller.delegate = self;
 	controller.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
 	[self presentModalViewController:controller animated:YES];
 	
@@ -98,7 +98,6 @@
 
 - (void)viewDidUnload {
     // Release any retained subviews of the main view.
-	self.delegate = nil;
 	self.pubBut = nil;
     self.priJoinBut = nil;
     self.priCreateBut = nil;
