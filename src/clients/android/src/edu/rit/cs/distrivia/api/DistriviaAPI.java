@@ -171,9 +171,10 @@ public class DistriviaAPI {
         params.add(new BasicNameValuePair("user", gdata.getUserName()));
 
         String data = post(url, params);
-        JSON jsonParser = new JSON(data);
+        //Looks like the data it's getting back is just the gameID
+        //JSON jsonParser = new JSON(data);
 
-        gdata.setGameId(jsonParser.gameid());
+        gdata.setGameId(data);
 
         return gdata;
     }
