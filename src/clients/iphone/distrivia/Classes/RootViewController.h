@@ -22,9 +22,16 @@
     
 }
 
+extern NSString * const LOGIN;
+extern NSString * const JOIN;
+extern NSString * const ROUND;
+extern NSString * const LEADERBOARD;
+
 @property (retain, nonatomic) LeaderboardViewController *leadView;
 @property (retain, nonatomic) RoundViewController *roundView;
 @property (retain, nonatomic) LoginViewController *loginView;
 @property (retain, nonatomic) JoinViewController *joinView;
+
+- (IBAction) switchViews:(id)sender;
 
 @end

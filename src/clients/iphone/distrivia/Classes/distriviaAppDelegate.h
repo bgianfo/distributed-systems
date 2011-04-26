@@ -9,14 +9,16 @@
 #import <UIKit/UIKit.h>
 
 @class LoginViewController;
+@class RootViewController;
 
 @interface distriviaAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;
-    LoginViewController *viewController;
+    //LoginViewController *viewController;
+    RootViewController *viewController;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
-@property (nonatomic, retain) IBOutlet LoginViewController *viewController;
+@property (nonatomic, retain) IBOutlet RootViewController *viewController;
 
 @end
 

@@ -18,9 +18,6 @@
 		C0524B9F135F870900BE6E98 /* DistriviaAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = C0524B9E135F870900BE6E98 /* DistriviaAPI.m */; };
 		C0961665135E9C5D00BDFFA6 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = C0961663135E9C5D00BDFFA6 /* JSONKit.m */; };
 		C0961669135E9CC300BDFFA6 /* GameData.m in Sources */ = {isa = PBXBuildFile; fileRef = C0961668135E9CC300BDFFA6 /* GameData.m */; };
-		C1295FF3135E78E00092180F /* distrivia_icon3.png in Resources */ = {isa = PBXBuildFile; fileRef = C1295FF0135E78E00092180F /* distrivia_icon3.png */; };
-		C1295FF4135E78E00092180F /* distrivia_icon4.png in Resources */ = {isa = PBXBuildFile; fileRef = C1295FF1135E78E00092180F /* distrivia_icon4.png */; };
-		C1295FF5135E78E00092180F /* distrivia_icon5.png in Resources */ = {isa = PBXBuildFile; fileRef = C1295FF2135E78E00092180F /* distrivia_icon5.png */; };
 		C1296088135F35110092180F /* blueButton.png in Resources */ = {isa = PBXBuildFile; fileRef = C1296086135F35110092180F /* blueButton.png */; };
 		C1296089135F35110092180F /* whiteButton.png in Resources */ = {isa = PBXBuildFile; fileRef = C1296087135F35110092180F /* whiteButton.png */; };
 		C129610613603CB70092180F /* LeaderboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C129610413603CB70092180F /* LeaderboardViewController.m */; };
@@ -31,8 +28,6 @@
 		C12961561365572C0092180F /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C12961551365572C0092180F /* RootViewController.m */; };
 		C149E38A135E5F3500D6A77D /* RoundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C149E388135E5F3500D6A77D /* RoundViewController.m */; };
 		C149E38B135E5F3500D6A77D /* RoundView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C149E389135E5F3500D6A77D /* RoundView.xib */; };
-		C184DD4C135DEDBB005B7546 /* distrivia_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = C184DD4B135DEDBB005B7546 /* distrivia_icon.png */; };
-		C1B0370D135E4E9200E7BD63 /* distrivia_icon2.png in Resources */ = {isa = PBXBuildFile; fileRef = C1B0370C135E4E9200E7BD63 /* distrivia_icon2.png */; };
 		C1B03726135E4F6300E7BD63 /* JoinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B03724135E4F6300E7BD63 /* JoinViewController.m */; };
 		C1B03727135E4F6300E7BD63 /* JoinView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1B03725135E4F6300E7BD63 /* JoinView.xib */; };
 		C1B03744135E51D800E7BD63 /* distriviaw.png in Resources */ = {isa = PBXBuildFile; fileRef = C1B03743135E51D800E7BD63 /* distriviaw.png */; };
@@ -58,9 +53,6 @@
 		C0961664135E9C5D00BDFFA6 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		C0961667135E9CC300BDFFA6 /* GameData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameData.h; sourceTree = "<group>"; };
 		C0961668135E9CC300BDFFA6 /* GameData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameData.m; sourceTree = "<group>"; };
-		C1295FF0135E78E00092180F /* distrivia_icon3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = distrivia_icon3.png; sourceTree = "<group>"; };
-		C1295FF1135E78E00092180F /* distrivia_icon4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = distrivia_icon4.png; sourceTree = "<group>"; };
-		C1295FF2135E78E00092180F /* distrivia_icon5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = distrivia_icon5.png; sourceTree = "<group>"; };
 		C1296086135F35110092180F /* blueButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueButton.png; sourceTree = "<group>"; };
 		C1296087135F35110092180F /* whiteButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whiteButton.png; sourceTree = "<group>"; };
 		C129610313603CB70092180F /* LeaderboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LeaderboardViewController.h; path = Classes/LeaderboardViewController.h; sourceTree = "<group>"; };
@@ -74,8 +66,6 @@
 		C149E387135E5F3500D6A77D /* RoundViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RoundViewController.h; path = Classes/RoundViewController.h; sourceTree = "<group>"; };
 		C149E388135E5F3500D6A77D /* RoundViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RoundViewController.m; path = Classes/RoundViewController.m; sourceTree = "<group>"; };
 		C149E389135E5F3500D6A77D /* RoundView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RoundView.xib; sourceTree = "<group>"; };
-		C184DD4B135DEDBB005B7546 /* distrivia_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = distrivia_icon.png; sourceTree = "<group>"; };
-		C1B0370C135E4E9200E7BD63 /* distrivia_icon2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = distrivia_icon2.png; sourceTree = "<group>"; };
 		C1B03723135E4F6300E7BD63 /* JoinViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JoinViewController.h; path = Classes/JoinViewController.h; sourceTree = "<group>"; };
 		C1B03724135E4F6300E7BD63 /* JoinViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JoinViewController.m; path = Classes/JoinViewController.m; sourceTree = "<group>"; };
 		C1B03725135E4F6300E7BD63 /* JoinView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JoinView.xib; sourceTree = "<group>"; };
@@ -154,12 +144,7 @@
 				C129613F136357D50092180F /* distrivia_icon8.png */,
 				C1296086135F35110092180F /* blueButton.png */,
 				C1296087135F35110092180F /* whiteButton.png */,
-				C1295FF0135E78E00092180F /* distrivia_icon3.png */,
-				C1295FF1135E78E00092180F /* distrivia_icon4.png */,
-				C1295FF2135E78E00092180F /* distrivia_icon5.png */,
 				C1B03743135E51D800E7BD63 /* distriviaw.png */,
-				C1B0370C135E4E9200E7BD63 /* distrivia_icon2.png */,
-				C184DD4B135DEDBB005B7546 /* distrivia_icon.png */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* distrivia-Info.plist */,
 			);
@@ -267,14 +252,9 @@
 			files = (
 				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
 				2899E5220DE3E06400AC0155 /* LoginView.xib in Resources */,
-				C184DD4C135DEDBB005B7546 /* distrivia_icon.png in Resources */,
-				C1B0370D135E4E9200E7BD63 /* distrivia_icon2.png in Resources */,
 				C1B03727135E4F6300E7BD63 /* JoinView.xib in Resources */,
 				C1B03744135E51D800E7BD63 /* distriviaw.png in Resources */,
 				C149E38B135E5F3500D6A77D /* RoundView.xib in Resources */,
-				C1295FF3135E78E00092180F /* distrivia_icon3.png in Resources */,
-				C1295FF4135E78E00092180F /* distrivia_icon4.png in Resources */,
-				C1295FF5135E78E00092180F /* distrivia_icon5.png in Resources */,
 				C1296088135F35110092180F /* blueButton.png in Resources */,
 				C1296089135F35110092180F /* whiteButton.png in Resources */,
 				C129610713603CB70092180F /* LeaderboardView.xib in Resources */,

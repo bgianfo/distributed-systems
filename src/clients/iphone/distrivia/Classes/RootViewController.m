@@ -21,6 +21,11 @@
 @synthesize loginView;
 @synthesize joinView;
 
+NSString * const LOGIN = @"LoginView";
+NSString * const JOIN = @"JoinView";
+NSString * const ROUND = @"RoundView";
+NSString * const LEADERBOARD = @"LeaderboardView";
+
 // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 /*
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -38,12 +43,15 @@
 }
 */
 
-/*
+
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
+    LoginViewController *lCont = [[LoginViewController alloc] initWithNibName:LOGIN bundle:nil];
+    self.loginView = lCont;
+    [self.view insertSubview:lCont.view atIndex:0];
+    [lCont release];
     [super viewDidLoad];
 }
-*/
 
 /*
 // Override to allow orientations other than the default portrait orientation.

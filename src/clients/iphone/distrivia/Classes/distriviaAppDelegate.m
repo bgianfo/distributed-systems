@@ -7,7 +7,7 @@
 //
 
 #import "distriviaAppDelegate.h"
-#import "LoginViewController.h"
+#import "RootViewController.h"
 
 @implementation distriviaAppDelegate
 
