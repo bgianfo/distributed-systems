@@ -30,6 +30,7 @@ public class JoinActivity extends GameActivityBase {
         final Button pubButton = (Button) findViewById(R.id.join_public_button);
         final Button priJoinButton = (Button) findViewById(R.id.join_private_button);
         final Button priCreateButton = (Button) findViewById(R.id.create_private_button);
+        final Button priStartButton = (Button) findViewById(R.id.start_private_button);
         final Button lbButton = (Button) findViewById(R.id.view_leaderboard_button);
         final TextView playersLabel = (TextView) findViewById(R.id.num_players_text);
         final EditText privateName = (EditText) findViewById(R.id.private_name_text);
@@ -43,6 +44,8 @@ public class JoinActivity extends GameActivityBase {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setSelection(1);
+        
+        priStartButton.setVisibility(View.GONE);
 
         pubButton.setOnClickListener(new OnClickListener() {
             @Override
@@ -79,8 +82,11 @@ public class JoinActivity extends GameActivityBase {
                 String pass = privatePass.getText().toString().trim();
                 if (!name.equals("") && !pass.equals("")) {
                     publicLayout.setVisibility(View.GONE);
-                    v.setEnabled(false);
-                    priJoinButton.setEnabled(false);
+                    //v.setEnabled(false);
+                    //priJoinButton.setEnabled(false);
+                    v.setVisibility(View.GONE);
+                    priJoinButton.setVisibility(View.GONE);
+                    priStartButton.setVisibility(View.VISIBLE);
                     playersLabel.setText("Press Start Game when you're ready to begin...");
                     int numQs = Integer.parseInt((String)spinner.getSelectedItem());
                     createPrivate(name, pass, numQs);

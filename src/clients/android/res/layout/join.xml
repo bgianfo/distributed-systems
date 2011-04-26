@@ -39,7 +39,8 @@
      android:layout_height="wrap_content"
      android:orientation="vertical"
      android:background="#333333"
-     android:id="@+id/private_layout">
+     android:id="@+id/private_layout"
+     android:layout_marginTop="10dip">
      
         <TextView android:id="@+id/textView3"
          android:text="@string/private_games"
@@ -90,13 +91,16 @@
         <LinearLayout android:id="@+id/linearLayout3" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_gravity="center_horizontal">
             <Button android:id="@+id/create_private_button" android:layout_height="wrap_content" android:text="Create Private" android:layout_width="140dip"></Button>
             <Button android:id="@+id/join_private_button" android:layout_height="wrap_content" android:text="Join Private" android:layout_gravity="center_horizontal" android:layout_width="140dip"></Button>
+            <Button android:id="@+id/start_private_button" android:layout_height="wrap_content" android:text="Start Game" android:layout_width="140dip"></Button>
         </LinearLayout>
         
     </LinearLayout>
     <TextView android:layout_height="wrap_content"
      android:layout_width="fill_parent" 
      android:text="" 
-     android:id="@+id/num_players_text">
+     android:id="@+id/num_players_text"
+     android:layout_marginBottom="10dip"
+     android:layout_marginTop="10dip">
     </TextView>
     
     <Button android:layout_height="wrap_content" android:text="View Global Leaderboard" android:layout_width="fill_parent" android:id="@+id/view_leaderboard_button"></Button>

@@ -143,6 +143,7 @@ public class DistriviaAPI {
         params.add(new BasicNameValuePair("user", gdata.getUserName()));
 
         String data = post(url, params);
+        Log.d("JOIN PRIVATE", data);
         JSON jsonParser = new JSON(data);
 
         gdata.setGameId(jsonParser.gameid());
