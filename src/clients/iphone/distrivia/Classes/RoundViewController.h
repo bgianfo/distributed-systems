@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class RootViewController;
+
 @interface RoundViewController : UIViewController {
 
 	IBOutlet UILabel	*question;
@@ -16,6 +18,7 @@
 	IBOutlet UIButton	*cBut;
 	IBOutlet UIButton	*dBut;
 	
+    RootViewController *rootController;
 	
 }
 
@@ -24,6 +27,7 @@
 @property (nonatomic, retain) IBOutlet UIButton *bBut;
 @property (nonatomic, retain) IBOutlet UIButton *cBut;
 @property (nonatomic, retain) IBOutlet UIButton *dBut;
+@property (nonatomic, retain) RootViewController *rootController;
 
 - (IBAction) answerSelected:(id)sender;
 - (void) deselectAll;

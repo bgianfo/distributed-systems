@@ -8,12 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+@class RootViewController;
 
 @interface LeaderboardViewController : UIViewController {
 	IBOutlet UITableView	*boardView;
 	
+    RootViewController *rootController;
 }
 
 @property (retain, nonatomic) IBOutlet UITableView *boardView;
+@property (retain, nonatomic) RootViewController *rootController;
 
 @end

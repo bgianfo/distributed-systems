@@ -7,7 +7,7 @@
 //
 
 #import "RoundViewController.h"
-
+#import "RootViewController.h"
 
 @implementation RoundViewController
 
@@ -16,6 +16,7 @@
 @synthesize bBut;
 @synthesize cBut;
 @synthesize dBut;
+@synthesize rootController;
 
 // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 /*
@@ -81,6 +82,7 @@
 	self.bBut = nil;
 	self.cBut = nil;
 	self.dBut = nil;
+    self.rootController = nil;
     [super viewDidUnload];
 }
 
@@ -91,6 +93,7 @@
 	[bBut release];
 	[cBut release];
 	[dBut release];
+    [rootController release];
     [super dealloc];
 }
 

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class JoinViewController;
+@class RootViewController;
 
 @interface LoginViewController : UIViewController {
     IBOutlet UIButton *registerBut;
@@ -16,6 +16,8 @@
     IBOutlet UITextField *userField;
     IBOutlet UITextField *passField;
     IBOutlet UIActivityIndicatorView *activeIndicate;
+    
+    RootViewController *rootController;
 }
 
 @property (retain, nonatomic) IBOutlet UIButton *registerBut;
@@ -23,6 +25,7 @@
 @property (retain, nonatomic) IBOutlet UITextField *userField;
 @property (retain, nonatomic) IBOutlet UITextField *passField;
 @property (retain, nonatomic) IBOutlet UIActivityIndicatorView *activeIndicate;
+@property (retain, nonatomic) RootViewController *rootController;
 
 - (IBAction) login:(id)sender;
 - (IBAction) regis:(id)sender;

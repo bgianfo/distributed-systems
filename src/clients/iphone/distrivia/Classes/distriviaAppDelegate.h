@@ -8,12 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@class LoginViewController;
 @class RootViewController;
 
 @interface distriviaAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;
-    //LoginViewController *viewController;
     RootViewController *viewController;
 }
 

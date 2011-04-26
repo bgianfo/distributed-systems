@@ -7,7 +7,7 @@
 //
 
 #import "LoginViewController.h"
-#import "JoinViewController.h"
+#import "RootViewController.h"
 
 @implementation LoginViewController
 
@@ -16,6 +16,7 @@
 @synthesize userField;
 @synthesize passField;
 @synthesize activeIndicate;
+@synthesize rootController;
 
 
 
@@ -109,11 +110,7 @@
 
 - (void)startJoin {
     [activeIndicate stopAnimating];
-    JoinViewController *controller = [[JoinViewController alloc] initWithNibName:@"JoinView" bundle:nil];
-	controller.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-	[self presentModalViewController:controller animated:YES];
-	
-	[controller release];
+    [rootController switchToView:@"JoinView"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -130,6 +127,7 @@
     self.userField = nil;
     self.passField = nil;
     self.activeIndicate = nil;
+    self.rootController = nil;
 	[super viewDidUnload];
 }
 
@@ -140,6 +138,7 @@
     [userField release];
     [passField release];
     [activeIndicate release];
+    [rootController release];
     [super dealloc];
 }
 

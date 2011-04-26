@@ -7,11 +7,12 @@
 //
 
 #import "LeaderboardViewController.h"
-
+#import "RootViewController.h"
 
 @implementation LeaderboardViewController
 
 @synthesize boardView;
+@synthesize rootController;
 
 // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 /*
@@ -48,6 +49,7 @@
 
 - (void)viewDidUnload {
 	self.boardView = nil;
+    self.rootController = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -55,6 +57,7 @@
 
 - (void)dealloc {
 	[boardView release];
+    [rootController release];
     [super dealloc];
 }
 

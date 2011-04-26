@@ -7,8 +7,8 @@
 //
 
 #import "JoinViewController.h"
-#import "RoundViewController.h"
 #import "LeaderboardViewController.h"
+#import "RootViewController.h"
 
 
 @implementation JoinViewController
@@ -20,6 +20,7 @@
 @synthesize nameField;
 @synthesize passField;
 @synthesize activeIndicate;
+@synthesize rootController;
 
 // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 /*
@@ -73,11 +74,7 @@
 }
 
 - (IBAction)joinPublic:(id)sender {
-	RoundViewController *controller = [[RoundViewController alloc] initWithNibName:@"RoundView" bundle:nil];
-	controller.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-	[self presentModalViewController:controller animated:YES];
-	
-	[controller release];
+	[rootController switchToView:@"RoundView"];
 }
 
 - (IBAction) textFieldDoneEditing:(id)sender {
@@ -105,6 +102,7 @@
     self.nameField = nil;
     self.passField = nil;
     self.activeIndicate = nil;
+    self.rootController = nil;
 	[super viewDidUnload];
 }
 
@@ -117,6 +115,7 @@
     [nameField release];
     [passField release];
     [activeIndicate release];
+    [rootController release];
     [super dealloc];
 }
 

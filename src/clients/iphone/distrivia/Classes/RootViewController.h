@@ -32,6 +32,6 @@ extern NSString * const LEADERBOARD;
 @property (retain, nonatomic) LoginViewController *loginView;
 @property (retain, nonatomic) JoinViewController *joinView;
 
-- (IBAction) switchViews:(id)sender;
+- (void)switchToView:(NSString*)v;
 
 @end

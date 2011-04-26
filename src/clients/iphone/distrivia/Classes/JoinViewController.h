@@ -10,7 +10,7 @@
 
 
 @class LeaderboardViewController;
-@class RoundViewController;
+@class RootViewController;
 
 @interface JoinViewController : UIViewController {
 
@@ -21,6 +21,8 @@
     IBOutlet UITextField    *nameField;
     IBOutlet UITextField    *passField;
     IBOutlet UIActivityIndicatorView    *activeIndicate;
+    
+    RootViewController *rootController;
 	
 }
 
@@ -31,6 +33,7 @@
 @property (nonatomic, retain) IBOutlet UITextField *nameField;
 @property (nonatomic, retain) IBOutlet UITextField *passField;
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView *activeIndicate;
+@property (nonatomic, retain) RootViewController *rootController;
 
 - (IBAction) joinPublic:(id)sender;
 - (IBAction) viewLeaderboard:(id)sender;
