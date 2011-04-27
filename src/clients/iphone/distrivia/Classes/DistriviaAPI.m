@@ -11,7 +11,6 @@
 
 @implementation DistriviaAPI
 
-@synthesize responseData;
 @synthesize viewDelegate;
 
 const static NSString* API_URL = @"https://distrivia.lame.ws";
@@ -24,14 +23,19 @@ const static NSString* API_URL = @"https://distrivia.lame.ws";
     
     NSURLRequest* request = [DistriviaAPI createPost:post urlFrag:fragment];
     
-    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
     
     
-    if ( conn ) {
+    if ( connection ) {
+        NSLog(@"Connection Started");
         return true;
+        responseData = [[NSMutableData data] retain];
     } else {
         return false;
     }
+    [fragment release];
+    [post release];
+    [request release];
 }
 
 + (NSMutableURLRequest*) createPost:(NSString*)post urlFrag:(NSString*)urlFragment {
@@ -53,24 +57,33 @@ const static NSString* API_URL = @"https://distrivia.lame.ws";
     [request setValue:len forHTTPHeaderField:@"Content-Length"];
     [request setValue:@"application/x-www-form-urlencoded" 
              forHTTPHeaderField:@"Current-Type"];
+    [request setTimeoutInterval:30.0];
     
 
     return request;
 }
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
+
+- (void)connection:(NSURLConnection *)conn didReceiveResponse:(NSURLResponse *)response {
+    NSLog(@"API: response");
     [responseData setLength:0];
 }
 
 
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
+- (void)connection:(NSURLConnection *)conn didReceiveData:(NSData *)data {
+    NSLog(@"API: data");
     [responseData appendData:data];
 }
 
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+- (void)connection:(NSURLConnection *)conn didFailWithError:(NSError *)error {
+    NSLog(@"API: error");
     [self.viewDelegate errorOccurred];
+    
+    [connection release];
+    [responseData release];
 }
 
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+- (void)connectionDidFinishLoading:(NSURLConnection *)conn {
+    NSLog(@"API: finish");
     [self.viewDelegate serverResponse];
 }
 @end

@@ -14,12 +14,12 @@
 @interface DistriviaAPI : NSObject {
     NSMutableData *responseData;
     UIViewController *viewDelegate;
+    NSURLConnection *connection;
     
 }
-@property (retain, nonatomic) NSMutableData *responseData;
 @property (retain, nonatomic) UIViewController *viewDelegate;
 
-+ (BOOL) loginWithData:(GameData*)gd user:(NSString*)userName pass:(NSString*)pass delegate:(id)loginDelegate;
++ (BOOL)loginWithData:(GameData*)gd user:(NSString*)userName pass:(NSString*)pass delegate:(id)loginDelegate;
 
 + (NSMutableURLRequest*) createPost:(NSString*)post urlFrag:(NSString*)urlFragment;
 
