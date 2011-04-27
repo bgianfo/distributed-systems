@@ -12,19 +12,16 @@
 #import "LoginViewController.h"
 #import "JoinViewController.h"
 
-
-
 @implementation RootViewController
 
 @synthesize leadView;
 @synthesize roundView;
 @synthesize loginView;
 @synthesize joinView;
-
-NSString * const LOGIN = @"LoginView";
-NSString * const JOIN = @"JoinView";
-NSString * const ROUND = @"RoundView";
-NSString * const LEADERBOARD = @"LeaderboardView";
+@synthesize LOGIN;
+@synthesize JOIN;
+@synthesize ROUND;
+@synthesize LEADERBOARD;
 
 // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 /*
@@ -64,6 +61,11 @@ NSString * const LEADERBOARD = @"LeaderboardView";
     [rCont release];
     [ldCont release];
     [super viewDidLoad];
+    
+    self.LOGIN = @"LoginView";
+    self.JOIN = @"JoinView";
+    self.ROUND = @"RoundView";
+    self.LEADERBOARD = @"LeaderboardView";
 }
 
 /*
@@ -84,12 +86,21 @@ NSString * const LEADERBOARD = @"LeaderboardView";
     if (v == LOGIN) {
         
     } else if (v == JOIN) {
-        [joinView viewWillAppear:YES];
-        [loginView viewWillDisappear:YES];
-        [self.loginView.view removeFromSuperview];
-        [self.view insertSubview:self.joinView.view atIndex:0];
-        [loginView viewDidDisappear:YES];
-        [joinView viewDidAppear:YES];
+        if (self.loginView.view.superview != nil) {
+            [joinView viewWillAppear:YES];
+            [loginView viewWillDisappear:YES];
+            [self.loginView.view removeFromSuperview];
+            [self.view insertSubview:self.joinView.view atIndex:0];
+            [loginView viewDidDisappear:YES];
+            [joinView viewDidAppear:YES];
+        } else if (self.leadView.view.superview != nil ) {
+            [joinView viewWillAppear:YES];
+            [leadView viewWillDisappear:YES];
+            [self.leadView.view removeFromSuperview];
+            [self.view insertSubview:self.joinView.view atIndex:0];
+            [leadView viewDidDisappear:YES];
+            [joinView viewDidAppear:YES];
+        }
     } else if (v == ROUND) {
         [roundView viewWillAppear:YES];
         [joinView viewWillDisappear:YES];
@@ -98,7 +109,21 @@ NSString * const LEADERBOARD = @"LeaderboardView";
         [joinView viewDidDisappear:YES];
         [roundView viewDidAppear:YES];
     } else if (v == LEADERBOARD) {
-        
+        if (self.joinView.view.superview != nil) {
+            [leadView viewWillAppear:YES];
+            [joinView viewWillDisappear:YES];
+            [joinView.view removeFromSuperview];
+            [self.view insertSubview:self.leadView.view atIndex:0];
+            [joinView viewDidDisappear:YES];
+            [leadView viewDidAppear:YES];
+        } else if (self.roundView.view.superview != nil) {
+            [leadView viewWillAppear:YES];
+            [roundView viewWillDisappear:YES];
+            [roundView.view removeFromSuperview];
+            [self.view insertSubview:self.leadView.view atIndex:0];
+            [roundView viewDidDisappear:YES];
+            [leadView viewDidAppear:YES];
+        }
     }
     [UIView commitAnimations];
 }
@@ -117,6 +142,10 @@ NSString * const LEADERBOARD = @"LeaderboardView";
     self.roundView = nil;
     self.loginView = nil;
     self.joinView = nil;
+    self.LOGIN = nil;
+    self.JOIN = nil;
+    self.ROUND = nil;
+    self.LEADERBOARD = nil;
     [super viewDidUnload];
 }
 
@@ -126,6 +155,10 @@ NSString * const LEADERBOARD = @"LeaderboardView";
     [roundView release];
     [loginView release];
     [joinView release];
+    [LOGIN release];
+    [JOIN release];
+    [ROUND release];
+    [LEADERBOARD release];
     [super dealloc];
 }
 

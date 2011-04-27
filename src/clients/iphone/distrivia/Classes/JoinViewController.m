@@ -64,17 +64,11 @@
 */
 
 - (IBAction) viewLeaderboard:(id)sender {
-	LeaderboardViewController *controller = [[LeaderboardViewController alloc]
-											 initWithNibName:@"LeaderboardView" 
-											 bundle:nil];
-	controller.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-	[self presentModalViewController:controller animated:YES];
-	
-	[controller release];
+	[rootController switchToView:[rootController LEADERBOARD]];
 }
 
 - (IBAction)joinPublic:(id)sender {
-	[rootController switchToView:@"RoundView"];
+	[rootController switchToView:[rootController ROUND]];
 }
 
 - (IBAction) textFieldDoneEditing:(id)sender {

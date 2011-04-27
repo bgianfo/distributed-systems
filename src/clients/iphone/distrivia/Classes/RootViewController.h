@@ -20,17 +20,21 @@
     LoginViewController *loginView;
     JoinViewController *joinView;
     
+    NSString * const LOGIN;
+    NSString * const JOIN;
+    NSString * const ROUND;
+    NSString * const LEADERBOARD;
+    
 }
-
-extern NSString * const LOGIN;
-extern NSString * const JOIN;
-extern NSString * const ROUND;
-extern NSString * const LEADERBOARD;
 
 @property (retain, nonatomic) LeaderboardViewController *leadView;
 @property (retain, nonatomic) RoundViewController *roundView;
 @property (retain, nonatomic) LoginViewController *loginView;
 @property (retain, nonatomic) JoinViewController *joinView;
+@property (retain, nonatomic) NSString *LOGIN;
+@property (retain, nonatomic) NSString *JOIN;
+@property (retain, nonatomic) NSString *ROUND;
+@property (retain, nonatomic) NSString *LEADERBOARD;
 
 - (void)switchToView:(NSString*)v;
 

@@ -110,7 +110,7 @@
 
 - (void)startJoin {
     [activeIndicate stopAnimating];
-    [rootController switchToView:@"JoinView"];
+    [rootController switchToView:[rootController JOIN]];
 }
 
 - (void)didReceiveMemoryWarning {

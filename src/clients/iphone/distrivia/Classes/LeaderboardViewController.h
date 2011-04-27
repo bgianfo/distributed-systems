@@ -19,4 +19,6 @@
 @property (retain, nonatomic) IBOutlet UITableView *boardView;
 @property (retain, nonatomic) RootViewController *rootController;
 
+- (IBAction) okClicked:(id)sender;
+
 @end
