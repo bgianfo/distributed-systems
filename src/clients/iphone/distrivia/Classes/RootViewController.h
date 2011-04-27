@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+@class GameData;
 @class LeaderboardViewController;
 @class RoundViewController;
 @class LoginViewController;
@@ -19,6 +20,8 @@
     RoundViewController *roundView;
     LoginViewController *loginView;
     JoinViewController *joinView;
+    
+    GameData *gd;
     
     NSString * const LOGIN;
     NSString * const JOIN;
@@ -35,6 +38,7 @@
 @property (retain, nonatomic) NSString *JOIN;
 @property (retain, nonatomic) NSString *ROUND;
 @property (retain, nonatomic) NSString *LEADERBOARD;
+@property (retain, nonatomic) GameData *gd;
 
 - (void)switchToView:(NSString*)v;
 

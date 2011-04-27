@@ -11,10 +11,16 @@
 @class GameData;
 
 
-@interface DistriviaAPI : NSObject
+@interface DistriviaAPI : NSObject {
+    NSMutableData *responseData;
+    UIViewController *viewDelegate;
+    
+}
+@property (retain, nonatomic) NSMutableData *responseData;
+@property (retain, nonatomic) UIViewController *viewDelegate;
 
-+ (BOOL) loginWithData:(GameData*)gd user: (NSString*) userName pass: (NSString*)pass delegate:(id) loginDelegate;
++ (BOOL) loginWithData:(GameData*)gd user:(NSString*)userName pass:(NSString*)pass delegate:(id)loginDelegate;
 
-+ (NSMutableURLRequest*) createPost:(NSString*) post urlFrag: (NSString*) urlFragment;
++ (NSMutableURLRequest*) createPost:(NSString*)post urlFrag:(NSString*)urlFragment;
 
 @end

@@ -33,6 +33,8 @@
 - (IBAction) backgroundTap:(id)sender;
 
 - (void) startJoin;
+- (void) errorOccurred;
+- (void) serverResponse;
 
 @end
 

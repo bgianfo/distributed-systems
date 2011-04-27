@@ -14,8 +14,12 @@
     NSString * status;
     NSString * token;
     NSString * username;
+    NSString *gameId;
     int score;
 }
+
+@property (retain, nonatomic) NSString *gameId;
+
 - (BOOL) hasStarted;
 
 - (BOOL) isDone;

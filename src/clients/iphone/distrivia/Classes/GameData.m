@@ -11,6 +11,8 @@
 
 @implementation GameData
 
+@synthesize gameId;
+
 - (id) init {
     
     status = nil;

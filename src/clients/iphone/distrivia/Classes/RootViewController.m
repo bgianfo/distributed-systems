@@ -22,6 +22,7 @@
 @synthesize JOIN;
 @synthesize ROUND;
 @synthesize LEADERBOARD;
+@synthesize gd;
 
 // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 /*
@@ -43,6 +44,8 @@
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
+    gd = [[GameData alloc] init];
+    
     LoginViewController *lCont = [[LoginViewController alloc] initWithNibName:LOGIN bundle:nil];
     JoinViewController *jCont = [[JoinViewController alloc] initWithNibName:JOIN bundle:nil];
     RoundViewController *rCont = [[RoundViewController alloc] initWithNibName:ROUND bundle:nil];
@@ -146,6 +149,7 @@
     self.JOIN = nil;
     self.ROUND = nil;
     self.LEADERBOARD = nil;
+    self.gd = nil;
     [super viewDidUnload];
 }
 
@@ -159,6 +163,7 @@
     [JOIN release];
     [ROUND release];
     [LEADERBOARD release];
+    [gd release];
     [super dealloc];
 }
 

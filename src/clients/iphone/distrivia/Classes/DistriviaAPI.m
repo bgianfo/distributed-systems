@@ -11,17 +11,21 @@
 
 @implementation DistriviaAPI
 
+@synthesize responseData;
+@synthesize viewDelegate;
+
 const static NSString* API_URL = @"https://distrivia.lame.ws";
 
-+ (BOOL) loginWithData:(GameData*) gd user:(NSString*) userName pass:(NSString*) pass delegate:(id) loginDelegate{ 
++ (BOOL) loginWithData:(GameData*)gd user:(NSString*)userName pass:(NSString*)pass delegate:(UIViewController *)loginDelegate{ 
+    viewDelegate = loginDelegate;
     
     NSString* fragment = [NSString stringWithFormat: @"/login/%@", userName];
     
     NSString* post = [NSString stringWithFormat:@"&pass=%@", pass];
     
-    NSURLRequest* request = [DistriviaAPI createPost: post urlFrag: fragment];
+    NSURLRequest* request = [DistriviaAPI createPost:post urlFrag:fragment];
     
-    NSURLConnection *conn = [[NSURLConnection alloc]initWithRequest:request delegate: loginDelegate];
+    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
     
     
     if ( conn ) {
@@ -31,7 +35,7 @@ const static NSString* API_URL = @"https://distrivia.lame.ws";
     }
 }
 
-+ (NSMutableURLRequest*) createPost:(NSString*) post urlFrag: (NSString*)urlFragment {
++ (NSMutableURLRequest*) createPost:(NSString*)post urlFrag:(NSString*)urlFragment {
     
     // Combine host url with API fragment 
     NSURL* url = [NSURL URLWithString: 
@@ -53,5 +57,21 @@ const static NSString* API_URL = @"https://distrivia.lame.ws";
     
 
     return request;
+}
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
+    [responseData setLength:0];
+}
+
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
+    [responseData appendData:data];
+}
+
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+    [self.viewDelegate errorOccurred];
+}
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+    [self.viewDelegate serverResponse];
 }
 @end

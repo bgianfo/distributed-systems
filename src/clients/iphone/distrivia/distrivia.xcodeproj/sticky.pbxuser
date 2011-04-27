@@ -23,17 +23,17 @@
 	};
 	28D7ACF60DDB3853001CB0EB /* LoginViewController.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {691, 507}}";
-			sepNavSelRange = "{219, 0}";
-			sepNavVisRange = "{0, 1058}";
+			sepNavIntBoundsRect = "{{0, 0}, {979, 583}}";
+			sepNavSelRange = "{1126, 0}";
+			sepNavVisRange = "{0, 1134}";
 			sepNavWindowFrame = "{{431, 340}, {750, 558}}";
 		};
 	};
 	28D7ACF70DDB3853001CB0EB /* LoginViewController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {979, 1898}}";
-			sepNavSelRange = "{3866, 0}";
-			sepNavVisRange = "{971, 2030}";
+			sepNavIntBoundsRect = "{{0, 0}, {979, 2067}}";
+			sepNavSelRange = "{2833, 0}";
+			sepNavVisRange = "{1972, 1771}";
 			sepNavWindowFrame = "{{38, 444}, {750, 558}}";
 		};
 	};
@@ -170,6 +170,20 @@
 			sepNavWindowFrame = "{{714, 168}, {750, 558}}";
 		};
 	};
+	C0524B9D135F870900BE6E98 /* DistriviaAPI.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {979, 583}}";
+			sepNavSelRange = "{450, 0}";
+			sepNavVisRange = "{0, 654}";
+		};
+	};
+	C0524B9E135F870900BE6E98 /* DistriviaAPI.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {979, 1014}}";
+			sepNavSelRange = "{2295, 0}";
+			sepNavVisRange = "{0, 1294}";
+		};
+	};
 	C0961663135E9C5D00BDFFA6 /* JSONKit.m */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {926, 39182}}";
@@ -182,6 +196,20 @@
 			sepNavIntBoundsRect = "{{0, 0}, {926, 3549}}";
 			sepNavSelRange = "{253, 0}";
 			sepNavVisRange = "{0, 1942}";
+		};
+	};
+	C0961667135E9CC300BDFFA6 /* GameData.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {979, 583}}";
+			sepNavSelRange = "{394, 0}";
+			sepNavVisRange = "{0, 590}";
+		};
+	};
+	C0961668135E9CC300BDFFA6 /* GameData.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {979, 728}}";
+			sepNavSelRange = "{227, 0}";
+			sepNavVisRange = "{0, 654}";
 		};
 	};
 	C1295FF0135E78E00092180F /* distrivia_icon3.png */ = {
@@ -279,7 +307,7 @@
 		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
 		name = "LoginViewController.m: 99";
 		rLen = 227;
-		rLoc = 3528;
+		rLoc = 3651;
 		rType = 0;
 		vrLen = 1171;
 		vrLoc = 3379;
@@ -388,16 +416,16 @@
 	};
 	C12961541365572C0092180F /* RootViewController.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {979, 583}}";
-			sepNavSelRange = "{1080, 0}";
-			sepNavVisRange = "{0, 1123}";
+			sepNavIntBoundsRect = "{{0, 0}, {979, 598}}";
+			sepNavSelRange = "{0, 1207}";
+			sepNavVisRange = "{0, 1207}";
 		};
 	};
 	C12961551365572C0092180F /* RootViewController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1139, 2106}}";
-			sepNavSelRange = "{938, 0}";
-			sepNavVisRange = "{2463, 2169}";
+			sepNavIntBoundsRect = "{{0, 0}, {1139, 2522}}";
+			sepNavSelRange = "{1512, 0}";
+			sepNavVisRange = "{1068, 777}";
 		};
 	};
 	C1296159136559140092180F /* XCBuildMessageTextBookmark */ = {
@@ -445,7 +473,7 @@
 		fRef = C12961541365572C0092180F /* RootViewController.h */;
 		name = "RootViewController.h: 35";
 		rLen = 0;
-		rLoc = 1113;
+		rLoc = 1197;
 		rType = 0;
 		vrLen = 748;
 		vrLoc = 190;
@@ -515,7 +543,7 @@
 		fRef = C12961551365572C0092180F /* RootViewController.m */;
 		name = "RootViewController.m: 83";
 		rLen = 0;
-		rLoc = 2890;
+		rLoc = 2945;
 		rType = 0;
 		vrLen = 990;
 		vrLoc = 2506;
@@ -535,7 +563,7 @@
 		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
 		name = "LoginViewController.m: 114";
 		rLen = 0;
-		rLoc = 3869;
+		rLoc = 3992;
 		rType = 0;
 		vrLen = 639;
 		vrLoc = 3550;
@@ -625,7 +653,7 @@
 		fRef = C12961551365572C0092180F /* RootViewController.m */;
 		name = "RootViewController.m: 83";
 		rLen = 0;
-		rLoc = 2890;
+		rLoc = 2945;
 		rType = 0;
 		vrLen = 990;
 		vrLoc = 2506;
@@ -635,7 +663,7 @@
 		fRef = C12961551365572C0092180F /* RootViewController.m */;
 		name = "RootViewController.m: 77";
 		rLen = 0;
-		rLoc = 2534;
+		rLoc = 2589;
 		rType = 0;
 		vrLen = 1029;
 		vrLoc = 1878;
@@ -675,7 +703,7 @@
 		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
 		name = "LoginViewController.m: 113";
 		rLen = 0;
-		rLoc = 3869;
+		rLoc = 3992;
 		rType = 0;
 		vrLen = 958;
 		vrLoc = 3575;
@@ -685,7 +713,7 @@
 		fRef = C12961541365572C0092180F /* RootViewController.h */;
 		name = "RootViewController.h: 37";
 		rLen = 0;
-		rLoc = 1080;
+		rLoc = 1164;
 		rType = 0;
 		vrLen = 1123;
 		vrLoc = 0;
@@ -695,7 +723,7 @@
 		fRef = C12961551365572C0092180F /* RootViewController.m */;
 		name = "RootViewController.m: 138";
 		rLen = 0;
-		rLoc = 5435;
+		rLoc = 5527;
 		rType = 0;
 		vrLen = 1091;
 		vrLoc = 3225;
@@ -705,7 +733,7 @@
 		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
 		name = "LoginViewController.m: 113";
 		rLen = 0;
-		rLoc = 3867;
+		rLoc = 3990;
 		rType = 0;
 		vrLen = 1014;
 		vrLoc = 3528;
@@ -715,7 +743,7 @@
 		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
 		name = "LoginViewController.m: 113";
 		rLen = 0;
-		rLoc = 3866;
+		rLoc = 3989;
 		rType = 0;
 		vrLen = 1010;
 		vrLoc = 3528;
@@ -725,7 +753,7 @@
 		fRef = 28D7ACF70DDB3853001CB0EB /* LoginViewController.m */;
 		name = "LoginViewController.m: 113";
 		rLen = 0;
-		rLoc = 3866;
+		rLoc = 3989;
 		rType = 0;
 		vrLen = 2030;
 		vrLoc = 971;
@@ -755,7 +783,7 @@
 		fRef = C12961551365572C0092180F /* RootViewController.m */;
 		name = "RootViewController.m: 138";
 		rLen = 0;
-		rLoc = 5435;
+		rLoc = 5527;
 		rType = 0;
 		vrLen = 1091;
 		vrLoc = 3225;
@@ -765,7 +793,7 @@
 		fRef = C12961551365572C0092180F /* RootViewController.m */;
 		name = "RootViewController.m: 109";
 		rLen = 0;
-		rLoc = 4318;
+		rLoc = 4373;
 		rType = 0;
 		vrLen = 1667;
 		vrLoc = 2388;
@@ -775,7 +803,7 @@
 		fRef = C12961551365572C0092180F /* RootViewController.m */;
 		name = "RootViewController.m: 37";
 		rLen = 0;
-		rLoc = 938;
+		rLoc = 954;
 		rType = 0;
 		vrLen = 1550;
 		vrLoc = 913;
@@ -815,7 +843,7 @@
 		fRef = C12961551365572C0092180F /* RootViewController.m */;
 		name = "RootViewController.m: 37";
 		rLen = 0;
-		rLoc = 938;
+		rLoc = 954;
 		rType = 0;
 		vrLen = 2169;
 		vrLoc = 2463;
@@ -925,16 +953,16 @@
 	};
 	C1B03723135E4F6300E7BD63 /* JoinViewController.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {926, 572}}";
+			sepNavIntBoundsRect = "{{0, 0}, {979, 583}}";
 			sepNavSelRange = "{214, 0}";
-			sepNavVisRange = "{0, 620}";
+			sepNavVisRange = "{0, 1300}";
 		};
 	};
 	C1B03724135E4F6300E7BD63 /* JoinViewController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1139, 1417}}";
-			sepNavSelRange = "{2769, 0}";
-			sepNavVisRange = "{1836, 1591}";
+			sepNavIntBoundsRect = "{{0, 0}, {1139, 1534}}";
+			sepNavSelRange = "{254, 0}";
+			sepNavVisRange = "{1276, 1993}";
 		};
 	};
 	C1B03749135E54E600E7BD63 /* PBXTextBookmark */ = {

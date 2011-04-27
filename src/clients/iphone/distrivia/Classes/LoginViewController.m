@@ -8,6 +8,7 @@
 
 #import "LoginViewController.h"
 #import "RootViewController.h"
+#import "DistriviaAPI.h"
 
 @implementation LoginViewController
 
@@ -78,6 +79,7 @@
         [e release];
     } else {
         [activeIndicate startAnimating];
+        [DistriviaAPI loginWithData:[rootController gd] user:username pass:passwd delegate:self];
         [self startJoin];
     }
 }
@@ -111,6 +113,24 @@
 - (void)startJoin {
     [activeIndicate stopAnimating];
     [rootController switchToView:[rootController JOIN]];
+}
+
+- (void)errorOccurred {
+    UIAlertView *e = [[UIAlertView alloc] initWithTitle: @"Service Unavailable" 
+                                                message: @"Please try again"
+                                               delegate: self cancelButtonTitle: @"Ok" 
+                                      otherButtonTitles: nil];
+    [e show];
+    [e release];
+}
+
+- (void)serverResponse {
+    UIAlertView *e = [[UIAlertView alloc] initWithTitle: @"Response" 
+                                                message: @"What is it?"
+                                               delegate: self cancelButtonTitle: @"Ok" 
+                                      otherButtonTitles: nil];
+    [e show];
+    [e release];
 }
 
 - (void)didReceiveMemoryWarning {
