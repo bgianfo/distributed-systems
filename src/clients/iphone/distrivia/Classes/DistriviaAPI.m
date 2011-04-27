@@ -18,7 +18,6 @@ const static NSString* API_URL = @"https://distrivia.lame.ws";
 
 + (BOOL) loginWithData:(GameData*)gd user:(NSString*)userName pass:(NSString*)pass delegate:(UIViewController *)loginDelegate{ 
     viewDelegate = loginDelegate;
-    
     NSString* fragment = [NSString stringWithFormat: @"/login/%@", userName];
     
     NSString* post = [NSString stringWithFormat:@"&pass=%@", pass];

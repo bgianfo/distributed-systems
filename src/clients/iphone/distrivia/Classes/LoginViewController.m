@@ -54,6 +54,9 @@
     [registerBut setBackgroundImage:stretchableButtonImagePressed forState:UIControlStateHighlighted];
     [loginBut setBackgroundImage:stretchableButtonImagePressed forState:UIControlStateHighlighted];
     
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [userField setText:[defaults objectForKey:@"username"]];
+    
     [super viewDidLoad];
 }
 
@@ -112,6 +115,8 @@
 
 - (void)startJoin {
     [activeIndicate stopAnimating];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:[userField text] forKey:@"username"];
     [rootController switchToView:[rootController JOIN]];
 }
 
