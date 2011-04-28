@@ -15,27 +15,36 @@
 
 const static NSString* API_URL = @"https://distrivia.lame.ws";
 
-+ (BOOL) loginWithData:(GameData*)gd user:(NSString*)userName pass:(NSString*)pass delegate:(UIViewController *)loginDelegate{ 
-    viewDelegate = loginDelegate;
++ (BOOL) loginWithData:(GameData*)gd user:(NSString*)userName pass:(NSString*)pass { 
     NSString* fragment = [NSString stringWithFormat: @"/login/%@", userName];
     
-    NSString* post = [NSString stringWithFormat:@"&pass=%@", pass];
+    NSString* post = [NSString stringWithFormat:@"password=%@", pass];
     
     NSURLRequest* request = [DistriviaAPI createPost:post urlFrag:fragment];
     
-    connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    NSError* error = nil;
     
+    NSData* data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error: &error];    
     
-    if ( connection ) {
-        NSLog(@"Connection Started");
-        return true;
-        responseData = [[NSMutableData data] retain];
+    BOOL success;
+    
+    if ( !data ) {
+        NSLog(@"Connection Error: %@", [error localizedDescription]);
+        success = false;
     } else {
-        return false;
+        NSString* token = [[NSString alloc] initWithData: data
+                                            encoding: NSUTF8StringEncoding];
+        NSLog(@"Successful response: %@", token);
+        [gd setToken: token];
+        [data release];
+        success = true;
     }
+                     
     [fragment release];
     [post release];
     [request release];
+    
+    return success;
 }
 
 + (NSMutableURLRequest*) createPost:(NSString*)post urlFrag:(NSString*)urlFragment {
@@ -44,9 +53,11 @@ const static NSString* API_URL = @"https://distrivia.lame.ws";
     NSURL* url = [NSURL URLWithString: 
                     [NSString stringWithFormat:@"%@%@", API_URL, urlFragment]];
     
+    NSLog(@"URL Fragment %@", url );
+    
     // URL Encode our post data
     NSData* data = [post dataUsingEncoding: NSASCIIStringEncoding 
-                             allowLossyConversion: YES];
+                             allowLossyConversion: NO];
     NSString* len = [NSString stringWithFormat:@"%d",[data length]];
     
     NSMutableURLRequest *request = [[[NSMutableURLRequest alloc] init] autorelease];
@@ -55,35 +66,11 @@ const static NSString* API_URL = @"https://distrivia.lame.ws";
     [request setHTTPMethod:@"POST"];
     [request setHTTPBody:data];
     [request setValue:len forHTTPHeaderField:@"Content-Length"];
-    [request setValue:@"application/x-www-form-urlencoded" 
-             forHTTPHeaderField:@"Current-Type"];
+    //[request setValue:@"application/x-www-form-urlencoded" 
+    //         forHTTPHeaderField:@"Current-Type"];
     [request setTimeoutInterval:30.0];
     
 
     return request;
-}
-
-- (void)connection:(NSURLConnection *)conn didReceiveResponse:(NSURLResponse *)response {
-    NSLog(@"API: response");
-    [responseData setLength:0];
-}
-
-
-- (void)connection:(NSURLConnection *)conn didReceiveData:(NSData *)data {
-    NSLog(@"API: data");
-    [responseData appendData:data];
-}
-
-- (void)connection:(NSURLConnection *)conn didFailWithError:(NSError *)error {
-    NSLog(@"API: error");
-    [self.viewDelegate errorOccurred];
-    
-    [connection release];
-    [responseData release];
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)conn {
-    NSLog(@"API: finish");
-    [self.viewDelegate serverResponse];
 }
 @end

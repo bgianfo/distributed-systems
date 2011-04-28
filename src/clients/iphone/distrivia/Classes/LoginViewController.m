@@ -82,8 +82,8 @@
         [e release];
     } else {
         [activeIndicate startAnimating];
-        [DistriviaAPI loginWithData:[rootController gd] user:username pass:passwd delegate:self];
-        //[self startJoin];
+        [DistriviaAPI loginWithData:[rootController gd] user:username pass:passwd];
+        [self startJoin];
     }
 }
 
@@ -99,7 +99,7 @@
         [e release];
     } else {
         [activeIndicate startAnimating];
-     	//[self startJoin];   
+     	[self startJoin];   
     }
 }
 

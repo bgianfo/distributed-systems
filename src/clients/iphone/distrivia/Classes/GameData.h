@@ -11,10 +11,10 @@
 
 @interface GameData : NSObject {
 @private
-    NSString * status;
-    NSString * token;
-    NSString * username;
-    NSString *gameId;
+    NSString* status;
+    NSString* token;
+    NSString* username;
+    NSString* gameId;
     int score;
 }
 
@@ -33,4 +33,7 @@
 - (void) setStatus:(NSString*) status;
 
 - (void) setUser:(NSString*) user;
+
+- (void) setToken:(NSString*) apiToken;
+
 @end
