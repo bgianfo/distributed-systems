@@ -305,7 +305,7 @@ def login(user_name):
                     return unique_id
                 else:
                     vdata["users"].append(unique_id)
-                    logged_in = users.new("logged_in", data=vdata)
+                    logged_in.set_data(vdata)
                     logged_in.store()
             else:
                 ldata = { "users": [ unique_id ] }
@@ -418,7 +418,7 @@ def public_join_game():
             if len(vdata["users"]) == NUM_USERS:
                 vdata["gamestatus"] = "started"
 
-            game = games.new(key, data=vdata)
+            game.set_data(vdata)
             game.store()
             return json.dumps({ "id": key, "status":1 })
 
@@ -473,7 +473,7 @@ def private_join_game():
                 vdata["users"].append(token)
                 # Add user to the leader board
                 vdata["leaderboard"][user] = 0
-                game = games.new(key, data=vdata)
+                game.set_data(vdata)
                 game.store()
                 return json.dumps({ "id": key, "status":1 })
 
@@ -564,7 +564,7 @@ def private_start(gid):
     if game.exists():
         game_data = game.get_data()
         game_data["gamestatus"] = "started"
-        game = games.new(gid, data=game_data)
+        game.set_data(game_data)
         game.store()
         return 'ok'
     else:
@@ -675,12 +675,12 @@ def submit_question_answer(gid, qid):
             return "err: no such user" 
 
         gdata["leaderboard"][username] += score
-        game = games.new(gid, data = gdata)
+        game.set_data(gdata)
         game.store()
 
         udata = user.get_data()
         udata["score"] += score
-        user = users.new(username, data = udata)
+        users.set_data(udata)
         user.store()
 
     questions = gdata["questions"]
@@ -694,6 +694,8 @@ def submit_question_answer(gid, qid):
     gdata.pop("users")
     if gdata.has_key("hash"):
         gdata.pop("hash")
+
+    gdata["status"] = 1
 
     # Failure on this game being over
     if (qIndex >= len(questions)):
