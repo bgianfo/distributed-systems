@@ -19,6 +19,9 @@
 }
 
 @property (retain, nonatomic) NSString *gameId;
+@property (retain, nonatomic) NSString *token;
+@property (retain, nonatomic) NSString *username;
+@property (retain, nonatomic) NSString *status;
 
 - (BOOL) hasStarted;
 

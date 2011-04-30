@@ -134,6 +134,7 @@
 
 - (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.
+	NSLog(@"RootViewController Memory Warning");
     [super didReceiveMemoryWarning];
     
     // Release any cached data, images, etc. that aren't in use.

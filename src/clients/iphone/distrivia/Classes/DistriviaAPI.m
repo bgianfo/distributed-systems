@@ -11,8 +11,6 @@
 
 @implementation DistriviaAPI
 
-@synthesize viewDelegate;
-
 const static NSString* API_URL = @"https://distrivia.lame.ws";
 
 + (BOOL) loginWithData:(GameData*)gd user:(NSString*)userName pass:(NSString*)pass { 
@@ -36,13 +34,13 @@ const static NSString* API_URL = @"https://distrivia.lame.ws";
                                             encoding: NSUTF8StringEncoding];
         NSLog(@"Successful response: %@", token);
         [gd setToken: token];
-        [data release];
+		//[data release];
         success = true;
     }
-                     
-    [fragment release];
-    [post release];
-    [request release];
+	
+    //[fragment release];
+    //[post release];
+    //[request release];
     
     return success;
 }

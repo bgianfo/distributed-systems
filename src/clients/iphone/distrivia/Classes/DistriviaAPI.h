@@ -12,12 +12,8 @@
 
 
 @interface DistriviaAPI : NSObject {
-    NSMutableData *responseData;
-    UIViewController *viewDelegate;
-    NSURLConnection *connection;
     
 }
-@property (retain, nonatomic) UIViewController *viewDelegate;
 
 + (BOOL)loginWithData:(GameData*)gd user:(NSString*)userName pass:(NSString*)pass;
 

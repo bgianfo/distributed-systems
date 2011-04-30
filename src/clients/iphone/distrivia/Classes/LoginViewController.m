@@ -82,8 +82,18 @@
         [e release];
     } else {
         [activeIndicate startAnimating];
-        [DistriviaAPI loginWithData:[rootController gd] user:username pass:passwd];
-        [self startJoin];
+        if ([DistriviaAPI loginWithData:[rootController gd] user:username pass:passwd]) {
+			NSLog(@"LOGIN COMPLETE");
+			[self startJoin];
+		} else {
+			UIAlertView *e = [[UIAlertView alloc] initWithTitle: @"Invalid Login" 
+														message: @"Invalid username/password"
+													   delegate: self cancelButtonTitle: @"Ok" 
+											  otherButtonTitles: nil];
+			[e show];
+			[e release];
+		}
+        //[self startJoin];
     }
 }
 
@@ -141,6 +151,7 @@
 
 - (void)didReceiveMemoryWarning {
 	// Releases the view if it doesn't have a superview.
+	NSLog(@"Memory Warning!");
     [super didReceiveMemoryWarning];
 	
 	// Release any cached data, images, etc that aren't in use.
