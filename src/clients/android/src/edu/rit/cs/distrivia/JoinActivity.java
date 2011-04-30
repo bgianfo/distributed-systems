@@ -65,6 +65,7 @@ public class JoinActivity extends GameActivityBase {
                 String pass = privatePass.getText().toString().trim();
                 if (!name.equals("") && !pass.equals("")) {
                     publicLayout.setVisibility(View.GONE);
+                    lbButton.setVisibility(View.GONE);
                     v.setEnabled(false);
                     priCreateButton.setEnabled(false);
                     playersLabel.setText("Waiting to join private game...");
@@ -82,8 +83,7 @@ public class JoinActivity extends GameActivityBase {
                 String pass = privatePass.getText().toString().trim();
                 if (!name.equals("") && !pass.equals("")) {
                     publicLayout.setVisibility(View.GONE);
-                    //v.setEnabled(false);
-                    //priJoinButton.setEnabled(false);
+                    lbButton.setVisibility(View.GONE);
                     v.setVisibility(View.GONE);
                     priJoinButton.setVisibility(View.GONE);
                     priStartButton.setVisibility(View.VISIBLE);
@@ -170,20 +170,6 @@ public class JoinActivity extends GameActivityBase {
     				makeToast("Create failure");
     				return;
     			}
-    			try {
-                    while (true) {
-                        setGameData(DistriviaAPI.status(gameData()));
-                        if (!gameData().isWaiting()) {
-                            break;
-                        }
-                        SystemClock.sleep(UPDATE_MS);
-                    }
-                } catch (Exception e) {
-                    makeToast("Service is down, please try again later");
-                    return;
-                }
-    			startActivity(ROUND_ACTIVITY);
-                finish();
     		}
     	}.start();
     }
