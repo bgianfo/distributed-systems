@@ -87,12 +87,24 @@ public class JoinActivity extends GameActivityBase {
                     v.setVisibility(View.GONE);
                     priJoinButton.setVisibility(View.GONE);
                     priStartButton.setVisibility(View.VISIBLE);
+                    spinner.setEnabled(false);
+                    privateName.setFocusable(false);
+                    privatePass.setFocusable(false);
                     playersLabel.setText("Press Start Game when you're ready to begin...");
                     int numQs = Integer.parseInt((String)spinner.getSelectedItem());
                     createPrivate(name, pass, numQs);
                 } else {
                     makeToast("Enter name and pass");
                 }
+        	}
+        });
+        
+        priStartButton.setOnClickListener(new OnClickListener() {
+        	@Override
+        	public void onClick(final View v) {
+        		v.setEnabled(false);
+        		playersLabel.setText("Starting...");
+        		startPrivate();
         	}
         });
 
@@ -190,6 +202,39 @@ public class JoinActivity extends GameActivityBase {
                         DistriviaAPI.API_ERROR));
     			if (!joinSuccessful) {
     				makeToast("Join failure");
+    				return;
+    			}
+    			try {
+                    while (true) {
+                        setGameData(DistriviaAPI.status(gameData()));
+                        if (!gameData().isWaiting()) {
+                            break;
+                        }
+                        SystemClock.sleep(UPDATE_MS);
+                    }
+                } catch (Exception e) {
+                    makeToast("Service is down, please try again later");
+                    return;
+                }
+    			startActivity(ROUND_ACTIVITY);
+                finish();
+    		}
+    	}.start();
+    }
+    
+    private void startPrivate() {
+    	new Thread() {
+    		@Override
+    		public void run() {
+    			try {
+    				if (DistriviaAPI.startPrivate(gameData())) {
+    					makeToast("Game started!");
+    				} else {
+    					makeToast("Game could not start");
+    				}
+    			}
+    			catch (Exception e) {
+    				makeToast("Service is down, please try again later");
     				return;
     			}
     			try {
