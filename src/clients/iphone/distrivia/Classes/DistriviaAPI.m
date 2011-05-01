@@ -38,14 +38,8 @@ const static NSString* API_ERROR=@"err";
             NSLog(@"Login Error");
             success = false;
         }
-		//[data release];
         [token release];
     }
-	
-    //[fragment release];
-    //[post release];
-    //[request release];
-    
     return success;
 }
 
@@ -63,12 +57,42 @@ const static NSString* API_ERROR=@"err";
     } else {
         NSString* token = [[NSString alloc] initWithData: data
                                                 encoding: NSUTF8StringEncoding];
-        NSLog(@"Test: %s", [gd token]);
-        [gd setToken: token];
-        NSLog(@"Successful response: %@", [gd token]);
-        success = true;
+        NSRange textRange;
+        textRange =[token rangeOfString:API_ERROR];
+        if ( textRange.location == NSNotFound ) {
+            NSLog(@"Successful response: %@", token);
+            success = true;
+        } else {
+            NSLog(@"Register Error");
+            success = false;
+        }
+        [token release];
     }
-    
+    if (success) {
+        fragment = [NSString stringWithFormat: @"/login/%@", userName];
+        request = [DistriviaAPI createPost:post urlFrag:fragment];
+        error = nil;
+        data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error: &error];
+        
+        if ( !data ) {
+            NSLog(@"Connection Error: %@", [error localizedDescription]);
+            success = false;
+        } else {
+            NSString* token = [[NSString alloc] initWithData: data
+                                                    encoding: NSUTF8StringEncoding];
+            NSRange textRange;
+            textRange =[token rangeOfString:API_ERROR];
+            if ( textRange.location == NSNotFound ) {
+                [gd setToken: token];
+                NSLog(@"Successful response: %@", [gd getToken]);
+                success = true;
+            } else {
+                NSLog(@"Login Error");
+                success = false;
+            }
+            [token release];
+        }
+    }
     return success;
     
 }

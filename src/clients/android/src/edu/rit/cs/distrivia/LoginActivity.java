@@ -61,6 +61,16 @@ public class LoginActivity extends Activity {
             Toast.makeText(getApplicationContext(), txtmsg, 10).show();
         }
     };
+    
+    /**
+     * Handler to toggle buttons from the Networking thread.
+     */
+    private final Handler buttonHandler = new Handler() {
+    	@Override
+    	public void handleMessage(final Message msg) {
+    		toggleButtons();
+    	}
+    };
 
     /** Called when the activity is first created. */
     @Override
@@ -175,6 +185,7 @@ public class LoginActivity extends Activity {
         String authToken = null;
         try {
             authToken = DistriviaAPI.register(name, passwd);
+            Log.d("Register Auth Token:", authToken);
         } catch (Exception e) {
             makeToast("Service is down, please try again later");
             return;
@@ -194,7 +205,7 @@ public class LoginActivity extends Activity {
             GameData gd = new GameData(authToken, name);
             relayGameData(gd);
         } else {
-            makeToast("Register failure");
+            makeToast("Username already in use");
         }
     }
 

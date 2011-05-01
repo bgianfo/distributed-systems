@@ -11,6 +11,7 @@
 #import "RoundViewController.h"
 #import "LoginViewController.h"
 #import "JoinViewController.h"
+#import "GameData.h"
 
 @implementation RootViewController
 

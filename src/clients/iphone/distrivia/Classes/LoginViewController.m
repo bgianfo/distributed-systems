@@ -75,7 +75,7 @@
         [registerBut setEnabled:NO];
         [loginBut setEnabled:NO];
         [NSThread detachNewThreadSelector:@selector(loginWithParameters:) toTarget:self 
-                                                withObject:[NSArray arrayWithObjects:username, passwd, nil]];
+                                withObject:[NSArray arrayWithObjects:username, passwd, nil]];
     }
 }
 
@@ -91,7 +91,10 @@
         [e release];
     } else {
         [activeIndicate startAnimating];
-     	//[self startJoin];
+        [registerBut setEnabled:NO];
+        [loginBut setEnabled:NO];
+        [NSThread detachNewThreadSelector:@selector(registerWithParameters:) toTarget:self 
+                               withObject:[NSArray arrayWithObjects:username, passwd, nil]];
     }
 }
 
@@ -112,9 +115,21 @@
     if ([DistriviaAPI loginWithData:[rootController gd] user:username pass:passwd]) {
         NSLog(@"Login Complete %@", [[rootController gd] getToken]);
         [self performSelectorOnMainThread:@selector(startJoin) withObject:nil waitUntilDone:NO];
-        //[self startJoin];
     } else {
         [self performSelectorOnMainThread:@selector(loginFailed) withObject:nil waitUntilDone:NO];
+    }
+    [pool release];
+}
+
+- (void) registerWithParameters:(NSArray *)parameters {
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    NSString *username = [parameters objectAtIndex:0];
+    NSString *passwd = [parameters objectAtIndex:1];
+    if ([DistriviaAPI registerWithData:[rootController gd] user:username pass:passwd]) {
+        NSLog(@"Register Complete %@", [[rootController gd] getToken]);
+        [self performSelectorOnMainThread:@selector(startJoin) withObject:nil waitUntilDone:NO];
+    } else {
+        [self performSelectorOnMainThread:@selector(registerFailed) withObject:nil waitUntilDone:NO];
     }
     [pool release];
 }
@@ -132,6 +147,18 @@
     [loginBut setEnabled:YES];
     UIAlertView *e = [[UIAlertView alloc] initWithTitle: @"Invalid Login" 
                                                 message: @"Invalid username/password"
+                                               delegate: self cancelButtonTitle: @"Ok" 
+                                      otherButtonTitles: nil];
+    [e show];
+    [e release];
+}
+
+- (void) registerFailed {
+    [activeIndicate stopAnimating];
+    [registerBut setEnabled:YES];
+    [loginBut setEnabled:YES];
+    UIAlertView *e = [[UIAlertView alloc] initWithTitle: @"Registration Failed" 
+                                                message: @"Username already in use"
                                                delegate: self cancelButtonTitle: @"Ok" 
                                       otherButtonTitles: nil];
     [e show];

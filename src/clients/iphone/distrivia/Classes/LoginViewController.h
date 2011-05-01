@@ -34,7 +34,9 @@
 
 - (void) startJoin;
 - (void) loginWithParameters:(NSArray*)parameters;
+- (void) registerWithParameters:(NSArray*)parameters;
 - (void) loginFailed;
+- (void) registerFailed;
 
 @end
 
