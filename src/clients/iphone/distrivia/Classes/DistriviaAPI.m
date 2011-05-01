@@ -129,13 +129,42 @@ const static NSString* API_ERROR=@"err";
         } else {
             NSLog(@"API Error");
         }
-        
         [response release];
     }
-    
     return success;
 }
 
+// Contacts the server to get the status of the given game
++ (BOOL) statusWithData:(GameData*)gd {
+    NSString* fragment = [NSString stringWithFormat: @"/game/%@", [gd getGameId]];
+    NSString* post = [NSString stringWithFormat:@"authToken=%@", [gd getToken]];
+    NSURLRequest* request = [DistriviaAPI createPost:post urlFrag:fragment];
+    NSError* error = nil;
+    NSData* data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error: &error];    
+    BOOL success = false;
+    
+    if ( !data ) {
+        NSLog(@"Connection Error: %@", [error localizedDescription]);
+    } else {
+        NSString* response = [[NSString alloc] initWithData: data
+                                                   encoding: NSUTF8StringEncoding];
+        NSRange textRange;
+        textRange =[response rangeOfString:API_ERROR];
+        if ( textRange.location == NSNotFound ) {
+            NSLog(@"Successful response: %@", response);
+            JSONDecoder *jsonKitDecoder = [JSONDecoder decoder];
+            NSDictionary *items = [jsonKitDecoder objectWithData:data];
+            //if ([items objectForKey:@"status"]) {
+            //    [gd setGameId:[items objectForKey:@"id"]];
+            //    success = true;
+            //}
+        } else {
+            NSLog(@"API Error");
+        }
+        [response release];
+    }
+    return success;
+}
 
 
 

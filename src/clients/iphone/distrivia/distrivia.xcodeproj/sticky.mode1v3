@@ -265,7 +265,6 @@
 							<array>
 								<string>29B97314FDCFA39411CA2CEA</string>
 								<string>C1B03722135E4F3300E7BD63</string>
-								<string>C1B03729135E4FF300E7BD63</string>
 								<string>080E96DDFE201D6D7F000001</string>
 								<string>29B97315FDCFA39411CA2CEA</string>
 								<string>29B97317FDCFA39411CA2CEA</string>
@@ -319,7 +318,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>JoinViewController.h</string>
+								<string>JoinViewController.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -327,11 +326,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>JoinViewController.h</string>
+										<string>JoinViewController.m</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>C129640C136E052B0092180F</string>
+										<string>C1296416136E0A500092180F</string>
 										<key>history</key>
 										<array>
 											<string>C1B03749135E54E600E7BD63</string>
@@ -347,15 +346,15 @@
 											<string>C12963A0136DED030092180F</string>
 											<string>C12963A1136DED030092180F</string>
 											<string>C12963A2136DED030092180F</string>
-											<string>C12963C7136DF7210092180F</string>
 											<string>C12963D2136DF8F30092180F</string>
 											<string>C12963D8136DF97A0092180F</string>
 											<string>C12963EB136DFC0C0092180F</string>
 											<string>C12963F0136DFD2A0092180F</string>
 											<string>C1296401136E00020092180F</string>
-											<string>C1296406136E00260092180F</string>
-											<string>C129640B136E052B0092180F</string>
-											<string>C12963FA136DFF970092180F</string>
+											<string>C129640D136E09780092180F</string>
+											<string>C129640F136E09780092180F</string>
+											<string>C1296414136E0A500092180F</string>
+											<string>C1296415136E0A500092180F</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
