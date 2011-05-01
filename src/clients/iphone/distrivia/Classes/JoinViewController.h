@@ -42,5 +42,6 @@
 
 - (void) joinPublic;
 - (void) joinPublicFailed;
+- (void) toggleButtons;
 
 @end

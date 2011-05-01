@@ -229,8 +229,6 @@
 			<key>Layout</key>
 			<array>
 				<dict>
-					<key>BecomeActive</key>
-					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -314,12 +312,14 @@
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>JoinViewController.m</string>
+								<string>JoinViewController.h</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -327,11 +327,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>JoinViewController.m</string>
+										<string>JoinViewController.h</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>C1296408136E00260092180F</string>
+										<string>C129640C136E052B0092180F</string>
 										<key>history</key>
 										<array>
 											<string>C1B03749135E54E600E7BD63</string>
@@ -352,10 +352,10 @@
 											<string>C12963D8136DF97A0092180F</string>
 											<string>C12963EB136DFC0C0092180F</string>
 											<string>C12963F0136DFD2A0092180F</string>
-											<string>C12963FA136DFF970092180F</string>
 											<string>C1296401136E00020092180F</string>
 											<string>C1296406136E00260092180F</string>
-											<string>C1296407136E00260092180F</string>
+											<string>C129640B136E052B0092180F</string>
+											<string>C12963FA136DFF970092180F</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -553,10 +553,10 @@
 	<array>
 		<string>C1296397136DBD000092180F</string>
 		<string>C129638D136D47F70092180F</string>
-		<string>1CD10A99069EF8BA00B06720</string>
 		<string>C184DD3C135DEBB1005B7546</string>
-		<string>1C78EAAD065D492600B07095</string>
 		<string>/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/distrivia.xcodeproj</string>
+		<string>1C78EAAD065D492600B07095</string>
+		<string>1CD10A99069EF8BA00B06720</string>
 	</array>
 	<key>WindowString</key>
 	<string>401 398 1277 625 0 0 1680 1028 </string>

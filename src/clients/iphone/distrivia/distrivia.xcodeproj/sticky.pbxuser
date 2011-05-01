@@ -377,6 +377,8 @@
 			C1296406136E00260092180F /* PBXTextBookmark */ = C1296406136E00260092180F /* PBXTextBookmark */;
 			C1296407136E00260092180F /* PBXTextBookmark */ = C1296407136E00260092180F /* PBXTextBookmark */;
 			C1296408136E00260092180F /* PBXTextBookmark */ = C1296408136E00260092180F /* PBXTextBookmark */;
+			C129640B136E052B0092180F /* PBXTextBookmark */ = C129640B136E052B0092180F /* PBXTextBookmark */;
+			C129640C136E052B0092180F /* PBXTextBookmark */ = C129640C136E052B0092180F /* PBXTextBookmark */;
 			C1B03749135E54E600E7BD63 = C1B03749135E54E600E7BD63 /* PBXTextBookmark */;
 			C1B03797135E5AD800E7BD63 = C1B03797135E5AD800E7BD63 /* PBXTextBookmark */;
 			C1B037A7135E5B6D00E7BD63 = C1B037A7135E5B6D00E7BD63 /* PBXTextBookmark */;
@@ -770,7 +772,7 @@
 		fRef = C1B03724135E4F6300E7BD63 /* JoinViewController.m */;
 		name = "JoinViewController.m: 78";
 		rLen = 0;
-		rLoc = 3031;
+		rLoc = 3000;
 		rType = 0;
 		vrLen = 853;
 		vrLoc = 2484;
@@ -850,7 +852,7 @@
 		fRef = C1B03724135E4F6300E7BD63 /* JoinViewController.m */;
 		name = "JoinViewController.m: 78";
 		rLen = 0;
-		rLoc = 3031;
+		rLoc = 3000;
 		rType = 0;
 		vrLen = 853;
 		vrLoc = 2484;
@@ -3306,7 +3308,7 @@
 		fRef = C1B03723135E4F6300E7BD63 /* JoinViewController.h */;
 		name = "JoinViewController.h: 43";
 		rLen = 0;
-		rLoc = 1356;
+		rLoc = 1380;
 		rType = 0;
 		vrLen = 971;
 		vrLoc = 360;
@@ -3346,7 +3348,7 @@
 		fRef = C1B03724135E4F6300E7BD63 /* JoinViewController.m */;
 		name = "JoinViewController.m: 87";
 		rLen = 0;
-		rLoc = 3265;
+		rLoc = 3234;
 		rType = 0;
 		vrLen = 628;
 		vrLoc = 2840;
@@ -3366,7 +3368,7 @@
 		fRef = C1B03723135E4F6300E7BD63 /* JoinViewController.h */;
 		name = "JoinViewController.h: 44";
 		rLen = 0;
-		rLoc = 1356;
+		rLoc = 1380;
 		rType = 0;
 		vrLen = 890;
 		vrLoc = 473;
@@ -3386,7 +3388,7 @@
 		fRef = C1B03724135E4F6300E7BD63 /* JoinViewController.m */;
 		name = "JoinViewController.m: 102";
 		rLen = 0;
-		rLoc = 3902;
+		rLoc = 3838;
 		rType = 0;
 		vrLen = 916;
 		vrLoc = 3132;
@@ -3396,7 +3398,7 @@
 		fRef = C1B03724135E4F6300E7BD63 /* JoinViewController.m */;
 		name = "JoinViewController.m: 102";
 		rLen = 0;
-		rLoc = 3843;
+		rLoc = 3812;
 		rType = 0;
 		vrLen = 1032;
 		vrLoc = 3240;
@@ -3426,7 +3428,7 @@
 		fRef = C1B03724135E4F6300E7BD63 /* JoinViewController.m */;
 		name = "JoinViewController.m: 102";
 		rLen = 0;
-		rLoc = 3843;
+		rLoc = 3812;
 		rType = 0;
 		vrLen = 1029;
 		vrLoc = 3262;
@@ -3436,7 +3438,7 @@
 		fRef = C1B03724135E4F6300E7BD63 /* JoinViewController.m */;
 		name = "JoinViewController.m: 74";
 		rLen = 0;
-		rLoc = 2999;
+		rLoc = 2968;
 		rType = 0;
 		vrLen = 890;
 		vrLoc = 2804;
@@ -3456,7 +3458,7 @@
 		fRef = C1B03724135E4F6300E7BD63 /* JoinViewController.m */;
 		name = "JoinViewController.m: 74";
 		rLen = 0;
-		rLoc = 2999;
+		rLoc = 2968;
 		rType = 0;
 		vrLen = 890;
 		vrLoc = 2804;
@@ -3466,10 +3468,30 @@
 		fRef = C1B03724135E4F6300E7BD63 /* JoinViewController.m */;
 		name = "JoinViewController.m: 74";
 		rLen = 0;
-		rLoc = 2999;
+		rLoc = 2968;
 		rType = 0;
 		vrLen = 892;
 		vrLoc = 2804;
+	};
+	C129640B136E052B0092180F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = C1B03724135E4F6300E7BD63 /* JoinViewController.m */;
+		name = "JoinViewController.m: 102";
+		rLen = 0;
+		rLoc = 3838;
+		rType = 0;
+		vrLen = 1023;
+		vrLoc = 3208;
+	};
+	C129640C136E052B0092180F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = C1B03723135E4F6300E7BD63 /* JoinViewController.h */;
+		name = "JoinViewController.h: 45";
+		rLen = 0;
+		rLoc = 1380;
+		rType = 0;
+		vrLen = 909;
+		vrLoc = 473;
 	};
 	C149E387135E5F3500D6A77D /* RoundViewController.h */ = {
 		uiCtxt = {
@@ -3546,16 +3568,16 @@
 	};
 	C1B03723135E4F6300E7BD63 /* JoinViewController.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {983, 611}}";
-			sepNavSelRange = "{1356, 0}";
-			sepNavVisRange = "{473, 890}";
+			sepNavIntBoundsRect = "{{0, 0}, {983, 624}}";
+			sepNavSelRange = "{1380, 0}";
+			sepNavVisRange = "{473, 909}";
 		};
 	};
 	C1B03724135E4F6300E7BD63 /* JoinViewController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1139, 1794}}";
-			sepNavSelRange = "{2999, 0}";
-			sepNavVisRange = "{2804, 892}";
+			sepNavIntBoundsRect = "{{0, 0}, {983, 1846}}";
+			sepNavSelRange = "{3838, 0}";
+			sepNavVisRange = "{3208, 1023}";
 		};
 	};
 	C1B03749135E54E600E7BD63 /* PBXTextBookmark */ = {

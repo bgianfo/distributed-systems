@@ -69,8 +69,7 @@
 
 - (IBAction)joinPublicPressed:(id)sender {
     [activeIndicate startAnimating];
-    [pubBut setEnabled:NO];
-    [leadBut setEnabled:NO];
+    [self toggleButtons];
     [NSThread detachNewThreadSelector:@selector(joinPublic) toTarget:self withObject:nil];
 }
 
@@ -100,8 +99,7 @@
 }
 
 - (void) joinPublicFailed {
-    [pubBut setEnabled:YES];
-    [leadBut setEnabled:YES];
+    [self toggleButtons];
     [activeIndicate stopAnimating];
     UIAlertView *e = [[UIAlertView alloc] initWithTitle: @"Join Public failed" 
                                                 message: @"Could not join public game"
@@ -109,6 +107,13 @@
                                       otherButtonTitles: nil];
     [e show];
     [e release];
+}
+    
+- (void) toggleButtons {
+    [priJoinBut setEnabled:![priJoinBut isEnabled]];
+    [priCreateBut setEnabled:![priCreateBut isEnabled]];
+    [pubBut setEnabled:![pubBut isEnabled]];
+    [leadBut setEnabled:![leadBut isEnabled]];
 }
 
 - (void)didReceiveMemoryWarning {
