@@ -330,7 +330,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>C129637C136D3C7D0092180F</string>
+										<string>C1296388136D452C0092180F</string>
 										<key>history</key>
 										<array>
 											<string>C1B03749135E54E600E7BD63</string>
@@ -353,8 +353,8 @@
 											<string>C1296327136D2FAF0092180F</string>
 											<string>C1296328136D2FAF0092180F</string>
 											<string>C1296337136D30A00092180F</string>
-											<string>C1296377136D3BEF0092180F</string>
-											<string>C1296373136D3BD10092180F</string>
+											<string>C129637F136D44E50092180F</string>
+											<string>C1296380136D44E50092180F</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -551,8 +551,8 @@
 	<key>WindowOrderList</key>
 	<array>
 		<string>C184DD3C135DEBB1005B7546</string>
-		<string>1CD10A99069EF8BA00B06720</string>
 		<string>1C78EAAD065D492600B07095</string>
+		<string>1CD10A99069EF8BA00B06720</string>
 		<string>/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/distrivia.xcodeproj</string>
 	</array>
 	<key>WindowString</key>

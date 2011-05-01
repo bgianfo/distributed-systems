@@ -72,6 +72,8 @@
         [e release];
     } else {
         [activeIndicate startAnimating];
+        [registerBut setEnabled:NO];
+        [loginBut setEnabled:NO];
         [NSThread detachNewThreadSelector:@selector(loginWithParameters:) toTarget:self 
                                                 withObject:[NSArray arrayWithObjects:username, passwd, nil]];
     }
@@ -126,6 +128,8 @@
 
 - (void) loginFailed {
     [activeIndicate stopAnimating];
+    [registerBut setEnabled:YES];
+    [loginBut setEnabled:YES];
     UIAlertView *e = [[UIAlertView alloc] initWithTitle: @"Invalid Login" 
                                                 message: @"Invalid username/password"
                                                delegate: self cancelButtonTitle: @"Ok" 
