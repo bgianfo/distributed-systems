@@ -9,6 +9,11 @@ env.hosts = ['ec2-50-17-133-27.compute-1.amazonaws.com',
              'ec2-50-17-21-159.compute-1.amazonaws.com',
              'ec2-50-17-163-21.compute-1.amazonaws.com']
 
+def killall():
+    server = "distributed-systems/src/server"
+    with cd(server):
+        sudo('make kill')
+
 def restart():
     server = "distributed-systems/src/server"
     with cd(server):
