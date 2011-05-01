@@ -83,9 +83,10 @@
     } else {
         [activeIndicate startAnimating];
         if ([DistriviaAPI loginWithData:[rootController gd] user:username pass:passwd]) {
-			NSLog(@"LOGIN COMPLETE");
+			NSLog(@"Login Complete %@", [[rootController gd] getToken]);
 			[self startJoin];
 		} else {
+            [activeIndicate stopAnimating];
 			UIAlertView *e = [[UIAlertView alloc] initWithTitle: @"Invalid Login" 
 														message: @"Invalid username/password"
 													   delegate: self cancelButtonTitle: @"Ok" 

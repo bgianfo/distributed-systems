@@ -12,18 +12,14 @@
 @implementation DistriviaAPI
 
 const static NSString* API_URL = @"https://distrivia.lame.ws";
+const static NSString* API_ERROR=@"err";
 
 + (BOOL) loginWithData:(GameData*)gd user:(NSString*)userName pass:(NSString*)pass { 
     NSString* fragment = [NSString stringWithFormat: @"/login/%@", userName];
-    
     NSString* post = [NSString stringWithFormat:@"password=%@", pass];
-    
     NSURLRequest* request = [DistriviaAPI createPost:post urlFrag:fragment];
-    
     NSError* error = nil;
-    
     NSData* data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error: &error];    
-    
     BOOL success;
     
     if ( !data ) {
@@ -32,10 +28,18 @@ const static NSString* API_URL = @"https://distrivia.lame.ws";
     } else {
         NSString* token = [[NSString alloc] initWithData: data
                                             encoding: NSUTF8StringEncoding];
-        NSLog(@"Successful response: %@", token);
-        [gd setToken: token];
+        NSRange textRange;
+        textRange =[token rangeOfString:API_ERROR];
+        if ( textRange.location == NSNotFound ) {
+            [gd setToken: token];
+            NSLog(@"Successful response: %@", [gd getToken]);
+            success = true;
+        } else {
+            NSLog(@"Login Error");
+            success = false;
+        }
 		//[data release];
-        success = true;
+        [token release];
     }
 	
     //[fragment release];
@@ -43,6 +47,30 @@ const static NSString* API_URL = @"https://distrivia.lame.ws";
     //[request release];
     
     return success;
+}
+
++ (BOOL) registerWithData:(GameData*)gd user:(NSString*)userName pass:(NSString*)pass {
+    NSString* fragment = [NSString stringWithFormat: @"/register/%@", userName];
+    NSString* post = [NSString stringWithFormat:@"password=%@", pass];
+    NSURLRequest* request = [DistriviaAPI createPost:post urlFrag:fragment];
+    NSError* error = nil;
+    NSData* data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error: &error];    
+    BOOL success;
+    
+    if ( !data ) {
+        NSLog(@"Connection Error: %@", [error localizedDescription]);
+        success = false;
+    } else {
+        NSString* token = [[NSString alloc] initWithData: data
+                                                encoding: NSUTF8StringEncoding];
+        NSLog(@"Test: %s", [gd token]);
+        [gd setToken: token];
+        NSLog(@"Successful response: %@", [gd token]);
+        success = true;
+    }
+    
+    return success;
+    
 }
 
 + (NSMutableURLRequest*) createPost:(NSString*)post urlFrag:(NSString*)urlFragment {

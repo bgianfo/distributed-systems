@@ -18,11 +18,6 @@
     int score;
 }
 
-@property (retain, nonatomic) NSString *gameId;
-@property (retain, nonatomic) NSString *token;
-@property (retain, nonatomic) NSString *username;
-@property (retain, nonatomic) NSString *status;
-
 - (BOOL) hasStarted;
 
 - (BOOL) isDone;
@@ -38,5 +33,7 @@
 - (void) setUser:(NSString*) user;
 
 - (void) setToken:(NSString*) apiToken;
+
+- (NSString*) getToken;
 
 @end

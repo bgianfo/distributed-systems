@@ -11,11 +11,6 @@
 
 @implementation GameData
 
-@synthesize gameId;
-@synthesize status;
-@synthesize username;
-@synthesize token;
-
 - (id) init {
 
     status = nil;
@@ -59,5 +54,9 @@
 - (void) setToken:(NSString*) apiToken {
     [apiToken retain];
     token = apiToken;
+}
+
+- (NSString*) getToken {
+    return token;
 }
 @end
