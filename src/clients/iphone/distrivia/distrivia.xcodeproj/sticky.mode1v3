@@ -330,7 +330,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>C1296339136D30A00092180F</string>
+										<string>C129637C136D3C7D0092180F</string>
 										<key>history</key>
 										<array>
 											<string>C1B03749135E54E600E7BD63</string>
@@ -345,7 +345,6 @@
 											<string>C12961BE1367A0AB0092180F</string>
 											<string>C12961ED1367CA6C0092180F</string>
 											<string>C12961EF1367CA6C0092180F</string>
-											<string>C12961F01367CA6C0092180F</string>
 											<string>C12961F11367CA6C0092180F</string>
 											<string>C12962DF136D2A8B0092180F</string>
 											<string>C1296303136D2C5A0092180F</string>
@@ -354,7 +353,8 @@
 											<string>C1296327136D2FAF0092180F</string>
 											<string>C1296328136D2FAF0092180F</string>
 											<string>C1296337136D30A00092180F</string>
-											<string>C1296338136D30A00092180F</string>
+											<string>C1296377136D3BEF0092180F</string>
+											<string>C1296373136D3BD10092180F</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -577,7 +577,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>DistriviaAPI.m</string>
+								<string>LoginViewController.m</string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
@@ -646,7 +646,7 @@
 			<key>WindowToolGUID</key>
 			<string>C184DD3C135DEBB1005B7546</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>

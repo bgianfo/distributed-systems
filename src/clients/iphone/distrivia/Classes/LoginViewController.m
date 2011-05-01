@@ -60,17 +60,7 @@
     [super viewDidLoad];
 }
 
-
-
-/*
-// Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-*/
-
-- (IBAction) login:(id)sender {
+- (IBAction) loginPressed:(id)sender {
     NSString *username = [userField text];
     NSString *passwd = [passField text];
     if ([username length] == 0 || [passwd length] == 0) {
@@ -82,23 +72,12 @@
         [e release];
     } else {
         [activeIndicate startAnimating];
-        if ([DistriviaAPI loginWithData:[rootController gd] user:username pass:passwd]) {
-			NSLog(@"Login Complete %@", [[rootController gd] getToken]);
-			[self startJoin];
-		} else {
-            [activeIndicate stopAnimating];
-			UIAlertView *e = [[UIAlertView alloc] initWithTitle: @"Invalid Login" 
-														message: @"Invalid username/password"
-													   delegate: self cancelButtonTitle: @"Ok" 
-											  otherButtonTitles: nil];
-			[e show];
-			[e release];
-		}
-        //[self startJoin];
+        [NSThread detachNewThreadSelector:@selector(loginWithParameters:) toTarget:self 
+                                                withObject:[NSArray arrayWithObjects:username, passwd, nil]];
     }
 }
 
-- (IBAction) regis:(id)sender {
+- (IBAction) registerPressed:(id)sender {
     NSString *username = [userField text];
     NSString *passwd = [passField text];
     if ([username length] == 0 || [passwd length] == 0) {
@@ -110,12 +89,12 @@
         [e release];
     } else {
         [activeIndicate startAnimating];
-     	[self startJoin];   
+     	//[self startJoin];
     }
 }
 
 - (IBAction) textFieldDoneEditing:(id)sender {
-    [self login:sender];
+    [self loginPressed:sender];
     [sender resignFirstResponder];
 }
 
@@ -124,30 +103,35 @@
     [passField resignFirstResponder];
 }
 
-- (void)startJoin {
+- (void) loginWithParameters:(NSArray*)parameters {
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    NSString *username = [parameters objectAtIndex:0];
+    NSString *passwd = [parameters objectAtIndex:1];
+    if ([DistriviaAPI loginWithData:[rootController gd] user:username pass:passwd]) {
+        NSLog(@"Login Complete %@", [[rootController gd] getToken]);
+        [self performSelectorOnMainThread:@selector(startJoin) withObject:nil waitUntilDone:NO];
+        //[self startJoin];
+    } else {
+        [self performSelectorOnMainThread:@selector(loginFailed) withObject:nil waitUntilDone:NO];
+    }
+    [pool release];
+}
+
+- (void) startJoin {
     [activeIndicate stopAnimating];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:[userField text] forKey:@"username"];
     [rootController switchToView:[rootController JOIN]];
 }
 
-- (void)errorOccurred {
-    UIAlertView *e = [[UIAlertView alloc] initWithTitle: @"Service Unavailable" 
-                                                message: @"Please try again"
+- (void) loginFailed {
+    [activeIndicate stopAnimating];
+    UIAlertView *e = [[UIAlertView alloc] initWithTitle: @"Invalid Login" 
+                                                message: @"Invalid username/password"
                                                delegate: self cancelButtonTitle: @"Ok" 
                                       otherButtonTitles: nil];
     [e show];
     [e release];
-}
-
-- (void)serverResponse {
-    UIAlertView *e = [[UIAlertView alloc] initWithTitle: @"Response" 
-                                                message: @"What is it?"
-                                               delegate: self cancelButtonTitle: @"Ok" 
-                                      otherButtonTitles: nil];
-    [e show];
-    [e release];
-    [self startJoin];
 }
 
 - (void)didReceiveMemoryWarning {

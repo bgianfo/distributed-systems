@@ -27,14 +27,14 @@
 @property (retain, nonatomic) IBOutlet UIActivityIndicatorView *activeIndicate;
 @property (retain, nonatomic) RootViewController *rootController;
 
-- (IBAction) login:(id)sender;
-- (IBAction) regis:(id)sender;
+- (IBAction) loginPressed:(id)sender;
+- (IBAction) registerPressed:(id)sender;
 - (IBAction) textFieldDoneEditing:(id)sender;
 - (IBAction) backgroundTap:(id)sender;
 
 - (void) startJoin;
-- (void) errorOccurred;
-- (void) serverResponse;
+- (void) loginWithParameters:(NSArray*)parameters;
+- (void) loginFailed;
 
 @end
 
