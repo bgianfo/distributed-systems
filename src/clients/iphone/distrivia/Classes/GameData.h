@@ -19,21 +19,16 @@
 }
 
 - (BOOL) hasStarted;
-
 - (BOOL) isDone;
-
 - (int) getScore;
-
 - (NSString*) getUser;
+- (NSString*) getToken;
+- (NSString*) getGameId;
 
 - (void) setScore:(int)score;
-
-- (void) setStatus:(NSString*) status;
-
+- (void) setStatus:(NSString*) newStatus;
 - (void) setUser:(NSString*) user;
-
 - (void) setToken:(NSString*) apiToken;
-
-- (NSString*) getToken;
+- (void) setGameId:(NSString*) newId;
 
 @end

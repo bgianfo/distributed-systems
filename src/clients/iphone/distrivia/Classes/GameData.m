@@ -37,6 +37,14 @@
     return username;
 }
 
+- (NSString*) getToken {
+    return token;
+}
+
+- (NSString*) getGameId {
+    return gameId;
+}
+
 - (void) setScore:(int) newScore {
     score = newScore;
 }
@@ -56,7 +64,9 @@
     token = apiToken;
 }
 
-- (NSString*) getToken {
-    return token;
+- (void) setGameId:(NSString*) newId {
+    [gameId retain];
+    gameId = newId;
 }
+
 @end

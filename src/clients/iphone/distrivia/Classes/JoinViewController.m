@@ -9,7 +9,7 @@
 #import "JoinViewController.h"
 #import "LeaderboardViewController.h"
 #import "RootViewController.h"
-
+#import "DistriviaAPI.h"
 
 @implementation JoinViewController
 
@@ -63,12 +63,15 @@
 }
 */
 
-- (IBAction) viewLeaderboard:(id)sender {
+- (IBAction) viewLeaderboardPressed:(id)sender {
 	[rootController switchToView:[rootController LEADERBOARD]];
 }
 
-- (IBAction)joinPublic:(id)sender {
-	[rootController switchToView:[rootController ROUND]];
+- (IBAction)joinPublicPressed:(id)sender {
+    [activeIndicate startAnimating];
+    [pubBut setEnabled:NO];
+    [leadBut setEnabled:NO];
+    [NSThread detachNewThreadSelector:@selector(joinPublic) toTarget:self withObject:nil];
 }
 
 - (IBAction) textFieldDoneEditing:(id)sender {
@@ -78,6 +81,34 @@
 - (IBAction) backgroundTap:(id)sender {
     [nameField resignFirstResponder];
     [passField resignFirstResponder];
+}
+
+- (void) joinPublic {
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    if ([DistriviaAPI joinPublicWithData:[rootController gd]]) {
+        NSLog(@"GameId: %@", [[rootController gd] getGameId]);
+        [self performSelectorOnMainThread:@selector(startRound) withObject:nil waitUntilDone:NO];
+    } else {
+        [self performSelectorOnMainThread:@selector(joinPublicFailed) withObject:nil waitUntilDone:NO];
+    }
+    [pool release];
+}
+
+- (void) startRound {
+    [activeIndicate stopAnimating];
+    [rootController switchToView:[rootController ROUND]];
+}
+
+- (void) joinPublicFailed {
+    [pubBut setEnabled:YES];
+    [leadBut setEnabled:YES];
+    [activeIndicate stopAnimating];
+    UIAlertView *e = [[UIAlertView alloc] initWithTitle: @"Join Public failed" 
+                                                message: @"Could not join public game"
+                                               delegate: self cancelButtonTitle: @"Ok" 
+                                      otherButtonTitles: nil];
+    [e show];
+    [e release];
 }
 
 - (void)didReceiveMemoryWarning {

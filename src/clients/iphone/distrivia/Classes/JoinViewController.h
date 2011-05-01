@@ -35,9 +35,12 @@
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView *activeIndicate;
 @property (nonatomic, retain) RootViewController *rootController;
 
-- (IBAction) joinPublic:(id)sender;
-- (IBAction) viewLeaderboard:(id)sender;
+- (IBAction) joinPublicPressed:(id)sender;
+- (IBAction) viewLeaderboardPressed:(id)sender;
 - (IBAction) textFieldDoneEditing:(id)sender;
 - (IBAction) backgroundTap:(id)sender;
+
+- (void) joinPublic;
+- (void) joinPublicFailed;
 
 @end

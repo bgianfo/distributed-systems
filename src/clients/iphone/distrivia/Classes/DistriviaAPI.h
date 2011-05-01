@@ -15,8 +15,9 @@
     
 }
 
-+ (BOOL)loginWithData:(GameData*)gd user:(NSString*)userName pass:(NSString*)pass;
-+ (BOOL)registerWithData:(GameData*)gd user:(NSString*)userName pass:(NSString*)pass;
++ (BOOL) loginWithData:(GameData*)gd user:(NSString*)userName pass:(NSString*)pass;
++ (BOOL) registerWithData:(GameData*)gd user:(NSString*)userName pass:(NSString*)pass;
++ (BOOL) joinPublicWithData:(GameData*)gd;
 
 + (NSMutableURLRequest*) createPost:(NSString*)post urlFrag:(NSString*)urlFragment;
 

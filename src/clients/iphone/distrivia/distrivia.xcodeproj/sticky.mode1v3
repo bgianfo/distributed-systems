@@ -229,6 +229,8 @@
 			<key>Layout</key>
 			<array>
 				<dict>
+					<key>BecomeActive</key>
+					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -264,6 +266,7 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateExpansionKey</key>
 							<array>
 								<string>29B97314FDCFA39411CA2CEA</string>
+								<string>C1B03722135E4F3300E7BD63</string>
 								<string>C1B03729135E4FF300E7BD63</string>
 								<string>080E96DDFE201D6D7F000001</string>
 								<string>29B97315FDCFA39411CA2CEA</string>
@@ -275,13 +278,13 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>6</integer>
-									<integer>4</integer>
+									<integer>5</integer>
+									<integer>3</integer>
 									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 58}, {211, 566}}</string>
+							<string>{{0, 2}, {211, 566}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -311,14 +314,12 @@
 					<key>Dock</key>
 					<array>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>LoginViewController.m</string>
+								<string>JoinViewController.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -326,35 +327,35 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>LoginViewController.m</string>
+										<string>JoinViewController.m</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>C1296395136DBD000092180F</string>
+										<string>C1296408136E00260092180F</string>
 										<key>history</key>
 										<array>
 											<string>C1B03749135E54E600E7BD63</string>
 											<string>C1B03797135E5AD800E7BD63</string>
 											<string>C1296002135E9FB60092180F</string>
-											<string>C129610913603D170092180F</string>
-											<string>C129610A13603D170092180F</string>
 											<string>C129618F1367367D0092180F</string>
 											<string>C12961911367367D0092180F</string>
 											<string>C12961941367367D0092180F</string>
 											<string>C12961B913679FD20092180F</string>
 											<string>C12961BE1367A0AB0092180F</string>
 											<string>C12961ED1367CA6C0092180F</string>
-											<string>C12961EF1367CA6C0092180F</string>
-											<string>C12961F11367CA6C0092180F</string>
 											<string>C12962DF136D2A8B0092180F</string>
-											<string>C1296303136D2C5A0092180F</string>
-											<string>C1296304136D2C5A0092180F</string>
-											<string>C1296319136D2E7D0092180F</string>
-											<string>C1296327136D2FAF0092180F</string>
-											<string>C1296328136D2FAF0092180F</string>
-											<string>C1296392136DBD000092180F</string>
-											<string>C1296393136DBD000092180F</string>
-											<string>C1296394136DBD000092180F</string>
+											<string>C12963A0136DED030092180F</string>
+											<string>C12963A1136DED030092180F</string>
+											<string>C12963A2136DED030092180F</string>
+											<string>C12963C7136DF7210092180F</string>
+											<string>C12963D2136DF8F30092180F</string>
+											<string>C12963D8136DF97A0092180F</string>
+											<string>C12963EB136DFC0C0092180F</string>
+											<string>C12963F0136DFD2A0092180F</string>
+											<string>C12963FA136DFF970092180F</string>
+											<string>C1296401136E00020092180F</string>
+											<string>C1296406136E00260092180F</string>
+											<string>C1296407136E00260092180F</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -550,13 +551,12 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>C1296396136DBD000092180F</string>
 		<string>C1296397136DBD000092180F</string>
 		<string>C129638D136D47F70092180F</string>
-		<string>/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/distrivia.xcodeproj</string>
 		<string>1CD10A99069EF8BA00B06720</string>
 		<string>C184DD3C135DEBB1005B7546</string>
 		<string>1C78EAAD065D492600B07095</string>
+		<string>/Users/sticky/Documents/Courses/DistributedSystems/distributed-systems/src/clients/iphone/distrivia/distrivia.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
 	<string>401 398 1277 625 0 0 1680 1028 </string>
@@ -580,7 +580,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>LoginViewController.m</string>
+								<string>GameData.h</string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
@@ -732,10 +732,10 @@
 									<key>Frame</key>
 									<string>{{316, 0}, {378, 203}}</string>
 									<key>RubberWindowFrame</key>
-									<string>98 197 694 422 0 0 1680 1028 </string>
+									<string>21 591 694 422 0 0 1680 1028 </string>
 								</dict>
 								<key>RubberWindowFrame</key>
-								<string>98 197 694 422 0 0 1680 1028 </string>
+								<string>21 591 694 422 0 0 1680 1028 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXDebugSessionModule</string>
@@ -769,7 +769,7 @@
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debugV3</string>
 			<key>WindowString</key>
-			<string>98 197 694 422 0 0 1680 1028 </string>
+			<string>21 591 694 422 0 0 1680 1028 </string>
 			<key>WindowToolGUID</key>
 			<string>1CD10A99069EF8BA00B06720</string>
 			<key>WindowToolIsVisible</key>
