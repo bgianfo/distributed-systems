@@ -133,6 +133,7 @@ def initializeGame(user, passwd=None):
 
     gameData = {
         "questions": questions,
+        "type": "public",
         "id": gid,
         "users": [token],
         "gamestatus": "waiting",
@@ -390,8 +391,8 @@ def public_join_game():
     # Map function to inspect tables and grab non full games
     mapfn = """
     function(value, keyData, arg) {
-        var data = Riak.mapValuesJson(value)[0];
-        if (data.users.length < %d ) {
+        var game = Riak.mapValuesJson(value)[0];
+        if (game.type != "private" && game.users.length < %d ) {
             return [value.key];
         }
         return [];
@@ -533,6 +534,7 @@ def private_new_create(numquestions):
     gameData = {
         "questions": questions,
         "gamestatus": "waiting",
+        "type": "private",
         "name": name,
         "id": gid,
         "hash" : bcrypt.hashpw(passwd, bcrypt.gensalt()),
@@ -543,7 +545,7 @@ def private_new_create(numquestions):
     game = games.new(gid, data=gameData)
     game.store()
 
-    return gid
+    return json.dumps({ "id":gid, "status":1 })
 
 @app.route('/private/start/<gid>', methods=["POST"])
 def private_start(gid):
