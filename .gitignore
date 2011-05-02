@@ -1,3 +1,4 @@
 src/clients/android/bin/*
 src/clients/android/local.properties*
 src/clients/android/gen/*
+src/clients/iphone/distrivia/build
