@@ -7,7 +7,7 @@
 //
 
 #import "GameData.h"
-
+#import "Question.h"
 
 @implementation GameData
 
@@ -45,6 +45,10 @@
     return gameId;
 }
 
+- (Question*) getQuestion {
+    return question;
+}
+
 - (void) setScore:(int) newScore {
     score = newScore;
 }
@@ -67,6 +71,11 @@
 - (void) setGameId:(NSString*) newId {
     [gameId retain];
     gameId = newId;
+}
+
+- (void) setQuestion:(Question*)quest {
+    [question retain];
+    question = quest;
 }
 
 @end

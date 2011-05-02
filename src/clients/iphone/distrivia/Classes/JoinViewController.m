@@ -54,15 +54,6 @@
     [super viewDidLoad];
 }
 
-
-/*
-// Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations.
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-*/
-
 - (IBAction) viewLeaderboardPressed:(id)sender {
 	[rootController switchToView:[rootController LEADERBOARD]];
 }
@@ -85,15 +76,12 @@
 - (void) joinPublic {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     if ([DistriviaAPI joinPublicWithData:[rootController gd]]) {
-        NSLog(@"GameId: %@", [[rootController gd] getGameId]);
-        //BOOL waiting = YES;
         while (YES) {
             if ([DistriviaAPI statusWithData:[rootController gd]] && 
                                     [[rootController gd] hasStarted]) {
-                //waiting = NO;
                 break;
             }
-            [NSThread sleepForTimeInterval:3];
+            [NSThread sleepForTimeInterval:2];
         }
         [self performSelectorOnMainThread:@selector(startRound) withObject:nil waitUntilDone:NO];
     } else {

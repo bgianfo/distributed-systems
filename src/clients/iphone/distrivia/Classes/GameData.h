@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+@class Question;
 
 @interface GameData : NSObject {
 @private
@@ -15,6 +16,7 @@
     NSString* token;
     NSString* username;
     NSString* gameId;
+    Question* question;
     int score;
 }
 
@@ -24,11 +26,13 @@
 - (NSString*) getUser;
 - (NSString*) getToken;
 - (NSString*) getGameId;
+- (Question*) getQuestion;
 
 - (void) setScore:(int)score;
 - (void) setStatus:(NSString*) newStatus;
 - (void) setUser:(NSString*) user;
 - (void) setToken:(NSString*) apiToken;
 - (void) setGameId:(NSString*) newId;
+- (void) setQuestion:(Question*)quest
 
 @end
