@@ -448,9 +448,9 @@ def private_join_game():
     mapfn = """
     function(value, keyData, arg) {
         var game = Riak.mapValuesJson(value)[0];
-        if (game.type == "private" && data.gamestatus != "waiting") {
+        if (game.type == "private" && game.gamestatus != "waiting") {
             // Get the key and password hash, that's all we need!
-            return [[value.key, data.hash]];
+            return [[value.key, game.hash]];
         }
         return [];
     }
