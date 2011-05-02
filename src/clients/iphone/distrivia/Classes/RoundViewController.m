@@ -8,6 +8,7 @@
 
 #import "RoundViewController.h"
 #import "RootViewController.h"
+#import "Question.h"
 
 @implementation RoundViewController
 
@@ -16,6 +17,7 @@
 @synthesize bBut;
 @synthesize cBut;
 @synthesize dBut;
+@synthesize pBar;
 @synthesize rootController;
 
 // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
@@ -33,6 +35,11 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
 	[self deselectAll];
+    [pBar setProgress:0.75];
+    //Question* q = [[rootController gd] getQuestion];
+    NSLog(@"Round Question: %@", [[rootController gd] getGameId]);
+    //[question setText:[[[rootController gd] getQuestion] getQuestion]];
+    //[aBut setTitle:[[[rootController gd] getQuestion] getChoiceA] forState:UIControlStateNormal];
     [super viewDidLoad];
 }
 
@@ -82,6 +89,7 @@
 	self.bBut = nil;
 	self.cBut = nil;
 	self.dBut = nil;
+    self.pBar = nil;
     self.rootController = nil;
     [super viewDidUnload];
 }
@@ -93,6 +101,7 @@
 	[bBut release];
 	[cBut release];
 	[dBut release];
+    [pBar release];
     [rootController release];
     [super dealloc];
 }

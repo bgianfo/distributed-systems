@@ -16,7 +16,7 @@
     return self;
 }
 
-- (Question*) initWithData:(NSDictionary *)qData {
+- (Question*) initWithDict:(NSDictionary *)qData {
     //Question q = [[[Question alloc] init] autorelease];
     //q.qid = [qData objectForKey:@"id"];
     question = [qData objectForKey:@"question"];

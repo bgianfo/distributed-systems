@@ -17,8 +17,9 @@
 	IBOutlet UIButton	*bBut;
 	IBOutlet UIButton	*cBut;
 	IBOutlet UIButton	*dBut;
+    IBOutlet UIProgressView *pBar;
 	
-    RootViewController *rootController;
+    RootViewController  *rootController;
 	
 }
 
@@ -27,6 +28,7 @@
 @property (nonatomic, retain) IBOutlet UIButton *bBut;
 @property (nonatomic, retain) IBOutlet UIButton *cBut;
 @property (nonatomic, retain) IBOutlet UIButton *dBut;
+@property (nonatomic, retain) IBOutlet UIProgressView *pBar;
 @property (nonatomic, retain) RootViewController *rootController;
 
 - (IBAction) answerSelected:(id)sender;

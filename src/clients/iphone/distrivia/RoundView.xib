@@ -211,7 +211,6 @@
 						<reference key="NSSuperview" ref="191373211"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<float key="IBUIProgress">0.5</float>
 					</object>
 				</object>
 				<string key="NSFrameSize">{320, 460}</string>
@@ -311,6 +310,14 @@
 					</object>
 					<int key="connectionID">23</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">pBar</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="1030344279"/>
+					</object>
+					<int key="connectionID">24</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -334,8 +341,8 @@
 							<reference ref="623783166"/>
 							<reference ref="819618567"/>
 							<reference ref="782758136"/>
-							<reference ref="1030344279"/>
 							<reference ref="478786526"/>
+							<reference ref="1030344279"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -431,7 +438,7 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>RoundViewController</string>
 					<string>UIResponder</string>
-					<string>{{363, 141}, {320, 480}}</string>
+					<string>{{540, 168}, {320, 480}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -441,7 +448,7 @@
 					</object>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
-						<bytes key="NSTransformStruct">P4AAAL+AAABCMAAAw8aAAA</bytes>
+						<bytes key="NSTransformStruct">P4AAAL+AAABCMAAAw9YAAA</bytes>
 					</object>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
@@ -476,7 +483,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">23</int>
+			<int key="maxID">24</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -503,6 +510,7 @@
 							<string>bBut</string>
 							<string>cBut</string>
 							<string>dBut</string>
+							<string>pBar</string>
 							<string>question</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -511,6 +519,7 @@
 							<string>UIButton</string>
 							<string>UIButton</string>
 							<string>UIButton</string>
+							<string>UIProgressView</string>
 							<string>UILabel</string>
 						</object>
 					</object>
@@ -522,6 +531,7 @@
 							<string>bBut</string>
 							<string>cBut</string>
 							<string>dBut</string>
+							<string>pBar</string>
 							<string>question</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -541,6 +551,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">dBut</string>
 								<string key="candidateClassName">UIButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">pBar</string>
+								<string key="candidateClassName">UIProgressView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">question</string>

@@ -158,8 +158,10 @@ const static NSString* API_ERROR=@"err";
             NSDictionary *items = [jsonKitDecoder objectWithData:data];
             [gd setStatus:[items objectForKey:@"gamestatus"]];
             if ([gd hasStarted]) {
-                Question *q = [[Question alloc] initWithData:items];
+                Question *q = [[Question alloc] initWithDict:items];
                 [gd setQuestion:q];
+                NSLog(@"API Question: %@", [[gd getQuestion] getQuestion]);
+                //[q release];
             }
             success = true;
         } else {

@@ -20,7 +20,7 @@
     NSString *choiceD;
 }
 
- - (Question*)  initWithData:(NSDictionary*)qData;
+ - (Question*)  initWithDict:(NSDictionary*)qData;
 - (NSString*)   getQuestion;
 - (NSString*)   getChoiceA;
 - (NSString*)   getChoiceB;
