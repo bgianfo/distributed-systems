@@ -448,7 +448,7 @@ def private_join_game():
     mapfn = """
     function(value, keyData, arg) {
         var game = Riak.mapValuesJson(value)[0];
-        if (game.type == "private" && game.gamestatus != "waiting") {
+        if (game.type == "private" && game.gamestatus == "waiting") {
             // Get the key and password hash, that's all we need!
             return [[value.key, game.hash]];
         }
@@ -470,7 +470,7 @@ def private_join_game():
                 game = games.get(key)
                 vdata = game.get_data()
                 if token in vdata["users"]:
-                    return key
+                    return json.dumps({ "id": key, "status":1 })
                 vdata["users"].append(token)
                 # Add user to the leader board
                 vdata["leaderboard"][user] = 0
