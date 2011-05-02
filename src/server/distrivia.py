@@ -443,6 +443,7 @@ def private_join_game():
     user   = str(request.form['user'])
     token  = str(request.form['authToken'])
     passwd = str(request.form['password'])
+    name   = str(request.form['name'])
 
     # Map function to inspect tables and grab not started, private games
     mapfn = """
@@ -469,14 +470,17 @@ def private_join_game():
             if bcrypt.hashpw(passwd,pwhash) == pwhash:
                 game = games.get(key)
                 vdata = game.get_data()
-                if token in vdata["users"]:
+                if vdata["name"] == name:
+                    if token in vdata["users"]:
+                        return json.dumps({ "id": key, "status":1 })
+                    vdata["users"].append(token)
+                    # Add user to the leader board
+                    vdata["leaderboard"][user] = 0
+                    game.set_data(vdata)
+                    game.store()
                     return json.dumps({ "id": key, "status":1 })
-                vdata["users"].append(token)
-                # Add user to the leader board
-                vdata["leaderboard"][user] = 0
-                game.set_data(vdata)
-                game.store()
-                return json.dumps({ "id": key, "status":1 })
+                else:
+                    return json.dumps({"status":-3})
 
         return json.dumps({"status":-3})
     else:
