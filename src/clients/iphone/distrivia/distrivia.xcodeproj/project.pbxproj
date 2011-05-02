@@ -26,6 +26,7 @@
 		C1296141136357D50092180F /* distrivia_icon7.png in Resources */ = {isa = PBXBuildFile; fileRef = C129613E136357D50092180F /* distrivia_icon7.png */; };
 		C1296142136357D50092180F /* distrivia_icon8.png in Resources */ = {isa = PBXBuildFile; fileRef = C129613F136357D50092180F /* distrivia_icon8.png */; };
 		C12961561365572C0092180F /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C12961551365572C0092180F /* RootViewController.m */; };
+		C129642C136E5E7A0092180F /* Question.m in Sources */ = {isa = PBXBuildFile; fileRef = C129642B136E5E7A0092180F /* Question.m */; };
 		C149E38A135E5F3500D6A77D /* RoundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C149E388135E5F3500D6A77D /* RoundViewController.m */; };
 		C149E38B135E5F3500D6A77D /* RoundView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C149E389135E5F3500D6A77D /* RoundView.xib */; };
 		C1B03726135E4F6300E7BD63 /* JoinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B03724135E4F6300E7BD63 /* JoinViewController.m */; };
@@ -47,12 +48,12 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* distrivia_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = distrivia_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* distrivia-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "distrivia-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
-		C0524B9D135F870900BE6E98 /* DistriviaAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DistriviaAPI.h; sourceTree = "<group>"; };
-		C0524B9E135F870900BE6E98 /* DistriviaAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DistriviaAPI.m; sourceTree = "<group>"; };
-		C0961663135E9C5D00BDFFA6 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
-		C0961664135E9C5D00BDFFA6 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
-		C0961667135E9CC300BDFFA6 /* GameData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameData.h; sourceTree = "<group>"; };
-		C0961668135E9CC300BDFFA6 /* GameData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameData.m; sourceTree = "<group>"; };
+		C0524B9D135F870900BE6E98 /* DistriviaAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DistriviaAPI.h; path = Classes/DistriviaAPI.h; sourceTree = "<group>"; };
+		C0524B9E135F870900BE6E98 /* DistriviaAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DistriviaAPI.m; path = Classes/DistriviaAPI.m; sourceTree = "<group>"; };
+		C0961663135E9C5D00BDFFA6 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSONKit.m; path = Classes/JSONKit.m; sourceTree = "<group>"; };
+		C0961664135E9C5D00BDFFA6 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSONKit.h; path = Classes/JSONKit.h; sourceTree = "<group>"; };
+		C0961667135E9CC300BDFFA6 /* GameData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameData.h; path = Classes/GameData.h; sourceTree = "<group>"; };
+		C0961668135E9CC300BDFFA6 /* GameData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameData.m; path = Classes/GameData.m; sourceTree = "<group>"; };
 		C1296086135F35110092180F /* blueButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueButton.png; sourceTree = "<group>"; };
 		C1296087135F35110092180F /* whiteButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whiteButton.png; sourceTree = "<group>"; };
 		C129610313603CB70092180F /* LeaderboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LeaderboardViewController.h; path = Classes/LeaderboardViewController.h; sourceTree = "<group>"; };
@@ -63,6 +64,8 @@
 		C129613F136357D50092180F /* distrivia_icon8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = distrivia_icon8.png; sourceTree = "<group>"; };
 		C12961541365572C0092180F /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		C12961551365572C0092180F /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
+		C129642A136E5E7A0092180F /* Question.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Question.h; path = Classes/Question.h; sourceTree = "<group>"; };
+		C129642B136E5E7A0092180F /* Question.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Question.m; path = Classes/Question.m; sourceTree = "<group>"; };
 		C149E387135E5F3500D6A77D /* RoundViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RoundViewController.h; path = Classes/RoundViewController.h; sourceTree = "<group>"; };
 		C149E388135E5F3500D6A77D /* RoundViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RoundViewController.m; path = Classes/RoundViewController.m; sourceTree = "<group>"; };
 		C149E389135E5F3500D6A77D /* RoundView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RoundView.xib; sourceTree = "<group>"; };
@@ -89,14 +92,8 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				C0524B9D135F870900BE6E98 /* DistriviaAPI.h */,
-				C0524B9E135F870900BE6E98 /* DistriviaAPI.m */,
-				C0961663135E9C5D00BDFFA6 /* JSONKit.m */,
-				C0961664135E9C5D00BDFFA6 /* JSONKit.h */,
 				1D3623240D0F684500981E51 /* distriviaAppDelegate.h */,
 				1D3623250D0F684500981E51 /* distriviaAppDelegate.m */,
-				C0961667135E9CC300BDFFA6 /* GameData.h */,
-				C0961668135E9CC300BDFFA6 /* GameData.m */,
 				C12961541365572C0092180F /* RootViewController.h */,
 				C12961551365572C0092180F /* RootViewController.m */,
 			);
@@ -118,6 +115,8 @@
 				C149E386135E5F1F00D6A77D /* Round View */,
 				C1B03722135E4F3300E7BD63 /* Join View */,
 				C1B03729135E4FF300E7BD63 /* Login View */,
+				C1296434136E5E9D0092180F /* Objects */,
+				C1296433136E5E8D0092180F /* Network */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -169,6 +168,28 @@
 				C129610513603CB70092180F /* LeaderboardView.xib */,
 			);
 			name = "Leaderboard View";
+			sourceTree = "<group>";
+		};
+		C1296433136E5E8D0092180F /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				C0524B9D135F870900BE6E98 /* DistriviaAPI.h */,
+				C0524B9E135F870900BE6E98 /* DistriviaAPI.m */,
+				C0961663135E9C5D00BDFFA6 /* JSONKit.m */,
+				C0961664135E9C5D00BDFFA6 /* JSONKit.h */,
+			);
+			name = Network;
+			sourceTree = "<group>";
+		};
+		C1296434136E5E9D0092180F /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				C0961667135E9CC300BDFFA6 /* GameData.h */,
+				C0961668135E9CC300BDFFA6 /* GameData.m */,
+				C129642A136E5E7A0092180F /* Question.h */,
+				C129642B136E5E7A0092180F /* Question.m */,
+			);
+			name = Objects;
 			sourceTree = "<group>";
 		};
 		C149E386135E5F1F00D6A77D /* Round View */ = {
@@ -281,6 +302,7 @@
 				C0524B9F135F870900BE6E98 /* DistriviaAPI.m in Sources */,
 				C129610613603CB70092180F /* LeaderboardViewController.m in Sources */,
 				C12961561365572C0092180F /* RootViewController.m in Sources */,
+				C129642C136E5E7A0092180F /* Question.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

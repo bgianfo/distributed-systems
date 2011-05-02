@@ -7,7 +7,7 @@
 //
 
 #import "GameData.h"
-
+#import "Question.h"
 
 @implementation GameData
 
@@ -22,7 +22,7 @@
 }
 
 - (BOOL) hasStarted {
-    return [status isEqualToString:@"starting"];
+    return [status isEqualToString:@"started"];
 }
 
 - (BOOL) isDone {
@@ -43,6 +43,10 @@
 
 - (NSString*) getGameId {
     return gameId;
+}
+
+- (Question*) getQuestion {
+    return question;
 }
 
 - (void) setScore:(int) newScore {
@@ -67,6 +71,11 @@
 - (void) setGameId:(NSString*) newId {
     [gameId retain];
     gameId = newId;
+}
+
+- (void) setQuestion:(Question*)quest {
+    [question retain];
+    question = quest;
 }
 
 @end
