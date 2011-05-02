@@ -9,6 +9,7 @@
 #import "DistriviaAPI.h"
 #import "GameData.h"
 #import "JSONKit.h"
+#import "Question.h"
 
 @implementation DistriviaAPI
 
@@ -134,6 +135,7 @@ const static NSString* API_ERROR=@"err";
     return success;
 }
 
+
 // Contacts the server to get the status of the given game
 + (BOOL) statusWithData:(GameData*)gd {
     NSString* fragment = [NSString stringWithFormat: @"/game/%@", [gd getGameId]];
@@ -155,11 +157,11 @@ const static NSString* API_ERROR=@"err";
             JSONDecoder *jsonKitDecoder = [JSONDecoder decoder];
             NSDictionary *items = [jsonKitDecoder objectWithData:data];
             [gd setStatus:[items objectForKey:@"gamestatus"]];
+            if ([gd hasStarted]) {
+                Question *q = [[Question alloc] initWithData:items];
+                [gd setQuestion:q];
+            }
             success = true;
-            //if ([items objectForKey:@"status"]) {
-            //    [gd setGameId:[items objectForKey:@"id"]];
-            //    success = true;
-            //}
         } else {
             NSLog(@"API Error");
         }

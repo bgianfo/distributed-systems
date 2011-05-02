@@ -10,6 +10,7 @@
 
 
 @interface Question : NSObject {
+    
 @private
     int qid;
     NSString *question;
@@ -19,11 +20,11 @@
     NSString *choiceD;
 }
 
-- (Question*)  initWithData:(NSDictionary*)qData;
-- (NSString*) getQuestion;
-- (NSString*) getChoiceA;
-- (NSString*) getChoiceB;
-- (NSString*) getChoiceC;
-- (NSString*) getChoiceD;
+ - (Question*)  initWithData:(NSDictionary*)qData;
+- (NSString*)   getQuestion;
+- (NSString*)   getChoiceA;
+- (NSString*)   getChoiceB;
+- (NSString*)   getChoiceC;
+- (NSString*)   getChoiceD;
 
 @end

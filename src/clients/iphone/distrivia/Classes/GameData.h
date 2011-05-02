@@ -33,6 +33,6 @@
 - (void) setUser:(NSString*) user;
 - (void) setToken:(NSString*) apiToken;
 - (void) setGameId:(NSString*) newId;
-- (void) setQuestion:(Question*)quest
+- (void) setQuestion:(Question*)quest;
 
 @end

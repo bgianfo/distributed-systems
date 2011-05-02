@@ -13,16 +13,19 @@
 
 - (Question*) init {
     [super init];
+    return self;
 }
 
 - (Question*) initWithData:(NSDictionary *)qData {
-    Question q = [[Question alloc] init];
+    //Question q = [[[Question alloc] init] autorelease];
     //q.qid = [qData objectForKey:@"id"];
-    q.question = [qData objectForKey:@"question"];
-    q.choiceA = [qData objectForKey:@"a"];
-    q.choiceB = [qData objectForKey:@"b"];
-    q.choiceC = [qData objectForKey:@"c"];
-    q.choiceD = [qData objectForKey:@"d"];
+    question = [qData objectForKey:@"question"];
+    choiceA = [qData objectForKey:@"a"];
+    choiceB = [qData objectForKey:@"b"];
+    choiceC = [qData objectForKey:@"c"];
+    choiceD = [qData objectForKey:@"d"];
+    
+    return self;
 }
 
 - (NSString*) getQuestion {
