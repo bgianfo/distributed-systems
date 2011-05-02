@@ -12,7 +12,7 @@
 @interface Question : NSObject {
     
 @private
-    int qid;
+    NSString *qid;
     NSString *question;
     NSString *choiceA;
     NSString *choiceB;
@@ -20,7 +20,7 @@
     NSString *choiceD;
 }
 
- - (Question*)  initWithDict:(NSDictionary*)qData;
+- (Question*)  initWithDict:(NSDictionary*)qData;
 - (NSString*)   getQuestion;
 - (NSString*)   getChoiceA;
 - (NSString*)   getChoiceB;

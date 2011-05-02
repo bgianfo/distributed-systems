@@ -20,6 +20,8 @@
     IBOutlet UIProgressView *pBar;
 	
     RootViewController  *rootController;
+    NSDate              *startTime;
+    NSDate              *endTime;
 	
 }
 
@@ -30,6 +32,8 @@
 @property (nonatomic, retain) IBOutlet UIButton *dBut;
 @property (nonatomic, retain) IBOutlet UIProgressView *pBar;
 @property (nonatomic, retain) RootViewController *rootController;
+@property (nonatomic, retain) NSDate *startTime;
+@property (nonatomic, retain) NSDate *endTime;
 
 - (IBAction) answerSelected:(id)sender;
 - (void) deselectAll;

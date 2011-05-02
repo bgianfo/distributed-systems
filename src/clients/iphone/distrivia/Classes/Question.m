@@ -18,7 +18,7 @@
 
 - (Question*) initWithDict:(NSDictionary *)qData {
     //Question q = [[[Question alloc] init] autorelease];
-    //q.qid = [qData objectForKey:@"id"];
+    qid = [qData objectForKey:@"id"];
     question = [qData objectForKey:@"question"];
     choiceA = [qData objectForKey:@"a"];
     choiceB = [qData objectForKey:@"b"];

@@ -9,6 +9,7 @@
 #import "RoundViewController.h"
 #import "RootViewController.h"
 #import "Question.h"
+#import "GameData.h"
 
 @implementation RoundViewController
 
@@ -19,6 +20,7 @@
 @synthesize dBut;
 @synthesize pBar;
 @synthesize rootController;
+@synthesize startTime, endTime;
 
 // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 /*
@@ -36,10 +38,17 @@
 - (void)viewDidLoad {
 	[self deselectAll];
     [pBar setProgress:0.75];
+    GameData *g = [rootController gd];
+    if (g == nil) {
+        NSLog(@"Nil");
+    }
+    //NSLog(@"Round GameID: %@", [g getGameId]);
     //Question* q = [[rootController gd] getQuestion];
-    NSLog(@"Round Question: %@", [[rootController gd] getGameId]);
+    //NSLog(@"Round Question: %@", [[rootController gd] getGameId]);
+    //NSLog(@"Round Question: %@", [[[rootController gd] getQuestion] getQuestion]);
     //[question setText:[[[rootController gd] getQuestion] getQuestion]];
     //[aBut setTitle:[[[rootController gd] getQuestion] getChoiceA] forState:UIControlStateNormal];
+    startTime = [[NSDate alloc] init];
     [super viewDidLoad];
 }
 
@@ -53,6 +62,7 @@
 */
 
 - (IBAction) answerSelected:(id)sender {
+    endTime = [[NSDate alloc] init];
 	[self deselectAll];
 	if (sender == aBut) {
 		[aBut setBackgroundColor:[UIColor greenColor]];
@@ -91,6 +101,8 @@
 	self.dBut = nil;
     self.pBar = nil;
     self.rootController = nil;
+    self.startTime = nil;
+    self.endTime = nil;
     [super viewDidUnload];
 }
 
@@ -103,6 +115,8 @@
 	[dBut release];
     [pBar release];
     [rootController release];
+    [startTime release];
+    [endTime release];
     [super dealloc];
 }
 

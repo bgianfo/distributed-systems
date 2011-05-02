@@ -10,6 +10,8 @@
 #import "LeaderboardViewController.h"
 #import "RootViewController.h"
 #import "DistriviaAPI.h"
+#import "GameData.h"
+#import "Question.h"
 
 @implementation JoinViewController
 
@@ -79,6 +81,8 @@
         while (YES) {
             if ([DistriviaAPI statusWithData:[rootController gd]] && 
                                     [[rootController gd] hasStarted]) {
+                NSLog(@"Join Question: %@", [[[rootController gd] getQuestion] getQuestion]);
+                [NSThread sleepForTimeInterval:5];
                 NSLog(@"Join Question: %@", [[[rootController gd] getQuestion] getQuestion]);
                 break;
             }
