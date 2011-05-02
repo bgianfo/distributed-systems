@@ -54,7 +54,7 @@ Join Private Games:
  - Server Notes:
    * Game crated and users added until creator starts it
  - URL: /private/join/<game name>
- - POST: authToken=<session id>&password=<password>&user=<user name>
+ - POST: authToken=<session id>&password=<password>&user=<user name>&name=<game name>
  - Return:
    *  Valid: game id
    * Invalid: Error Code (invalid auth token, invalid credentials, already started)
