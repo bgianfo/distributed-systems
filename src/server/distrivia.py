@@ -556,6 +556,8 @@ def private_start(gid):
     Start a private game
     """
 
+    gid = str(gid)
+
     if not isAuthed():
         return API_ERROR
 
