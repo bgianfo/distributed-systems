@@ -86,10 +86,12 @@
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     if ([DistriviaAPI joinPublicWithData:[rootController gd]]) {
         NSLog(@"GameId: %@", [[rootController gd] getGameId]);
-        BOOL waiting = YES;
-        while (waiting) {
-            if ([DistriviaAPI statusWithData:[rootController gd]]) {
-                waiting = NO;
+        //BOOL waiting = YES;
+        while (YES) {
+            if ([DistriviaAPI statusWithData:[rootController gd]] && 
+                                    [[rootController gd] hasStarted]) {
+                //waiting = NO;
+                break;
             }
             [NSThread sleepForTimeInterval:3];
         }

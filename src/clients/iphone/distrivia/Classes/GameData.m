@@ -22,7 +22,7 @@
 }
 
 - (BOOL) hasStarted {
-    return [status isEqualToString:@"starting"];
+    return [status isEqualToString:@"started"];
 }
 
 - (BOOL) isDone {

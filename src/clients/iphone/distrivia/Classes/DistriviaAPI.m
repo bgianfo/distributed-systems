@@ -154,6 +154,8 @@ const static NSString* API_ERROR=@"err";
             NSLog(@"Successful response: %@", response);
             JSONDecoder *jsonKitDecoder = [JSONDecoder decoder];
             NSDictionary *items = [jsonKitDecoder objectWithData:data];
+            [gd setStatus:[items objectForKey:@"gamestatus"]];
+            success = true;
             //if ([items objectForKey:@"status"]) {
             //    [gd setGameId:[items objectForKey:@"id"]];
             //    success = true;
