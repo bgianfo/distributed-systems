@@ -113,7 +113,7 @@
     NSString *username = [parameters objectAtIndex:0];
     NSString *passwd = [parameters objectAtIndex:1];
     if ([DistriviaAPI loginWithData:[rootController gd] user:username pass:passwd]) {
-        NSLog(@"Login Complete %@", [[rootController gd] getToken]);
+        //NSLog(@"Login Complete %@", [[rootController gd] getToken]);
         [self performSelectorOnMainThread:@selector(startJoin) withObject:nil waitUntilDone:NO];
     } else {
         [self performSelectorOnMainThread:@selector(loginFailed) withObject:nil waitUntilDone:NO];
@@ -126,7 +126,7 @@
     NSString *username = [parameters objectAtIndex:0];
     NSString *passwd = [parameters objectAtIndex:1];
     if ([DistriviaAPI registerWithData:[rootController gd] user:username pass:passwd]) {
-        NSLog(@"Register Complete %@", [[rootController gd] getToken]);
+        //NSLog(@"Register Complete %@", [[rootController gd] getToken]);
         [self performSelectorOnMainThread:@selector(startJoin) withObject:nil waitUntilDone:NO];
     } else {
         [self performSelectorOnMainThread:@selector(registerFailed) withObject:nil waitUntilDone:NO];

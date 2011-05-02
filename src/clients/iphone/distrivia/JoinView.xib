@@ -309,15 +309,6 @@
 					<int key="connectionID">3</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">joinPublic:</string>
-						<reference key="source" ref="534113148"/>
-						<reference key="destination" ref="372490531"/>
-						<int key="IBEventType">7</int>
-					</object>
-					<int key="connectionID">15</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">leadBut</string>
 						<reference key="source" ref="372490531"/>
@@ -402,12 +393,21 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">viewLeaderboard:</string>
+						<string key="label">joinPublicPressed:</string>
+						<reference key="source" ref="534113148"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">34</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">viewLeaderboardPressed:</string>
 						<reference key="source" ref="377876921"/>
 						<reference key="destination" ref="372490531"/>
 						<int key="IBEventType">7</int>
 					</object>
-					<int key="connectionID">33</int>
+					<int key="connectionID">35</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -554,7 +554,7 @@
 					<string>JoinViewController</string>
 					<string>UIResponder</string>
 					<string>UIControl</string>
-					<string>{{356, 116}, {320, 480}}</string>
+					<string>{{541, 191}, {320, 480}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
@@ -611,7 +611,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">33</int>
+			<int key="maxID">35</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -624,9 +624,9 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>backgroundTap:</string>
-							<string>joinPublic:</string>
+							<string>joinPublicPressed:</string>
 							<string>textFieldDoneEditing:</string>
-							<string>viewLeaderboard:</string>
+							<string>viewLeaderboardPressed:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -641,9 +641,9 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>backgroundTap:</string>
-							<string>joinPublic:</string>
+							<string>joinPublicPressed:</string>
 							<string>textFieldDoneEditing:</string>
-							<string>viewLeaderboard:</string>
+							<string>viewLeaderboardPressed:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -652,7 +652,7 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
-								<string key="name">joinPublic:</string>
+								<string key="name">joinPublicPressed:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -660,7 +660,7 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
-								<string key="name">viewLeaderboard:</string>
+								<string key="name">viewLeaderboardPressed:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 						</object>
