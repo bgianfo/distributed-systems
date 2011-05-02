@@ -684,7 +684,7 @@ def submit_question_answer(gid, qid):
 
         udata = user.get_data()
         udata["score"] += score
-        users.set_data(udata)
+        user.set_data(udata)
         user.store()
 
     questions = gdata["questions"]
