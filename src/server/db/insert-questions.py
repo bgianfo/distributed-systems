@@ -1,8 +1,19 @@
 
 import riak
+import urllib2
+
+def getip():
+    """ Return the internal IP of this machine """
+    try:
+        myurl = "http://169.254.169.254/latest/meta-data/local-ipv4"
+        hostname = urllib2.urlopen(url=myurl, timeout=1).read()
+        return hostname
+    except:
+        return "127.0.0.1"
 
 
-client = riak.RiakClient()
+client = riak.RiakClient(host=getip(), port=8087,
+            transport_class=riak.RiakPbcTransport)
 
 # 
 # Questions are from: 
