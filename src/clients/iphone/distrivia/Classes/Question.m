@@ -13,12 +13,8 @@
 
 @synthesize qid, question, choiceA, choiceB, choiceC, choiceD;
 
-- (Question*) init {
-    [super init];
-    return self;
-}
-
-- (Question*) initWithDict:(NSDictionary *)qData {
+- (id) initWithDict:(NSDictionary *)qData {
+    self = [super init];
     [self setQid:[qData objectForKey:@"id"]];
     [self setQuestion:[qData objectForKey:@"question"]];
     [self setChoiceA:[qData objectForKey:@"a"]];

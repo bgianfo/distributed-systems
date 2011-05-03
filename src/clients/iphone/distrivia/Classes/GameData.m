@@ -11,14 +11,16 @@
 
 @implementation GameData
 
-- (id) init {
+@synthesize question;
+@synthesize username;
 
-    status = nil;
-    username = nil;
-    token = nil;
-    question = nil;
-    gameId = nil;
-    score = 0;
+- (id) init {
+    self = [super init];
+    self.status = nil;
+    //self.username = nil;
+    self.token = nil;
+    self.gameId = nil;
+    self.score = 0;
     
     return self;
 }
@@ -35,9 +37,9 @@
     return score;
 }
 
-- (NSString*) getUser {
-    return username;
-}
+//- (NSString*) getUser {
+//    return username;
+//}
 
 - (NSString*) getToken {
     return token;
@@ -47,9 +49,9 @@
     return gameId;
 }
 
-- (Question*) getQuestion {
-    return question;
-}
+//- (Question*) getQuestion {
+//    return question;
+//}
 
 - (void) setScore:(int) newScore {
     score = newScore;
@@ -60,10 +62,10 @@
     status = newStatus;
 }
 
-- (void) setUser:(NSString*) user {
-    [user retain];
-    username = user;
-}
+//- (void) setUser:(NSString*) user {
+//    [user retain];
+//    username = user;
+//}
 
 - (void) setToken:(NSString*) apiToken {
     [apiToken retain];
@@ -75,9 +77,9 @@
     gameId = newId;
 }
 
-- (void) setQuestion:(Question*)quest {
-    [question retain];
-    question = quest;
-}
+//- (void) setQuestion:(Question*)quest {
+//    [question retain];
+//    question = quest;
+//}
 
 @end

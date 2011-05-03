@@ -20,19 +20,22 @@
     int score;
 }
 
+@property (retain, nonatomic) Question *question;
+@property (retain, nonatomic) NSString *username;
+
 - (BOOL) hasStarted;
 - (BOOL) isDone;
 - (int) getScore;
-- (NSString*) getUser;
+//- (NSString*) getUser;
 - (NSString*) getToken;
 - (NSString*) getGameId;
-- (Question*) getQuestion;
+//- (Question*) getQuestion;
 
 - (void) setScore:(int)score;
 - (void) setStatus:(NSString*) newStatus;
-- (void) setUser:(NSString*) user;
+//- (void) setUser:(NSString*) user;
 - (void) setToken:(NSString*) apiToken;
 - (void) setGameId:(NSString*) newId;
-- (void) setQuestion:(Question*)quest;
+//- (void) setQuestion:(Question*)quest;
 
 @end

@@ -37,7 +37,6 @@
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
-    [pBar setProgress:0.75];
     [self setupDisplay];
     [super viewDidLoad];
 }
@@ -69,14 +68,15 @@
 }
 
 - (void) setupDisplay {
-    Question *q = [[rootController gd] getQuestion];
+    [pBar setProgress:0.0];
+    Question *q = [[rootController gd] question];
     [question setText:[q question]];
     [aBut setTitle:[q choiceA] forState:UIControlStateNormal];
     [bBut setTitle:[q choiceB] forState:UIControlStateNormal];
     [cBut setTitle:[q choiceC] forState:UIControlStateNormal];
     [dBut setTitle:[q choiceD] forState:UIControlStateNormal];
-    //NSString *newScore = [NSString stringWithFormat:@"%d", [[rootController gd] getScore]];
-    //[score setText:newScore];
+    NSString *newScore = [NSString stringWithFormat:@"%d", [[rootController gd] getScore]];
+    [score setText:newScore];
     [self deselectAll];
     //[self setStartTime:[[NSDate alloc] init]];
     

@@ -27,6 +27,6 @@
 @property (retain, nonatomic) NSString *choiceC;
 @property (retain, nonatomic) NSString *choiceD;
 
-- (Question*)  initWithDict:(NSDictionary*)qData;
+- (id) initWithDict:(NSDictionary*)qData;
 
 @end

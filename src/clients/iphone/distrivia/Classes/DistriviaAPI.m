@@ -35,7 +35,7 @@ const static NSString* API_ERROR=@"err";
         textRange =[API_ERROR rangeOfString: token];
         if ( textRange.location == NSNotFound ) {
             [gd setToken: token];
-            [gd setUser:userName];
+            [gd setUsername:userName];
             NSLog(@"Successful response: %@", [gd getToken]);
             success = true;
         } else {
@@ -106,7 +106,7 @@ const static NSString* API_ERROR=@"err";
 // Return boolean
 + (BOOL) joinPublicWithData:(GameData*)gd {
     NSString* fragment = @"/public/join";
-    NSString* post = [NSString stringWithFormat:@"authToken=%@&user=%@", [gd getToken], [gd getUser]];
+    NSString* post = [NSString stringWithFormat:@"authToken=%@&user=%@", [gd getToken], [gd username]];
     NSURLRequest* request = [DistriviaAPI createPost:post urlFrag:fragment];
     NSError* error = nil;
     NSData* data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error: &error];    
@@ -160,7 +160,7 @@ const static NSString* API_ERROR=@"err";
             if ([gd hasStarted]) {
                 Question *q = [[Question alloc] initWithDict:items];
                 [gd setQuestion:q];
-                NSLog(@"API Question: %@", [[gd getQuestion] question]);
+                NSLog(@"API Question: %@", [[gd question] question]);
                 [q release];
             }
             success = true;
