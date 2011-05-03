@@ -11,6 +11,13 @@ var timeout = 5000;
 var disabler = {};
 var refs = {};
 
+// Add .trim() to IE and other shitty browsers
+if( typeof String.prototype.trim !== 'function' ){
+   String.prototype.trim = function() {
+      return this.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+   }
+}
+
 
 /*
  * Gets an document element

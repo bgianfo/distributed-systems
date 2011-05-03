@@ -4,6 +4,9 @@
    <script type='text/javascript' src='jquerydev.js'></script>
    <script type='text/javascript' src='distrivia.js'></script>
    <script type='text/javascript' src='distrivia_func.js'></script>
+   <!--[if IE]>
+   <link href='distrivia_ie.css' rel='stylesheet' type='text/css' />
+   <![endif]-->
 </head>
 <body onload='Load()'>
 <noscript class='nos'><div>Distrivia requires javascript to be enabled</div></noscript>
@@ -36,8 +39,8 @@
                   <input class='login_input' type='password' name='confirm' onkeypress='Register_Key(event)' />
                </div>
                <div class='login_submit'>
-                  <a href='#' onclick='return Register(this)' style='float:left' id='reg_btn'>Register</a>
-                  <a href='#' onclick='return Login(this)' style='float:right' id='login_btn'>Login</a>
+                  <a href='#register' onclick='return Register(this)' style='float:left' id='reg_btn'>Register</a>
+                  <a href='#login' onclick='return Login(this)' style='float:right' id='login_btn'>Login</a>
                </div>
                <div class='login_invalid hidden' id='login_invalid'>Invalid Login</div>
             </form>
@@ -55,24 +58,24 @@
          <div class='join_priv' id='join_priv'>
             <form class='form' name='join_form'>
                <div class='join_row'>
-                  <div class='join_left'><label for='name'>Name:</label></div>
-                  <div class='join_input_wrapper'><input class='join_input' type='text' name='name' /></div>
+                  <span class='join_left'><label for='name'>Name:</label></span>
+                  <span class='join_input_wrapper'><input class='join_input' type='text' name='name' /></span>
                </div>
                <div class='join_row'>
-                  <div class='join_left'><label for='pass'>Pass:</label></div>
-                  <div class='join_input_wrapper'><input class='join_input' type='password' name='pass' onkeypress='Join_Key(event)'/></div>
+                  <span class='join_left'><label for='pass'>Pass:</label></span>
+                  <span class='join_input_wrapper'><input class='join_input' type='password' name='pass' onkeypress='Join_Key(event)'/></span>
                </div>
                <div class='join_row hidden' id='gconfirm'>
-                  <div class='join_left'><label for='cpass'>Pass:</label></div>
-                  <div class='join_input_wrapper'><input class='join_input' type='password' name='cpass' onkeypress='Make_Key(event)'/></div>
+                  <span class='join_left'><label for='cpass'>Pass:</label></span>
+                  <span class='join_input_wrapper'><input class='join_input' type='password' name='cpass' onkeypress='Make_Key(event)'/></span>
                </div>
                <div class='join_row hidden' id='num_q'>
                   <label for='num'>Number of questions:</label>
                   <input type='text' style='width: 2em' name='num' maxlength=2 value='20' onkeypress='Make_Key(event)'/>
                </div>
                <div class='join_row' style='margin-left: 4em'>
-                  <a href='#' style='float:left' onclick='return Private()'>Join</a>
-                  <a href='#' style='float:right' onclick='return Make()'>Create</a>
+                  <a href='#' style='float:left' id='priv_join' onclick='return Private(this)'>Join</a>
+                  <a href='#' style='float:right' id='priv_create' onclick='return Make(this)'>Create</a>
                </div>
             </form>
          </div>
@@ -99,6 +102,12 @@
          <div class='game_bottom'>
             <a href='#' onclick='return Next(this)' class='next' id='next'>Next!</a>
          </div>
+      </div>
+
+      <!-- Private game host -->
+      <div class='wait hidden' id='host'>
+         <div class='sub_header'>Please wait for participants to join, then start the game</div>
+         <div><a href='#start' id='host_btn' onclick='return Start(this)'>Begin Game</a></div>
       </div>
 
       <!-- Leaderboard -->

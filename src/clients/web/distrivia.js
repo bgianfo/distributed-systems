@@ -126,6 +126,7 @@ function errClear(){
  */
 function Cancel(){
    var xr = XML();
+   xr_n_check = xr_n
 
    // Send POST informing server of cancel (ignore any reply)
    var param = "authToken=" + session;
@@ -165,8 +166,8 @@ function CheckStatus( postgame ){
             // Always update game leaderboard
             var scores = "";
             for( key in data.leaderboard ){
-               scores += "<li class='board_item'><div class='board_left'>" + key + "</div>";
-               scores += "<div class='board_right'>" + data.leaderboard[key] + "</div></li>";
+               scores += "<li class='board_item'><span class='board_left'>" + key + "</span>";
+               scores += "<span class='board_right'>" + data.leaderboard[key] + "</span></li>";
             }
             list.innerHTML = scores;
                
@@ -179,7 +180,13 @@ function CheckStatus( postgame ){
             }else if( data.gamestatus == 'started' ){
                // Game has started
                xr_n_check = xr_n; // Disable all other CheckStatus from parsing
-               swap( id('wait'), id('game') );
+
+               if( $( id('wait') ).is(":visible") ){
+                  swap( id('wait'), id('game') );
+               }else{
+                  swap( id('host'), id('game') );
+               }
+
                UpdateGame( data );
                window.clearInterval(updater);
 
@@ -255,16 +262,16 @@ function Next( ref ){
                      // Always update game leaderboard
                      var scores = "";
                      for( key in data.leaderboard ){
-                        scores += "<li class='board_item'><div class='board_left'>" + key + "</div>";
-                        scores += "<div class='board_right'>" + data.leaderboard[key] + "</div></li>";
+                        scores += "<li class='board_item'><span class='board_left'>" + key + "</span>";
+                        scores += "<span class='board_right'>" + data.leaderboard[key] + "</span></li>";
                      }
                      byId('game_list').innerHTML = scores;
                   }else if( data.gamestatus == 'done' ){
                      swap( game, join );
                      var scores = "";
                      for( key in data.leaderboard ){
-                        scores += "<li class='board_item'><div class='board_left'>" + key + "</div>";
-                        scores += "<div class='board_right'>" + data.leaderboard[key] + "</div></li>";
+                        scores += "<li class='board_item'><span class='board_left'>" + key + "</span>";
+                        scores += "<span class='board_right'>" + data.leaderboard[key] + "</span></li>";
                      }
                      byId('game_list').innerHTML = scores;
                      updater = window.setInterval("CheckStatus(true)",5000);
@@ -323,6 +330,7 @@ function Answer( num ){
    answer = answers[num-1];
 
 //   id('next').focus();
+   return false;
 }
 // End Answer
 
@@ -364,11 +372,11 @@ function More(ref){
 
             var more = "";
             for( var i = 0; i < sortedboard.length; i++ ) {
-               more += "<li class='board_item'><div class='board_left'>";
+               more += "<li class='board_item'><span class='board_left'>";
                more += sortedboard[i][0];
-               more += "</div><div class='board_right'>";
+               more += "</span><span class='board_right'>";
                more += sortedboard[i][1];
-               more += "</div></li>";
+               more += "</span></li>";
                board_n++;
             }
             bl.innerHTML = bl.innerHTML + more;
@@ -414,11 +422,56 @@ function Home(){
 
 
 /*
- * Creates a private game
+ * Starts a private game
  */
-function Make(){
+function Start(ref){
+   var func = "start";
+   if( disabled(func, ref) ){
+      return false;
+   }else{
+      disable(func, ref);
+   }
+
    var xr = XML();
    var xml_n = ++xr_n;
+
+   var bl = byId('board_list');
+   addClass( bl, 'board_load' );
+
+   xr.onreadystatechange = function(){
+      if( xr.readyState == 4 && xml_n == xr_n ){
+         if( xr.status == 200 ){
+            CheckStatus(false);
+         }
+      }
+   };
+
+   
+   var param = "authToken=" + session;
+   xr.open( "POST", erl("/private/start/" + gid), true );
+   xr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+   xr.send(param);
+
+   return false;
+}
+
+/*
+ * Creates a private game
+ */
+function Make(ref){
+   var func = "start";
+   if( disabled(func, ref) ){
+      return false;
+   }else{
+      disable(func, ref);
+   }
+
+   var xr = XML();
+   var xml_n = ++xr_n;
+
+   var bl = byId('board_list');
+   addClass( bl, 'board_load' );
+
    xr.onreadystatechange = function(){
       if( xr.readyState == 4 && xml_n == xr_n ){
          if( xr.status == 200 ){
@@ -426,12 +479,19 @@ function Make(){
             var data = jsonify( xr.responseText );
                            
                if( data.status == -1 ){
-                  swap( join, login );
+                  errClear();
+                  swap( id('join'), id('login') );
                   errMsg( "Your session expired." );
                }else if( data.status == API_SUCCESS ){
+                  gid = data.id;
                   $( byId('num_q') ).hide("slow");
                   $( byId('gconfirm') ).hide("slow");
-                  errMsg( "Game is created, but nothing further is implemented on this client." );
+                  swap( id('join'), id('host') );
+                  $(id('game_board')).animate({width:'show'});
+                  board_shown = true;
+                  updater = window.setInterval("CheckStatus(false)",2500);
+                  CheckStatus(false);
+                  errClear();
                }
 
            }catch(err){
@@ -473,10 +533,15 @@ function Make(){
    }
 
    if( valid ){
+      // Clear any previous updater
+      window.clearInterval(updater);
+
       var param = "authToken=" + session + "&name=" + gname + "&password=" + gpas1 + "&user=" + username;
       xr.open( "POST", erl("/private/create/" + gnum), true );
       xr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
       xr.send(param);
+   }else{
+      enable(func, ref);
    }
 
    return false;
@@ -689,13 +754,19 @@ function Login(ref){
 }
 // End Login()
 
-function Private(){
+function Private(ref){
+   var func = 'private'; // Method name (for enabling/disable use
+   if( disabled(func) ){  // Check if method has been disabled
+      return false;       // Do nothing if disabled
+   }else{                 
+      disable(func, ref); // If not disabled, disable it
+   }
+
+   var xr = XML();     // Start an xmlhttprequest object
+   var xml_n = ++xr_n; // Get a POST message number
+
    // Clear any previous upater
    window.clearInterval(updater);
-
-   var xr = XML();
-   xr_n++;
-   var xml_n = xr_n;
 
    xr.onreadystatechange = function(){
       if( xr.readyState == 4 && xml_n == xr_n ){
@@ -704,19 +775,18 @@ function Private(){
                var data = jsonify( xr.responseText );
 
                if( data.status == API_SUCCESS ){
-                  swap( join, wait );
+                  swap( id('join'), id('wait') );
 
                   // Save the game id ( global )
                   gid = data.id;
 
-                  var scoreb = byId('game_board');
                   byId('game_list').innerHTML = "";
-                  $(scoreb).animate({width:'show'});
+                  $( id('game_board') ).animate({width:'show'});
                   board_shown = true;
 
                   // Waiting to join
                   byId('wait_message').innerHTML = "Joining game...";
-                  swap( join, wait );
+                  swap( id('join'), id('wait') );
                   updater = window.setInterval("CheckStatus(false)",1000);
 
                }else if( data.status == -2 ){
@@ -733,6 +803,7 @@ function Private(){
             }catch(err){
                errMsg( "Server connection error" );
             }
+            enable( func, ref );
          }
       }
    }
@@ -751,7 +822,7 @@ function Private(){
    }
 
    if( go ){
-      var param = "authToken=" + session + "&user=" + username + "&password=" + gpass;
+      var param = "authToken=" + session + "&user=" + username + "&password=" + gpass + "&name=" + gname;
 //      var URI = erl( "/private/join/" + gname );
       var URI = erl( "/private/join/" );
 
@@ -759,13 +830,16 @@ function Private(){
       xr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
       xr.send( param );
+   }else{
+      enable( func, ref );
    }
+
    return false;
 }
 
 function Join_Key(e){
    if( e.keyCode == 13 ){
-      Private();
+      Private( id('priv_join') );
    }
 }
 
@@ -783,7 +857,7 @@ function Register_Key(e){
 
 function Make_Key(e){
    if( e.keyCode == 13 ){
-      Make();
+      Make( id('priv_create') );
    }
 }
 

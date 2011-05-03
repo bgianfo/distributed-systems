@@ -92,6 +92,7 @@ li.error_item:hover {
    height: 1px;
    margin-bottom: 15px;
    margin-top: 15px;
+   font-size: 0%;
 }
 
 /* Login Area CSS */
@@ -193,11 +194,9 @@ a.answer:hover {
 }
 
 .board_left{
-   display: inline;
 }
 
 .board_right{
-   display: inline;
    float: right;
    padding-left: 10px;
 }
