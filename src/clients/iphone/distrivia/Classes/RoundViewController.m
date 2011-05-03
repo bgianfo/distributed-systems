@@ -76,6 +76,7 @@
 		[dBut setBackgroundColor:[UIColor greenColor]];
         [self setSelection:@"d"];
 	}
+    [self updateProgress];
 }
 
 - (IBAction) submitPressed:(id)sender {
@@ -100,6 +101,7 @@
 }
 
 - (void) deselectAll {
+    self.selection = nil;
 	[aBut setBackgroundColor:[UIColor grayColor]];
 	[bBut setBackgroundColor:[UIColor grayColor]];
 	[cBut setBackgroundColor:[UIColor grayColor]];
@@ -140,7 +142,9 @@
 - (void) progressUpdater {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     for (int i = 0; i<22; i++) {
-        [self performSelectorOnMainThread:@selector(updateProgress) withObject:nil waitUntilDone:NO];
+        if (selection == nil) {
+            [self performSelectorOnMainThread:@selector(updateProgress) withObject:nil waitUntilDone:NO];
+        }
         [NSThread sleepForTimeInterval:0.25];
     }
     [pool release];
