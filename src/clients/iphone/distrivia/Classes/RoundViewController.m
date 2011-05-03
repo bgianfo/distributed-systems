@@ -37,6 +37,13 @@
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
+    [question setNumberOfLines:2];
+    [question setLineBreakMode:UILineBreakModeWordWrap];
+    [question setAdjustsFontSizeToFitWidth:YES];
+    [aBut setLineBreakMode:UILineBreakModeWordWrap];
+    [bBut setLineBreakMode:UILineBreakModeWordWrap];
+    [cBut setLineBreakMode:UILineBreakModeWordWrap];
+    [dBut setLineBreakMode:UILineBreakModeWordWrap];
     [self setupDisplay];
     [super viewDidLoad];
 }
