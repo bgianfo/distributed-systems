@@ -40,22 +40,17 @@
     [question setNumberOfLines:2];
     [question setLineBreakMode:UILineBreakModeWordWrap];
     [question setAdjustsFontSizeToFitWidth:YES];
-    [aBut setLineBreakMode:UILineBreakModeWordWrap];
-    [bBut setLineBreakMode:UILineBreakModeWordWrap];
-    [cBut setLineBreakMode:UILineBreakModeWordWrap];
-    [dBut setLineBreakMode:UILineBreakModeWordWrap];
+    [aBut.titleLabel setLineBreakMode:UILineBreakModeWordWrap];
+    [bBut.titleLabel setLineBreakMode:UILineBreakModeWordWrap];
+    [cBut.titleLabel setLineBreakMode:UILineBreakModeWordWrap];
+    [dBut.titleLabel setLineBreakMode:UILineBreakModeWordWrap];
+    [aBut.titleLabel setTextAlignment:UITextAlignmentCenter];
+    [bBut.titleLabel setTextAlignment:UITextAlignmentCenter];
+    [cBut.titleLabel setTextAlignment:UITextAlignmentCenter];
+    [dBut.titleLabel setTextAlignment:UITextAlignmentCenter];
     [self setupDisplay];
     [super viewDidLoad];
 }
-
-
-/*
-// Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations.
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-*/
 
 - (IBAction) answerSelected:(id)sender {
     endTime = [[NSDate alloc] init];
