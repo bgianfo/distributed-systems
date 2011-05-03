@@ -10,6 +10,7 @@
 #import "RootViewController.h"
 #import "Question.h"
 #import "GameData.h"
+#import "DistriviaAPI.h"
 
 @implementation RoundViewController
 
@@ -20,8 +21,11 @@
 @synthesize cBut;
 @synthesize dBut;
 @synthesize pBar;
+@synthesize submitBut;
+@synthesize activeIndicate;
 @synthesize rootController;
 @synthesize startTime, endTime;
+@synthesize selection;
 
 // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 /*
@@ -37,7 +41,7 @@
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
-    [question setNumberOfLines:2];
+    [question setNumberOfLines:3];
     [question setLineBreakMode:UILineBreakModeWordWrap];
     [question setAdjustsFontSizeToFitWidth:YES];
     [aBut.titleLabel setLineBreakMode:UILineBreakModeWordWrap];
@@ -53,20 +57,30 @@
 }
 
 - (IBAction) answerSelected:(id)sender {
-    endTime = [[NSDate alloc] init];
+    [self setEndTime:[[NSDate alloc] init]];
+    NSLog(@"Time: %f", [endTime timeIntervalSinceDate:startTime]/1);
 	[self deselectAll];
 	if (sender == aBut) {
 		[aBut setBackgroundColor:[UIColor greenColor]];
+        [self setSelection:@"a"];
 	}
 	else if (sender == bBut) {
 		[bBut setBackgroundColor:[UIColor greenColor]];
+        [self setSelection:@"b"];
 	}
 	else if (sender == cBut) {
 		[cBut setBackgroundColor:[UIColor greenColor]];
+        [self setSelection:@"c"];
 	}
 	else if (sender == dBut) {
 		[dBut setBackgroundColor:[UIColor greenColor]];
+        [self setSelection:@"d"];
 	}
+}
+
+- (IBAction) submitPressed:(id)sender {
+    [submitBut setEnabled:NO];
+    [activeIndicate startAnimating];
 }
 
 - (void) setupDisplay {
@@ -80,7 +94,7 @@
     NSString *newScore = [NSString stringWithFormat:@"%d", [[rootController gd] getScore]];
     [score setText:newScore];
     [self deselectAll];
-    //[self setStartTime:[[NSDate alloc] init]];
+    [self setStartTime:[[NSDate alloc] init]];
     
 }
 
@@ -106,10 +120,13 @@
 	self.bBut = nil;
 	self.cBut = nil;
 	self.dBut = nil;
+    self.submitBut = nil;
     self.pBar = nil;
+    self.activeIndicate = nil;
     self.rootController = nil;
     self.startTime = nil;
     self.endTime = nil;
+    self.selection = nil;
     [super viewDidUnload];
 }
 
@@ -121,10 +138,13 @@
 	[bBut release];
 	[cBut release];
 	[dBut release];
+    [submitBut release];
     [pBar release];
+    [activeIndicate release];
     [rootController release];
     [startTime release];
     [endTime release];
+    [selection release];
     [super dealloc];
 }
 

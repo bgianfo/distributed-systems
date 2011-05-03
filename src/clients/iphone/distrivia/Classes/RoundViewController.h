@@ -18,11 +18,14 @@
 	IBOutlet UIButton	*bBut;
 	IBOutlet UIButton	*cBut;
 	IBOutlet UIButton	*dBut;
+    IBOutlet UIButton   *submitBut;
     IBOutlet UIProgressView *pBar;
+    IBOutlet UIActivityIndicatorView *activeIndicate;
 	
     RootViewController  *rootController;
     NSDate              *startTime;
     NSDate              *endTime;
+    NSString            *selection;
 	
 }
 
@@ -32,12 +35,17 @@
 @property (nonatomic, retain) IBOutlet UIButton *bBut;
 @property (nonatomic, retain) IBOutlet UIButton *cBut;
 @property (nonatomic, retain) IBOutlet UIButton *dBut;
+@property (nonatomic, retain) IBOutlet UIButton *submitBut;
 @property (nonatomic, retain) IBOutlet UIProgressView *pBar;
+@property (nonatomic, retain) IBOutlet UIActivityIndicatorView *activeIndicate;
 @property (nonatomic, retain) RootViewController *rootController;
 @property (nonatomic, retain) NSDate *startTime;
 @property (nonatomic, retain) NSDate *endTime;
+@property (nonatomic, retain) NSString *selection;
 
 - (IBAction) answerSelected:(id)sender;
+- (IBAction) submitPressed:(id)sender;
+
 - (void) deselectAll;
 - (void) setupDisplay;
 
