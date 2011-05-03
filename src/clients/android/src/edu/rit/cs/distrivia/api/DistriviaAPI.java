@@ -123,7 +123,7 @@ public class DistriviaAPI {
 
         return gdata;
     }
-    
+
     /**
      * Joins Private Round
      * 
@@ -133,9 +133,10 @@ public class DistriviaAPI {
      * @return The game id string
      * @throws Exception
      */
-    public static GameData joinPrivate(GameData gdata, String gameName, String pass) throws Exception {
+    public static GameData joinPrivate(GameData gdata, String gameName,
+            String pass) throws Exception {
         String url = new String();
-        url += "/private/join/"+gameName;
+        url += "/private/join/" + gameName;
 
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("authToken", gdata.getAuthToken()));
@@ -149,7 +150,7 @@ public class DistriviaAPI {
 
         return gdata;
     }
-    
+
     /**
      * Creates Private Round
      * 
@@ -160,9 +161,10 @@ public class DistriviaAPI {
      * @return The game id string
      * @throws Exception
      */
-    public static GameData createPrivate(GameData gdata, String gameName, String pass, int numQs) throws Exception {
+    public static GameData createPrivate(GameData gdata, String gameName,
+            String pass, int numQs) throws Exception {
         String url = new String();
-        url += "/private/create/"+numQs;
+        url += "/private/create/" + numQs;
 
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("authToken", gdata.getAuthToken()));
@@ -177,7 +179,7 @@ public class DistriviaAPI {
 
         return gdata;
     }
-    
+
     /**
      * Starts Private Round
      * 
@@ -187,7 +189,7 @@ public class DistriviaAPI {
      */
     public static boolean startPrivate(GameData gdata) throws Exception {
         String url = new String();
-        url += "/private/start/"+gdata.getGameID();
+        url += "/private/start/" + gdata.getGameID();
 
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("authToken", gdata.getAuthToken()));
@@ -337,6 +339,8 @@ public class DistriviaAPI {
      */
     private static String responseToString(HttpResponse res) throws Exception {
 
+        final int BUFSIZE = 500; // Usually only need around 500 character's
+                                 // max.
         InputStream is = null;
         try {
             is = res.getEntity().getContent();
@@ -351,7 +355,7 @@ public class DistriviaAPI {
 
             try {
                 Reader reader = new BufferedReader(new InputStreamReader(is,
-                        "UTF-8"));
+                        "UTF-8"), BUFSIZE);
                 int n;
                 while ((n = reader.read(buffer)) != -1) {
                     writer.write(buffer, 0, n);
@@ -372,5 +376,4 @@ public class DistriviaAPI {
             return "";
         }
     }
-
 }

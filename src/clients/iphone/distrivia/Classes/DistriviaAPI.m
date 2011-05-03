@@ -32,7 +32,7 @@ const static NSString* API_ERROR=@"err";
         NSString* token = [[NSString alloc] initWithData: data
                                             encoding: NSUTF8StringEncoding];
         NSRange textRange;
-        textRange =[token rangeOfString:API_ERROR];
+        textRange =[API_ERROR rangeOfString: token];
         if ( textRange.location == NSNotFound ) {
             [gd setToken: token];
             [gd setUser:userName];
@@ -63,7 +63,7 @@ const static NSString* API_ERROR=@"err";
         NSString* token = [[NSString alloc] initWithData: data
                                                 encoding: NSUTF8StringEncoding];
         NSRange textRange;
-        textRange =[token rangeOfString:API_ERROR];
+        textRange =[API_ERROR rangeOfString: token];
         if ( textRange.location == NSNotFound ) {
             NSLog(@"Successful response: %@", token);
             success = true;
@@ -86,7 +86,7 @@ const static NSString* API_ERROR=@"err";
             NSString* token = [[NSString alloc] initWithData: data
                                                     encoding: NSUTF8StringEncoding];
             NSRange textRange;
-            textRange =[token rangeOfString:API_ERROR];
+            textRange =[API_ERROR rangeOfString: token];
             if ( textRange.location == NSNotFound ) {
                 [gd setToken: token];
                 NSLog(@"Successful response: %@", [gd getToken]);
@@ -118,7 +118,7 @@ const static NSString* API_ERROR=@"err";
         NSString* response = [[NSString alloc] initWithData: data
                                                 encoding: NSUTF8StringEncoding];
         NSRange textRange;
-        textRange =[response rangeOfString:API_ERROR];
+        textRange =[API_ERROR rangeOfString: response];
         if ( textRange.location == NSNotFound ) {
             NSLog(@"Successful response: %@", response);
             JSONDecoder *jsonKitDecoder = [JSONDecoder decoder];
@@ -151,7 +151,7 @@ const static NSString* API_ERROR=@"err";
         NSString* response = [[NSString alloc] initWithData: data
                                                    encoding: NSUTF8StringEncoding];
         NSRange textRange;
-        textRange =[response rangeOfString:API_ERROR];
+        textRange =[API_ERROR rangeOfString: response];
         if ( textRange.location == NSNotFound ) {
             NSLog(@"Successful response: %@", response);
             JSONDecoder *jsonKitDecoder = [JSONDecoder decoder];
@@ -175,6 +175,10 @@ const static NSString* API_ERROR=@"err";
 
 
 + (NSMutableURLRequest*) createPost:(NSString*)post urlFrag:(NSString*)urlFragment {
+
+    // Clear cache so we don't try to get the same response.
+    [[NSURLCache sharedURLCache] removeAllCachedResponses];
+
     
     // Combine host url with API fragment 
     NSURL* url = [NSURL URLWithString: 
@@ -197,10 +201,7 @@ const static NSString* API_ERROR=@"err";
     [request setHTTPMethod:@"POST"];
     [request setHTTPBody:data];
     [request setValue:len forHTTPHeaderField:@"Content-Length"];
-    //[request setValue:@"application/x-www-form-urlencoded" 
-    //         forHTTPHeaderField:@"Current-Type"];
     [request setTimeoutInterval:30.0];
-    
 
     return request;
 }

@@ -101,9 +101,11 @@ public class LeaderboardActivity extends GameActivityBase {
             @Override
             public void onClick(View v) {
                 // Stop I/O thread
-            	if (updateThread != null) {
-            		updateThread.stop();
-            	}
+                if (updateThread != null) {
+                    Thread tmp = updateThread;
+                    updateThread = null;
+                    tmp.interrupt();
+                }
 
                 GameData gd = gameData();
                 gd.setLoadLocal(false);
@@ -146,7 +148,7 @@ public class LeaderboardActivity extends GameActivityBase {
             public void run() {
                 SystemClock.sleep(UPDATE_MS);
                 try {
-                    while (true) {
+                    while (Thread.currentThread() == updateThread) {
                         setGameData(DistriviaAPI.status(gameData()));
                         loadTable(true);
                         SystemClock.sleep(UPDATE_MS);
