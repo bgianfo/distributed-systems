@@ -19,7 +19,7 @@
 + (BOOL) registerWithData:(GameData*)gd user:(NSString*)userName pass:(NSString*)pass;
 + (BOOL) joinPublicWithData:(GameData*)gd;
 + (BOOL) statusWithData:(GameData*)gd;
-+ (BOOL) answerWithData:(GameData*)gd answer:(NSString*)answer timeTaken:(double)time;
++ (BOOL) answerWithData:(GameData*)gd answer:(NSString*)answer timeTaken:(int)time;
 
 + (NSMutableURLRequest*) createPost:(NSString*)post urlFrag:(NSString*)urlFragment;
 

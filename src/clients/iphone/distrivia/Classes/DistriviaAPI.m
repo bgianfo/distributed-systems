@@ -173,10 +173,10 @@ const static NSString* API_ERROR=@"err";
 }
 
 // Commits user's answer to the server and gets the next information
-+ (BOOL) answerWithData:(GameData*)gd answer:(NSString*)answer timeTaken:(double)time {
++ (BOOL) answerWithData:(GameData*)gd answer:(NSString*)answer timeTaken:(int)time {
     NSString* fragment = [NSString stringWithFormat: @"/game/%@/question/%@", [gd gameId], [[gd question] qid]];
     NSLog(@"API Answer Submission: %@", fragment);
-    NSString* timeString = [NSString stringWithFormat:@"%f", time];
+    NSString* timeString = [NSString stringWithFormat:@"%d", time];
     NSLog(@"API Time: %@", timeString);
     NSString* post = [NSString stringWithFormat:@"authToken=%@&user=%@&time=%@&a=%@", [gd getToken], 
                       [gd username], timeString, answer];

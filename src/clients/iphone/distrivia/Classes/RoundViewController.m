@@ -96,7 +96,7 @@
     [score setText:newScore];
     [self deselectAll];
     [self setStartTime:[[NSDate alloc] init]];
-    
+    [NSThread detachNewThreadSelector:@selector(progressUpdater) toTarget:self withObject:nil];
 }
 
 - (void) deselectAll {
@@ -108,8 +108,10 @@
 
 - (void) submitAnswer {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    int timeTaken = [[NSNumber numberWithFloat:[endTime timeIntervalSinceDate:startTime]] intValue];
+    NSLog(@"Time Taken: %d", timeTaken);
     if ([DistriviaAPI answerWithData:[rootController gd] answer:selection 
-                           timeTaken:[endTime timeIntervalSinceDate:startTime]]) {
+                           timeTaken:timeTaken]) {
         [self performSelectorOnMainThread:@selector(nextQuestion) withObject:nil waitUntilDone:NO];
     } else {
         [self performSelectorOnMainThread:@selector(submitAnswerFailed) withObject:nil waitUntilDone:NO];
@@ -133,6 +135,21 @@
                                       otherButtonTitles: nil];
     [e show];
     [e release];
+}
+
+- (void) progressUpdater {
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    for (int i = 0; i<22; i++) {
+        [self performSelectorOnMainThread:@selector(updateProgress) withObject:nil waitUntilDone:NO];
+        [NSThread sleepForTimeInterval:0.25];
+    }
+    [pool release];
+}
+
+- (void) updateProgress {
+    NSDate *now = [[NSDate alloc] init];
+    [pBar setProgress:[now timeIntervalSinceDate:startTime]/5.0];
+    [now release];
 }
 
 - (void)didReceiveMemoryWarning {

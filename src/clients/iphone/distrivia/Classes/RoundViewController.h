@@ -51,6 +51,8 @@
 - (void) submitAnswer;
 - (void) submitAnswerFailed;
 - (void) nextQuestion;
+- (void) updateProgress;
+- (void) progressUpdater;
 
 
 @end
