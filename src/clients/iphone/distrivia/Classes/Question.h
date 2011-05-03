@@ -28,10 +28,5 @@
 @property (retain, nonatomic) NSString *choiceD;
 
 - (Question*)  initWithDict:(NSDictionary*)qData;
-//- (NSString*)   getQuestion;
-//- (NSString*)   getChoiceA;
-//- (NSString*)   getChoiceB;
-//- (NSString*)   getChoiceC;
-//- (NSString*)   getChoiceD;
 
 @end

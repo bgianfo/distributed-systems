@@ -19,7 +19,6 @@
 }
 
 - (Question*) initWithDict:(NSDictionary *)qData {
-    //Question q = [[[Question alloc] init] autorelease];
     [self setQid:[qData objectForKey:@"id"]];
     [self setQuestion:[qData objectForKey:@"question"]];
     [self setChoiceA:[qData objectForKey:@"a"]];
@@ -29,25 +28,4 @@
     
     return self;
 }
-/*
-- (NSString*) getQuestion {
-    return question;
-}
-
-- (NSString*) getChoiceA {
-    return choiceA;
-}
-
-- (NSString*) getChoiceB {
-    return choiceB;
-}
-
-- (NSString*) getChoiceC {
-    return choiceC;
-}
-
-- (NSString*) getChoiceD {
-    return choiceD;
-}
-*/
 @end

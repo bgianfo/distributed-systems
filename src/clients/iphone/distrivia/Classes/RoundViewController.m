@@ -14,6 +14,7 @@
 @implementation RoundViewController
 
 @synthesize question;
+@synthesize score;
 @synthesize aBut;
 @synthesize bBut;
 @synthesize cBut;
@@ -36,20 +37,8 @@
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
-	[self deselectAll];
     [pBar setProgress:0.75];
-    //GameData *g = [rootController gd];
-    //if (g == nil) {
-    //    NSLog(@"Nil");
-    //}
-    //NSLog(@"Round Question: %@", [[g getQuestion] question]);
-    //NSLog(@"Round GameID: %@", [g getGameId]);
-    //Question* q = [[rootController gd] getQuestion];
-    //NSLog(@"Round Question: %@", [[rootController gd] getGameId]);
-    //NSLog(@"Round Question: %@", [[[rootController gd] getQuestion] getQuestion]);
-    [question setText:[[[rootController gd] getQuestion] question]];
-    [aBut setTitle:[[[rootController gd] getQuestion] choiceA] forState:UIControlStateNormal];
-    startTime = [[NSDate alloc] init];
+    [self setupDisplay];
     [super viewDidLoad];
 }
 
@@ -79,6 +68,20 @@
 	}
 }
 
+- (void) setupDisplay {
+    Question *q = [[rootController gd] getQuestion];
+    [question setText:[q question]];
+    [aBut setTitle:[q choiceA] forState:UIControlStateNormal];
+    [bBut setTitle:[q choiceB] forState:UIControlStateNormal];
+    [cBut setTitle:[q choiceC] forState:UIControlStateNormal];
+    [dBut setTitle:[q choiceD] forState:UIControlStateNormal];
+    //NSString *newScore = [NSString stringWithFormat:@"%d", [[rootController gd] getScore]];
+    //[score setText:newScore];
+    [self deselectAll];
+    //[self setStartTime:[[NSDate alloc] init]];
+    
+}
+
 - (void) deselectAll {
 	[aBut setBackgroundColor:[UIColor grayColor]];
 	[bBut setBackgroundColor:[UIColor grayColor]];
@@ -96,6 +99,7 @@
 - (void)viewDidUnload {
     // Release any retained subviews of the main view.
 	self.question = nil;
+    self.score = nil;
 	self.aBut = nil;
 	self.bBut = nil;
 	self.cBut = nil;
@@ -110,6 +114,7 @@
 
 - (void)dealloc {
 	[question release];
+    [score release];
 	[aBut release];
 	[bBut release];
 	[cBut release];

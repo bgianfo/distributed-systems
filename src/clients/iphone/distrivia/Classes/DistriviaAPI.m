@@ -161,7 +161,7 @@ const static NSString* API_ERROR=@"err";
                 Question *q = [[Question alloc] initWithDict:items];
                 [gd setQuestion:q];
                 NSLog(@"API Question: %@", [[gd getQuestion] question]);
-                //[q release];
+                [q release];
             }
             success = true;
         } else {

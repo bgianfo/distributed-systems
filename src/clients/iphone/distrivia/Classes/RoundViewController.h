@@ -13,6 +13,7 @@
 @interface RoundViewController : UIViewController {
 
 	IBOutlet UILabel	*question;
+    IBOutlet UILabel    *score;
 	IBOutlet UIButton	*aBut;
 	IBOutlet UIButton	*bBut;
 	IBOutlet UIButton	*cBut;
@@ -26,6 +27,7 @@
 }
 
 @property (nonatomic, retain) IBOutlet UILabel *question;
+@property (nonatomic, retain) IBOutlet UILabel *score;
 @property (nonatomic, retain) IBOutlet UIButton *aBut;
 @property (nonatomic, retain) IBOutlet UIButton *bBut;
 @property (nonatomic, retain) IBOutlet UIButton *cBut;
@@ -37,6 +39,7 @@
 
 - (IBAction) answerSelected:(id)sender;
 - (void) deselectAll;
+- (void) setupDisplay;
 
 
 @end
