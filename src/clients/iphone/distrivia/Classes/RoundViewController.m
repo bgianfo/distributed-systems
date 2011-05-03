@@ -58,7 +58,6 @@
 
 - (IBAction) answerSelected:(id)sender {
     [self setEndTime:[[NSDate alloc] init]];
-    NSLog(@"Time: %f", [endTime timeIntervalSinceDate:startTime]/1);
 	[self deselectAll];
 	if (sender == aBut) {
 		[aBut setBackgroundColor:[UIColor greenColor]];
@@ -111,7 +110,6 @@
 - (void) submitAnswer {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     int timeTaken = [[NSNumber numberWithFloat:[endTime timeIntervalSinceDate:startTime]] intValue];
-    NSLog(@"Time Taken: %d", timeTaken);
     if ([DistriviaAPI answerWithData:[rootController gd] answer:selection 
                            timeTaken:timeTaken]) {
         [self performSelectorOnMainThread:@selector(nextQuestion) withObject:nil waitUntilDone:NO];
