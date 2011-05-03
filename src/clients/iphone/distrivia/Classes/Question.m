@@ -11,6 +11,8 @@
 
 @implementation Question
 
+@synthesize qid, question, choiceA, choiceB, choiceC, choiceD;
+
 - (Question*) init {
     [super init];
     return self;
@@ -18,16 +20,16 @@
 
 - (Question*) initWithDict:(NSDictionary *)qData {
     //Question q = [[[Question alloc] init] autorelease];
-    qid = [qData objectForKey:@"id"];
-    question = [qData objectForKey:@"question"];
-    choiceA = [qData objectForKey:@"a"];
-    choiceB = [qData objectForKey:@"b"];
-    choiceC = [qData objectForKey:@"c"];
-    choiceD = [qData objectForKey:@"d"];
+    [self setQid:[qData objectForKey:@"id"]];
+    [self setQuestion:[qData objectForKey:@"question"]];
+    [self setChoiceA:[qData objectForKey:@"a"]];
+    [self setChoiceB:[qData objectForKey:@"b"]];
+    [self setChoiceC:[qData objectForKey:@"c"]];
+    [self setChoiceD:[qData objectForKey:@"d"]];
     
     return self;
 }
-
+/*
 - (NSString*) getQuestion {
     return question;
 }
@@ -47,5 +49,5 @@
 - (NSString*) getChoiceD {
     return choiceD;
 }
-
+*/
 @end

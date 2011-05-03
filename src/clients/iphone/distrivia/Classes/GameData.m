@@ -16,8 +16,10 @@
     status = nil;
     username = nil;
     token = nil;
+    question = nil;
+    gameId = nil;
     score = 0;
-
+    
     return self;
 }
 

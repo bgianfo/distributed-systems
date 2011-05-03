@@ -20,11 +20,18 @@
     NSString *choiceD;
 }
 
+@property (retain, nonatomic) NSString *qid;
+@property (retain, nonatomic) NSString *question;
+@property (retain, nonatomic) NSString *choiceA;
+@property (retain, nonatomic) NSString *choiceB;
+@property (retain, nonatomic) NSString *choiceC;
+@property (retain, nonatomic) NSString *choiceD;
+
 - (Question*)  initWithDict:(NSDictionary*)qData;
-- (NSString*)   getQuestion;
-- (NSString*)   getChoiceA;
-- (NSString*)   getChoiceB;
-- (NSString*)   getChoiceC;
-- (NSString*)   getChoiceD;
+//- (NSString*)   getQuestion;
+//- (NSString*)   getChoiceA;
+//- (NSString*)   getChoiceB;
+//- (NSString*)   getChoiceC;
+//- (NSString*)   getChoiceD;
 
 @end

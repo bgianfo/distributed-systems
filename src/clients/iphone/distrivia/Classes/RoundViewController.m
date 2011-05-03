@@ -38,16 +38,17 @@
 - (void)viewDidLoad {
 	[self deselectAll];
     [pBar setProgress:0.75];
-    GameData *g = [rootController gd];
-    if (g == nil) {
-        NSLog(@"Nil");
-    }
+    //GameData *g = [rootController gd];
+    //if (g == nil) {
+    //    NSLog(@"Nil");
+    //}
+    //NSLog(@"Round Question: %@", [[g getQuestion] question]);
     //NSLog(@"Round GameID: %@", [g getGameId]);
     //Question* q = [[rootController gd] getQuestion];
     //NSLog(@"Round Question: %@", [[rootController gd] getGameId]);
     //NSLog(@"Round Question: %@", [[[rootController gd] getQuestion] getQuestion]);
-    //[question setText:[[[rootController gd] getQuestion] getQuestion]];
-    //[aBut setTitle:[[[rootController gd] getQuestion] getChoiceA] forState:UIControlStateNormal];
+    [question setText:[[[rootController gd] getQuestion] question]];
+    [aBut setTitle:[[[rootController gd] getQuestion] choiceA] forState:UIControlStateNormal];
     startTime = [[NSDate alloc] init];
     [super viewDidLoad];
 }

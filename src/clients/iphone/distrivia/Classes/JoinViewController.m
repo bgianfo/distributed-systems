@@ -81,9 +81,9 @@
         while (YES) {
             if ([DistriviaAPI statusWithData:[rootController gd]] && 
                                     [[rootController gd] hasStarted]) {
-                NSLog(@"Join Question: %@", [[[rootController gd] getQuestion] getQuestion]);
+                NSLog(@"Join Question: %@", [[[rootController gd] getQuestion] question]);
                 [NSThread sleepForTimeInterval:5];
-                NSLog(@"Join Question: %@", [[[rootController gd] getQuestion] getQuestion]);
+                NSLog(@"Join Question: %@", [[[rootController gd] getQuestion] question]);
                 break;
             }
             [NSThread sleepForTimeInterval:2];
