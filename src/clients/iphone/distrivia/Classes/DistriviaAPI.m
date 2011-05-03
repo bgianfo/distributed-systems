@@ -138,8 +138,49 @@ const static NSString* API_ERROR=@"err";
 
 // Contacts the server to get the status of the given game
 + (BOOL) statusWithData:(GameData*)gd {
-    NSString* fragment = [NSString stringWithFormat: @"/game/%@", [gd getGameId]];
+    NSString* fragment = [NSString stringWithFormat: @"/game/%@", [gd gameId]];
     NSString* post = [NSString stringWithFormat:@"authToken=%@", [gd getToken]];
+    NSURLRequest* request = [DistriviaAPI createPost:post urlFrag:fragment];
+    NSError* error = nil;
+    NSData* data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error: &error];    
+    BOOL success = false;
+    
+    if ( !data ) {
+        NSLog(@"Connection Error: %@", [error localizedDescription]);
+    } else {
+        NSString* response = [[NSString alloc] initWithData: data
+                                                   encoding: NSUTF8StringEncoding];
+        NSRange textRange;
+        textRange =[API_ERROR rangeOfString: response];
+        if ( textRange.location == NSNotFound ) {
+            NSLog(@"Successful response: %@", response);
+            JSONDecoder *jsonKitDecoder = [JSONDecoder decoder];
+            NSDictionary *items = [jsonKitDecoder objectWithData:data];
+            [gd setStatus:[items objectForKey:@"gamestatus"]];
+            if ([gd hasStarted]) {
+                Question *q = [[Question alloc] initWithDict:items];
+                [gd setQuestion:q];
+                NSLog(@"API Question: %@", [[gd question] question]);
+                [q release];
+            }
+            success = true;
+        } else {
+            NSLog(@"API Error");
+        }
+        [response release];
+    }
+    return success;
+}
+
+// Commits user's answer to the server and gets the next information
++ (BOOL) answerWithData:(GameData*)gd answer:(NSString*)answer timeTaken:(double)time {
+    NSString* fragment = [NSString stringWithFormat: @"/game/%@/question/%@", [gd gameId], [[gd question] qid]];
+    NSLog(@"API Answer Submission: %@", fragment);
+    NSString* timeString = [NSString stringWithFormat:@"%f", time];
+    NSLog(@"API Time: %@", timeString);
+    NSString* post = [NSString stringWithFormat:@"authToken=%@&user=%@&time=%@&a=%@", [gd getToken], 
+                      [gd username], timeString, answer];
+    NSLog(@"API Post: %@", post);
     NSURLRequest* request = [DistriviaAPI createPost:post urlFrag:fragment];
     NSError* error = nil;
     NSData* data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error: &error];    

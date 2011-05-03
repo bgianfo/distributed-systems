@@ -15,7 +15,7 @@
 
 - (id) initWithDict:(NSDictionary *)qData {
     self = [super init];
-    [self setQid:[qData objectForKey:@"id"]];
+    [self setQid:[qData objectForKey:@"qid"]];
     [self setQuestion:[qData objectForKey:@"question"]];
     [self setChoiceA:[qData objectForKey:@"a"]];
     [self setChoiceB:[qData objectForKey:@"b"]];

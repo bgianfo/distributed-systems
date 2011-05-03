@@ -48,6 +48,9 @@
 
 - (void) deselectAll;
 - (void) setupDisplay;
+- (void) submitAnswer;
+- (void) submitAnswerFailed;
+- (void) nextQuestion;
 
 
 @end

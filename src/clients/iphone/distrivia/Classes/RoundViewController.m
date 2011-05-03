@@ -81,6 +81,7 @@
 - (IBAction) submitPressed:(id)sender {
     [submitBut setEnabled:NO];
     [activeIndicate startAnimating];
+    [NSThread detachNewThreadSelector:@selector(submitAnswer) toTarget:self withObject:nil];
 }
 
 - (void) setupDisplay {
@@ -103,6 +104,35 @@
 	[bBut setBackgroundColor:[UIColor grayColor]];
 	[cBut setBackgroundColor:[UIColor grayColor]];
 	[dBut setBackgroundColor:[UIColor grayColor]];
+}
+
+- (void) submitAnswer {
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    if ([DistriviaAPI answerWithData:[rootController gd] answer:selection 
+                           timeTaken:[endTime timeIntervalSinceDate:startTime]]) {
+        [self performSelectorOnMainThread:@selector(nextQuestion) withObject:nil waitUntilDone:NO];
+    } else {
+        [self performSelectorOnMainThread:@selector(submitAnswerFailed) withObject:nil waitUntilDone:NO];
+    }
+    [pool release];
+}
+
+- (void) nextQuestion {
+    [activeIndicate stopAnimating];
+    [self deselectAll];
+    [submitBut setEnabled:YES];
+    [self setupDisplay];
+}
+
+- (void) submitAnswerFailed {
+    [submitBut setEnabled:YES];
+    [activeIndicate stopAnimating];
+    UIAlertView *e = [[UIAlertView alloc] initWithTitle: @"Submit Answer Failed" 
+                                                message: @"Could not submit answer"
+                                               delegate: self cancelButtonTitle: @"Ok" 
+                                      otherButtonTitles: nil];
+    [e show];
+    [e release];
 }
 
 - (void)didReceiveMemoryWarning {

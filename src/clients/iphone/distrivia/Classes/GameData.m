@@ -13,13 +13,13 @@
 
 @synthesize question;
 @synthesize username;
+@synthesize gameId;
 
 - (id) init {
     self = [super init];
     self.status = nil;
-    //self.username = nil;
     self.token = nil;
-    self.gameId = nil;
+    //self.gameId = nil;
     self.score = 0;
     
     return self;
@@ -37,20 +37,12 @@
     return score;
 }
 
-//- (NSString*) getUser {
-//    return username;
-//}
-
 - (NSString*) getToken {
     return token;
 }
 
-- (NSString*) getGameId {
-    return gameId;
-}
-
-//- (Question*) getQuestion {
-//    return question;
+//- (NSString*) getGameId {
+//    return gameId;
 //}
 
 - (void) setScore:(int) newScore {
@@ -62,24 +54,14 @@
     status = newStatus;
 }
 
-//- (void) setUser:(NSString*) user {
-//    [user retain];
-//    username = user;
-//}
-
 - (void) setToken:(NSString*) apiToken {
     [apiToken retain];
     token = apiToken;
 }
 
-- (void) setGameId:(NSString*) newId {
-    [gameId retain];
-    gameId = newId;
-}
-
-//- (void) setQuestion:(Question*)quest {
-//    [question retain];
-//    question = quest;
+//- (void) setGameId:(NSString*) newId {
+//    [gameId retain];
+//    gameId = newId;
 //}
 
 @end
