@@ -97,8 +97,4 @@ public class DistriviaAPITest extends TestCase {
          */
 
     }
-
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(DistriviaAPITest.class);
-    }
 }

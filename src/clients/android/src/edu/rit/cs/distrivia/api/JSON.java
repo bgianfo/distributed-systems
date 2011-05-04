@@ -11,8 +11,19 @@ import org.json.JSONObject;
  */
 public class JSON {
 
+    /**
+     * Game status constant for a started game.
+     */
     public static final String STARTED = "started";
+
+    /**
+     * Game status constant for a game that is waiting to start.
+     */
     public static final String WAITING = "waiting";
+
+    /**
+     * Game status constant for a completed game.
+     */
     public static final String DONE = "done";
 
     private final JSONObject json;
@@ -82,11 +93,11 @@ public class JSON {
         final JSONObject board = json.getJSONObject("leaderboard");
         int score = -1;
         if (board.has(user)) {
-        	score = Integer.parseInt(board.getString(user));
+            score = Integer.parseInt(board.getString(user));
         }
         return score;
     }
-    
+
     /**
      * Gets an array of local leader board data
      * 
@@ -95,8 +106,8 @@ public class JSON {
      * @throws JSONException
      */
     public String[][] localLeaderboard() throws JSONException {
-    	
-    	final JSONObject temp = json.getJSONObject("leaderboard");
+
+        final JSONObject temp = json.getJSONObject("leaderboard");
         final JSONArray a = temp.names();
         final String[][] board = new String[a.length()][2];
         for (int i = 0; i < a.length(); i++) {
@@ -104,14 +115,17 @@ public class JSON {
             board[i][0] = key;
             board[i][1] = temp.getString(key);
         }
-        
+
         java.util.Arrays.sort(board, new LeaderComparator());
-        
+
         return board;
     }
 
     /**
      * Gets the question text
+     * 
+     * @return The question text
+     * @throws JSONException
      */
     public String question() throws JSONException {
         return json.getString("question");
@@ -119,6 +133,9 @@ public class JSON {
 
     /**
      * Gets the first response option
+     * 
+     * @return The "A" answer for the question
+     * @throws JSONException
      */
     public String a() throws JSONException {
         return json.getString("a");
@@ -126,6 +143,9 @@ public class JSON {
 
     /**
      * Gets the second response option
+     * 
+     * @return The "B" answer for the question
+     * @throws JSONException
      */
     public String b() throws JSONException {
         return json.getString("b");
@@ -133,6 +153,9 @@ public class JSON {
 
     /**
      * Gets the third response option
+     * 
+     * @return The "C" answer for the question
+     * @throws JSONException
      */
     public String c() throws JSONException {
         return json.getString("c");
@@ -140,6 +163,9 @@ public class JSON {
 
     /**
      * Gets the fourth response option
+     * 
+     * @return The "D" answer for the question
+     * @throws JSONException
      */
     public String d() throws JSONException {
         return json.getString("d");
@@ -147,6 +173,9 @@ public class JSON {
 
     /**
      * Gets all the response options, in order
+     * 
+     * @return The array of answers
+     * @throws JSONException
      */
     public String[] answers() throws JSONException {
         final String[] ans = new String[4];
@@ -159,6 +188,9 @@ public class JSON {
 
     /**
      * Gets the question id
+     * 
+     * @return The question id of the this question.
+     * @throws JSONException
      */
     public String qid() throws JSONException {
         return json.getString("qid");
@@ -166,6 +198,9 @@ public class JSON {
 
     /**
      * Gets the game status
+     * 
+     * @return The current status of the game.
+     * @throws JSONException
      */
     public String gamestatus() throws JSONException {
         return json.getString("gamestatus");
@@ -173,31 +208,11 @@ public class JSON {
 
     /**
      * Gets the game's id
+     * 
+     * @return The current uuid of the game we are in.
+     * @throws JSONException
      */
     public String gameid() throws JSONException {
         return json.getString("id");
-    }
-
-    public static void main(final String args[]) {
-        try {
-            final JSON b = new JSON(
-                    "{\"a\": \"You can't see when it's dry.\", \"status\": 1, \"c\": \"Paint needs sunlight to dry.\", \"b\": \"This may cause a thin film of oil to rise to the surface, yellowing it.\", \"qid\": \"art-1\", \"question\": \"In oil painting, why shouldn't you dry your paintings in the dark?\", \"gamestatus\": \"started\", \"id\": \"59a54bc6-63f4-11e0-8cba-12313b0a1c71\", \"leaderboard\": {\"bob\": 0, \"sam\": 0}, \"d\": \"It will stay wet and eventually go mouldy.\"}");
-            System.out.println(b.status());
-            final String[][] board = b.leaderboard();
-            for (int i = 0; i < board.length; i++) {
-                for (int k = 0; k < 2; k++) {
-                    System.out.print(board[i][k] + "\t");
-                }
-                System.out.println();
-            }
-            System.out.println(b.question());
-            final String[] ans = b.answers();
-            for (final String an : ans) {
-                System.out.println(an);
-            }
-            System.out.println(b.gameid());
-        } catch (final JSONException e) {
-            e.printStackTrace();
-        }
     }
 }
