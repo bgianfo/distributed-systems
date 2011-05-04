@@ -31,7 +31,18 @@
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
-    [self setLeadData:[[[rootController gd] leaderboard] allKeys]];
+    
+    [self setLeadData: [[[rootController gd] leaderboard] keysSortedByValueUsingComparator:^(id obj1, id obj2) {
+        if ([obj1 integerValue]  > [obj2 integerValue] ) {
+            return (NSComparisonResult)NSOrderedAscending;
+        }
+        
+        if ([obj1 integerValue]  < [obj2 integerValue] ) {
+            return (NSComparisonResult)NSOrderedDescending;
+        }
+        return (NSComparisonResult)NSOrderedSame;
+    }]];
+
     /*NSDictionary *leaderDict = [[rootController gd] leaderboard];
     NSArray *keyArray = [leaderDict allKeys];
     NSMutableArray *leaderArr = [[NSMutableArray alloc] init];
@@ -89,6 +100,7 @@
                                        reuseIdentifier:identifier] autorelease];
     }
     NSUInteger row = [indexPath row];
+    
     cell.textLabel.text = [leadData objectAtIndex:row];
     NSString *scoreText = [NSString stringWithFormat:@"%d", 
                            [[[[rootController gd] leaderboard] 

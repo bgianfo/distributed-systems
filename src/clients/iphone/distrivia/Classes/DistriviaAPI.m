@@ -233,6 +233,7 @@ const static NSString* API_ERROR=@"err";
             NSLog(@"Successful response: %@", response);
             JSONDecoder *jsonKitDecoder = [JSONDecoder decoder];
             NSDictionary *items = [jsonKitDecoder objectWithData:data];
+                        
             [gd setLeaderboard:items];
             success = true;
         } else {
