@@ -161,11 +161,9 @@ const static NSString* API_ERROR=@"err";
                 Question *q = [[Question alloc] initWithDict:items];
                 [gd setQuestion:q];
                 [q release];
-            } else{
-                [gd setQuestion:nil];
-                [gd setLocalLeaderboard:YES];
-                [gd setLeaderboard:[items objectForKey:@"leaderboard"]];
             }
+            [gd setLocalLeaderboard:YES];
+            [gd setLeaderboard:[items objectForKey:@"leaderboard"]];
             success = true;
         } else {
             NSLog(@"API Error");
