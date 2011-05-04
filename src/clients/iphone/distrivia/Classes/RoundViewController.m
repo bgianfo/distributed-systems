@@ -52,8 +52,12 @@
     [bBut.titleLabel setTextAlignment:UITextAlignmentCenter];
     [cBut.titleLabel setTextAlignment:UITextAlignmentCenter];
     [dBut.titleLabel setTextAlignment:UITextAlignmentCenter];
-    [self setupDisplay];
     [super viewDidLoad];
+}
+
+- (void) viewDidAppear:(BOOL)animated {
+    [self setupDisplay];
+    [super viewDidAppear:animated];
 }
 
 - (IBAction) answerSelected:(id)sender {
@@ -168,6 +172,7 @@
          
 - (void) roundFinished {
     [activeIndicate stopAnimating];
+    [submitBut setEnabled:YES];
     [rootController switchToView:[rootController LEADERBOARD]];
 }
 
