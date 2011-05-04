@@ -36,7 +36,6 @@
 }
 
 - (void) viewWillAppear:(BOOL)animated {
-    NSLog(@"Leaderboard Appearing");
     [self setLeadData: [[[rootController gd] leaderboard] keysSortedByValueUsingComparator:^(id obj1, id obj2) {
         if ([obj1 integerValue]  > [obj2 integerValue] ) {
             return (NSComparisonResult)NSOrderedAscending;
@@ -48,24 +47,12 @@
         return (NSComparisonResult)NSOrderedSame;
     }]];
     [boardView reloadData];
-    //[self setBoardView:(UITableView*)[self.view viewWithTag:1]];
-    //[boardView setDelegate:self];
-    //[boardView setDataSource:self];
     if ([[rootController gd] localLeaderboard]) {
         [activeIndicate startAnimating];
         [NSThread detachNewThreadSelector:@selector(localUpdater) toTarget:self withObject:nil];
     }
-    //[boardView beginUpdates];
-    //[boardView reloadData];
-    //[boardView endUpdates];
-    //[boardView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationRight];
     
     [super viewWillAppear:animated];
-}
-     
-- (void) viewDidDisappear:(BOOL)animated {
-    self.boardView = nil;
-    [boardView release];
 }
 
 - (IBAction) okClicked:(id)sender {
@@ -127,7 +114,6 @@
 #pragma mark -
 #pragma mark Table View Data Source Methods
 - (NSInteger) tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
-    NSLog(@"NUM ROWS");
     return [self.leadData count];
 }
 
