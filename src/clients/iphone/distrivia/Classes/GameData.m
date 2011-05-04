@@ -18,19 +18,27 @@
 
 - (id) init {
     self = [super init];
-    self.status = nil;
-    self.token = nil;
-    self.score = 0;
+    status = nil;
+    token = nil;
+    score = 0;
     
     return self;
 }
 
 - (BOOL) hasStarted {
-    return [status isEqualToString:@"started"];
+    if ( status ) {
+        return [status isEqualToString:@"started"];
+    } else {
+        return false;
+    }
 }
 
 - (BOOL) isDone {
-    return [status isEqual:@"done"];
+    if ( status ) {
+        return [status isEqual:@"done"];   
+    } else {
+        return false;
+    }
 }
 
 - (int) getScore {
@@ -39,6 +47,10 @@
 
 - (NSString*) getToken {
     return token;
+}
+
+- (NSString*) getGameId {
+    return gameId;
 }
 
 - (void) setScore:(int) newScore {
