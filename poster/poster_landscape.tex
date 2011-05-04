@@ -80,9 +80,9 @@
 %  \end{tikzpicture}%
 %}
 
-\definecolor{ritorange}{rgb}{0.9529,0.4314,0.1294},
-\definecolor{ritbrown}{rgb}{0.9725,0.9686,0.9294},
-\definecolor{ritbrownl}{rgb}{0.9765,0.9765,0.9451},
+\definecolor{ritorange}{rgb}{0.9529,0.4314,0.1294}
+\definecolor{ritbrown}{rgb}{0.9725,0.9686,0.9294}
+\definecolor{ritbrownl}{rgb}{0.9765,0.9765,0.9451}
 \definecolor{white}{cmyk}{0,0,0,0.0}
 \definecolor{black}{cmyk}{0,0,0.0,1.0}
 
@@ -92,6 +92,8 @@
   % Column spacing
   colspacing=1em,
   % Color style
+  bgColorOne=white,
+  bgColorTwo=white,
   borderColor=black,
   headerColorOne=ritorange,
   headerColorTwo=ritorange,
@@ -108,9 +110,7 @@
   headershade=plain,
   headerfont=\Large\textsf, %Sans Serif
   boxshade=shade-lr,
-  background=none,
-%  background=shade-tb,
-%  background=plain,
+  background=plain,
   linewidth=1pt
   }
   % Eye Catcher
@@ -122,13 +122,14 @@
   % Authors
   {\sf %Sans Serif
   % Serif
-  Brian Gianforcaro, Steven Glazer, Samuel Milton\hspace{3em}
-  Rochester Institute Of Technology
+  \newline
+  Brian Gianforcaro, Steven Glazer, Samuel Milton
+  - Rochester Institute Of Technology
   }
   % University logo
-  {{\begin{minipage}{16em}
+  {{\begin{minipage}{18em}
     \hfill
-    \includegraphics[scale=0.1]{logo}
+    \includegraphics[scale=0.05]{logo}
   \end{minipage}}
   }
 
@@ -277,7 +278,6 @@
         {Impostor detection is reliable, as the minimum distance to a match
         is smaller than the minimum distance to a nonmatch. }
 %      \end{multicols}
-\\
   }%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   \headerbox{Open Questions}{name=questions,column=2,span=1,above=bottom,below=results}{
@@ -289,13 +289,13 @@
     the data labelling, based on a measure of independence.
   }%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%  \headerbox{Funding}{name=funding,column=3,span=1,above=bottom}{
+  \headerbox{Funding}{name=funding,column=3,span=1,above=bottom}{
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%  \smaller 
-%  This work was supported in part by Microsoft Research through the European PhD Scholarship Programme.
-%  }%
+  \smaller 
+  This work was supported in part by Microsoft Research through the European PhD Scholarship Programme.
+  }%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \headerbox{References}{name=references,column=3,above=funding,below=results}{
+ \headerbox{References}{name=references,column=3,above=funding,below=results}{
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   \smaller
 %   \vspace{-0.4em}
@@ -311,7 +311,7 @@
 %       \newblock Expression Invariant Face Recognition with a 3D Morphable Model
 %       \newblock In {\em AFGR 2008}
 %     \end{thebibliography}
-% }%
+ }%
 \end{poster}%
 %
 \end{document}
