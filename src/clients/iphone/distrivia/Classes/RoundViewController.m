@@ -79,9 +79,11 @@
 }
 
 - (IBAction) submitPressed:(id)sender {
-    [submitBut setEnabled:NO];
-    [activeIndicate startAnimating];
-    [NSThread detachNewThreadSelector:@selector(submitAnswer) toTarget:self withObject:nil];
+    if (selection != nil) {
+        [submitBut setEnabled:NO];
+        [activeIndicate startAnimating];
+        [NSThread detachNewThreadSelector:@selector(submitAnswer) toTarget:self withObject:nil];
+    }
 }
 
 - (void) setupDisplay {

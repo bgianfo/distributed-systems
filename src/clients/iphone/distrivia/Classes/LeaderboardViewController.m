@@ -31,7 +31,11 @@
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
-    
+    [super viewDidLoad];
+}
+
+- (void) viewWillAppear:(BOOL)animated {
+    NSLog(@"Leaderboard Appearing");
     [self setLeadData: [[[rootController gd] leaderboard] keysSortedByValueUsingComparator:^(id obj1, id obj2) {
         if ([obj1 integerValue]  > [obj2 integerValue] ) {
             return (NSComparisonResult)NSOrderedAscending;
@@ -42,19 +46,10 @@
         }
         return (NSComparisonResult)NSOrderedSame;
     }]];
-
-    /*NSDictionary *leaderDict = [[rootController gd] leaderboard];
-    NSArray *keyArray = [leaderDict allKeys];
-    NSMutableArray *leaderArr = [[NSMutableArray alloc] init];
-    for (int i=0; i < [keyArray count]; i++) {
-        if (![[keyArray objectAtIndex:i] isEqualToString:@"status"]) {
-            [leaderArr addObject:[NSString stringWithFormat:@"%@\t%d", [keyArray objectAtIndex:i], 
-                              [[leaderDict objectForKey:[keyArray objectAtIndex:i]] intValue]]];
-        }
-    }
-    [self setLeadData:[NSArray arrayWithArray:leaderArr]];
-    [leaderArr release];*/
-    [super viewDidLoad];
+    [boardView reloadData];
+    [boardView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationRight];
+    
+    [super viewWillAppear:animated];
 }
 
 - (IBAction) okClicked:(id)sender {
@@ -87,6 +82,7 @@
 #pragma mark -
 #pragma mark Table View Data Source Methods
 - (NSInteger) tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
+    NSLog(@"NUM ROWS");
     return [self.leadData count];
 }
 
