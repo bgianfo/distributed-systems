@@ -10,8 +10,7 @@
 
 @class RootViewController;
 
-@interface LeaderboardViewController : UIViewController 
-    <UITableViewDelegate, UITableViewDataSource> {
+@interface LeaderboardViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
 	IBOutlet UITableView	*boardView;
     IBOutlet UIActivityIndicatorView *activeIndicate;
     NSArray                 *leadData;

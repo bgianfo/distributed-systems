@@ -56,6 +56,7 @@
 }
 
 - (IBAction) okClicked:(id)sender {
+    [[rootController gd] setLocalLeaderboard:NO];
     if ([activeIndicate isAnimating]) {
         [activeIndicate stopAnimating];
     }
@@ -64,12 +65,12 @@
 
 - (void) localUpdater {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    for (int i = 0; i<22; i++) {
+    while([[rootController gd] localLeaderboard]) {
         if ([DistriviaAPI statusWithData:[rootController gd]]) {
             NSLog(@"Updating...");
             [self performSelectorOnMainThread:@selector(updateLeaderboard) withObject:nil waitUntilDone:NO];
         }
-        [NSThread sleepForTimeInterval:2.0];
+        [NSThread sleepForTimeInterval:4.0];
     }
     [pool release];
 }
