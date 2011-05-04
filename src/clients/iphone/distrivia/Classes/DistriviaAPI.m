@@ -234,7 +234,7 @@ const static NSString* API_ERROR=@"err";
         if ( textRange.location == NSNotFound ) {
             //NSLog(@"Successful response: %@", response);
             JSONDecoder *jsonKitDecoder = [JSONDecoder decoder];
-            NSDictionary *items = [jsonKitDecoder objectWithData:data];
+            NSMutableDictionary *items = [jsonKitDecoder objectWithData:data];
             [gd setLocalLeaderboard:NO];
             [gd setLeaderboard:items];
             success = true;

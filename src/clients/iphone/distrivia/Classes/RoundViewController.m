@@ -171,6 +171,7 @@
 }
          
 - (void) roundFinished {
+    [self deselectAll];
     [activeIndicate stopAnimating];
     [submitBut setEnabled:YES];
     [rootController switchToView:[rootController LEADERBOARD]];

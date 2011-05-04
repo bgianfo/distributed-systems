@@ -46,6 +46,7 @@
         }
         return (NSComparisonResult)NSOrderedSame;
     }]];
+    
     [boardView reloadData];
     if ([[rootController gd] localLeaderboard]) {
         [activeIndicate startAnimating];
@@ -67,6 +68,7 @@
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     while([[rootController gd] localLeaderboard]) {
         if ([DistriviaAPI statusWithData:[rootController gd]]) {
+            NSLog(@"Updating");
             [self performSelectorOnMainThread:@selector(updateLeaderboard) withObject:nil waitUntilDone:NO];
         }
         [NSThread sleepForTimeInterval:4.0];
@@ -75,7 +77,6 @@
 }
 
 - (void) updateLeaderboard {
-    NSLog(@"Updating");
     [self setLeadData: [[[rootController gd] leaderboard] keysSortedByValueUsingComparator:^(id obj1, id obj2) {
         if ([obj1 integerValue]  > [obj2 integerValue] ) {
             return (NSComparisonResult)NSOrderedAscending;
@@ -86,9 +87,6 @@
         }
         return (NSComparisonResult)NSOrderedSame;
     }]];
-    for (int i = 0; i < [leadData count]; i++ ) {
-        NSLog(@"%@: %d", [leadData objectAtIndex:i], [[[[rootController gd] leaderboard] objectForKey:[leadData objectAtIndex:i]] intValue]);
-    }
     [boardView reloadData];
 }
 
