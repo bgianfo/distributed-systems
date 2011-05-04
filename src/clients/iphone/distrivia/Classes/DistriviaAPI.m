@@ -201,6 +201,8 @@ const static NSString* API_ERROR=@"err";
                 [q release];
                 [gd setScore:[[[items objectForKey:@"leaderboard"] objectForKey:[gd username]] intValue]];
             } else{
+                [gd setQuestion:nil];
+                [gd setLocalLeaderboard:YES];
                 [gd setLeaderboard:[items objectForKey:@"leaderboard"]];
             }
             success = true;
@@ -233,7 +235,7 @@ const static NSString* API_ERROR=@"err";
             NSLog(@"Successful response: %@", response);
             JSONDecoder *jsonKitDecoder = [JSONDecoder decoder];
             NSDictionary *items = [jsonKitDecoder objectWithData:data];
-                        
+            [gd setLocalLeaderboard:NO];
             [gd setLeaderboard:items];
             success = true;
         } else {

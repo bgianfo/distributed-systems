@@ -21,6 +21,7 @@
     status = nil;
     token = nil;
     score = 0;
+    localLeaderboard = NO;
     
     return self;
 }
@@ -53,6 +54,10 @@
     return gameId;
 }
 
+- (BOOL) localLeaderboard {
+    return localLeaderboard;
+}
+
 - (void) setScore:(int) newScore {
     score = newScore;
 }
@@ -65,6 +70,10 @@
 - (void) setToken:(NSString*) apiToken {
     [apiToken retain];
     token = apiToken;
+}
+
+- (void) setLocalLeaderboard:(BOOL)local {
+    localLeaderboard = local;
 }
 
 @end

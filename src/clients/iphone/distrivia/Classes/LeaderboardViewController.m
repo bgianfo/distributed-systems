@@ -14,6 +14,7 @@
 @implementation LeaderboardViewController
 
 @synthesize boardView;
+@synthesize activeIndicate;
 @synthesize rootController;
 @synthesize leadData;
 
@@ -47,13 +48,56 @@
         return (NSComparisonResult)NSOrderedSame;
     }]];
     [boardView reloadData];
-    [boardView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationRight];
+    //[self setBoardView:(UITableView*)[self.view viewWithTag:1]];
+    //[boardView setDelegate:self];
+    //[boardView setDataSource:self];
+    if ([[rootController gd] localLeaderboard]) {
+        [activeIndicate startAnimating];
+        [NSThread detachNewThreadSelector:@selector(localUpdater) toTarget:self withObject:nil];
+    }
+    //[boardView beginUpdates];
+    //[boardView reloadData];
+    //[boardView endUpdates];
+    //[boardView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationRight];
     
     [super viewWillAppear:animated];
 }
+     
+- (void) viewDidDisappear:(BOOL)animated {
+    self.boardView = nil;
+    [boardView release];
+}
 
 - (IBAction) okClicked:(id)sender {
+    if ([activeIndicate isAnimating]) {
+        [activeIndicate stopAnimating];
+    }
     [rootController switchToView:[rootController JOIN]];
+}
+
+- (void) localUpdater {
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    for (int i = 0; i<22; i++) {
+        if ([DistriviaAPI statusWithData:[rootController gd]]) {
+            [self performSelectorOnMainThread:@selector(updateLeaderboard) withObject:nil waitUntilDone:NO];
+        }
+        [NSThread sleepForTimeInterval:2.0];
+    }
+    [pool release];
+}
+
+- (void) updateLeaderboard {
+    [self setLeadData: [[[rootController gd] leaderboard] keysSortedByValueUsingComparator:^(id obj1, id obj2) {
+        if ([obj1 integerValue]  > [obj2 integerValue] ) {
+            return (NSComparisonResult)NSOrderedAscending;
+        }
+        
+        if ([obj1 integerValue]  < [obj2 integerValue] ) {
+            return (NSComparisonResult)NSOrderedDescending;
+        }
+        return (NSComparisonResult)NSOrderedSame;
+    }]];
+    [boardView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -65,15 +109,16 @@
 
 - (void)viewDidUnload {
 	self.boardView = nil;
+    self.activeIndicate = nil;
     self.leadData = nil;
     self.rootController = nil;
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
 }
 
 
 - (void)dealloc {
 	[boardView release];
+    [activeIndicate release];
     [leadData release];
     [rootController release];
     [super dealloc];

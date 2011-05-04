@@ -19,6 +19,7 @@
     NSDictionary* leaderboard;
     Question* question;
     int score;
+    BOOL localLeaderboard;
 }
 
 @property (retain, nonatomic) Question *question;
@@ -31,10 +32,12 @@
 - (int) getScore;
 - (NSString*) getToken;
 - (NSString*) getGameId;
+- (BOOL) localLeaderboard;
 
 - (void) setScore:(int)score;
 - (void) setStatus:(NSString*) newStatus;
 - (void) setToken:(NSString*) apiToken;
 - (void) setGameId:(NSString*) newId;
+- (void) setLocalLeaderboard:(BOOL)local;
 
 @end
