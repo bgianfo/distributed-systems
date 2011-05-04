@@ -236,8 +236,9 @@ def register(user_name):
     API_SUCCESS on success, API_ERROR on failure
     """
 
+    banned = [ "logged_in", "status", "" ]
     # Make sure no bad/forbidden user's get through
-    if user_name == "logged_in" or user_name == "":
+    if user_name in banned:
         return API_ERROR
 
     if request.form["password"] is None:
