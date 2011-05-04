@@ -20,6 +20,7 @@
 + (BOOL) joinPublicWithData:(GameData*)gd;
 + (BOOL) statusWithData:(GameData*)gd;
 + (BOOL) answerWithData:(GameData*)gd answer:(NSString*)answer timeTaken:(int)time;
++ (BOOL) globalLeaderboardWithData:(GameData*)gd;
 
 + (NSMutableURLRequest*) createPost:(NSString*)post urlFrag:(NSString*)urlFragment;
 

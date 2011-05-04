@@ -14,12 +14,12 @@
 @synthesize question;
 @synthesize username;
 @synthesize gameId;
+@synthesize leaderboard;
 
 - (id) init {
     self = [super init];
     self.status = nil;
     self.token = nil;
-    //self.gameId = nil;
     self.score = 0;
     
     return self;
@@ -41,10 +41,6 @@
     return token;
 }
 
-//- (NSString*) getGameId {
-//    return gameId;
-//}
-
 - (void) setScore:(int) newScore {
     score = newScore;
 }
@@ -58,10 +54,5 @@
     [apiToken retain];
     token = apiToken;
 }
-
-//- (void) setGameId:(NSString*) newId {
-//    [gameId retain];
-//    gameId = newId;
-//}
 
 @end

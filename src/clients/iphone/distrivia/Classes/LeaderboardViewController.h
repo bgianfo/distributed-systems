@@ -10,13 +10,16 @@
 
 @class RootViewController;
 
-@interface LeaderboardViewController : UIViewController {
+@interface LeaderboardViewController : UIViewController 
+    <UITableViewDelegate, UITableViewDataSource> {
 	IBOutlet UITableView	*boardView;
+    NSArray                 *leadData;
 	
     RootViewController *rootController;
 }
 
 @property (retain, nonatomic) IBOutlet UITableView *boardView;
+@property (retain, nonatomic) NSArray *leadData;
 @property (retain, nonatomic) RootViewController *rootController;
 
 - (IBAction) okClicked:(id)sender;

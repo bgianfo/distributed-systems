@@ -42,6 +42,10 @@
 
 - (void) joinPublic;
 - (void) joinPublicFailed;
+- (void) leaderboard;
+- (void) startRound;
+- (void) leaderboardFailed;
+- (void) startLeaderboard;
 - (void) toggleButtons;
 
 @end

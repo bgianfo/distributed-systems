@@ -16,6 +16,7 @@
     NSString* token;
     NSString* username;
     NSString* gameId;
+    NSDictionary* leaderboard;
     Question* question;
     int score;
 }
@@ -23,6 +24,7 @@
 @property (retain, nonatomic) Question *question;
 @property (retain, nonatomic) NSString *username;
 @property (retain, nonatomic) NSString *gameId;
+@property (retain, nonatomic) NSDictionary *leaderboard;
 
 - (BOOL) hasStarted;
 - (BOOL) isDone;

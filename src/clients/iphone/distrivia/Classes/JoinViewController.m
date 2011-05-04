@@ -57,7 +57,9 @@
 }
 
 - (IBAction) viewLeaderboardPressed:(id)sender {
-	[rootController switchToView:[rootController LEADERBOARD]];
+    [self toggleButtons];
+    [activeIndicate startAnimating];
+    [NSThread detachNewThreadSelector:@selector(leaderboard) toTarget:self withObject:nil];
 }
 
 - (IBAction)joinPublicPressed:(id)sender {
@@ -73,6 +75,16 @@
 - (IBAction) backgroundTap:(id)sender {
     [nameField resignFirstResponder];
     [passField resignFirstResponder];
+}
+
+- (void) leaderboard {
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    if ([DistriviaAPI globalLeaderboardWithData:[rootController gd]]) {
+        [self performSelectorOnMainThread:@selector(startLeaderboard) withObject:nil waitUntilDone:NO];
+    } else {
+        [self performSelectorOnMainThread:@selector(leaderboardFailed) withObject:nil waitUntilDone:NO];
+    }
+    [pool release];
 }
 
 - (void) joinPublic {
@@ -94,7 +106,14 @@
 
 - (void) startRound {
     [activeIndicate stopAnimating];
+    [self toggleButtons];
     [rootController switchToView:[rootController ROUND]];
+}
+
+- (void) startLeaderboard {
+    [activeIndicate stopAnimating];
+    [self toggleButtons];
+    [rootController switchToView:[rootController LEADERBOARD]];
 }
 
 - (void) joinPublicFailed {
@@ -102,6 +121,17 @@
     [activeIndicate stopAnimating];
     UIAlertView *e = [[UIAlertView alloc] initWithTitle: @"Join Public failed" 
                                                 message: @"Could not join public game"
+                                               delegate: self cancelButtonTitle: @"Ok" 
+                                      otherButtonTitles: nil];
+    [e show];
+    [e release];
+}
+
+- (void) leaderboardFailed {
+    [self toggleButtons];
+    [activeIndicate stopAnimating];
+    UIAlertView *e = [[UIAlertView alloc] initWithTitle: @"Global Leaderboard Failed" 
+                                                message: @"Could not load leaderboard"
                                                delegate: self cancelButtonTitle: @"Ok" 
                                       otherButtonTitles: nil];
     [e show];

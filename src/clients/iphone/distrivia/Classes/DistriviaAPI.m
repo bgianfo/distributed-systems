@@ -175,7 +175,6 @@ const static NSString* API_ERROR=@"err";
 // Commits user's answer to the server and gets the next information
 + (BOOL) answerWithData:(GameData*)gd answer:(NSString*)answer timeTaken:(int)time {
     NSString* fragment = [NSString stringWithFormat: @"/game/%@/question/%@", [gd gameId], [[gd question] qid]];
-    //NSString* timeString = [NSString stringWithFormat:@"%d", time];
     NSString* post = [NSString stringWithFormat:@"authToken=%@&user=%@&time=%d&a=%@", [gd getToken], 
                       [gd username], time, answer];
     NSLog(@"API Post: %@", post);
@@ -202,8 +201,39 @@ const static NSString* API_ERROR=@"err";
                 [q release];
                 [gd setScore:[[[items objectForKey:@"leaderboard"] objectForKey:[gd username]] intValue]];
             } else{
-                //Set Leaderboard
+                [gd setLeaderboard:[items objectForKey:@"leaderboard"]];
             }
+            success = true;
+        } else {
+            NSLog(@"API Error");
+        }
+        [response release];
+    }
+    return success;
+}
+
+
+
++ (BOOL) globalLeaderboardWithData:(GameData*)gd {
+    NSString* fragment = [NSString stringWithFormat: @"/leaderboard/0", [gd getToken]];
+    NSString* post = [NSString stringWithFormat:@"authToken=%@", [gd getToken]];
+    NSURLRequest* request = [DistriviaAPI createPost:post urlFrag:fragment];
+    NSError* error = nil;
+    NSData* data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error: &error];    
+    BOOL success = false;
+    
+    if ( !data ) {
+        NSLog(@"Connection Error: %@", [error localizedDescription]);
+    } else {
+        NSString* response = [[NSString alloc] initWithData: data
+                                                   encoding: NSUTF8StringEncoding];
+        NSRange textRange;
+        textRange =[API_ERROR rangeOfString: response];
+        if ( textRange.location == NSNotFound ) {
+            NSLog(@"Successful response: %@", response);
+            JSONDecoder *jsonKitDecoder = [JSONDecoder decoder];
+            NSDictionary *items = [jsonKitDecoder objectWithData:data];
+            [gd setLeaderboard:items];
             success = true;
         } else {
             NSLog(@"API Error");
