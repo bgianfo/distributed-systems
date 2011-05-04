@@ -36,7 +36,7 @@ const static NSString* API_ERROR=@"err";
         if ( textRange.location == NSNotFound ) {
             [gd setToken: token];
             [gd setUsername:userName];
-            NSLog(@"Successful response: %@", [gd getToken]);
+            //NSLog(@"Successful response: %@", [gd getToken]);
             success = true;
         } else {
             NSLog(@"Login Error");
@@ -65,7 +65,7 @@ const static NSString* API_ERROR=@"err";
         NSRange textRange;
         textRange =[API_ERROR rangeOfString: token];
         if ( textRange.location == NSNotFound ) {
-            NSLog(@"Successful response: %@", token);
+            //NSLog(@"Successful response: %@", token);
             success = true;
         } else {
             NSLog(@"Register Error");
@@ -89,7 +89,7 @@ const static NSString* API_ERROR=@"err";
             textRange =[API_ERROR rangeOfString: token];
             if ( textRange.location == NSNotFound ) {
                 [gd setToken: token];
-                NSLog(@"Successful response: %@", [gd getToken]);
+                //NSLog(@"Successful response: %@", [gd getToken]);
                 success = true;
             } else {
                 NSLog(@"Login Error");
@@ -120,7 +120,7 @@ const static NSString* API_ERROR=@"err";
         NSRange textRange;
         textRange =[API_ERROR rangeOfString: response];
         if ( textRange.location == NSNotFound ) {
-            NSLog(@"Successful response: %@", response);
+            //NSLog(@"Successful response: %@", response);
             JSONDecoder *jsonKitDecoder = [JSONDecoder decoder];
             NSDictionary *items = [jsonKitDecoder objectWithData:data];
             if ([items objectForKey:@"status"]) {
@@ -153,15 +153,18 @@ const static NSString* API_ERROR=@"err";
         NSRange textRange;
         textRange =[API_ERROR rangeOfString: response];
         if ( textRange.location == NSNotFound ) {
-            NSLog(@"Successful response: %@", response);
+            //NSLog(@"Successful response: %@", response);
             JSONDecoder *jsonKitDecoder = [JSONDecoder decoder];
             NSDictionary *items = [jsonKitDecoder objectWithData:data];
             [gd setStatus:[items objectForKey:@"gamestatus"]];
             if ([gd hasStarted]) {
                 Question *q = [[Question alloc] initWithDict:items];
                 [gd setQuestion:q];
-                NSLog(@"API Question: %@", [[gd question] question]);
                 [q release];
+            } else{
+                [gd setQuestion:nil];
+                [gd setLocalLeaderboard:YES];
+                [gd setLeaderboard:[items objectForKey:@"leaderboard"]];
             }
             success = true;
         } else {
@@ -177,7 +180,6 @@ const static NSString* API_ERROR=@"err";
     NSString* fragment = [NSString stringWithFormat: @"/game/%@/question/%@", [gd gameId], [[gd question] qid]];
     NSString* post = [NSString stringWithFormat:@"authToken=%@&user=%@&time=%d&a=%@", [gd getToken], 
                       [gd username], time, answer];
-    NSLog(@"API Post: %@", post);
     NSURLRequest* request = [DistriviaAPI createPost:post urlFrag:fragment];
     NSError* error = nil;
     NSData* data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error: &error];    
@@ -191,7 +193,7 @@ const static NSString* API_ERROR=@"err";
         NSRange textRange;
         textRange =[API_ERROR rangeOfString: response];
         if ( textRange.location == NSNotFound ) {
-            NSLog(@"Successful response: %@", response);
+            //NSLog(@"Successful response: %@", response);
             JSONDecoder *jsonKitDecoder = [JSONDecoder decoder];
             NSDictionary *items = [jsonKitDecoder objectWithData:data];
             [gd setStatus:[items objectForKey:@"gamestatus"]];
@@ -232,7 +234,7 @@ const static NSString* API_ERROR=@"err";
         NSRange textRange;
         textRange =[API_ERROR rangeOfString: response];
         if ( textRange.location == NSNotFound ) {
-            NSLog(@"Successful response: %@", response);
+            //NSLog(@"Successful response: %@", response);
             JSONDecoder *jsonKitDecoder = [JSONDecoder decoder];
             NSDictionary *items = [jsonKitDecoder objectWithData:data];
             [gd setLocalLeaderboard:NO];

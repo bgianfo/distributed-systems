@@ -66,6 +66,7 @@
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     for (int i = 0; i<22; i++) {
         if ([DistriviaAPI statusWithData:[rootController gd]]) {
+            NSLog(@"Updating...");
             [self performSelectorOnMainThread:@selector(updateLeaderboard) withObject:nil waitUntilDone:NO];
         }
         [NSThread sleepForTimeInterval:2.0];
