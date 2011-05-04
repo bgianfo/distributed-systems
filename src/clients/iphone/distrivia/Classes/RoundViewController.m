@@ -93,6 +93,11 @@
     [cBut setTitle:[q choiceC] forState:UIControlStateNormal];
     [dBut setTitle:[q choiceD] forState:UIControlStateNormal];
     NSString *newScore = [NSString stringWithFormat:@"%d", [[rootController gd] getScore]];
+    if ([newScore isEqualToString:[score text]]) {
+        [score setTextColor:[UIColor redColor]];
+    } else {
+        [score setTextColor:[UIColor greenColor]];
+    }
     [score setText:newScore];
     [self deselectAll];
     [self setStartTime:[[NSDate alloc] init]];
@@ -109,10 +114,15 @@
 
 - (void) submitAnswer {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    int timeTaken = [[NSNumber numberWithFloat:[endTime timeIntervalSinceDate:startTime]] intValue];
+    int timeTaken = [[NSNumber numberWithFloat:[endTime timeIntervalSinceDate:startTime]*1000] intValue];
     if ([DistriviaAPI answerWithData:[rootController gd] answer:selection 
                            timeTaken:timeTaken]) {
-        [self performSelectorOnMainThread:@selector(nextQuestion) withObject:nil waitUntilDone:NO];
+        if ([[rootController gd] hasStarted]) {
+            [self performSelectorOnMainThread:@selector(nextQuestion) withObject:nil waitUntilDone:NO];
+        } else {
+            [self performSelectorOnMainThread:@selector(roundFinished) withObject:nil waitUntilDone:NO];
+        }
+
     } else {
         [self performSelectorOnMainThread:@selector(submitAnswerFailed) withObject:nil waitUntilDone:NO];
     }
@@ -152,6 +162,11 @@
     NSDate *now = [[NSDate alloc] init];
     [pBar setProgress:[now timeIntervalSinceDate:startTime]/5.0];
     [now release];
+}
+         
+- (void) roundFinished {
+    [activeIndicate stopAnimating];
+    [rootController switchToView:[rootController LEADERBOARD]];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -53,6 +53,7 @@
 - (void) nextQuestion;
 - (void) updateProgress;
 - (void) progressUpdater;
+- (void) roundFinished;
 
 
 @end
