@@ -36,10 +36,13 @@
 @property (nonatomic, retain) RootViewController *rootController;
 
 - (IBAction) joinPublicPressed:(id)sender;
+- (IBAction) joinPrivatePressed:(id)sender;
 - (IBAction) viewLeaderboardPressed:(id)sender;
 - (IBAction) textFieldDoneEditing:(id)sender;
 - (IBAction) backgroundTap:(id)sender;
 
+- (void) joinPrivateWithParameters:(NSArray*)parameters;
+- (void) joinPrivateFailed;
 - (void) joinPublic;
 - (void) joinPublicFailed;
 - (void) leaderboard;

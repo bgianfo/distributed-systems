@@ -68,6 +68,24 @@
     [NSThread detachNewThreadSelector:@selector(joinPublic) toTarget:self withObject:nil];
 }
 
+- (IBAction) joinPrivatePressed:(id)sender {
+    NSString *gameName = [nameField text];
+    NSString *gamePass = [passField text];
+    if ([gameName length] == 0 || [gamePass length] == 0) {
+        UIAlertView *e = [[UIAlertView alloc] initWithTitle: @"Incomplete Information" 
+                                                    message: @"Missing game name or password"
+                                                   delegate: self cancelButtonTitle: @"Ok" 
+                                          otherButtonTitles: nil];
+        [e show];
+        [e release];
+    } else {
+        [activeIndicate startAnimating];
+        [self toggleButtons];
+        [NSThread detachNewThreadSelector:@selector(joinPrivateWithParameters:) toTarget:self 
+                               withObject:[NSArray arrayWithObjects:gameName, gamePass, nil]];
+    }
+}
+
 - (IBAction) textFieldDoneEditing:(id)sender {
     [sender resignFirstResponder];
 }
@@ -75,6 +93,36 @@
 - (IBAction) backgroundTap:(id)sender {
     [nameField resignFirstResponder];
     [passField resignFirstResponder];
+}
+
+- (void) joinPrivateWithParameters:(NSArray*)parameters {
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    NSString *gameName = [parameters objectAtIndex:0];
+    NSString *gamePass = [parameters objectAtIndex:1];
+    if ([DistriviaAPI joinPrivateWithData:[rootController gd] gameName:gameName passwd:gamePass]) {
+        while (YES) {
+            if ([DistriviaAPI statusWithData:[rootController gd]] && 
+                [[rootController gd] hasStarted]) {
+                break;
+            }
+            [NSThread sleepForTimeInterval:2];
+        }
+        [self performSelectorOnMainThread:@selector(startRound) withObject:nil waitUntilDone:NO];
+    } else {
+        [self performSelectorOnMainThread:@selector(joinPrivateFailed) withObject:nil waitUntilDone:NO];
+    }
+    [pool release];
+}
+
+- (void) joinPrivateFailed {
+    [self toggleButtons];
+    [activeIndicate stopAnimating];
+    UIAlertView *e = [[UIAlertView alloc] initWithTitle: @"Join Private failed" 
+                                                message: @"Could not join private game"
+                                               delegate: self cancelButtonTitle: @"Ok" 
+                                      otherButtonTitles: nil];
+    [e show];
+    [e release];
 }
 
 - (void) leaderboard {

@@ -286,6 +286,29 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIStyle">0</int>
 					</object>
+					<object class="IBUITextField" id="650786026">
+						<reference key="NSNextResponder" ref="191373211"/>
+						<int key="NSvFlags">292</int>
+						<string key="NSFrame">{{170, 278}, {43, 31}}</string>
+						<reference key="NSSuperview" ref="191373211"/>
+						<bool key="IBUIOpaque">NO</bool>
+						<bool key="IBUIClipsSubviews">YES</bool>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						<int key="IBUIContentVerticalAlignment">0</int>
+						<string key="IBUIText">10</string>
+						<int key="IBUIBorderStyle">3</int>
+						<object class="NSColor" key="IBUITextColor">
+							<int key="NSColorSpace">3</int>
+							<bytes key="NSWhite">MAA</bytes>
+							<reference key="NSCustomColorSpace" ref="139848012"/>
+						</object>
+						<bool key="IBUIAdjustsFontSizeToFit">YES</bool>
+						<float key="IBUIMinimumFontSize">17</float>
+						<object class="IBUITextInputTraits" key="IBUITextInputTraits">
+							<int key="IBUIKeyboardType">4</int>
+							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						</object>
+					</object>
 				</object>
 				<string key="NSFrameSize">{320, 460}</string>
 				<reference key="NSSuperview"/>
@@ -409,6 +432,15 @@
 					</object>
 					<int key="connectionID">35</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">joinPrivatePressed:</string>
+						<reference key="source" ref="304095201"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">36</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -437,6 +469,7 @@
 							<reference ref="157137123"/>
 							<reference ref="161248726"/>
 							<reference ref="554670825"/>
+							<reference ref="650786026"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -516,6 +549,11 @@
 						<reference key="object" ref="554670825"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">37</int>
+						<reference key="object" ref="650786026"/>
+						<reference key="parent" ref="191373211"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -541,6 +579,8 @@
 					<string>19.IBViewBoundsToFrameTransform</string>
 					<string>20.IBPluginDependency</string>
 					<string>26.IBPluginDependency</string>
+					<string>37.IBPluginDependency</string>
+					<string>37.IBViewBoundsToFrameTransform</string>
 					<string>5.IBPluginDependency</string>
 					<string>5.IBViewBoundsToFrameTransform</string>
 					<string>6.IBPluginDependency</string>
@@ -584,6 +624,10 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
+						<bytes key="NSTransformStruct">P4AAAL+AAABDJAAAw5mAAA</bytes>
+					</object>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">P4AAAL+AAAAAAAAAwkQAAA</bytes>
 					</object>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -611,7 +655,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">35</int>
+			<int key="maxID">37</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -624,12 +668,14 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>backgroundTap:</string>
+							<string>joinPrivatePressed:</string>
 							<string>joinPublicPressed:</string>
 							<string>textFieldDoneEditing:</string>
 							<string>viewLeaderboardPressed:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -641,6 +687,7 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>backgroundTap:</string>
+							<string>joinPrivatePressed:</string>
 							<string>joinPublicPressed:</string>
 							<string>textFieldDoneEditing:</string>
 							<string>viewLeaderboardPressed:</string>
@@ -649,6 +696,10 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBActionInfo">
 								<string key="name">backgroundTap:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">joinPrivatePressed:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
