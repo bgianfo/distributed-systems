@@ -136,17 +136,19 @@ public class DistriviaAPI {
     public static GameData joinPrivate(GameData gdata, String gameName,
             String pass) throws Exception {
         String url = new String();
-        url += "/private/join/" + gameName;
+        url += "/private/join";
 
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("authToken", gdata.getAuthToken()));
         params.add(new BasicNameValuePair("password", pass));
         params.add(new BasicNameValuePair("user", gdata.getUserName()));
+        params.add(new BasicNameValuePair("name", gameName));
 
         String data = post(url, params);
-        Log.d("JOIN PRIVATE", data);
+        JSON jsonParser = new JSON(data);
 
-        gdata.setGameId(data);
+        gdata.setGameId(jsonParser.gameid());
+        Log.d("JOIN PRIVATE", data);
 
         return gdata;
     }
