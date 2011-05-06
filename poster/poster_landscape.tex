@@ -9,7 +9,6 @@
 \usepackage{multirow}
 \usepackage{bm}
 \usepackage{xcolor}
-
 \usepackage{graphicx}
 \usepackage{multicol}
 
@@ -88,7 +87,7 @@
 
 \begin{poster}{
   % Show grid to help with alignment
-  grid=no,
+  grid=yes,
   % Column spacing
   colspacing=1em,
   % Color style
@@ -155,163 +154,35 @@
       \tikz{\useasboundingbox (-0.2em,-0.32em) rectangle(0.2em,0.32em); \draw[draw=black,fill=baposterBGone!80!black!#1!white,line width=0.03em] (0,0) circle(0.18em);}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  \headerbox{Contribution}{name=contribution,column=0,row=0}{
+  \headerbox{Project Motivation}{name=motivation,column=0,row=0}{
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-   {}We introduce a method for expression invariant face recognition. A
-   generative 3D Morphable Model (3DMM) is used to separate identity and
-   expression components. The expression removal results in greatly increased
-   recognition performance, even on difficult datasets, without a decrease in
-   performance on expression-less datasets.
 
-   It is applicable to any kind of input data, and was evaluated here on
-   textureless range scans.
- }
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  \headerbox{Model}{name=model,column=0,below=contribution}{
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    The Model was learnt from 175 subjects. We used one neutral expression scan
-    per identity and 50 expression scans of a subset of the subjects. 
-
-    The identity model is a linear model build from the neutral scans.
-    \begin{align}
-      \VEC f&=\VEC\mu + \MAT M_n\VEC\alpha_n\qquad.
-    \end{align}
-    For each of the 50 expression scans, we calculated an expression vector as
-    the difference between the expression scan and the corresponding neutral
-    scan of that subject.  This data is already mode-centered, if we regard the
-    neutral expression as the natural mode of expression data. From these offset
-    vectors an additional expression matrix $\MAT M_e$ was calculated, such that the complete linear Model is
-    \begin{align}
-      \VEC f&=\VEC\mu + \MAT M_n\VEC\alpha_n + \MAT M_e\VEC\alpha_e
-    \end{align}
-    The assumption here is, that the face and expression space are linearly
-    independent, such that each face is represented by a unique set of
-    coefficients.  
   }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  \headerbox{Fitting}{name=fitting,column=0,below=model}{
+  \headerbox{Architecture}{name=arch,column=0,below=motivation}{
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    A Robust Nonrigid ICP method was used to fit the model to the data.
-    Robustness was achieved by iteratively reweighting the correspondences and
-    using hard compatability test for the closest points.
 
-    Fitting was initialized by a simple nose detector and proceeded fully
-    automatic.
   }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  \headerbox{Distance Measure}{name=measure,column=0,below=fitting,above=bottom}{
+  \headerbox{Design}{name=design,column=1, span=1}{
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-   The Mahalanobis angle between the identity coefficients $\VEC{\alpha_{n}}$
-   was used for classification.
   }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  \headerbox{Expression Neutralization}{name=results neutralization,column=1,row=0}{
+  \headerbox{Implementation}{name=implementation,column=1,below=design}{
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-% \begin{tabular}{@{}c@{ }c@{ }c@{ }c@{}@{ }@{ }c@{ }c@{ }c@{ }c@{ }}
-%   \includegraphics[height=0.42\linewidth]{16_1_tgt}&
-%   \includegraphics[height=0.42\linewidth]{16_1_expression}&
-%   \includegraphics[height=0.42\linewidth]{16_1_neutral}\\[-0.8em]
-%   \smaller a) Target & \smaller b) Fit & \smaller c) Normalized\\[0.8em]
-%   \includegraphics[height=0.42\linewidth]{16_6_tgt}&
-%   \includegraphics[height=0.42\linewidth]{16_6_expression}&
-%   \includegraphics[height=0.42\linewidth]{16_6_neutral}\\[-0.8em]
-%   \smaller a) Target & \smaller b) Fit & \smaller c) Normalized
-% \end{tabular}
-  Expression normalisation for two scans of the same individual.  
-  The robust fitting gives a good estimate (b) of the true face surface given
-  the noisy measurement (a). It fills in holes and removes artifacts using
-  prior knowledge from the face model. The pose and expression normalized faces
-  (c) are used for face recognition.
   }
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  \headerbox{Robustness}{name=robustness,column=1,below=results neutralization,span=1,above=bottom}{
+  \headerbox{Lessons Learned}{name=lessons,column=2, row=0}{
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- %\begin{tabular}{@{}c@{ }c@{ }c@{ }c@{}}
- %  \includegraphics[height=0.42\linewidth]{56_4_tgt}&
- %  \includegraphics[height=0.42\linewidth]{23_2_tgt}&
- %  \includegraphics[height=0.42\linewidth]{5_6_tgt}\\[-0.8em]
- %                     & \smaller a) Targets & \\[0.8em]
- %  \includegraphics[height=0.42\linewidth]{56_4_expression}&
- %  \includegraphics[height=0.42\linewidth]{23_2_expression}& 
- %  \includegraphics[height=0.42\linewidth]{5_6_expression}\\[-0.8em]
- %                  & \smaller b) Fits & 
- %\end{tabular}
-  The reconstruction (b) is robust against scans (a) with artifacts, noise, and
-  holes.
   }
+
+  \headerbox{Future Work}{name=future,column=2,row=0.4}{
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  \headerbox{Results}{name=results,column=2,span=2,row=0}{
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-      \begin{multicols}{2}
-        The method was evaluated on the GavabDB expression dataset which
-        contains 427 Scans, with 3 neutral scans and 4 expression scans per ID.
-        To test the impact of expression invariance on neutral data we used the
-        UND Dataset from the Face Recognition Great Vendor Test, which contains
-        953 neutral scans with one to eight scans per subject.
-      \end{multicols}\vspace{-1em}
-      \begin{tabular}{cc}
-      \end{tabular}\\
-%      \begin{multicols}{2}
-        {Expression neutralization improves results on the expression dataset
-        without decreasing the accuracy on the neutral testset. Plotted is the
-        ratio of correct answers to  the number of possible correct answers.
-        %Note the different scales for the two graphs.
-        %Our approach has a high accuracy on the neutral (UND) dataset.
-        }
-%      \end{multicols}\vspace{-1em}
-      \\\mbox{\hspace{0.3\linewidth}\rule{0.4\linewidth}{1pt}\hspace{0.3\linewidth}}\\
-      \begin{tabular}{cc}
-      \end{tabular}\\
-%      \begin{multicols}{2}
-        {Plotted are precision and recall for different retrieval depths. The lower
-        precision of the UND database is due to the fact that some queries have no
-        correct answers.}
-%      \end{multicols}\vspace{-1em}
-      \begin{tabular}{cc}
-      \end{tabular}\\
-%      \begin{multicols}{2}
-        {Impostor detection is reliable, as the minimum distance to a match
-        is smaller than the minimum distance to a nonmatch. }
-%      \end{multicols}
-  }%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  \headerbox{Open Questions}{name=questions,column=2,span=1,above=bottom,below=results}{
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    While the expression and identity space are linearly independent, there is
-    some expression left in the identity model. This is because a ``neutral''
-    face is interpreted differently by the subjects. We investigate the
-    possibilty to build an identity/expression separated model without using
-    the data labelling, based on a measure of independence.
-  }%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  \headerbox{Funding}{name=funding,column=3,span=1,above=bottom}{
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  \smaller 
-  This work was supported in part by Microsoft Research through the European PhD Scholarship Programme.
-  }%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- \headerbox{References}{name=references,column=3,above=funding,below=results}{
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%   \smaller
-%   \vspace{-0.4em}
-%   \renewcommand{\section}[2]{\vskip 0.05em}
-%     \begin{thebibliography}{1}\itemsep=-0.01em
-%     \setlength{\baselineskip}{0.4em}
-%     \bibitem{amberg07:nonrigid}
-%       B.~Amberg, S.~Romdhani, T. Vetter.
-%       \newblock {O}ptimal {S}tep {N}onrigid {ICP} {A}lgorithms for {S}urface {R}egistration
-%       \newblock In {\em CVPR 2007}
-%     \bibitem{amberg08:recognition}
-%       B.~Amberg, R.~Knothe, T. Vetter.
-%       \newblock Expression Invariant Face Recognition with a 3D Morphable Model
-%       \newblock In {\em AFGR 2008}
-%     \end{thebibliography}
- }%
+  }
 \end{poster}%
 %
 \end{document}
