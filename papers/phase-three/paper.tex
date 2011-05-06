@@ -49,47 +49,66 @@ Samuel Milton \\
 }
 \maketitle
 
-%\begin{abstract}
-%In this paper we detail our current progress on our distributed trivia game.
-%We will explain what has been done so far, what we need to do, and how we
-%have met the requirements for the project. We also discuss the architecture
-%for our system.
-%\end{abstract}
+\begin{abstract}
+In this paper we will discuss our decisions and detail our discoveries throughout designing a distributed trivia system.
+\end{abstract}
 
 \section{Project Motivation}
+Our motivation for this project was to build a system that would allow people to compete across multiple platforms reliably.
+High availability was a major concern for us, as it enables people to compete at all times.
+This form of trivia is a multiplayer social game.
+It takes advantage of a number of different platforms so that users can feel free to play on any device they prefer.
+The web client ensures that almost any device will be able to connect and play.
+Designing it on mobile platforms allows us to take advtange of the specific platform and lets people easily play on the go.
 \section{Architecture}
+\subsection{Servers}
+For our servers, we are using Amazon EC2 micro instances.
+These are running x86-64 Amazon Linux.
+They have 8gb of network attached storage and 613mb of memory.
+
+Each server is installed with our custom web app that services our requests.
+Each one is also equipped with an instance of Riak for maintaining our database.
+The Python web app utilizes the Flask web framework and we serve the application and all files with the Tornado web server, both of which are open source.
+We have five servers all running our server application and hosting the databases.
+Two of those are set up as hot spares in case of a failure.
+
+Currently, we are using the NGINX \cite{nginx} in a reverse proxy configuration for our load sharing needs.
+For this project there are two load balancers which are running on personal desktop computers that have reliable internet connections.
+These are set up with round robin DNS entries, courtesy of ZoneEdit.com, a free DNS management service.
+\section{Design}
 \begin{figure}[h!]
   \centering
     \includegraphics[scale=0.4]{diagram.png}
    \caption{High level overview of the system}
  \end{figure}
-
-\subsection {Servers}
-Currently, we have 6 servers running on Amazon's Elastic Compute Cloud \cite{aec}. One server is being used as a web-monitor
-host running Monit\cite{monit}. We are able to login to the web-monitor to see the status of all our
-servers, databases, and load sharers. This will help us manage whether or not the services
-are running and allow us to track down any problems, if they arise. Three
-servers are all running our server application and hosting the databases.
-We also have two final servers that we have setup as hot spares in the event
-of partial or total failure.
-Each server contains the server application that responds to clients as well as
-the Riak \cite{riak} databases. Riak auto-synchronizes the databases between the 5 servers.
-Note that the hot spares are setup to be part of the database cluster so they
-have a full copy of the database on hand, however they don't accept any reads
-or writes directly. This allows for them to immediately be ready for read/writes in the event that the original servers are down.
-With this configuration if we were to add a server, we would just need to update 
-Riak and it would sync the databases to any additional servers as well. These servers,
-therefore, all contain the same information. If any servers go down, the distributed
-system would still run fine. We could have all servers go down except one and still
-be reliably handling requests.
+\subsection{Servers}
+For this project we deployed six servers running on Amazon's Elastic Compute Cloud \cite{aec}.
+One server is being used as a web-monitor host running Monit\cite{monit}.
+We were able to login to the web-monitor to see the status of all our servers, databases, and load sharers.
+This assisted us in managing whether or not the services were running and allowed us to track down any problems, if they arose.
+Each server contains the server application that responds to clients as well as the Riak \cite{riak} databases.
+Riak handles auto-synchronization of the databases between the five servers.
+Note that the hot spares were setup to be part of the database cluster so they have a full copy of the database on hand, however they did not accept any reads or writes directly.
+This allows for them to immediately be ready for read/writes in the event that the original servers are down.
+With this configuration if we were to add a server, we would just need to update Riak and it would sync the databases to any additional servers as well.
+These servers, therefore, all contain the same information.
+If any servers go down, the distributed system would still run fine.
+We could have all servers go down except one and still be reliably handling requests.
 
 \subsection{Server Applications}
-The server is currently almost feature complete, but still needs a lot of
-testing. Client registration, and login are all supported. A client can
-join a game, retrieve questions for that game, and answer questions. Both a
-global leader board and individual per game leader board can also be requested.
-We recently refactored our API to be more universally consistent.
-The servers and clients now work on a more consistent basis where the clients all expect the same information and use the same calls.
+The server application handles requests from the user via the load sharers.
+The server application supports the following features:
+\begin{itemized}
+\item Client registration
+\item Login
+\item Query games status
+\item Joining public games
+\item Joining private games
+\item Creating private games
+\item Question retrieval
+\item Question answering
+\item Global leaderboard
+\end{itemized}
 
 \subsection{Traffic}
 We have two load sharers set up. Both sharers are currently configured to
