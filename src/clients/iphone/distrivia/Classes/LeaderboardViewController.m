@@ -46,13 +46,15 @@
         }
         return (NSComparisonResult)NSOrderedSame;
     }]];
-    
-    [boardView reloadData];
     if ([[rootController gd] localLeaderboard]) {
         [activeIndicate startAnimating];
         [NSThread detachNewThreadSelector:@selector(localUpdater) toTarget:self withObject:nil];
+    } else {
+        NSMutableArray *sansStatus = [NSMutableArray arrayWithArray:leadData];
+        [sansStatus removeObjectAtIndex:[leadData indexOfObject:@"status"]];
+        [self setLeadData:[NSArray arrayWithArray:sansStatus]];
     }
-    
+    [boardView reloadData];
     [super viewWillAppear:animated];
 }
 

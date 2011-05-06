@@ -155,7 +155,7 @@
 
 - (void) progressUpdater {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    for (int i = 0; i<22; i++) {
+    for (int i = 0; i<44; i++) {
         if (selection == nil) {
             [self performSelectorOnMainThread:@selector(updateProgress) withObject:nil waitUntilDone:NO];
         }
@@ -166,7 +166,7 @@
 
 - (void) updateProgress {
     NSDate *now = [[NSDate alloc] init];
-    [pBar setProgress:[now timeIntervalSinceDate:startTime]/5.0];
+    [pBar setProgress:[now timeIntervalSinceDate:startTime]/10.0];
     [now release];
 }
          

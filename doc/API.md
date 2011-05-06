@@ -53,7 +53,7 @@ Join Private Games:
 -------------------
  - Server Notes:
    * Game crated and users added until creator starts it
- - URL: /private/join/<game name>
+ - URL: /private/join
  - POST: authToken=<session id>&password=<password>&user=<user name>&name=<game name>
  - Return:
    *  Valid: game id

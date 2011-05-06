@@ -21,6 +21,7 @@
 @synthesize leadBut;
 @synthesize nameField;
 @synthesize passField;
+@synthesize numField;
 @synthesize activeIndicate;
 @synthesize rootController;
 
@@ -68,6 +69,49 @@
     [NSThread detachNewThreadSelector:@selector(joinPublic) toTarget:self withObject:nil];
 }
 
+- (IBAction) joinPrivatePressed:(id)sender {
+    NSString *gameName = [nameField text];
+    NSString *gamePass = [passField text];
+    if ([gameName length] == 0 || [gamePass length] == 0) {
+        UIAlertView *e = [[UIAlertView alloc] initWithTitle: @"Incomplete Information" 
+                                                    message: @"Missing game name or password"
+                                                   delegate: self cancelButtonTitle: @"Ok" 
+                                          otherButtonTitles: nil];
+        [e show];
+        [e release];
+    } else {
+        [activeIndicate startAnimating];
+        [self toggleButtons];
+        [NSThread detachNewThreadSelector:@selector(joinPrivateWithParameters:) toTarget:self 
+                               withObject:[NSArray arrayWithObjects:gameName, gamePass, nil]];
+    }
+}
+
+- (IBAction) createPrivatePressed:(id)sender {
+    if ([[priCreateBut titleForState:UIControlStateNormal] isEqualToString:@"Start" ]) {
+        [activeIndicate startAnimating];
+        [self toggleButtons];
+        [NSThread detachNewThreadSelector:@selector(startPrivate) toTarget:self withObject:nil];
+        return;
+    }
+    NSString *gameName = [nameField text];
+    NSString *gamePass = [passField text];
+    NSString *numQ = [numField text];
+    if ([gameName length] == 0 || [gamePass length] == 0) {
+        UIAlertView *e = [[UIAlertView alloc] initWithTitle: @"Incomplete Information" 
+                                                    message: @"Missing game name or password"
+                                                   delegate: self cancelButtonTitle: @"Ok" 
+                                          otherButtonTitles: nil];
+        [e show];
+        [e release];
+    } else {
+        [activeIndicate startAnimating];
+        [self toggleButtons];
+        [NSThread detachNewThreadSelector:@selector(createPrivateWithParameters:) toTarget:self 
+                               withObject:[NSArray arrayWithObjects:gameName, gamePass, numQ, nil]];
+    }
+}
+
 - (IBAction) textFieldDoneEditing:(id)sender {
     [sender resignFirstResponder];
 }
@@ -75,6 +119,96 @@
 - (IBAction) backgroundTap:(id)sender {
     [nameField resignFirstResponder];
     [passField resignFirstResponder];
+    [numField resignFirstResponder];
+}
+
+- (void) joinPrivateWithParameters:(NSArray*)parameters {
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    NSString *gameName = [parameters objectAtIndex:0];
+    NSString *gamePass = [parameters objectAtIndex:1];
+    if ([DistriviaAPI joinPrivateWithData:[rootController gd] gameName:gameName passwd:gamePass]) {
+        while (YES) {
+            if ([DistriviaAPI statusWithData:[rootController gd]] && 
+                [[rootController gd] hasStarted]) {
+                break;
+            }
+            [NSThread sleepForTimeInterval:2];
+        }
+        [self performSelectorOnMainThread:@selector(startRound) withObject:nil waitUntilDone:NO];
+    } else {
+        [self performSelectorOnMainThread:@selector(joinPrivateFailed) withObject:nil waitUntilDone:NO];
+    }
+    [pool release];
+}
+
+- (void) joinPrivateFailed {
+    [self toggleButtons];
+    [activeIndicate stopAnimating];
+    UIAlertView *e = [[UIAlertView alloc] initWithTitle: @"Join Private failed" 
+                                                message: @"Could not join private game"
+                                               delegate: self cancelButtonTitle: @"Ok" 
+                                      otherButtonTitles: nil];
+    [e show];
+    [e release];
+}
+
+- (void) createPrivateWithParameters:(NSArray*)parameters {
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    NSString *gameName = [parameters objectAtIndex:0];
+    NSString *gamePass = [parameters objectAtIndex:1];
+    NSString *numQ = [parameters objectAtIndex:2];
+    if ([DistriviaAPI createPrivateWithData:[rootController gd] gameName:gameName
+                                    passwd:gamePass numQuestions:numQ]) {
+        [self performSelectorOnMainThread:@selector(privateCreated) withObject:nil waitUntilDone:NO];
+    } else {
+        [self performSelectorOnMainThread:@selector(createPrivateFailed) withObject:nil waitUntilDone:NO];
+    }
+    [pool release];
+}
+
+- (void) createPrivateFailed {
+    [self toggleButtons];
+    [activeIndicate stopAnimating];
+    UIAlertView *e = [[UIAlertView alloc] initWithTitle: @"Create Private failed" 
+                                                message: @"Could not create private game"
+                                               delegate: self cancelButtonTitle: @"Ok" 
+                                      otherButtonTitles: nil];
+    [e show];
+    [e release];
+}
+
+- (void) privateCreated {
+    [activeIndicate stopAnimating];
+    [priCreateBut setTitle:@"Start" forState:UIControlStateNormal];
+    [priCreateBut setEnabled:YES];
+}
+
+- (void) startPrivate {
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    if ([DistriviaAPI startPrivateWithData:[rootController gd]]) {
+        while (YES) {
+            if ([DistriviaAPI statusWithData:[rootController gd]] && 
+                [[rootController gd] hasStarted]) {
+                break;
+            }
+            [NSThread sleepForTimeInterval:2];
+        }
+        [self performSelectorOnMainThread:@selector(startRound) withObject:nil waitUntilDone:NO];
+    } else {
+        [self performSelectorOnMainThread:@selector(startPrivateFailed) withObject:nil waitUntilDone:NO];
+    }
+    [pool release];
+}
+
+- (void) startPrivateFailed {
+    [self toggleButtons];
+    [activeIndicate stopAnimating];
+    UIAlertView *e = [[UIAlertView alloc] initWithTitle: @"Start Private failed" 
+                                                message: @"Could not start private game"
+                                               delegate: self cancelButtonTitle: @"Ok" 
+                                      otherButtonTitles: nil];
+    [e show];
+    [e release];
 }
 
 - (void) leaderboard {
@@ -160,6 +294,7 @@
     self.leadBut = nil;
     self.nameField = nil;
     self.passField = nil;
+    self.numField = nil;
     self.activeIndicate = nil;
     self.rootController = nil;
 	[super viewDidUnload];
@@ -173,6 +308,7 @@
     [leadBut release];
     [nameField release];
     [passField release];
+    [numField release];
     [activeIndicate release];
     [rootController release];
     [super dealloc];

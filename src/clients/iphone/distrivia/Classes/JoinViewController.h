@@ -20,6 +20,7 @@
     IBOutlet UIButton   *leadBut;
     IBOutlet UITextField    *nameField;
     IBOutlet UITextField    *passField;
+    IBOutlet UITextField    *numField;
     IBOutlet UIActivityIndicatorView    *activeIndicate;
     
     RootViewController *rootController;
@@ -32,14 +33,24 @@
 @property (nonatomic, retain) IBOutlet UIButton *leadBut;
 @property (nonatomic, retain) IBOutlet UITextField *nameField;
 @property (nonatomic, retain) IBOutlet UITextField *passField;
+@property (nonatomic, retain) IBOutlet UITextField *numField;
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView *activeIndicate;
 @property (nonatomic, retain) RootViewController *rootController;
 
 - (IBAction) joinPublicPressed:(id)sender;
+- (IBAction) joinPrivatePressed:(id)sender;
+- (IBAction) createPrivatePressed:(id)sender;
 - (IBAction) viewLeaderboardPressed:(id)sender;
 - (IBAction) textFieldDoneEditing:(id)sender;
 - (IBAction) backgroundTap:(id)sender;
 
+- (void) joinPrivateWithParameters:(NSArray*)parameters;
+- (void) joinPrivateFailed;
+- (void) createPrivateWithParameters:(NSArray*)parameters;
+- (void) createPrivateFailed;
+- (void) privateCreated;
+- (void) startPrivate;
+- (void) startPrivateFailed;
 - (void) joinPublic;
 - (void) joinPublicFailed;
 - (void) leaderboard;
