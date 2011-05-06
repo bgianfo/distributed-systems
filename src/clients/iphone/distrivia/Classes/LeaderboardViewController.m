@@ -46,13 +46,20 @@
         }
         return (NSComparisonResult)NSOrderedSame;
     }]];
-    
-    [boardView reloadData];
     if ([[rootController gd] localLeaderboard]) {
         [activeIndicate startAnimating];
         [NSThread detachNewThreadSelector:@selector(localUpdater) toTarget:self withObject:nil];
+    } else {
+        NSMutableArray *sansStatus = [[NSMutableArray alloc] init];
+        for (int i=0; i < [leadData count]; i++) {
+            if (![[leadData objectAtIndex:i] isEqualToString:@"status"]) {
+                [sansStatus addObject:[leadData objectAtIndex:i]];
+            }
+        }
+        [self setLeadData:[NSArray arrayWithArray:sansStatus]];
+        [sansStatus release];
     }
-    
+    [boardView reloadData];
     [super viewWillAppear:animated];
 }
 
