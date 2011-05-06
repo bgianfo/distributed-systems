@@ -5,6 +5,16 @@ import json
 import random
 import time
 from multiprocessing import Process
+import thread
+
+mutex = thread.allocate_lock()
+count = 0
+
+def inc():
+    global count
+    mutex.acquire()
+    count += 1
+    mutex.release()
 
 class Callable:
     def __init__(self, anycallable):
@@ -91,7 +101,7 @@ def playgame(name,token):
     while status["gamestatus"] != "started":
         status = DistriviaAPI.status(token, gid)
         print name + " waiting"
-        time.sleep( 2000 )
+        time.sleep( 20 )
 
     gdata = status
     while True:
@@ -104,17 +114,25 @@ def playgame(name,token):
         gdata = DistriviaAPI.answer(token, gid, qid, name, tim, ans)
 
         print name + " answered: " + ans
+        inc()
 
 
 def botmain():
     name = "autobot-"+str(random.randint(0,9999999))
     passwd = "mmm-bits"
 
+
+
+
     DistriviaAPI.register(name,passwd)
     token = DistriviaAPI.login(name,passwd)
 
     while True:
+        tmp = count
+        start = time.clock()
         playgame(name, token)
+        print "Stats: %s req/s" % str( float( count-tmp ) / float( time.clock() -
+        start))
 
 if __name__ == "__main__":
     for proc in range(10):
