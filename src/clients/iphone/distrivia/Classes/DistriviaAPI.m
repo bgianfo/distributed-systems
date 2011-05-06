@@ -280,6 +280,39 @@ const static NSString* API_ERROR=@"err";
 }
 
 
++ (BOOL) createPrivateWithData:(GameData*)gd gameName:(NSString*)gamename passwd:(NSString*)pass numQuestions:(NSString*)numQ {
+    NSString* fragment = [NSString stringWithFormat: @"/private/create/%@", numQ];
+    NSString* post = [NSString stringWithFormat:@"authToken=%@&name=%@&password=%@&user=%@", 
+                      [gd getToken], gamename, pass, [gd username]];
+    NSURLRequest* request = [DistriviaAPI createPost:post urlFrag:fragment];
+    NSError* error = nil;
+    NSData* data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error: &error];    
+    BOOL success = false;
+    
+    if ( !data ) {
+        NSLog(@"Connection Error: %@", [error localizedDescription]);
+    } else {
+        NSString* response = [[NSString alloc] initWithData: data
+                                                   encoding: NSUTF8StringEncoding];
+        NSRange textRange;
+        textRange =[API_ERROR rangeOfString: response];
+        if ( textRange.location == NSNotFound ) {
+            //NSLog(@"Successful response: %@", response);
+            JSONDecoder *jsonKitDecoder = [JSONDecoder decoder];
+            NSDictionary *items = [jsonKitDecoder objectWithData:data];
+            if ([items objectForKey:@"status"]) {
+                [gd setGameId:[items objectForKey:@"id"]];
+                success = true;
+            }
+        } else {
+            NSLog(@"API Error");
+        }
+        [response release];
+    }
+    return success;
+}
+
+
 
 + (NSMutableURLRequest*) createPost:(NSString*)post urlFrag:(NSString*)urlFragment {
 

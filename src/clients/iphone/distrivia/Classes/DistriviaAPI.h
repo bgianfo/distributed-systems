@@ -21,7 +21,8 @@
 + (BOOL) statusWithData:(GameData*)gd;
 + (BOOL) answerWithData:(GameData*)gd answer:(NSString*)answer timeTaken:(int)time;
 + (BOOL) globalLeaderboardWithData:(GameData*)gd;
-+ (BOOL) joinPrivateWithData:(GameData*)gd gameName:(NSString*)gamename passwd:(NSString*)pass; 
++ (BOOL) joinPrivateWithData:(GameData*)gd gameName:(NSString*)gamename passwd:(NSString*)pass;
++ (BOOL) createPrivateWithData:(GameData*)gd gameName:(NSString*)gamename passwd:(NSString*)pass numQuestions:(NSString*)numQ;
 
 + (NSMutableURLRequest*) createPost:(NSString*)post urlFrag:(NSString*)urlFragment;
 

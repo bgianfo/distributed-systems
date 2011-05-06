@@ -441,6 +441,32 @@
 					</object>
 					<int key="connectionID">36</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">numField</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="650786026"/>
+					</object>
+					<int key="connectionID">38</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">createPrivatePressed:</string>
+						<reference key="source" ref="157137123"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">39</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">textFieldDoneEditing:</string>
+						<reference key="source" ref="650786026"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">20</int>
+					</object>
+					<int key="connectionID">40</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -655,7 +681,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">37</int>
+			<int key="maxID">40</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -668,6 +694,7 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>backgroundTap:</string>
+							<string>createPrivatePressed:</string>
 							<string>joinPrivatePressed:</string>
 							<string>joinPublicPressed:</string>
 							<string>textFieldDoneEditing:</string>
@@ -675,6 +702,7 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -687,6 +715,7 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>backgroundTap:</string>
+							<string>createPrivatePressed:</string>
 							<string>joinPrivatePressed:</string>
 							<string>joinPublicPressed:</string>
 							<string>textFieldDoneEditing:</string>
@@ -696,6 +725,10 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBActionInfo">
 								<string key="name">backgroundTap:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">createPrivatePressed:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -723,6 +756,7 @@
 							<string>activeIndicate</string>
 							<string>leadBut</string>
 							<string>nameField</string>
+							<string>numField</string>
 							<string>passField</string>
 							<string>priCreateBut</string>
 							<string>priJoinBut</string>
@@ -732,6 +766,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>UIActivityIndicatorView</string>
 							<string>UIButton</string>
+							<string>UITextField</string>
 							<string>UITextField</string>
 							<string>UITextField</string>
 							<string>UIButton</string>
@@ -746,6 +781,7 @@
 							<string>activeIndicate</string>
 							<string>leadBut</string>
 							<string>nameField</string>
+							<string>numField</string>
 							<string>passField</string>
 							<string>priCreateBut</string>
 							<string>priJoinBut</string>
@@ -763,6 +799,10 @@
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">nameField</string>
+								<string key="candidateClassName">UITextField</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">numField</string>
 								<string key="candidateClassName">UITextField</string>
 							</object>
 							<object class="IBToOneOutletInfo">
