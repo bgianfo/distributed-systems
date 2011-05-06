@@ -148,7 +148,6 @@ public class DistriviaAPI {
         JSON jsonParser = new JSON(data);
 
         gdata.setGameId(jsonParser.gameid());
-        Log.d("JOIN PRIVATE", data);
 
         return gdata;
     }
@@ -175,9 +174,9 @@ public class DistriviaAPI {
         params.add(new BasicNameValuePair("user", gdata.getUserName()));
 
         String data = post(url, params);
-        Log.d("Private GameID: ", data);
+        JSON jsonParser = new JSON(data);
 
-        gdata.setGameId(data);
+        gdata.setGameId(jsonParser.gameid());
 
         return gdata;
     }
