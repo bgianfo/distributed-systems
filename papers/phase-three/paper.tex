@@ -56,13 +56,8 @@ Samuel Milton \\
 %for our system.
 %\end{abstract}
 
-\section {What We've Done}
-Much of our system has been implemented and is in the debugging phase.
-The server application, web client, and Android client are nearly complete with some revisions happening as necessary.
-We have also started development on an application for the iPhone platform.
-The extent of what has been finished for each part of our system is explained below.
-
-\subsection{Architecture Overview }
+\section{Project Motivation}
+\section{Architecture}
 \begin{figure}[h!]
   \centering
     \includegraphics[scale=0.4]{diagram.png}
@@ -88,7 +83,7 @@ therefore, all contain the same information. If any servers go down, the distrib
 system would still run fine. We could have all servers go down except one and still
 be reliably handling requests.
 
-\subsection {Server Applications}
+\subsection{Server Applications}
 The server is currently almost feature complete, but still needs a lot of
 testing. Client registration, and login are all supported. A client can
 join a game, retrieve questions for that game, and answer questions. Both a
@@ -96,7 +91,7 @@ global leader board and individual per game leader board can also be requested.
 We recently refactored our API to be more universally consistent.
 The servers and clients now work on a more consistent basis where the clients all expect the same information and use the same calls.
 
-\subsection {Traffic}
+\subsection{Traffic}
 We have two load sharers set up. Both sharers are currently configured to
 divide the requests among the three active servers and, if need be, the two hot spares. The duplicate sharers allow
 for a load distributer to go down and we would still be able to serve requests
@@ -110,7 +105,7 @@ period before deeming it dead and removing it from its list of servers to direct
 Currently we are using the NGINX \cite{nginx} in a reverse proxy configuration
 for our load sharing needs.
 
-\subsection {Clients}
+\subsection{Clients}
 Our focus for clients has been on a web-based client and an Android application.
 Both clients have most of the workings completed. The web-based client will
 be run from desktop platforms and laptop platforms. The Android client will run
@@ -121,7 +116,7 @@ We have also started development on an iPhone application for distrivia. This cl
 it does implement nearly all the views seen in the other clients. We have been setting up the network communication for the iPhone
 platform as well.
 
-\subsection {Messages}
+\subsection{Messages}
 We are currently using the https protocol for our messages. This provides a secure
 and usable messaging system that we have designed our client and server APIs to use.
 The actual messages are sent and received in two way's. Initially a user session key is
@@ -135,74 +130,13 @@ the server is instantly usable, however for the Android client we have to parse 
 into a native Java object. The Android SDK provides libraries to do this, located in the
 org.json \cite{orgjson} package name space.
 
-\section {What's Left}
-\subsection {Server}
-The server is nearly completed. The server application just needs to have some tweaks and further testing.
-\subsection {Web Client}
-A lot of the main features of the web client are completed.
-However, there are still a few remaining features that need to be implemented.
-The only major feature remaining is private games, which are largely unstarted, although it will reuse most of the public game code.
-In addition to this, buttons should be disabled when clicked to prevent users from spamming the server with repeat messages.
-\subsection {Android}
-Private game play is the largest thing left for the Android client. Besides this we've just been fixing bugs and cleaning up the
-user interface.
-\subsection {iPhone}
-The iPhone application just started development in the last couple days. We
-have built most of the user interface but need to connect all of the actions
-to the server. We will need to implement everything, including login/registration, joining public/private games, viewing leaderboards,
-and competing in rounds.
+\section{Design}
 
-\section {Meeting the Requirements}
+\section{Implementation}
 
-Our system has three unique clients. One of them is designed for the Android
-platform as an application.
-Another is designed for the iPhone platform as a native application.
-The third is a web client, which is specifically being tested on Desktop and Laptop
-browsers, however it may work on many hand held web browsers as well.
+\section{Lessons Learned}
 
-Our system supports having any number of servers and allowing any subset of them to fail.
-We are using Riak, which supports a 'shared nothing' architecture.  We can add a new server
-by joining it to our database and starting the web server.  This can be done as many times
-as needed, allowing us to scale up our system.  These same principles also give us great fault
-tolerance, since any server is capable of running independently.  As long as one server is still
-up, the service will be available.
-
-We use round robin DNS to allow our clients to be completely ignorant of our servers.  Load sharers
-can be added and removed from the DNS server and the clients will be completely ignorant of this
-and unaffected.  The load sharers in turn know about our data servers and do their best to
-distribute the load across them.  When a new server is added, it is just added to our load sharer
-configuration file and clients can start using it.  When a server fails, the sharers will stop directing
-traffic to it.
-
-
-We are currently using Riak as our database backend. We chose Riak for multiple
-reasons, but the biggest was it's focus on  scalability, fault-tolerance,
-availability, and replication. Riak is a Amazon Dynamo \cite{dynamo} inspired
-database, it supports full masterless replication. In Riak every node can
-serve client requests and they are propagated to the rest of the cluster.
-In our system we have made sure that this replication occurs between nodes
-on Amazon EC2's internal Gigabit ethernet so it is as fast as possible. Riak
-also has the unique property that if all of the nodes but one fail, the single
-node can still accept both reads and writes to the database. When the other
-nodes return to operational state from failure, all changes will automatically
-be propagated to all of the nodes. This feature is the basis for our ability to
-support and recover from partial failures. In the event that two Riak nodes accept
-writes from two separate clients modifying the same data and Riak is unable
-to resolve the conflict the user is given both versions and allowed to resolve
-the conflict them selves. However we have configured our installation so this
-can not occur, we have specified that every available node must agree on a
-write before it is committed. Given the relatively small number of nodes (five)
-that will take part in this agreement, we decided that the possible overhead
-was acceptable for the increased level of consistency it gives us.
-
-Our team is taking a very proactive stance towards security. All of our machines are properly firewalled so that
-outside clients can not authenticate to our database cluster. Also we have implemented SSL through our entire infrastructure.
-Our load sharer's automatically redirect http:// to https:// and once you are in https:// at the load sharer, SSL continues all the
-way back to our actual web application back end serving responses over a SSL wrapped socket. This way no passwords are ever
-sent in clear text. Our group even found a SSL certificate authority who was willing to sign our SSL certificate for free. This gives
-us actual fully functional, authenticatable SSL infrastructure. In order to make sure that our system properly secures user information,
-we stuck with the industry standard of storing a hashed version of the users password instead of the password itself. We decided on using
-the cryptographically secure hashing function designed for passwords known as bcrypt \cite{bcrypt}.
+\section{Future Work}
 
 \newpage
 %
