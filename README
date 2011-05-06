@@ -13,9 +13,10 @@ Project Layout:
 
   p3.pdf   -  Project specification
 
-  phase-zero.pdf - Phase zero submission
-  phase-one.pdf  - Phase one submission
-  phase-two.pdf  - Phase two submission
+  phase-zero.pdf  - Phase zero submission
+  phase-one.pdf   - Phase one submission
+  phase-two.pdf   - Phase two submission
+  phase-three.pdf - Phase three submission
 
   doc/     -  Project documentation & scripts
 
@@ -57,10 +58,6 @@ Installation:
 
   4. iPhone Client
   ----------------
-  Currently, the iPhone client does no talking to the server. 
-  But if you would like to install and look at the UIs and progress,
-  follow these instructions.
-
     a) Simulator - Open the XCode project file using a Mac:
        /src/clients/iphone/distrivia/distrivia.xcodproj
        Select to use the simulator and make sure you have
@@ -75,17 +72,15 @@ Installation:
        The app will install on the device and run
        automatically.
 
- Usage:
- ------
+Usage:
+------
 
   The web, android, and iPhone clients share the same format to make it
   easy to navigate and understand each client without learning a new
   interface. The gameplay for our application is broken up into 4
-  distinct activities or screens: login/register, join public/private,
+  distinct activities or views: login/register, join public/private,
   compete, and view leaderboard. The activities work in this order and
-  descriptions of the activities and how to use them is explained below. The
-  iPhone client currently only shows the views and does not support any of
-  the functionality of the application.
+  descriptions of the activities and how to use them is explained below.
 
   1. Login/Register
   -----------------
@@ -101,17 +96,16 @@ Installation:
   ------------------------
   The join screen gives you the option to join a public round,
   compete in a private round, or view the current global leaderboard.
-  Currently, private round competition is not available.
     If you would like to view the current global leaderboard, you
-  may select the "View Leaderboard" button. The global leaderboard
+  may select the "View Global Leaderboard" button. The global leaderboard
   shows the standing of the players based on all their rounds
   they've played.
     If you're ready to compete in a public game, select the
   "Join Public" button. You will be shown a waiting screen until
   enough players have joined public games to compete with. Currently,
-  the number of players in a public game to start a round is 2. Once
-  enough players have joined, the round will begin and you will be
-  taken to the compete screen.
+  the number of players in a public game to start a round is 2 (for 
+  testing). Once enough players have joined, the round will begin and 
+  you will be taken to the compete screen.
 
   3. Compete
   ----------
@@ -137,3 +131,44 @@ Installation:
   shown while competing in the round. For the android and iphone clients,
   this is shown upon completion of the round.
 
+
+Contributions:
+--------------
+  
+  This section outlines the contributions of each team member to the different
+  components of the project. The order of each contributor is in order of those
+  teammates who contributed most to least.
+
+  1. Server
+  ---------
+  Brian
+  Sam
+
+  2. Database
+  -----------
+  Brian
+
+  3. Load Balancers
+  -----------------
+  Brian
+  Steven
+
+  4. DNS
+  ------
+  Brian
+
+  5. Web Client
+  -------------
+  Sam
+  Brian
+
+  6. Android Client
+  -----------------
+  Brian
+  Steven
+  Sam
+
+  7. iPhone Client
+  ----------------
+  Steven
+  Brian
