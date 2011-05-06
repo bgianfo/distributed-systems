@@ -312,7 +312,33 @@ const static NSString* API_ERROR=@"err";
     return success;
 }
 
-
++ (BOOL) startPrivateWithData:(GameData*)gd {
+    NSString* fragment = [NSString stringWithFormat: @"/private/start/%@", [gd gameId]];
+    NSString* post = [NSString stringWithFormat:@"authToken=%@", [gd getToken]];
+    NSURLRequest* request = [DistriviaAPI createPost:post urlFrag:fragment];
+    NSError* error = nil;
+    NSData* data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error: &error];    
+    BOOL success = false;
+    
+    if ( !data ) {
+        NSLog(@"Connection Error: %@", [error localizedDescription]);
+    } else {
+        NSString* response = [[NSString alloc] initWithData: data
+                                                   encoding: NSUTF8StringEncoding];
+        NSRange textRange;
+        textRange =[API_ERROR rangeOfString: response];
+        if ( textRange.location == NSNotFound ) {
+            //NSLog(@"Successful response: %@", response);
+            if ([response isEqualToString:@"ok"]) {
+                success = true;
+            }
+        } else {
+            NSLog(@"API Error");
+        }
+        [response release];
+    }
+    return success;
+}
 
 + (NSMutableURLRequest*) createPost:(NSString*)post urlFrag:(NSString*)urlFragment {
 

@@ -88,6 +88,12 @@
 }
 
 - (IBAction) createPrivatePressed:(id)sender {
+    if ([[priCreateBut titleForState:UIControlStateNormal] isEqualToString:@"Start" ]) {
+        [activeIndicate startAnimating];
+        [self toggleButtons];
+        [NSThread detachNewThreadSelector:@selector(startPrivate) toTarget:self withObject:nil];
+        return;
+    }
     NSString *gameName = [nameField text];
     NSString *gamePass = [passField text];
     NSString *numQ = [numField text];
@@ -173,6 +179,36 @@
 
 - (void) privateCreated {
     [activeIndicate stopAnimating];
+    [priCreateBut setTitle:@"Start" forState:UIControlStateNormal];
+    [priCreateBut setEnabled:YES];
+}
+
+- (void) startPrivate {
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    if ([DistriviaAPI startPrivateWithData:[rootController gd]]) {
+        while (YES) {
+            if ([DistriviaAPI statusWithData:[rootController gd]] && 
+                [[rootController gd] hasStarted]) {
+                break;
+            }
+            [NSThread sleepForTimeInterval:2];
+        }
+        [self performSelectorOnMainThread:@selector(startRound) withObject:nil waitUntilDone:NO];
+    } else {
+        [self performSelectorOnMainThread:@selector(startPrivateFailed) withObject:nil waitUntilDone:NO];
+    }
+    [pool release];
+}
+
+- (void) startPrivateFailed {
+    [self toggleButtons];
+    [activeIndicate stopAnimating];
+    UIAlertView *e = [[UIAlertView alloc] initWithTitle: @"Start Private failed" 
+                                                message: @"Could not start private game"
+                                               delegate: self cancelButtonTitle: @"Ok" 
+                                      otherButtonTitles: nil];
+    [e show];
+    [e release];
 }
 
 - (void) leaderboard {

@@ -49,6 +49,8 @@
 - (void) createPrivateWithParameters:(NSArray*)parameters;
 - (void) createPrivateFailed;
 - (void) privateCreated;
+- (void) startPrivate;
+- (void) startPrivateFailed;
 - (void) joinPublic;
 - (void) joinPublicFailed;
 - (void) leaderboard;
