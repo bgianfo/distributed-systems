@@ -2,7 +2,7 @@
 //  distriviaViewController.m
 //  distrivia
 //
-//  Created by Sticky Glazer on 4/19/11.
+//  Created by BitShift on 4/19/11.
 //  Copyright 2011 Rochester Institute of Technology. All rights reserved.
 //
 
@@ -18,19 +18,6 @@
 @synthesize passField;
 @synthesize activeIndicate;
 @synthesize rootController;
-
-
-
-/*
-// The designated initializer. Override to perform setup that is required before the view is loaded.
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-*/
 
 /*
 // Implement loadView to create a view hierarchy programmatically, without using a nib.

@@ -2,7 +2,7 @@
 //  GameData.h
 //  distrivia
 //
-//  Created by Brian Gianforcaro on 4/20/11.
+//  Created by BitShift on 4/20/11.
 //  Copyright 2011 Rochester Institute of Technology. All rights reserved.
 //
 
