@@ -27,18 +27,6 @@
 @synthesize startTime, endTime;
 @synthesize selection;
 
-// The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
-/*
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization.
-    }
-    return self;
-}
-*/
-
-
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [question setNumberOfLines:3];
@@ -56,11 +44,16 @@
 }
 
 - (void) viewDidAppear:(BOOL)animated {
+    // Sets up the round display when the view appears
     [self setupDisplay];
     [super viewDidAppear:animated];
 }
 
 - (IBAction) answerSelected:(id)sender {
+    /* 
+     Reacts to an answer being selected. Sets the selection
+     variable and changes the UI accordingly
+     */
     [self setEndTime:[[NSDate alloc] init]];
 	[self deselectAll];
 	if (sender == aBut) {
@@ -83,6 +76,7 @@
 }
 
 - (IBAction) submitPressed:(id)sender {
+    // Responds to the submit button being pressed. Sets up the UI for sending answer
     if (selection != nil) {
         [submitBut setEnabled:NO];
         [activeIndicate startAnimating];
@@ -91,6 +85,7 @@
 }
 
 - (void) setupDisplay {
+    // Sets up the view with Q/A information and current score
     [pBar setProgress:0.0];
     Question *q = [[rootController gd] question];
     [question setText:[q question]];
@@ -111,6 +106,7 @@
 }
 
 - (void) deselectAll {
+    // Deselects all answer buttons and resets selection variable
     self.selection = nil;
 	[aBut setBackgroundColor:[UIColor grayColor]];
 	[bBut setBackgroundColor:[UIColor grayColor]];
@@ -119,6 +115,10 @@
 }
 
 - (void) submitAnswer {
+    /*
+     Thread: Calls the network to submit the users answer and
+     responds accordingly
+     */
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     int timeTaken = [[NSNumber numberWithFloat:[endTime timeIntervalSinceDate:startTime]*1000] intValue];
     if ([DistriviaAPI answerWithData:[rootController gd] answer:selection 
@@ -136,6 +136,7 @@
 }
 
 - (void) nextQuestion {
+    // Sets up the UI to respond to the next question
     [activeIndicate stopAnimating];
     [self deselectAll];
     [submitBut setEnabled:YES];
@@ -143,6 +144,7 @@
 }
 
 - (void) submitAnswerFailed {
+    // Displays an alert to notify that submitting the answer failed
     [submitBut setEnabled:YES];
     [activeIndicate stopAnimating];
     UIAlertView *e = [[UIAlertView alloc] initWithTitle: @"Submit Answer Failed" 
@@ -154,6 +156,10 @@
 }
 
 - (void) progressUpdater {
+    /*
+     Thread: Makes periodic calls to update the progress bar of the
+     time remaining to answer the question
+     */
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     for (int i = 0; i<44; i++) {
         if (selection == nil) {
@@ -165,12 +171,14 @@
 }
 
 - (void) updateProgress {
+    // Updates the progress bar with the current time left to answer the question
     NSDate *now = [[NSDate alloc] init];
     [pBar setProgress:[now timeIntervalSinceDate:startTime]/10.0];
     [now release];
 }
          
 - (void) roundFinished {
+    // Sets up the UI to switch to the local leaderboard view
     [self deselectAll];
     [activeIndicate stopAnimating];
     [submitBut setEnabled:YES];
