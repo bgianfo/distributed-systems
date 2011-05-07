@@ -2,7 +2,7 @@
 //  LeaderboardViewController.m
 //  distrivia
 //
-//  Created by Sticky Glazer on 4/21/11.
+//  Created by BitShift on 4/21/11.
 //  Copyright 2011 Rochester Institute of Technology. All rights reserved.
 //
 
@@ -18,24 +18,13 @@
 @synthesize rootController;
 @synthesize leadData;
 
-// The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
-/*
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization.
-    }
-    return self;
-}
-*/
-
-
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
 }
 
 - (void) viewWillAppear:(BOOL)animated {
+    // Sets the leaderboard data and activates the local updater if it is the local leaderboard
     [self setLeadData: [[[rootController gd] leaderboard] keysSortedByValueUsingComparator:^(id obj1, id obj2) {
         if ([obj1 integerValue]  > [obj2 integerValue] ) {
             return (NSComparisonResult)NSOrderedAscending;
@@ -59,6 +48,7 @@
 }
 
 - (IBAction) okClicked:(id)sender {
+    // Prepares the UI for switching to the Join View
     [[rootController gd] setLocalLeaderboard:NO];
     if ([activeIndicate isAnimating]) {
         [activeIndicate stopAnimating];
@@ -67,6 +57,10 @@
 }
 
 - (void) localUpdater {
+    /*
+     Thread: Makes periodic calls to update the leaderboard information with the
+     current scores of all players in the round as they continue to compete
+     */
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     while([[rootController gd] localLeaderboard]) {
         if ([DistriviaAPI statusWithData:[rootController gd]]) {
@@ -79,6 +73,7 @@
 }
 
 - (void) updateLeaderboard {
+    // Updates the leaderboard data
     [self setLeadData: [[[rootController gd] leaderboard] keysSortedByValueUsingComparator:^(id obj1, id obj2) {
         if ([obj1 integerValue]  > [obj2 integerValue] ) {
             return (NSComparisonResult)NSOrderedAscending;
@@ -119,11 +114,13 @@
 #pragma mark -
 #pragma mark Table View Data Source Methods
 - (NSInteger) tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
+    // Data Source Method: Returns the number of rows in the given section
     return [self.leadData count];
 }
 
 - (UITableViewCell *) tableView:(UITableView*)tableView 
                                 cellForRowAtIndexPath:(NSIndexPath*)indexPath {
+    // Data Source Method: Returns the cell for the given index path
     static NSString *identifier = @"leadTableIdentifier";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
@@ -150,6 +147,7 @@
 
 - (CGFloat) tableView:(UITableView *)tableView 
                         heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Data Source Method: Returns the height of the cell at the given index path
     return 30;
 }
 

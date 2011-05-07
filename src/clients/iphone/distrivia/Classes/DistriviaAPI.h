@@ -2,7 +2,7 @@
 //  DistriviaAPI.h
 //  distrivia
 //
-//  Created by Brian Gianforcaro on 4/20/11.
+//  Created by Brian BitShift on 4/20/11.
 //  Copyright 2011 Rochester Institute of Technology. All rights reserved.
 //
 

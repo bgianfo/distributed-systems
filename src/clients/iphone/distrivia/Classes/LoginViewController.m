@@ -2,7 +2,7 @@
 //  distriviaViewController.m
 //  distrivia
 //
-//  Created by Sticky Glazer on 4/19/11.
+//  Created by BitShift on 4/19/11.
 //  Copyright 2011 Rochester Institute of Technology. All rights reserved.
 //
 
@@ -18,26 +18,6 @@
 @synthesize passField;
 @synthesize activeIndicate;
 @synthesize rootController;
-
-
-
-/*
-// The designated initializer. Override to perform setup that is required before the view is loaded.
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-*/
-
-/*
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView {
-}
-*/
-
 
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -60,6 +40,8 @@
     [super viewDidLoad];
 }
 
+// Responds to the login button being pressed.
+// Completes UI Actions to log in a player
 - (IBAction) loginPressed:(id)sender {
     NSString *username = [userField text];
     NSString *passwd = [passField text];
@@ -79,6 +61,8 @@
     }
 }
 
+// Responds to the register button being pressed.
+// Completes UI Actions to register a player
 - (IBAction) registerPressed:(id)sender {
     NSString *username = [userField text];
     NSString *passwd = [passField text];
@@ -98,16 +82,19 @@
     }
 }
 
+// Releases the keyboard and logs in the user when 'DONE' is pressed
 - (IBAction) textFieldDoneEditing:(id)sender {
     [self loginPressed:sender];
     [sender resignFirstResponder];
 }
 
+// Hides the keyboard
 - (IBAction) backgroundTap:(id)sender {
     [userField resignFirstResponder];
     [passField resignFirstResponder];
 }
 
+// Thread: Calls login on network and responds to the main thread accordingly
 - (void) loginWithParameters:(NSArray*)parameters {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     NSString *username = [parameters objectAtIndex:0];
@@ -120,6 +107,7 @@
     [pool release];
 }
 
+// Thread: Calls register on network and responds to the main thread accordingly
 - (void) registerWithParameters:(NSArray *)parameters {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     NSString *username = [parameters objectAtIndex:0];
@@ -132,6 +120,7 @@
     [pool release];
 }
 
+// Prepares the UI for switching to the Join View
 - (void) startJoin {
     [activeIndicate stopAnimating];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -139,6 +128,7 @@
     [rootController switchToView:[rootController JOIN]];
 }
 
+// Displays an Alert that the login failed
 - (void) loginFailed {
     [activeIndicate stopAnimating];
     [registerBut setEnabled:YES];
@@ -151,6 +141,7 @@
     [e release];
 }
 
+// Displays an Alert that the registration failed
 - (void) registerFailed {
     [activeIndicate stopAnimating];
     [registerBut setEnabled:YES];

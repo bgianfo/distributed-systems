@@ -2,7 +2,7 @@
 //  Question.h
 //  distrivia
 //
-//  Created by Sticky Glazer on 5/1/11.
+//  Created by BitShift on 5/1/11.
 //  Copyright 2011 Rochester Institute of Technology. All rights reserved.
 //
 

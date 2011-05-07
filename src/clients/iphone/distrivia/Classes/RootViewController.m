@@ -2,7 +2,7 @@
 //  RootViewController.m
 //  distrivia
 //
-//  Created by Sticky Glazer on 4/25/11.
+//  Created by BitShift on 4/25/11.
 //  Copyright 2011 Rochester Institute of Technology. All rights reserved.
 //
 
@@ -25,28 +25,11 @@
 @synthesize LEADERBOARD;
 @synthesize gd;
 
-// The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
-/*
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization.
-    }
-    return self;
-}
-*/
-
-/*
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView {
-}
-*/
-
-
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     gd = [[GameData alloc] init];
     
+    // Setup references to each view so they can be loaded quickly in and out
     LoginViewController *lCont = [[LoginViewController alloc] initWithNibName:LOGIN bundle:nil];
     JoinViewController *jCont = [[JoinViewController alloc] initWithNibName:JOIN bundle:nil];
     RoundViewController *rCont = [[RoundViewController alloc] initWithNibName:ROUND bundle:nil];
@@ -72,14 +55,6 @@
     self.LEADERBOARD = @"LeaderboardView";
 }
 
-/*
-// Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations.
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-*/
-
 // Switches the view shown to the user with a flip from right animation
 - (void)switchToView:(NSString*)v {
     [UIView beginAnimations:@"View Flip" context:nil];
@@ -87,9 +62,7 @@
     [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
     [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight 
                            forView:self.view cache:YES];
-    if (v == LOGIN) {
-        
-    } else if (v == JOIN) {
+    if (v == JOIN) {
         if (self.loginView.view.superview != nil) {
             [joinView viewWillAppear:YES];
             [loginView viewWillDisappear:YES];

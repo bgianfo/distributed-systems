@@ -2,7 +2,7 @@
 //  JoinView.m
 //  distrivia
 //
-//  Created by Sticky Glazer on 4/19/11.
+//  Created by BitShift on 4/19/11.
 //  Copyright 2011 Rochester Institute of Technology. All rights reserved.
 //
 
@@ -25,18 +25,6 @@
 @synthesize activeIndicate;
 @synthesize rootController;
 
-// The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
-/*
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization.
-    }
-    return self;
-}
-*/
-
-
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     UIImage *buttonImageNormal = [UIImage imageNamed:@"whiteButton.png"];
@@ -57,19 +45,23 @@
     [super viewDidLoad];
 }
 
+
 - (IBAction) viewLeaderboardPressed:(id)sender {
+    // Prepares the UI for loading the Global Leaderboard
     [self toggleButtons];
     [activeIndicate startAnimating];
     [NSThread detachNewThreadSelector:@selector(leaderboard) toTarget:self withObject:nil];
 }
 
 - (IBAction)joinPublicPressed:(id)sender {
+    // Prepares the UI for joining a public game
     [activeIndicate startAnimating];
     [self toggleButtons];
     [NSThread detachNewThreadSelector:@selector(joinPublic) toTarget:self withObject:nil];
 }
 
 - (IBAction) joinPrivatePressed:(id)sender {
+    // Prepares the UI for joining a private game
     NSString *gameName = [nameField text];
     NSString *gamePass = [passField text];
     if ([gameName length] == 0 || [gamePass length] == 0) {
@@ -88,6 +80,7 @@
 }
 
 - (IBAction) createPrivatePressed:(id)sender {
+    // Prepares the UI for creating a private game
     if ([[priCreateBut titleForState:UIControlStateNormal] isEqualToString:@"Start" ]) {
         [activeIndicate startAnimating];
         [self toggleButtons];
@@ -113,16 +106,23 @@
 }
 
 - (IBAction) textFieldDoneEditing:(id)sender {
+    // Hides keyboard when 'DONE' is pressed
     [sender resignFirstResponder];
 }
 
 - (IBAction) backgroundTap:(id)sender {
+    // Hides the keyboard on background tap
     [nameField resignFirstResponder];
     [passField resignFirstResponder];
     [numField resignFirstResponder];
 }
 
+
 - (void) joinPrivateWithParameters:(NSArray*)parameters {
+    /* 
+     Thread: Calls the join private game to the network 
+     and responds accordingly
+     */
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     NSString *gameName = [parameters objectAtIndex:0];
     NSString *gamePass = [parameters objectAtIndex:1];
@@ -142,6 +142,7 @@
 }
 
 - (void) joinPrivateFailed {
+    // Displays an alert that joining the private game failed
     [self toggleButtons];
     [activeIndicate stopAnimating];
     UIAlertView *e = [[UIAlertView alloc] initWithTitle: @"Join Private failed" 
@@ -153,6 +154,10 @@
 }
 
 - (void) createPrivateWithParameters:(NSArray*)parameters {
+    /*
+     Thread: Calls the create private game to the network and
+     responds accordingly
+     */
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     NSString *gameName = [parameters objectAtIndex:0];
     NSString *gamePass = [parameters objectAtIndex:1];
@@ -167,6 +172,7 @@
 }
 
 - (void) createPrivateFailed {
+    // Displays an alert that creating a private game failed
     [self toggleButtons];
     [activeIndicate stopAnimating];
     UIAlertView *e = [[UIAlertView alloc] initWithTitle: @"Create Private failed" 
@@ -178,12 +184,17 @@
 }
 
 - (void) privateCreated {
+    // Prepares the UI for having created a private game
     [activeIndicate stopAnimating];
     [priCreateBut setTitle:@"Start" forState:UIControlStateNormal];
     [priCreateBut setEnabled:YES];
 }
 
 - (void) startPrivate {
+    /*
+     Thread: Calls the start private game to the network and
+     responds accordingly
+     */
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     if ([DistriviaAPI startPrivateWithData:[rootController gd]]) {
         while (YES) {
@@ -201,6 +212,7 @@
 }
 
 - (void) startPrivateFailed {
+    // Displays an alert notifying that starting the private game failed
     [self toggleButtons];
     [activeIndicate stopAnimating];
     UIAlertView *e = [[UIAlertView alloc] initWithTitle: @"Start Private failed" 
@@ -212,6 +224,10 @@
 }
 
 - (void) leaderboard {
+    /*
+     Thread: Calls to retrieve global leaderboard information to the network
+     and responds accordingly
+     */
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     if ([DistriviaAPI globalLeaderboardWithData:[rootController gd]]) {
         [self performSelectorOnMainThread:@selector(startLeaderboard) withObject:nil waitUntilDone:NO];
@@ -222,6 +238,10 @@
 }
 
 - (void) joinPublic {
+    /*
+     Thread: Calls the join public game to the network and
+     responds accordingly
+     */
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     if ([DistriviaAPI joinPublicWithData:[rootController gd]]) {
         while (YES) {
@@ -239,18 +259,21 @@
 }
 
 - (void) startRound {
+    // Prepares the UI to switch to the Round View
     [activeIndicate stopAnimating];
     [self toggleButtons];
     [rootController switchToView:[rootController ROUND]];
 }
 
 - (void) startLeaderboard {
+    // Prepares the UI to switch to the Leaderboard View
     [activeIndicate stopAnimating];
     [self toggleButtons];
     [rootController switchToView:[rootController LEADERBOARD]];
 }
 
 - (void) joinPublicFailed {
+    // Displays an alert notifying that joining a public game failed
     [self toggleButtons];
     [activeIndicate stopAnimating];
     UIAlertView *e = [[UIAlertView alloc] initWithTitle: @"Join Public failed" 
@@ -262,6 +285,7 @@
 }
 
 - (void) leaderboardFailed {
+    // Displays an alert notifying that loading the global leaderboard failed
     [self toggleButtons];
     [activeIndicate stopAnimating];
     UIAlertView *e = [[UIAlertView alloc] initWithTitle: @"Global Leaderboard Failed" 
@@ -273,6 +297,7 @@
 }
     
 - (void) toggleButtons {
+    // Toggles the buttons on the view. Disables if enabled and so forth
     [priJoinBut setEnabled:![priJoinBut isEnabled]];
     [priCreateBut setEnabled:![priCreateBut isEnabled]];
     [pubBut setEnabled:![pubBut isEnabled]];

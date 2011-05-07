@@ -2,7 +2,7 @@
 //  DistriviaAPI.m
 //  distrivia
 //
-//  Created by Brian Gianforcaro on 4/20/11.
+//  Created by BitShift on 4/20/11.
 //  Copyright 2011 Rochester Institute of Technology. All rights reserved.
 //
 
@@ -13,10 +13,13 @@
 
 @implementation DistriviaAPI
 
+// Constants used to communicate to server
 const static NSString* API_URL = @"https://distrivia.lame.ws";
 const static NSString* API_ERROR=@"err";
 
 // Logs in to the server with given username/password
+// Sets the authToken and Username in given GameData
+// Returns YES if logged in, NO otherwise
 + (BOOL) loginWithData:(GameData*)gd user:(NSString*)userName pass:(NSString*)pass { 
     NSString* fragment = [NSString stringWithFormat: @"/login/%@", userName];
     NSString* post = [NSString stringWithFormat:@"password=%@", pass];
@@ -36,7 +39,6 @@ const static NSString* API_ERROR=@"err";
         if ( textRange.location == NSNotFound ) {
             [gd setToken: token];
             [gd setUsername:userName];
-            //NSLog(@"Successful response: %@", [gd getToken]);
             success = true;
         } else {
             NSLog(@"Login Error");
@@ -47,7 +49,10 @@ const static NSString* API_ERROR=@"err";
     return success;
 }
 
-// Registers the given username/password with the server
+// Registers the given username/password with the server, then
+// logs them into the server automatically.
+// Sets the authToken and username in the given GameData object
+// Returns YES if registered/logged in, NO otherwise
 + (BOOL) registerWithData:(GameData*)gd user:(NSString*)userName pass:(NSString*)pass {
     NSString* fragment = [NSString stringWithFormat: @"/register/%@", userName];
     NSString* post = [NSString stringWithFormat:@"password=%@", pass];
@@ -65,7 +70,6 @@ const static NSString* API_ERROR=@"err";
         NSRange textRange;
         textRange =[API_ERROR rangeOfString: token];
         if ( textRange.location == NSNotFound ) {
-            //NSLog(@"Successful response: %@", token);
             success = true;
         } else {
             NSLog(@"Register Error");
@@ -89,7 +93,6 @@ const static NSString* API_ERROR=@"err";
             textRange =[API_ERROR rangeOfString: token];
             if ( textRange.location == NSNotFound ) {
                 [gd setToken: token];
-                //NSLog(@"Successful response: %@", [gd getToken]);
                 success = true;
             } else {
                 NSLog(@"Login Error");
@@ -102,8 +105,8 @@ const static NSString* API_ERROR=@"err";
 }
 
 // Contacts Server to join a public game
-// Inputs: gd
-// Return boolean
+// Sets the gameId in the given GameData object
+// Returns YES if joined, NO otherwise
 + (BOOL) joinPublicWithData:(GameData*)gd {
     NSString* fragment = @"/public/join";
     NSString* post = [NSString stringWithFormat:@"authToken=%@&user=%@", [gd getToken], [gd username]];
@@ -137,6 +140,9 @@ const static NSString* API_ERROR=@"err";
 
 
 // Contacts the server to get the status of the given game
+// Sets the status, local leaderboard, and question (if provided)
+// in the given GameData object
+// Returns YES if it could retrieve status, NO otherwise
 + (BOOL) statusWithData:(GameData*)gd {
     NSString* fragment = [NSString stringWithFormat: @"/game/%@", [gd gameId]];
     NSString* post = [NSString stringWithFormat:@"authToken=%@", [gd getToken]];
@@ -174,6 +180,9 @@ const static NSString* API_ERROR=@"err";
 }
 
 // Commits user's answer to the server and gets the next information
+// Sets the status, question, score, and local leaderboard in the
+// given GameData object.
+// Returns YES if answered successfully, NO otherwise
 + (BOOL) answerWithData:(GameData*)gd answer:(NSString*)answer timeTaken:(int)time {
     NSString* fragment = [NSString stringWithFormat: @"/game/%@/question/%@", [gd gameId], [[gd question] qid]];
     NSString* post = [NSString stringWithFormat:@"authToken=%@&user=%@&time=%d&a=%@", [gd getToken], 
@@ -215,7 +224,9 @@ const static NSString* API_ERROR=@"err";
 }
 
 
-
+// Retrieves the global leaderboard from the server
+// Sets the leaderboard in the given GameData object
+// Returns YES if it could retrieve the leaderboard, NO otherwise
 + (BOOL) globalLeaderboardWithData:(GameData*)gd {
     NSString* fragment = [NSString stringWithFormat: @"/leaderboard/0", [gd getToken]];
     NSString* post = [NSString stringWithFormat:@"authToken=%@", [gd getToken]];
@@ -246,7 +257,9 @@ const static NSString* API_ERROR=@"err";
     return success;
 }
 
-
+// Joins the given private game with the given password
+// Sets the gameId in the given GameData object
+// Returns YES if successfully joined, NO otherwise
 + (BOOL) joinPrivateWithData:(GameData*)gd gameName:(NSString*)gamename passwd:(NSString*)pass {
     NSString* fragment = @"/private/join";
     NSString* post = [NSString stringWithFormat:@"authToken=%@&password=%@&user=%@&name=%@", 
@@ -279,7 +292,9 @@ const static NSString* API_ERROR=@"err";
     return success;
 }
 
-
+// Creates a private game on the server with the given gamename and pass
+// Sets the gameId in the given GameData object
+// Returns YES if successfully created, NO otherwise
 + (BOOL) createPrivateWithData:(GameData*)gd gameName:(NSString*)gamename passwd:(NSString*)pass numQuestions:(NSString*)numQ {
     NSString* fragment = [NSString stringWithFormat: @"/private/create/%@", numQ];
     NSString* post = [NSString stringWithFormat:@"authToken=%@&name=%@&password=%@&user=%@", 
@@ -312,6 +327,8 @@ const static NSString* API_ERROR=@"err";
     return success;
 }
 
+// Starts the private game with the gameId in the provided GameData object
+// Returns YES if successfully started, NO otherwise
 + (BOOL) startPrivateWithData:(GameData*)gd {
     NSString* fragment = [NSString stringWithFormat: @"/private/start/%@", [gd gameId]];
     NSString* post = [NSString stringWithFormat:@"authToken=%@", [gd getToken]];
@@ -340,6 +357,8 @@ const static NSString* API_ERROR=@"err";
     return success;
 }
 
+// Creates the request object from the given urlFragment and post information
+// Returns the Request object
 + (NSMutableURLRequest*) createPost:(NSString*)post urlFrag:(NSString*)urlFragment {
 
     // Clear cache so we don't try to get the same response.

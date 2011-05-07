@@ -2,7 +2,7 @@
 //  RootViewController.h
 //  distrivia
 //
-//  Created by Sticky Glazer on 4/25/11.
+//  Created by BitShifton 4/25/11.
 //  Copyright 2011 Rochester Institute of Technology. All rights reserved.
 //
 
