@@ -30,7 +30,6 @@
 
 \begin{document}
 
-%\title{ Distributed Systems: Project Description }
 \title{ Distrivia: A Distributed Trivia Game }
 \numberofauthors{3}
 \author{
@@ -50,7 +49,11 @@ Samuel Milton \\
 \maketitle
 
 \begin{abstract}
-In this paper we will discuss our decisions and detail our discoveries throughout designing a distributed trivia system.
+In this paper we will discuss our decisions and detail our discoveries throughout designing a distributed trivia system, Distrivia. 
+This paper will outline our motivations behind the project, the architecture, design, implementation, lessons learned, and future work for the distributed trivia system. 
+The distrivia system was implemented on 3 platforms (web, Android, and iPhone) to provide multiple ways for players to stay connected. 
+It also utilizes advanced distributed systems algorithms and technology such as Amazon's EC2, Riak, SSL communication, round robin DNS, and NGINX load sharing. 
+All of these services provide for high availability and secure play.
 \end{abstract}
 
 \section{Project Motivation}
@@ -60,6 +63,7 @@ This form of trivia is a multiplayer social game.
 It takes advantage of a number of different platforms so that users can feel free to play on any device they prefer.
 The web client ensures that almost any device will be able to connect and play.
 Designing it on mobile platforms allows us to take advtange of the specific platform and lets people easily play on the go.
+
 \section{Architecture}
 \subsection{Servers}
 For our servers, we are using Amazon EC2 micro instances.
@@ -75,6 +79,7 @@ Two of those are set up as hot spares in case of a failure.
 Currently, we are using the NGINX \cite{nginx} in a reverse proxy configuration for our load sharing needs.
 For this project there are two load balancers which are running on personal desktop computers that have reliable internet connections.
 These are set up with round robin DNS entries, courtesy of ZoneEdit.com, a free DNS management service.
+
 \section{Design}
 \begin{figure}[h!]
   \centering
@@ -125,15 +130,24 @@ Currently we are using the NGINX \cite{nginx} in a reverse proxy configuration
 for our load sharing needs.
 
 \subsection{Clients}
-Our focus for clients has been on a web-based client and an Android application.
-Both clients have most of the workings completed. The web-based client will
-be run from desktop platforms and laptop platforms. The Android client will run
-on any Android phone running OS 2.1 or higher and does not use any unique services that require specific
-hardware. Both clients are nearly fully-functional. They can, currently, login/register
-players, view leaderboards, join public games, and compete in public games. We are actively adding features to both clients, daily.
-We have also started development on an iPhone application for distrivia. This client does not yet communicate with the server, but 
-it does implement nearly all the views seen in the other clients. We have been setting up the network communication for the iPhone
-platform as well.
+Distrivia is implemented on three distinct platforms (web, Android, and iPhone).
+The clients were designed to run without specific equipment or relying on external applications. 
+The clients can be run, once installed, from desktop computers, laptops, Androids, and iPhones out of box.
+The web client can be run from any browser that supports CSS, which is true of all modern web browsers.
+The web client can be run from any operating system that supports web browsing and has a connection to the internet (this includes mobile devices). 
+This gives users of blackberry phones and palms the ability to play, even though there is not a native app for them.
+The Android client will run on any Android platform running OS 2.1 or higher and does not use any unique services that require specific hardware.
+Likewise, the iPhone client will run on any iPhone/iPod touch platform running any iOS without the need for specific hardware.
+The Android and iPhone clients just require an active data connection either by cell signal or wireless internet.
+
+All of our clients were designed similarly.
+We tried to keep the layout as simple as possible, for the user to be able to easily navigate the game.
+The mobile clients are the most similar due to their limited screen real estate.
+This was important in allowing players to play on multiple platforms while using a layout they were used to.
+As mobile gaming continues to grow, our approach was to promote the play of Distrivia on the go. 
+Each round can be quickly played within the course of a few minutes, which makes it ideal for playing on mobile devices.
+Distrivia allows users to connect with players on any other device which gives friends the opportunity to play together without forcing them to conform to one platform.
+
 
 \subsection{Messages}
 We are currently using the https protocol for our messages. This provides a secure
@@ -149,9 +163,17 @@ the server is instantly usable, however for the Android client we have to parse 
 into a native Java object. The Android SDK provides libraries to do this, located in the
 org.json \cite{orgjson} package name space.
 
-\section{Design}
-
 \section{Implementation}
+\subsection{Network}
+
+\subsection{Clients}
+% Show images of implemented clients
+Creating native apps for the Android OS and iPhone gives the users the best performance on those devices along with the native look and feel of the device for optimal design.
+\subsubsection{Web}
+
+\subsubsection{Android}
+
+\subsubsection{iPhone}
 
 \section{Lessons Learned}
 
