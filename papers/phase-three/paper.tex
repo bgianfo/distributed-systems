@@ -76,9 +76,8 @@ The Python web app utilizes the Flask web framework and we serve the application
 We have five servers all running our server application and hosting the databases.
 Two of those are set up as hot spares in case of a failure.
 
-Currently, we are using the NGINX \cite{nginx} in a reverse proxy configuration for our load sharing needs.
-For this project there are two load balancers which are running on personal desktop computers that have reliable internet connections.
-These are set up with round robin DNS entries, courtesy of ZoneEdit.com, a free DNS management service.
+Currently, we are using the NGINX \cite{nginx} in a reverse proxy configuration for our load sharing needs. This service can be used on any machine with an active internet connection and a constantly reachable IP address or DNS lookup.
+
 
 \section{Design}
 \begin{figure}[h!]
@@ -115,19 +114,13 @@ The server application supports the following features:
 \item Global leaderboard
 \end{itemized}
 
-\subsection{Traffic}
-We have two load sharers set up. Both sharers are currently configured to
-divide the requests among the three active servers and, if need be, the two hot spares. The duplicate sharers allow
-for a load distributer to go down and we would still be able to serve requests
-to the servers. These load sharers are selected by the clients using round
-robin DNS where distrivia.lame.ws will select either load distributer that is
-up at random. If a load distributer should go down or become unreachable the
-DNS service will no longer serve that hosts DNS record until it is again
-reachable. This provides us with stability for accessing the servers. The
-load sharers are set up to attempt to connect to a server twice in a one second
-period before deeming it dead and removing it from its list of servers to direct clients towards.
-Currently we are using the NGINX \cite{nginx} in a reverse proxy configuration
-for our load sharing needs.
+\subsection{Load Sharers}
+The load sharers act as an agent between the clients and the servers to ensure reliable, fast communication.
+Messages are relayed through the load sharers from the client.
+Once received, the load sharer will pass the message onto any active server or, if there are none active, it will deliver the message to a hot spare server.
+This is an important part of the distributed system in keeping network traffic down on the the active servers so they may serve requests faster and for making sure the server attempting to service the client's request is active and able to process the message.
+They attempt to connect to a server twice in a one second period before deeming it dead and removing it from its list of servers to direct clients towards.
+
 
 \subsection{Clients}
 Distrivia is implemented on three distinct platforms (web, Android, and iPhone).
@@ -148,23 +141,34 @@ As mobile gaming continues to grow, our approach was to promote the play of Dist
 Each round can be quickly played within the course of a few minutes, which makes it ideal for playing on mobile devices.
 Distrivia allows users to connect with players on any other device which gives friends the opportunity to play together without forcing them to conform to one platform.
 
-
 \subsection{Messages}
-We are currently using the https protocol for our messages. This provides a secure
-and usable messaging system that we have designed our client and server APIs to use.
-The actual messages are sent and received in two way's. Initially a user session key is
-generated using the UUID\cite{uuid} algorithm and returned to the user on successful
-authentication. This session key is then passed back to the server with every in coming
-message. Messages are sent to the server using POST and GET request methods supported
-by the HTTP protocol. Responses from the server are in the form of JSON \cite{json} objects.
-JSON is a small, easily parseable format, representing objects in a human readable format as
-they would be represented in JavaScript. With the web client the JSON object returned from
-the server is instantly usable, however for the Android client we have to parse the JSON object
-into a native Java object. The Android SDK provides libraries to do this, located in the
+Distrivia uses https protocol for communication. 
+This provides a secure and usable messaging system that both the client and server APIs use.
+The actual messages are sent and received in two ways. 
+Initially a user session key is generated using the UUID\cite{uuid} algorithm and returned to the user on successful authentication. 
+This session key is then passed back to the server with every incoming
+message. 
+Messages are sent to the server using POST and GET request methods supported
+by the HTTP protocol. 
+Responses from the server are in the form of JSON \cite{json} objects.
+JSON is a small, easily-parseable format, representing objects in a human readable format as they would be represented in JavaScript. 
+With the web client the JSON object returned from the server is instantly usable, however for other applications, parsing the JSON object into native objects is necessary. 
+% Maybe should go under implementation?
+The Android SDK provides libraries to do this, located in the
 org.json \cite{orgjson} package name space.
+% Include the package used for iPhone and cite
 
 \section{Implementation}
 \subsection{Network}
+
+
+For this project, we set up two load balancers which are running on personal desktop computers that have reliable internet connections.
+The duplicate sharers allow for a load distributer to go down and we would still be able to serve requests to the servers. 
+% TODO cite ZoneEdit
+These are set up with round robin DNS entries, courtesy of ZoneEdit.com, a free DNS management service.
+These load sharers are selected by the clients where distrivia.lame.ws will select either load distributer that is up at random. 
+If a load distributer should go down or become unreachable the DNS service will no longer serve that hosts DNS record until it is again reachable.
+This provides us with stability for accessing the servers.
 
 \subsection{Clients}
 % Show images of implemented clients
