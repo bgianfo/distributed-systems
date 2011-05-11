@@ -62,21 +62,21 @@ High availability was a major concern for us, as it enables people to compete at
 This form of trivia is a multiplayer social game.
 It takes advantage of a number of different platforms so that users can feel free to play on any device they prefer.
 The web client ensures that almost any device will be able to connect and play.
-Designing it on mobile platforms allows us to take advtange of the specific platform and lets people easily play on the go.
+Designing it on mobile platforms allows us to take advantage of the specific platform and lets people easily play on the go.
 
 \section{Architecture}
 \subsection{Servers}
-For our servers, we are using Amazon EC2 micro instances.
+For our servers, we used Amazon EC2 micro instances.
 These are running x86-64 Amazon Linux.
 They have 8gb of network attached storage and 613mb of memory.
 
 Each server is installed with our custom web app that services our requests.
-Each one is also equipped with an instance of Riak for maintaining our database.
+Each one is also equipped with an instance of Riak \cite{riak} for maintaining our database.
+% TODO cite Flask and Tornado
 The Python web app utilizes the Flask web framework and we serve the application and all files with the Tornado web server, both of which are open source.
-We have five servers all running our server application and hosting the databases.
-Two of those are set up as hot spares in case of a failure.
 
-Currently, we are using the NGINX \cite{nginx} in a reverse proxy configuration for our load sharing needs. This service can be used on any machine with an active internet connection and a constantly reachable IP address or DNS lookup.
+For load sharing, we used NGINX \cite{nginx} in a reverse proxy configuration.
+This service can be used on any machine with an active internet connection and a constantly reachable IP address or DNS lookup.
 
 
 \section{Design}
@@ -86,21 +86,20 @@ Currently, we are using the NGINX \cite{nginx} in a reverse proxy configuration 
    \caption{High level overview of the system}
  \end{figure}
 \subsection{Servers}
-For this project we deployed six servers running on Amazon's Elastic Compute Cloud \cite{aec}.
-One server is being used as a web-monitor host running Monit\cite{monit}.
-We were able to login to the web-monitor to see the status of all our servers, databases, and load sharers.
-This assisted us in managing whether or not the services were running and allowed us to track down any problems, if they arose.
-Each server contains the server application that responds to clients as well as the Riak \cite{riak} databases.
-Riak handles auto-synchronization of the databases between the five servers.
-Note that the hot spares were setup to be part of the database cluster so they have a full copy of the database on hand, however they did not accept any reads or writes directly.
-This allows for them to immediately be ready for read/writes in the event that the original servers are down.
-With this configuration if we were to add a server, we would just need to update Riak and it would sync the databases to any additional servers as well.
+% Should talk about Node Agreement?
+As previously mentioned, each server contains the server application that responds to clients as well as the Riak databases.
+Riak handles auto-synchronization of the databases between any connected servers.
+This allows for data to be transparently transferred and replicated across all server-nodes in the ring.
+Servers can easily be added and removed from the ring by updating Riak.
+When Riak is updated, the current nodes will either start updating any new nodes or stop communicating with any nodes that are no longer in the ring, according to the new update.
 These servers, therefore, all contain the same information.
 If any servers go down, the distributed system would still run fine.
-We could have all servers go down except one and still be reliably handling requests.
+This configuration allows for all servers go down except one and the system would still be reliably handling requests.
 
 \subsection{Server Applications}
+% TODO Finish
 The server application handles requests from the user via the load sharers.
+Interpretation of the client messages and replies are handled by the applications. There is one application per server processing requests and responding via https messages with JSON objects.
 The server application supports the following features:
 \begin{itemized}
 \item Client registration
@@ -120,9 +119,11 @@ Messages are relayed through the load sharers from the client.
 Once received, the load sharer will pass the message onto any active server or, if there are none active, it will deliver the message to a hot spare server.
 This is an important part of the distributed system in keeping network traffic down on the the active servers so they may serve requests faster and for making sure the server attempting to service the client's request is active and able to process the message.
 They attempt to connect to a server twice in a one second period before deeming it dead and removing it from its list of servers to direct clients towards.
+This is important to make sure that any servers that go down do not receive further communication attempts.
 
 
 \subsection{Clients}
+% TODO finish and separate into design/implementation
 Distrivia is implemented on three distinct platforms (web, Android, and iPhone).
 The clients were designed to run without specific equipment or relying on external applications. 
 The clients can be run, once installed, from desktop computers, laptops, Androids, and iPhones out of box.
@@ -160,10 +161,17 @@ org.json \cite{orgjson} package name space.
 
 \section{Implementation}
 \subsection{Network}
+For the implementation of Distriva, we deployed six servers on Amazon's Elastic Compute Cloud \cite{aec} to run the server application and host the databases.
+One server is being used as a web-monitor host running Monit\cite{monit}.
+We were able to login to the web-monitor to see the status of all our servers, databases, and load sharers.
+This assisted us in managing whether or not the services were running and allowed us to track down any problems, if they arose.
+Three of the servers were set up as active, available servers for constant use from querying clients.
+Two of the servers were set up as hot spares, in case of a failure.
+Note that the hot spares were set up to be part of the database cluster so they have a full copy of the database on hand, however they did not accept any reads or writes directly unless the load sharers find that no active servers are responding.
+If this happens, they then start relaying the client messages to the hot spares, which are already set up with the most up-to-date information. 
 
-
-For this project, we set up two load balancers which are running on personal desktop computers that have reliable internet connections.
-The duplicate sharers allow for a load distributer to go down and we would still be able to serve requests to the servers. 
+For this project, we set up two load sharers which are running on personal desktop computers that have reliable internet connections.
+The duplicate sharers allow for a load sharer to go down and we would still be able to serve requests to the servers. 
 % TODO cite ZoneEdit
 These are set up with round robin DNS entries, courtesy of ZoneEdit.com, a free DNS management service.
 These load sharers are selected by the clients where distrivia.lame.ws will select either load distributer that is up at random. 
@@ -171,6 +179,7 @@ If a load distributer should go down or become unreachable the DNS service will 
 This provides us with stability for accessing the servers.
 
 \subsection{Clients}
+% TODO finish and add photos
 % Show images of implemented clients
 Creating native apps for the Android OS and iPhone gives the users the best performance on those devices along with the native look and feel of the device for optimal design.
 \subsubsection{Web}
@@ -180,8 +189,13 @@ Creating native apps for the Android OS and iPhone gives the users the best perf
 \subsubsection{iPhone}
 
 \section{Lessons Learned}
+% TODO finish
 
 \section{Future Work}
+% TODO finish
+% Categories
+% User added Question
+% Blackberry & iPad support
 
 \newpage
 %
