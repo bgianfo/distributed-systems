@@ -30,7 +30,6 @@
 
 \begin{document}
 
-%\title{ Distributed Systems: Project Description }
 \title{ Distrivia: A Distributed Trivia Game }
 \numberofauthors{3}
 \author{
@@ -50,7 +49,11 @@ Samuel Milton \\
 \maketitle
 
 \begin{abstract}
-In this paper we will discuss our decisions and detail our discoveries throughout designing a distributed trivia system.
+In this paper we will discuss our decisions and detail our discoveries throughout designing a distributed trivia system, Distrivia. 
+This paper will outline our motivations behind the project, the architecture, design, implementation, lessons learned, and future work for the distributed trivia system. 
+The distrivia system was implemented on 3 platforms (web, Android, and iPhone) to provide multiple ways for players to stay connected. 
+It also utilizes advanced distributed systems algorithms and technology such as Amazon's EC2, Riak, SSL communication, round robin DNS, and NGINX load sharing. 
+All of these services provide for high availability and secure play.
 \end{abstract}
 
 \section{Project Motivation}
@@ -59,22 +62,23 @@ High availability was a major concern for us, as it enables people to compete at
 This form of trivia is a multiplayer social game.
 It takes advantage of a number of different platforms so that users can feel free to play on any device they prefer.
 The web client ensures that almost any device will be able to connect and play.
-Designing it on mobile platforms allows us to take advtange of the specific platform and lets people easily play on the go.
+Designing it on mobile platforms allows us to take advantage of the specific platform and lets people easily play on the go.
+
 \section{Architecture}
 \subsection{Servers}
-For our servers, we are using Amazon EC2 micro instances.
+For our servers, we used Amazon EC2 micro instances.
 These are running x86-64 Amazon Linux.
 They have 8gb of network attached storage and 613mb of memory.
 
 Each server is installed with our custom web app that services our requests.
-Each one is also equipped with an instance of Riak for maintaining our database.
+Each one is also equipped with an instance of Riak \cite{riak} for maintaining our database.
+% TODO cite Flask and Tornado
 The Python web app utilizes the Flask web framework and we serve the application and all files with the Tornado web server, both of which are open source.
-We have five servers all running our server application and hosting the databases.
-Two of those are set up as hot spares in case of a failure.
 
-Currently, we are using the NGINX \cite{nginx} in a reverse proxy configuration for our load sharing needs.
-For this project there are two load balancers which are running on personal desktop computers that have reliable internet connections.
-These are set up with round robin DNS entries, courtesy of ZoneEdit.com, a free DNS management service.
+For load sharing, we used NGINX \cite{nginx} in a reverse proxy configuration.
+This service can be used on any machine with an active internet connection and a constantly reachable IP address or DNS lookup.
+
+
 \section{Design}
 \begin{figure}[h!]
   \centering
@@ -82,21 +86,20 @@ These are set up with round robin DNS entries, courtesy of ZoneEdit.com, a free 
    \caption{High level overview of the system}
  \end{figure}
 \subsection{Servers}
-For this project we deployed six servers running on Amazon's Elastic Compute Cloud \cite{aec}.
-One server is being used as a web-monitor host running Monit\cite{monit}.
-We were able to login to the web-monitor to see the status of all our servers, databases, and load sharers.
-This assisted us in managing whether or not the services were running and allowed us to track down any problems, if they arose.
-Each server contains the server application that responds to clients as well as the Riak \cite{riak} databases.
-Riak handles auto-synchronization of the databases between the five servers.
-Note that the hot spares were setup to be part of the database cluster so they have a full copy of the database on hand, however they did not accept any reads or writes directly.
-This allows for them to immediately be ready for read/writes in the event that the original servers are down.
-With this configuration if we were to add a server, we would just need to update Riak and it would sync the databases to any additional servers as well.
+% Should talk about Node Agreement?
+As previously mentioned, each server contains the server application that responds to clients as well as the Riak databases.
+Riak handles auto-synchronization of the databases between any connected servers.
+This allows for data to be transparently transferred and replicated across all server-nodes in the ring.
+Servers can easily be added and removed from the ring by updating Riak.
+When Riak is updated, the current nodes will either start updating any new nodes or stop communicating with any nodes that are no longer in the ring, according to the new update.
 These servers, therefore, all contain the same information.
 If any servers go down, the distributed system would still run fine.
-We could have all servers go down except one and still be reliably handling requests.
+This configuration allows for all servers go down except one and the system would still be reliably handling requests.
 
 \subsection{Server Applications}
+% TODO Finish
 The server application handles requests from the user via the load sharers.
+Interpretation of the client messages and replies are handled by the applications. There is one application per server processing requests and responding via https messages with JSON objects.
 The server application supports the following features:
 \begin{itemized}
 \item Client registration
@@ -110,52 +113,89 @@ The server application supports the following features:
 \item Global leaderboard
 \end{itemized}
 
-\subsection{Traffic}
-We have two load sharers set up. Both sharers are currently configured to
-divide the requests among the three active servers and, if need be, the two hot spares. The duplicate sharers allow
-for a load distributer to go down and we would still be able to serve requests
-to the servers. These load sharers are selected by the clients using round
-robin DNS where distrivia.lame.ws will select either load distributer that is
-up at random. If a load distributer should go down or become unreachable the
-DNS service will no longer serve that hosts DNS record until it is again
-reachable. This provides us with stability for accessing the servers. The
-load sharers are set up to attempt to connect to a server twice in a one second
-period before deeming it dead and removing it from its list of servers to direct clients towards.
-Currently we are using the NGINX \cite{nginx} in a reverse proxy configuration
-for our load sharing needs.
+\subsection{Load Sharers}
+The load sharers act as an agent between the clients and the servers to ensure reliable, fast communication.
+Messages are relayed through the load sharers from the client.
+Once received, the load sharer will pass the message onto any active server or, if there are none active, it will deliver the message to a hot spare server.
+This is an important part of the distributed system in keeping network traffic down on the the active servers so they may serve requests faster and for making sure the server attempting to service the client's request is active and able to process the message.
+They attempt to connect to a server twice in a one second period before deeming it dead and removing it from its list of servers to direct clients towards.
+This is important to make sure that any servers that go down do not receive further communication attempts.
+
 
 \subsection{Clients}
-Our focus for clients has been on a web-based client and an Android application.
-Both clients have most of the workings completed. The web-based client will
-be run from desktop platforms and laptop platforms. The Android client will run
-on any Android phone running OS 2.1 or higher and does not use any unique services that require specific
-hardware. Both clients are nearly fully-functional. They can, currently, login/register
-players, view leaderboards, join public games, and compete in public games. We are actively adding features to both clients, daily.
-We have also started development on an iPhone application for distrivia. This client does not yet communicate with the server, but 
-it does implement nearly all the views seen in the other clients. We have been setting up the network communication for the iPhone
-platform as well.
+% TODO finish and separate into design/implementation
+Distrivia is implemented on three distinct platforms (web, Android, and iPhone).
+The clients were designed to run without specific equipment or relying on external applications. 
+The clients can be run, once installed, from desktop computers, laptops, Androids, and iPhones out of box.
+The web client can be run from any browser that supports CSS, which is true of all modern web browsers.
+The web client can be run from any operating system that supports web browsing and has a connection to the internet (this includes mobile devices). 
+This gives users of blackberry phones and palms the ability to play, even though there is not a native app for them.
+The Android client will run on any Android platform running OS 2.1 or higher and does not use any unique services that require specific hardware.
+Likewise, the iPhone client will run on any iPhone/iPod touch platform running any iOS without the need for specific hardware.
+The Android and iPhone clients just require an active data connection either by cell signal or wireless internet.
+
+All of our clients were designed similarly.
+We tried to keep the layout as simple as possible, for the user to be able to easily navigate the game.
+The mobile clients are the most similar due to their limited screen real estate.
+This was important in allowing players to play on multiple platforms while using a layout they were used to.
+As mobile gaming continues to grow, our approach was to promote the play of Distrivia on the go. 
+Each round can be quickly played within the course of a few minutes, which makes it ideal for playing on mobile devices.
+Distrivia allows users to connect with players on any other device which gives friends the opportunity to play together without forcing them to conform to one platform.
 
 \subsection{Messages}
-We are currently using the https protocol for our messages. This provides a secure
-and usable messaging system that we have designed our client and server APIs to use.
-The actual messages are sent and received in two way's. Initially a user session key is
-generated using the UUID\cite{uuid} algorithm and returned to the user on successful
-authentication. This session key is then passed back to the server with every in coming
-message. Messages are sent to the server using POST and GET request methods supported
-by the HTTP protocol. Responses from the server are in the form of JSON \cite{json} objects.
-JSON is a small, easily parseable format, representing objects in a human readable format as
-they would be represented in JavaScript. With the web client the JSON object returned from
-the server is instantly usable, however for the Android client we have to parse the JSON object
-into a native Java object. The Android SDK provides libraries to do this, located in the
+Distrivia uses https protocol for communication. 
+This provides a secure and usable messaging system that both the client and server APIs use.
+The actual messages are sent and received in two ways. 
+Initially a user session key is generated using the UUID\cite{uuid} algorithm and returned to the user on successful authentication. 
+This session key is then passed back to the server with every incoming
+message. 
+Messages are sent to the server using POST and GET request methods supported
+by the HTTP protocol. 
+Responses from the server are in the form of JSON \cite{json} objects.
+JSON is a small, easily-parseable format, representing objects in a human readable format as they would be represented in JavaScript. 
+With the web client the JSON object returned from the server is instantly usable, however for other applications, parsing the JSON object into native objects is necessary. 
+% Maybe should go under implementation?
+The Android SDK provides libraries to do this, located in the
 org.json \cite{orgjson} package name space.
-
-\section{Design}
+% Include the package used for iPhone and cite
 
 \section{Implementation}
+\subsection{Network}
+For the implementation of Distriva, we deployed six servers on Amazon's Elastic Compute Cloud \cite{aec} to run the server application and host the databases.
+One server is being used as a web-monitor host running Monit\cite{monit}.
+We were able to login to the web-monitor to see the status of all our servers, databases, and load sharers.
+This assisted us in managing whether or not the services were running and allowed us to track down any problems, if they arose.
+Three of the servers were set up as active, available servers for constant use from querying clients.
+Two of the servers were set up as hot spares, in case of a failure.
+Note that the hot spares were set up to be part of the database cluster so they have a full copy of the database on hand, however they did not accept any reads or writes directly unless the load sharers find that no active servers are responding.
+If this happens, they then start relaying the client messages to the hot spares, which are already set up with the most up-to-date information. 
+
+For this project, we set up two load sharers which are running on personal desktop computers that have reliable internet connections.
+The duplicate sharers allow for a load sharer to go down and we would still be able to serve requests to the servers. 
+% TODO cite ZoneEdit
+These are set up with round robin DNS entries, courtesy of ZoneEdit.com, a free DNS management service.
+These load sharers are selected by the clients where distrivia.lame.ws will select either load distributer that is up at random. 
+If a load distributer should go down or become unreachable the DNS service will no longer serve that hosts DNS record until it is again reachable.
+This provides us with stability for accessing the servers.
+
+\subsection{Clients}
+% TODO finish and add photos
+% Show images of implemented clients
+Creating native apps for the Android OS and iPhone gives the users the best performance on those devices along with the native look and feel of the device for optimal design.
+\subsubsection{Web}
+
+\subsubsection{Android}
+
+\subsubsection{iPhone}
 
 \section{Lessons Learned}
+% TODO finish
 
 \section{Future Work}
+% TODO finish
+% Categories
+% User added Question
+% Blackberry & iPad support
 
 \newpage
 %
