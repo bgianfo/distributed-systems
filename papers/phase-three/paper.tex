@@ -117,7 +117,7 @@ The server application supports the following features:
 The load sharers act as an agent between the clients and the servers to ensure reliable, fast communication.
 Messages are relayed through the load sharers from the client.
 Once received, the load sharer will pass the message onto any active server or, if there are none active, it will deliver the message to a hot spare server.
-This is an important part of the distributed system in keeping network traffic down on the the active servers so they may serve requests faster and for making sure the server attempting to service the client's request is active and able to process the message.
+This is an important part of the distributed system in keeping network traffic down on the active servers so they may serve requests faster and for making sure the server attempting to service the client's request is active and able to process the message.
 They attempt to connect to a server twice in a one second period before deeming it dead and removing it from its list of servers to direct clients towards.
 This is important to make sure that any servers that go down do not receive further communication attempts.
 
