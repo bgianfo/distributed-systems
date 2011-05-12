@@ -18,11 +18,11 @@ open:
 	$(VIEWER) paper.pdf
 
 build-paper: paper.tex
-	$(LATEX)  paper
-	$(BIBTEX) paper
-	$(BIBTEX) paper
-	$(LATEX)  paper
-	$(LATEX)  paper
+	@$(LATEX)  paper
+	@$(BIBTEX) paper
+	@$(BIBTEX) paper
+	@$(LATEX)  paper
+	@$(LATEX)  paper
 
 paper: build-paper open
 
