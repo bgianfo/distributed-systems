@@ -286,7 +286,7 @@ function Next( ref ){
          }else{
             errMsg( "Could not load next question" );
          }
-
+         unload();
          enable( func, ref );
       }
    };
@@ -299,6 +299,7 @@ function Next( ref ){
       xr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
       xr.send(param);
       errClear();
+      loading();
    }else{
       enable( func, ref );
       errMsg( "Please select an answer." );
@@ -442,6 +443,7 @@ function Start(ref){
       if( xr.readyState == 4 && xml_n == xr_n ){
          if( xr.status == 200 ){
             CheckStatus(false);
+            unload();
          }
       }
    };
@@ -452,6 +454,8 @@ function Start(ref){
    xr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
    xr.send(param);
 
+   loading();
+
    return false;
 }
 
@@ -459,7 +463,7 @@ function Start(ref){
  * Creates a private game
  */
 function Make(ref){
-   var func = "start";
+   var func = "make";
    if( disabled(func, ref) ){
       return false;
    }else{
@@ -468,9 +472,6 @@ function Make(ref){
 
    var xr = XML();
    var xml_n = ++xr_n;
-
-   var bl = byId('board_list');
-   addClass( bl, 'board_load' );
 
    xr.onreadystatechange = function(){
       if( xr.readyState == 4 && xml_n == xr_n ){
@@ -498,6 +499,7 @@ function Make(ref){
                errMsg( "Couldn't create game, server error." );
 
            }
+           unload();
          }
       }
    };
@@ -540,6 +542,8 @@ function Make(ref){
       xr.open( "POST", erl("/private/create/" + gnum), true );
       xr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
       xr.send(param);
+
+      loading();
    }else{
       enable(func, ref);
    }
@@ -804,6 +808,7 @@ function Private(ref){
                errMsg( "Server connection error" );
             }
             enable( func, ref );
+            unload();
          }
       }
    }
@@ -830,6 +835,7 @@ function Private(ref){
       xr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
       xr.send( param );
+      loading();
    }else{
       enable( func, ref );
    }
