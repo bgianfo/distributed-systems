@@ -87,7 +87,7 @@
 
 \begin{poster}{
   % Show grid to help with alignment
-  grid=yes,
+  grid=no,
   % Column spacing
   colspacing=1em,
   % Color style
@@ -97,8 +97,8 @@
   headerColorOne=ritorange,
   headerColorTwo=ritorange,
   headerFontColor=white,
-  boxColorOne=ritbrown,
-  boxColorTwo=ritbrownl,
+  boxColorOne=white,
+  boxColorTwo=white,
   % Format of textbox
   textborder=roundedleft,
   % Format of text header
@@ -156,31 +156,88 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   \headerbox{Project Motivation}{name=motivation,column=0,row=0}{
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Our motivation for this project was to build a system that would allow people to compete across multiple platforms reliably.
+High availability was a major concern for us, as it enables people to compete at all times.
+This form of trivia is a multi player social game.
+It takes advantage of a number of different platforms so that users can feel free to play on any device they prefer.
+The web client ensures that almost any device will be able to connect and play.
+Designing it on mobile platforms allows us to take advantage of the specific platform and lets people easily play on the go.
+  }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \headerbox{Architecture}{name=arch,column=3}{
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	\includegraphics[scale=0.45]{images/amazon-logo.png}
+	\includegraphics[scale=0.045]{images/android-logo.png}
+	\includegraphics[scale=0.35]{images/flask-logo.png}
+	\includegraphics[scale=0.5]{images/ios-logo.png}
+	\includegraphics[scale=0.6]{images/logo-riak.png}
+	\includegraphics[scale=0.2]{images/python-logo.png}
+	\includegraphics[scale=0.5]{images/tornado-logo.png}
+	\includegraphics[scale=0.3]{images/nginx-logo.png}
 
   }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  \headerbox{Architecture}{name=arch,column=0,below=motivation}{
+  \headerbox{Design}{name=design,column=1, span=2}{
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \centering
+	\includegraphics[scale=0.4]{../papers/phase-three/diagram.png}
+
+\begin{multicols}{3}
+\begin{itemize}
+\item Round Robin DNS \\
+\item Two Load Sharers 
+\item Three front end node  \\
+\item Two hot spares 
+\item Riak on each server \\
+\item Webapp on each server
+\end{itemize}
+
+\end{multicols}
 
   }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  \headerbox{Design}{name=design,column=1, span=1}{
+  \headerbox{Implementation}{name=implementation,column=1,below=design,span=2}{
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{multicols}{3}
+\includegraphics[scale=0.22]{../papers/phase-three/iPhone_round.png} \\
+\includegraphics[scale=0.52]{../papers/phase-three/android/answer2.png} \\
+\includegraphics[scale=0.40]{../papers/phase-three/web_round.png}
+\end{multicols}
+
+\begin{multicols}{3}
+\centering iPhone Client \\
+\centering Android Client \\
+\centering Web Client
+\end{multicols}
+
   }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  \headerbox{Implementation}{name=implementation,column=1,below=design}{
+  \headerbox{Lessons Learned}{name=lessons,column=0, below=motivation}{
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{itemize}
+  \item You will always be balancing between Durability, Performance, and Availability.
+  \item Consistent deployment of system code across all servers and hot spares
+  is key to being able to debug the system.
+  \item Developing a consistent API before starting development is invaluable
+  to reducing wasted man hours.
+\end{itemize}
   }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  \headerbox{Lessons Learned}{name=lessons,column=2, row=0}{
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  }
+  \headerbox{Future Work}{name=future,column=0, below=lessons}{
 
-  \headerbox{Future Work}{name=future,column=2,row=0.4}{
+\begin{itemize}
+\item Blackberry, iPad, Android tablet and Palm clients.
+\item Categorized questions, so you can play your strengths or weaknesses.
+\item Allowing users to add custom questions and answers.
+\item Private local games over bluetooth or local WiFi.
+\end{itemize}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   }
 \end{poster}%
