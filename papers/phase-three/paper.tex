@@ -205,10 +205,18 @@ Playability on all clients was similar and easy to navigate. Shown below are scr
 
 
 \section{Lessons Learned}
-One of the first lessons we learned during this project was the concept that you can't have high performance, durability, and availability.  For our system which does not have to do a significant amount of computation for each user request, we decided to sacrifice performance in favor of durability and availability.  The computations are very quick and simple, and we think users would rather have a potentially slow service than an unavailable service.  
+One of the first lessons we learned during this project was the concept that you can't have high performance, durability, and availability.  For our system which does not have to do a significant amount of computation for each user request, we decided to sacrifice performance in favor of durability and availability.  The computations are very quick and simple, and we think users would rather have a potentially slow service than an unavailable service.
 
 While it was a concept we were already familiar with, the importance of consistency was heavily ingrained into us.  During development, we frequently ran into trouble where our clients would start off communicating with one server and then switch later.  Our client would then often start getting errors because the new server didn't recognize the authentication key.  As a result we had to go back and really make sure our servers stayed consistent so that when clients end up talking to a different server the communications without interruption.  It also made us realize just how hard it can be to keep multiple computers synchronized at all times.
 
+Another lesson we learned was that we should start with a well defined API.  We
+endured a lot of headaches during this project as a result of incompatible API
+calls between the server and clients.  Even after we went and defined how we
+wanted out API calls to work, we neglected to specifically state how they would
+return some of the information.  So we continued to have problems there.  If we
+had taken the time to sit down as a group in the beginning and create a well
+thought-out API set, it would have greatly simplified our implementations
+later.  
 \section{Future Work}
 For future work on this system, we've thought of adding a few new features that would improve gameplay and diversity of the experience for the players.
 We don't have have any revolutionary upgrades we'd like to perform on the server-side.
