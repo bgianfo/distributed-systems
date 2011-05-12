@@ -51,7 +51,7 @@
 \begin{abstract}
 In this paper we will discuss our decisions and detail our discoveries throughout designing a distributed trivia system, Distrivia.
 This paper will outline our motivations behind the project, the architecture, design, implementation, lessons learned, and future work for the distributed trivia system.
-The distrivia system was implemented on 3 platforms (web, Android, and iPhone) to provide multiple ways for players to stay connected.
+The Distrivia system was implemented on 3 platforms (web, Android, and iPhone) to provide multiple ways for players to stay connected.
 It also utilizes advanced distributed systems algorithms and technology such as Amazon's EC2, Riak, SSL communication, round robin DNS, and NGINX load sharing.
 All of these services provide for high availability and secure play.
 \end{abstract}
@@ -65,7 +65,6 @@ The web client ensures that almost any device will be able to connect and play.
 Designing it on mobile platforms allows us to take advantage of the specific platform and lets people easily play on the go.
 
 \section{Architecture}
-\subsection{Servers}
 For our servers, we used Amazon EC2 micro instances,  running x86-64 custom Amazon Linux.
 They each have 8GB of network attached storage and 613MB of memory.
 
@@ -92,7 +91,7 @@ If any servers go down, the distributed system would still run fine.
 This configuration allows for all servers go down except one and the system would still be reliably handling requests.
 
 \subsection{Server Applications}
-The server application handles requests from the user via the load sharers.
+The server application handles requests from the user via the load distributers.
 Interpretation of the client messages and replies are handled by the applications. There is one application per server processing requests and responding via https messages with JSON objects. Requests are formed using a REST like API, where the URL is the method we want to invoke. The parameters to the method's are passed in through a HTTP POST. The server processes the request reading or writing to the data store and returns the appropriate data in JSON format. This system is basically an abstracted RPC system, composed of two different web technologies. Every request to the API is checked for proper authentication. Authentication is handled by generating a unique token for each user login, which they need to pass along with each request. This method avoids the possibility of potential security vulnerabilities from passing the users password around more than needed. 
 The server application supports the following features:
 \begin{itemize}	
@@ -109,8 +108,10 @@ The server application supports the following features:
 
 The database back end was designed for high availability and durability of the game data. For every write to the data store, all other online nodes must agree with the write for it to be committed. In this way we can make sure that their is total consistency in the database at all times, reducing the risk of database corruption. 
 
-\subsection{Load Sharers}
-The load sharers act as an agent between the clients and the servers to ensure reliable, fast communication. Messages are relayed through the load sharers from the client. Once received, the load sharer will pass the message onto any active server or, if there are none active, it will deliver the message to a hot spare server. This is an important part of the distributed system in keeping network traffic down on the active servers so they may serve requests faster and for making sure the server attempting to service the client's request is active and able to process the message.They attempt to connect to a server twice in a one second period before deeming it dead and removing it from its list of servers to direct clients towards. This is important to make sure that any servers that go down do not receive further communication attempts.
+\subsection{Load Distributers}
+The load distributers act as an agent between the clients and the servers to
+ensure reliable, fast communication. Messages are relayed through the load
+distributers from the client. Once received, the load distributer will pass the message onto any active server or, if there are none active, it will deliver the message to a hot spare server. This is an important part of the distributed system in keeping network traffic down on the active servers so they may serve requests faster and for making sure the server attempting to service the client's request is active and able to process the message.They attempt to connect to a server twice in a one second period before deeming it dead and removing it from its list of servers to direct clients towards. This is important to make sure that any servers that go down do not receive further communication attempts.
 
 
 \subsection{Clients}
@@ -160,18 +161,18 @@ This was also accomplished for iOS by parsing JSON objects to native Objective-C
 \subsection{Network}
 For the implementation of Distriva, we deployed six servers on Amazon's Elastic Compute Cloud \cite{aec} to run the server application and host the databases.
 One server is being used as a web-monitor host running Monit\cite{monit}.
-We were able to log in to the web-monitor to see the status of all our servers, databases, and load sharers. 
+We were able to log in to the web-monitor to see the status of all our servers, databases, and load distributers. 
 This assisted us in managing whether or not the services were running and allowed us to track down any problems when they arose.
 Three of the servers were set up as active, front facing servers for clients to query.
 The two other servers were set up as hot spares, in case of a failure. 
-The hot spares were set up to be part of the database cluster so they have a full copy of the database on hand, however they did not accept any reads or writes directly unless the load sharers found no active servers are responding. 
+The hot spares were set up to be part of the database cluster so they have a full copy of the database on hand, however they did not accept any reads or writes directly unless the load distributers found no active servers are responding. 
 In the event of such a failure the load distributor would automatically fail over and start relaying the client messages to the hot spares. 
 Since both hot spares are members of the database cluster they already would have the most up-to-date game information information.
 
-For this project, we set up two load sharers which are running on personal desktop computers with reliable Internet connections.
-The duplicate sharers allow for a load sharer to go down and we would still be able to serve requests to the servers.
+For this project, we set up two load distributers which are running on personal desktop computers with reliable Internet connections.
+The duplicate distributers allow for a load distributer to go down and we would still be able to serve requests to the servers.
 These are set up with round robin DNS entries, courtesy of ZoneEdit.com \cite{zoneedit}, a free DNS management service.
-These load sharers are selected by the clients where distrivia.lame.ws will select either load distributer that is up at random.
+These load distributers are selected by the clients where distrivia.lame.ws will select either load distributer that is up at random.
 If a load distributer should go down or become unreachable the DNS service will no longer serve that hosts DNS record until it is again reachable.
 This provides us with stability for accessing the servers.
 
